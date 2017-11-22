@@ -4,6 +4,8 @@
  * @flow
  */
 
+import './global'
+
 import React, { Component } from 'react';
 import {
   Platform,
@@ -11,6 +13,8 @@ import {
   Text,
   View
 } from 'react-native';
+
+import Web3 from 'web3'
 
 const instructions = Platform.select({
   ios: 'Press Cmd+R to reload,\n' +
