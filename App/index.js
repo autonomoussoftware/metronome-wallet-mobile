@@ -1,11 +1,3 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- * @flow
- */
-
-import './global'
-
 import React, { Component } from 'react';
 import {
   Platform,
@@ -24,6 +16,14 @@ const instructions = Platform.select({
 });
 
 export default class App extends Component<{}> {
+  componentWillMount() {
+    const web3 = new Web3(
+      new Web3.providers.HttpProvider('http://localhost:8545/')
+    )
+
+    web3.eth.getBlock('latest').then(block => console.log(block))
+  }
+
   render() {
     return (
       <View style={styles.container}>
