@@ -1,61 +1,41 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 import {
-  Platform,
   StyleSheet,
   Text,
   View
-} from 'react-native';
+} from 'react-native'
 
-import Web3 from 'web3'
+import { metronomeColors } from './config/styles'
 
-const instructions = Platform.select({
-  ios: 'Press Cmd+R to reload,\n' +
-    'Cmd+D or shake for dev menu',
-  android: 'Double tap R on your keyboard to reload,\n' +
-    'Shake or press menu button for dev menu',
-});
+import EthereumWallet from './modules/EthereumWallet'
 
-export default class App extends Component<{}> {
-  componentWillMount() {
-    const web3 = new Web3(
-      new Web3.providers.HttpProvider('http://localhost:8545/')
-    )
-
-    web3.eth.getBlock('latest').then(block => console.log(block))
-  }
-
+export default class App extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Welcome to React Native!
-        </Text>
-        <Text style={styles.instructions}>
-          To get started, edit App.js
-        </Text>
-        <Text style={styles.instructions}>
-          {instructions}
-        </Text>
+        <View style={styles.header}>
+          <Text style={styles.title}>metronome wallet</Text>
+        </View>
+        <EthereumWallet />
       </View>
-    );
+    )
   }
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
+    flexDirection: 'column',
+    justifyContent: 'flex-start',
+    alignItems: 'stretch',
+    backgroundColor: metronomeColors.white
   },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
+  header: {
+    height: 64,
+    paddingTop: 30,
+    backgroundColor: metronomeColors.lightGray,
   },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
-});
+  title: {
+    textAlign: 'center'
+  }
+})
