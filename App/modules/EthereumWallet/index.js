@@ -1,51 +1,75 @@
+import { StyleSheet, Text, View } from 'react-native';
 import React, { Component } from 'react';
-import {
-  StyleSheet,
-  Text,
-  View
-} from 'react-native';
-
-import Web3 from 'web3'
-
-const defaultAddress = '0x001f6BC290bA84C65b7D17a49C701D583C08f86B'
+import EthereumTx from 'ethereumjs-tx';
+import PropTypes from 'prop-types';
+import settings from '../../config/settings';
+import theme from '../../config/theme';
+import Web3 from 'web3';
 
 export default class UI extends Component {
+  static propTypes = {
+    addresses: PropTypes.arrayOf(
+      PropTypes.shape({
+        privKey: PropTypes.instanceOf(global.Buffer).isRequired,
+        address: PropTypes.string.isRequired
+      })
+    ).isRequired
+  };
+
   constructor(props) {
-    super(props)
-    this.state = {}
+    super(props);
+    this.state = {};
+    this.web3 = new Web3(
+      new Web3.providers.WebsocketProvider(settings.MTN_PUBLIC_NODE_URL)
+    );
   }
 
   componentWillMount() {
-    const provider = new Web3.providers.WebsocketProvider('ws://parity.bloqrock.net:8546/')
-    const web3 = new Web3(provider)
-
-    const component = this
-    web3.eth.subscribe('newBlockHeaders', function(error, block){
-      component.setState({ bestBlock: block.number })
+    const component = this;
+    this.web3.eth.subscribe('newBlockHeaders', function(error, block) {
+      component.setState({ bestBlock: block.number });
     });
-    web3.eth.getBalance(defaultAddress).then(function (balance) {
-      component.setState({ balance: web3.utils.fromWei(balance, 'ether') })
-    })
+    this.web3.eth
+      .getBalance(this.props.addresses[0].address)
+      .then(function(balance) {
+        component.setState({
+          balance: Web3.utils.fromWei(balance, 'ether')
+        });
+      });
   }
 
+  onSendPress = () => {
+    const tx = new EthereumTx({
+      from: this.props.addresses[0].address,
+      to: settings.MTN_AUCTION_ADDR
+      // value: '100000',
+      // gas: 88415,
+      // nonce: 21
+    });
+
+    tx.sign(this.props.addresses[0].privKey);
+
+    this.web3.eth
+      .sendSignedTransaction('0x' + tx.serialize().toString('hex'))
+      .on('transactionHash', transactionHash =>
+        this.setState({ transactionHash })
+      )
+      .on('receipt', receipt => this.setState({ receipt }))
+      .on('confirmation', (confirmationNumber, receipt) =>
+        this.setState({ confirmationNumber, receipt })
+      )
+      .on('error', e => this.setState({ status: 'failure', error: e.message }));
+  };
+
   render() {
-    const { balance, bestBlock } = this.state
+    const { balance, bestBlock } = this.state;
     return (
       <View style={styles.container}>
-        <Text style={styles.instructions}>
-          Account balance is {balance}
-        </Text>
-        <Text style={styles.instructions}>
-          Latest block is {bestBlock}
-        </Text>
+        <Text style={styles.instructions}>Account balance is {balance}</Text>
+        <Text style={styles.instructions}>Latest block is {bestBlock}</Text>
       </View>
     );
   }
-}
-
-const ethereumColors = {
-  purple: '#7e61f8',
-  white: '#fff'
 }
 
 const styles = StyleSheet.create({
@@ -53,11 +77,11 @@ const styles = StyleSheet.create({
     flex: 0,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: ethereumColors.purple,
+    backgroundColor: theme.colors.bg.primary,
     padding: 8
   },
   instructions: {
     textAlign: 'center',
-    color: ethereumColors.white,
-  },
+    color: theme.colors.light
+  }
 });
