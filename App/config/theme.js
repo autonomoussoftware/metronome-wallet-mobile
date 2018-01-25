@@ -22,7 +22,7 @@ export default {
     },
     sizes: {
       xSmall: 12,
-      small: 14,
+      small: 16,
       normal: 18,
       large: 22,
       xLarge: 28
