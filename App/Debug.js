@@ -1,5 +1,6 @@
 import { ScrollView, View, Text, SafeAreaView, StyleSheet } from 'react-native';
 import PropTypes from 'prop-types';
+import settings from './config/settings';
 import React from 'react';
 
 export default class Debug extends React.Component {
@@ -13,10 +14,15 @@ export default class Debug extends React.Component {
     return (
       <SafeAreaView style={styles.safeContainer}>
         <ScrollView style={styles.container}>
-          <Text>Debug</Text>
+          <Text>Debug information</Text>
           <View style={styles.panel}>
-            <Text>Seed:</Text>
+            <Text>Wallet seed:</Text>
             <Text>0x{this.props.screenProps.seed}</Text>
+          </View>
+
+          <View style={styles.panel}>
+            <Text>Settings:</Text>
+            <Text>{JSON.stringify(settings, null, 2)}</Text>
           </View>
 
           <View style={styles.panel}>

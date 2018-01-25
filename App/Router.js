@@ -1,13 +1,13 @@
 import RecoverFromMnemonic from './RecoverFromMnemonic';
 import { DrawerNavigator } from 'react-navigation';
-import EthereumWallet from './modules/EthereumWallet';
-import AuctionBoard from './modules/AuctionBoard';
+import MetronomeDashboard from './modules/MetronomeWallet/Dashboard';
+import AuctionBoard from './modules/MetronomeWallet/AuctionBoard';
 import Debug from './Debug';
 
 export default DrawerNavigator(
   {
-    EthereumWallet: {
-      screen: EthereumWallet
+    MetronomeWallet: {
+      screen: MetronomeDashboard
     },
     AuctionBoard: {
       screen: AuctionBoard
@@ -19,5 +19,5 @@ export default DrawerNavigator(
       screen: Debug
     }
   },
-  { initialRouteName: 'EthereumWallet' }
+  { initialRouteName: 'MetronomeWallet' }
 );
