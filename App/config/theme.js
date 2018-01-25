@@ -5,6 +5,7 @@ export default {
     light: '#fff',
     dark: '#3b3b3b',
     copy: '#525252',
+    danger: 'red',
 
     // BACKGROUNDS
     bg: {
@@ -16,7 +17,16 @@ export default {
   },
 
   fonts: {
-    primary: ''
+    family: {
+      primary: ''
+    },
+    sizes: {
+      xSmall: 12,
+      small: 14,
+      normal: 18,
+      large: 22,
+      xLarge: 28
+    }
   },
 
   spacing: {}

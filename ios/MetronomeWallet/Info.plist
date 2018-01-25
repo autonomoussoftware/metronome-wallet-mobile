@@ -45,6 +45,11 @@
 	<dict>
 		<key>NSExceptionDomains</key>
 		<dict>
+			<key>api.mtn.bloqrock.net</key>
+		  <dict>
+		    <key>NSTemporaryExceptionAllowsInsecureHTTPLoads</key>
+		    <true/>
+			</dict>
 			<key>localhost</key>
 			<dict>
 				<key>NSExceptionAllowsInsecureHTTPLoads</key>
