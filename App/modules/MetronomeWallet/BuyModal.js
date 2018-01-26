@@ -1,26 +1,33 @@
 import {
+  ActivityIndicator,
   SafeAreaView,
-  TextInput,
-  View,
-  Text,
+  ScrollView,
   StyleSheet,
+  TextInput,
   Button,
-  Modal
+  Modal,
+  View,
+  Text
 } from 'react-native';
 import PurchaseFormProvider from '../../providers/PurchaseFormProvider';
 import PropTypes from 'prop-types';
 import theme from '../../config/theme';
 import React from 'react';
+import Web3 from 'web3';
 
 export default class BuyModal extends React.Component {
   static propTypes = {
     onRequestClose: PropTypes.func.isRequired,
     currentPrice: PropTypes.string.isRequired,
-    isVisible: PropTypes.bool.isRequired
+    isVisible: PropTypes.bool.isRequired,
+    onBuy: PropTypes.func.isRequired
   };
 
   static initialState = {
     disclaimerAccepted: true,
+    receipt: null,
+    status: 'init',
+    error: null,
     input: null
   };
 
@@ -34,9 +41,18 @@ export default class BuyModal extends React.Component {
 
   onInputChanged = input => this.setState({ input });
 
+  onBuyPress = () => {
+    this.setState({ status: 'pending' }, () =>
+      this.props
+        .onBuy(Web3.utils.toWei(this.state.input.replace(',', '.')))
+        .then(receipt => this.setState({ status: 'success', receipt }))
+        .catch(e => this.setState({ status: 'failure', error: e.message }))
+    );
+  };
+
   render() {
+    const { input, disclaimerAccepted, status, error, receipt } = this.state;
     const { onRequestClose, isVisible, currentPrice } = this.props;
-    const { input, disclaimerAccepted } = this.state;
 
     return (
       <Modal
@@ -65,8 +81,9 @@ export default class BuyModal extends React.Component {
                     numberOfLines={1}
                     onChangeText={this.onInputChanged}
                     keyboardType="numeric"
-                    value={input === null ? '' : input}
                     placeholder="Enter a valid amount"
+                    editable={status === 'init'}
+                    value={input === null ? '' : input}
                     style={styles.input}
                   />
                 </View>
@@ -80,14 +97,32 @@ export default class BuyModal extends React.Component {
                   !isPristine && (
                     <Text style={styles.error}>Invalid ETH amount</Text>
                   )}
-                <View style={styles.btnContainer}>
-                  <Button onPress={onRequestClose} title="Cancel" />
-                  <Button
-                    disabled={!isValidPurchase}
-                    onPress={_ => _}
-                    title="Buy"
-                  />
-                </View>
+                {status === 'init' && (
+                  <View style={styles.btnContainer}>
+                    <Button onPress={onRequestClose} title="Cancel" />
+                    <Button
+                      disabled={!isValidPurchase}
+                      onPress={this.onBuyPress}
+                      title="Buy"
+                    />
+                  </View>
+                )}
+                {status === 'success' && (
+                  <ScrollView style={styles.receipt}>
+                    <Button onPress={onRequestClose} title="Go back" />
+                    <Text>Your receipt:</Text>
+                    <Text>{JSON.stringify(receipt, null, 2)}</Text>
+                  </ScrollView>
+                )}
+                {status === 'pending' && (
+                  <View style={styles.waiting}>
+                    <Text>Waiting for receipt</Text>
+                    <ActivityIndicator style={styles.spinner} />
+                  </View>
+                )}
+                {status === 'failure' && (
+                  <Text style={styles.error}>{error}</Text>
+                )}
               </View>
             )}
           </PurchaseFormProvider>
@@ -139,5 +174,15 @@ const styles = StyleSheet.create({
     marginTop: 20,
     flexDirection: 'row',
     justifyContent: 'space-between'
+  },
+  waiting: {
+    alignItems: 'center',
+    marginVertical: 20
+  },
+  spinner: {
+    marginTop: 10
+  },
+  receipt: {
+    marginVertical: 20
   }
 });

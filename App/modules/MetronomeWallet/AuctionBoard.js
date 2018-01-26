@@ -1,8 +1,10 @@
 import { SafeAreaView, View, Text, StyleSheet, Button } from 'react-native';
 import MTNAuctionProvider from '../../providers/MTNAuctionProvider';
 import CountDown from './CountDown';
+import PropTypes from 'prop-types';
 import settings from '../../config/settings';
 import BuyModal from './BuyModal';
+import Wallet from './Wallet';
 import moment from 'moment';
 import theme from '../../config/theme';
 import React from 'react';
@@ -11,6 +13,12 @@ import Web3 from 'web3';
 export default class AuctionBoard extends React.Component {
   static navigationOptions = {
     drawerLabel: 'MTN Auction Board'
+  };
+
+  static propTypes = {
+    screenProps: PropTypes.shape({
+      seed: PropTypes.string.isRequired
+    }).isRequired
   };
 
   state = {
@@ -53,11 +61,16 @@ export default class AuctionBoard extends React.Component {
                   <View style={styles.row}>
                     <Button title="Buy MTN" onPress={this.onBuyPress} />
                   </View>
-                  <BuyModal
-                    onRequestClose={this.onModalClose}
-                    isVisible={modalIsVisible}
-                    {...status}
-                  />
+                  <Wallet seed={this.props.screenProps.seed}>
+                    {({ onBuy }) => (
+                      <BuyModal
+                        onRequestClose={this.onModalClose}
+                        isVisible={modalIsVisible}
+                        onBuy={onBuy}
+                        {...status}
+                      />
+                    )}
+                  </Wallet>
                 </View>
               )
             }

@@ -1,8 +1,8 @@
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, ScrollView, Text, View } from 'react-native';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import moment from 'moment';
 import Wallet from './Wallet';
+import moment from 'moment';
 import theme from '../../config/theme';
 import Web3 from 'web3';
 
@@ -52,24 +52,26 @@ export default class Dashboard extends Component {
             <View style={styles.lastTransactions}>
               <Text style={styles.label}>Last transactions</Text>
               {lastTransactions && lastTransactions.length > 0 ? (
-                lastTransactions.map(tx => (
-                  <View style={styles.txRow} key={tx.id}>
-                    <View>
-                      <Text style={styles.txType}>
-                        {tx.returnValues._from === address
-                          ? 'Sent'
-                          : 'Received'}
+                <ScrollView>
+                  {lastTransactions.map(tx => (
+                    <View style={styles.txRow} key={tx.id}>
+                      <View>
+                        <Text style={styles.txType}>
+                          {tx.returnValues._from === address
+                            ? 'Sent'
+                            : 'Received'}
+                        </Text>
+                      </View>
+
+                      <Text style={styles.txValue}>
+                        {Web3.utils.fromWei(tx.returnValues._value)} MTN{' '}
+                      </Text>
+                      <Text style={styles.txTime}>
+                        {moment.unix(tx.timestamp).fromNow()}
                       </Text>
                     </View>
-
-                    <Text style={styles.txValue}>
-                      {Web3.utils.fromWei(tx.returnValues._value)} MTN{' '}
-                    </Text>
-                    <Text style={styles.txTime}>
-                      {moment.unix(tx.timestamp).fromNow()}
-                    </Text>
-                  </View>
-                ))
+                  ))}
+                </ScrollView>
               ) : (
                 <Text style={styles.txTime}>
                   There are no transactions for this address
@@ -89,13 +91,13 @@ const styles = StyleSheet.create({
     alignItems: 'stretch',
     backgroundColor: theme.colors.bg.dark,
     paddingHorizontal: 20,
-    paddingVertical: 30
+    paddingTop: 30
   },
   instructions: {
     color: theme.colors.light
   },
   row: {
-    marginVertical: 20
+    paddingVertical: 20
   },
   label: {
     fontSize: 16,
@@ -111,8 +113,9 @@ const styles = StyleSheet.create({
     opacity: 0.75
   },
   lastTransactions: {
-    backgroundColor: theme.colors.bg.dark,
-    paddingVertical: 10
+    marginTop: 10,
+    flexShrink: 1,
+    backgroundColor: theme.colors.bg.dark
   },
   txRow: {
     marginVertical: 10

@@ -45,7 +45,7 @@ export default class MTNWalletProvider extends React.Component {
         this.setState({
           lastTransactions: data.events
             .map(({ metaData }) => metaData)
-            .sort((a, b) => a.timestamp < b.timestamp)
+            .sort((a, b) => b.timestamp - a.timestamp)
         })
       )
       .catch(e => this.setState({ error: e.message }));
@@ -65,23 +65,32 @@ export default class MTNWalletProvider extends React.Component {
   }
 
   sendTransaction = ({ to, value }) => {
-    const tx = new EthereumTx({
-      from: this.state.address,
-      value,
-      to,
-      gas: 21000, // TODO: fix
-      nonce: 1 // TODO: fix
+    return Promise.all([
+      this.api.eth.getGasPrice(),
+      this.api.eth.net.getId(),
+      this.api.eth.getTransactionCount(this.state.address),
+      this.api.eth.estimateGas({ to, value })
+    ]).then(res => {
+      const txParams = {
+        gasPrice: Web3.utils.toHex(res[0]),
+        chainId: res[1],
+        nonce: res[2],
+        value: Web3.utils.toHex(value),
+        from: this.state.address,
+        gas: res[3],
+        to
+      };
+      const tx = new EthereumTx(txParams);
+      tx.sign(this.state.privKey);
+
+      return this.api.eth.sendSignedTransaction(
+        '0x' + tx.serialize().toString('hex')
+      );
     });
-
-    tx.sign(this.state.privKey);
-
-    return this.api.eth.sendSignedTransaction(
-      '0x' + tx.serialize().toString('hex')
-    );
   };
 
   buyMTN = value => {
-    this.sendTransaction({ value, to: this.props.auctionAddress });
+    return this.sendTransaction({ value, to: this.props.auctionAddress });
   };
 
   render() {
@@ -93,7 +102,8 @@ export default class MTNWalletProvider extends React.Component {
       balance,
       address,
       privKey,
-      pubKey
+      pubKey,
+      onBuy: this.buyMTN
     });
   }
 }
