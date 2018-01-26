@@ -6,6 +6,7 @@
     "ios": "react-native run-ios",
     "lint": "eslint .",
     "prepare": "patch-package",
+    "postinstall": "react-native link",
     "start": "node node_modules/react-native/local-cli/cli.js start",
     "test": "jest"
   },

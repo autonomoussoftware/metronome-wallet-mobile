@@ -38,7 +38,6 @@
 		ADBDB9381DFEBF1600ED6528 /* libRCTBlob.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ADBDB9271DFEBF0700ED6528 /* libRCTBlob.a */; };
 		71E9E9388ADD40C6940EE319 /* libRNSecureKeyStore.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6CE8782510E44C468A102C7C /* libRNSecureKeyStore.a */; };
 		582CE6F1FACF498EAF169FB9 /* libRNRandomBytes.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F8424604A73B4339BBBC6E91 /* libRNRandomBytes.a */; };
-		2CDF993E8A1F4A83B4029041 /* libReactNativeConfig.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4FAB205070CB42BBB9A46860 /* libReactNativeConfig.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -270,8 +269,6 @@
 		6CE8782510E44C468A102C7C /* libRNSecureKeyStore.a */ = {isa = PBXFileReference; name = "libRNSecureKeyStore.a"; path = "libRNSecureKeyStore.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
 		D2F38D21976D4E2695975916 /* RNRandomBytes.xcodeproj */ = {isa = PBXFileReference; name = "RNRandomBytes.xcodeproj"; path = "../node_modules/react-native-randombytes/RNRandomBytes.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
 		F8424604A73B4339BBBC6E91 /* libRNRandomBytes.a */ = {isa = PBXFileReference; name = "libRNRandomBytes.a"; path = "libRNRandomBytes.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
-		112E4C475C674674B2FEDCE7 /* ReactNativeConfig.xcodeproj */ = {isa = PBXFileReference; name = "ReactNativeConfig.xcodeproj"; path = "../node_modules/react-native-config/ios/ReactNativeConfig.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
-		4FAB205070CB42BBB9A46860 /* libReactNativeConfig.a */ = {isa = PBXFileReference; name = "libReactNativeConfig.a"; path = "libReactNativeConfig.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -302,7 +299,6 @@
 				139FDEF61B0652A700C62182 /* libRCTWebSocket.a in Frameworks */,
 				71E9E9388ADD40C6940EE319 /* libRNSecureKeyStore.a in Frameworks */,
 				582CE6F1FACF498EAF169FB9 /* libRNRandomBytes.a in Frameworks */,
-				2CDF993E8A1F4A83B4029041 /* libReactNativeConfig.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -473,7 +469,6 @@
 				139FDEE61B06529A00C62182 /* RCTWebSocket.xcodeproj */,
 				3AA2F8DA4FAB4423A9DBFB43 /* RNSecureKeyStore.xcodeproj */,
 				D2F38D21976D4E2695975916 /* RNRandomBytes.xcodeproj */,
-				112E4C475C674674B2FEDCE7 /* ReactNativeConfig.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -1021,15 +1016,11 @@
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MetronomeWallet.app/MetronomeWallet";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-secure-key-store/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-randombytes",
-					"$(SRCROOT)/../node_modules/react-native-config/ios/ReactNativeConfig",
 				);
 			};
 			name = Debug;
@@ -1050,15 +1041,11 @@
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MetronomeWallet.app/MetronomeWallet";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-secure-key-store/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-randombytes",
-					"$(SRCROOT)/../node_modules/react-native-config/ios/ReactNativeConfig",
 				);
 			};
 			name = Release;
@@ -1082,7 +1069,6 @@
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-secure-key-store/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-randombytes",
-					"$(SRCROOT)/../node_modules/react-native-config/ios/ReactNativeConfig",
 				);
 			};
 			name = Debug;
@@ -1105,7 +1091,6 @@
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-secure-key-store/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-randombytes",
-					"$(SRCROOT)/../node_modules/react-native-config/ios/ReactNativeConfig",
 				);
 			};
 			name = Release;
@@ -1135,15 +1120,11 @@
 				TVOS_DEPLOYMENT_TARGET = 9.2;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-secure-key-store/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-randombytes",
-					"$(SRCROOT)/../node_modules/react-native-config/ios/ReactNativeConfig",
 				);
 			};
 			name = Debug;
@@ -1173,15 +1154,11 @@
 				TVOS_DEPLOYMENT_TARGET = 9.2;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-secure-key-store/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-randombytes",
-					"$(SRCROOT)/../node_modules/react-native-config/ios/ReactNativeConfig",
 				);
 			};
 			name = Release;
@@ -1206,9 +1183,6 @@
 				TVOS_DEPLOYMENT_TARGET = 10.1;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 			};
 			name = Debug;
@@ -1233,9 +1207,6 @@
 				TVOS_DEPLOYMENT_TARGET = 10.1;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 			};
 			name = Release;
