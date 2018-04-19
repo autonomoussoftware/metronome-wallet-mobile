@@ -1,11 +1,9 @@
-import config from './config';
+const twoWeeksAgo = () => Date.now() / 1000 - 60 * 60 * 24 * 7 * 2
+// const oneHourAgo = () => Date.now() / 1000 - 60 * 60
+const inOneHour = () => Date.now() / 1000 + 60 * 60
+// const inOneWeek = () => Date.now() / 1000 + 60 * 60 * 24 * 7
 
-const twoWeeksAgo = () => Date.now() / 1000 - 60 * 60 * 24 * 7 * 2;
-const oneHourAgo = () => Date.now() / 1000 - 60 * 60;
-const inOneHour = () => Date.now() / 1000 + 60 * 60;
-const inOneWeek = () => Date.now() / 1000 + 60 * 60 * 24 * 7;
-
-export default () => ({
+export default config => ({
   connectivity: { isOnline: true },
   blockchain: { height: 615986 },
   metronome: { transferAllowed: true },
@@ -1176,5 +1174,6 @@ export default () => ({
         }
       }
     }
-  }
-});
+  },
+  config
+})

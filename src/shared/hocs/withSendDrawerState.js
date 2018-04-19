@@ -1,7 +1,8 @@
-import * as selectors from '../selectors';
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
-import React from 'react';
+import { withClient } from './clientContext'
+import * as selectors from '../selectors'
+import { connect } from 'react-redux'
+import PropTypes from 'prop-types'
+import React from 'react'
 
 const withSendDrawerState = WrappedComponent => {
   class Container extends React.Component {
@@ -12,16 +13,19 @@ const withSendDrawerState = WrappedComponent => {
         'no-funds',
         'offline',
         'ok'
-      ]).isRequired
-    };
+      ]).isRequired,
+      client: PropTypes.shape({
+        toBN: PropTypes.func.isRequired
+      }).isRequired
+    }
 
     static displayName = `withSendDrawerState(${WrappedComponent.displayName ||
-      WrappedComponent.name})`;
+      WrappedComponent.name})`
 
-    state = { copyBtnLabel: 'Copy to clipboard' };
+    state = { copyBtnLabel: 'Copy to clipboard' }
 
     render() {
-      const { sendMetFeatureStatus } = this.props;
+      const { sendMetFeatureStatus } = this.props
 
       const sendMetDisabledReason =
         sendMetFeatureStatus === 'in-initial-auction'
@@ -32,7 +36,7 @@ const withSendDrawerState = WrappedComponent => {
               ? 'You need some MET to send'
               : sendMetFeatureStatus === 'offline'
                 ? "Can't send while offline"
-                : null;
+                : null
 
       return (
         <WrappedComponent
@@ -40,15 +44,15 @@ const withSendDrawerState = WrappedComponent => {
           sendMetDisabled={sendMetFeatureStatus !== 'ok'}
           {...this.props}
         />
-      );
+      )
     }
   }
 
-  const mapStateToProps = state => ({
-    sendMetFeatureStatus: selectors.sendMetFeatureStatus(state)
-  });
+  const mapStateToProps = (state, { client }) => ({
+    sendMetFeatureStatus: selectors.sendMetFeatureStatus(state, client)
+  })
 
-  return connect(mapStateToProps)(Container);
-};
+  return withClient(connect(mapStateToProps)(Container))
+}
 
-export default withSendDrawerState;
+export default withSendDrawerState

@@ -1,8 +1,9 @@
-import * as selectors from '../selectors';
-import { connect } from 'react-redux';
+import { withClient } from './clientContext'
+import * as selectors from '../selectors'
+import { connect } from 'react-redux'
 
-const mapStateToProps = state => ({
-  items: selectors.getActiveWalletTransactions(state)
-});
+const mapStateToProps = (state, { client }) => ({
+  items: selectors.getActiveWalletTransactions(state, client)
+})
 
-export default connect(mapStateToProps);
+export default Component => withClient(connect(mapStateToProps)(Component))

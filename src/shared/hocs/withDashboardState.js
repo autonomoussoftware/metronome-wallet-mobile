@@ -1,27 +1,31 @@
-import * as selectors from '../selectors';
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
-import React from 'react';
+import { withClient } from './clientContext'
+import * as selectors from '../selectors'
+import { connect } from 'react-redux'
+import PropTypes from 'prop-types'
+import React from 'react'
 
 const withDashboardState = WrappedComponent => {
   class Container extends React.Component {
     static propTypes = {
       sendFeatureStatus: PropTypes.oneOf(['offline', 'no-funds', 'ok'])
-        .isRequired
-    };
+        .isRequired,
+      client: PropTypes.shape({
+        toBN: PropTypes.func.isRequired
+      }).isRequired
+    }
 
     static displayName = `withDashboardState(${WrappedComponent.displayName ||
-      WrappedComponent.name})`;
+      WrappedComponent.name})`
 
     render() {
-      const { sendFeatureStatus } = this.props;
+      const { sendFeatureStatus } = this.props
 
       const sendDisabledReason =
         sendFeatureStatus === 'offline'
           ? "Can't send while offline"
           : sendFeatureStatus === 'no-funds'
             ? 'You need some funds to send'
-            : null;
+            : null
 
       return (
         <WrappedComponent
@@ -29,16 +33,17 @@ const withDashboardState = WrappedComponent => {
           sendDisabled={sendFeatureStatus !== 'ok'}
           {...this.props}
         />
-      );
+      )
     }
   }
 
-  const mapStateToProps = state => ({
-    sendFeatureStatus: selectors.sendFeatureStatus(state),
-    hasTransactions: selectors.getActiveWalletTransactions(state).length > 0
-  });
+  const mapStateToProps = (state, { client }) => ({
+    sendFeatureStatus: selectors.sendFeatureStatus(state, client),
+    hasTransactions:
+      selectors.getActiveWalletTransactions(state, client).length > 0
+  })
 
-  return connect(mapStateToProps)(Container);
-};
+  return withClient(connect(mapStateToProps)(Container))
+}
 
-export default withDashboardState;
+export default withDashboardState

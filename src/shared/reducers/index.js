@@ -6,6 +6,7 @@ import converter from './converter'
 import wallets from './wallets'
 import auction from './auction'
 import session from './session'
+import config from './config'
 import rates from './rates'
 
 export default combineReducers({
@@ -16,5 +17,6 @@ export default combineReducers({
   wallets,
   auction,
   session,
+  config,
   rates
 })

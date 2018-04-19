@@ -1,8 +1,7 @@
-import * as selectors from '../selectors';
-import { withClient } from './clientContext';
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
-import React from 'react';
+import * as selectors from '../selectors'
+import { connect } from 'react-redux'
+import PropTypes from 'prop-types'
+import React from 'react'
 
 const withTxRowState = WrappedComponent => {
   class Container extends React.Component {
@@ -13,46 +12,45 @@ const withTxRowState = WrappedComponent => {
         contractCallFailed: PropTypes.bool,
         txType: PropTypes.string.isRequired
       }).isRequired,
-      client: PropTypes.shape({
-        config: PropTypes.shape({
-          MTN_TOKEN_ADDR: PropTypes.string.isRequired,
-          CONVERTER_ADDR: PropTypes.string.isRequired
-        }).isRequired
+      config: PropTypes.shape({
+        MTN_TOKEN_ADDR: PropTypes.string.isRequired,
+        CONVERTER_ADDR: PropTypes.string.isRequired
       }).isRequired
-    };
+    }
 
     static displayName = `withTxRowState(${WrappedComponent.displayName ||
-      WrappedComponent.name})`;
+      WrappedComponent.name})`
 
     render() {
-      const { parsed: tx, confirmations } = this.props;
+      const { parsed: tx, confirmations } = this.props
 
       const isFailed =
         (tx.txType === 'auction' &&
           !tx.mtnBoughtInAuction &&
           confirmations > 0) ||
-        tx.contractCallFailed;
+        tx.contractCallFailed
 
-      const isPending = !isFailed && confirmations < 6;
+      const isPending = !isFailed && confirmations < 6
 
       return (
         <WrappedComponent
+          MTN_TOKEN_ADDR={this.props.config.MTN_TOKEN_ADDR}
+          CONVERTER_ADDR={this.props.config.CONVERTER_ADDR}
           confirmations={confirmations}
           isPending={isPending}
           isFailed={isFailed}
-          MTN_TOKEN_ADDR={this.props.client.config.MTN_TOKEN_ADDR}
-          CONVERTER_ADDR={this.props.client.config.CONVERTER_ADDR}
           {...tx}
         />
-      );
+      )
     }
   }
 
   const mapStateToProps = (state, props) => ({
-    confirmations: selectors.getTxConfirmations(state, props)
-  });
+    confirmations: selectors.getTxConfirmations(state, props),
+    config: selectors.getConfig(state)
+  })
 
-  return connect(mapStateToProps)(withClient(Container));
-};
+  return connect(mapStateToProps)(Container)
+}
 
-export default withTxRowState;
+export default withTxRowState

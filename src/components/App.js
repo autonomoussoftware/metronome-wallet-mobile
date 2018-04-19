@@ -5,6 +5,7 @@ import createStore from '../shared/createStore'
 import * as client from '../client'
 import Onboarding from './Onboarding'
 import Loading from './Loading'
+import config from '../config'
 import Router from './Router'
 import Login from './Login'
 import React from 'react'
@@ -17,7 +18,7 @@ const reduxDevtoolsOptions = {
 }
 
 // We could pass some initial state to createStore()
-const store = createStore(reduxDevtoolsOptions, getInitialState())
+const store = createStore(reduxDevtoolsOptions, getInitialState(config))
 
 const App = () => (
   <ClientProvider value={client}>

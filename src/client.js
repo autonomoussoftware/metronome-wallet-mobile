@@ -1,18 +1,6 @@
+import fastPasswordEntropy from 'fast-password-entropy'
 import bip39 from 'react-native-bip39'
 import utils from 'web3-utils'
-
-import fastPasswordEntropy from 'fast-password-entropy'
-import conf from './config'
-
-export const getStringEntropy = fastPasswordEntropy
-export const config = conf
-
-// These should mirror web3-utils
-export const isAddress = str => utils.isAddress(str)
-export const fromWei = (str, unit = 'ether') => utils.fromWei(str, unit)
-export const toWei = (bn, unit = 'ether') => utils.toWei(bn, unit)
-export const toHex = bn => utils.toHex(bn)
-export const toBN = str => utils.toBN(str)
 
 const fakeResponse = (value, delay = 500) => {
   return new Promise((resolve, reject) => {
@@ -21,6 +9,18 @@ const fakeResponse = (value, delay = 500) => {
     }, delay)
   })
 }
+
+export const getStringEntropy = str => fastPasswordEntropy(str)
+
+export const isAddress = str => utils.isAddress(str)
+
+export const fromWei = (str, unit = 'ether') => utils.fromWei(str, unit)
+
+export const toWei = (bn, unit = 'ether') => utils.toWei(bn, unit)
+
+export const toHex = bn => utils.toHex(bn)
+
+export const toBN = str => utils.toBN(str)
 
 /**
  * Called when app starts
@@ -111,12 +111,7 @@ export function setEthereumNetworkUrl({ ethereumNetworkUrl }) {
 }
 
 export function isValidMnemonic(str) {
-  // return bip39.validateMnemonic(str);
-  return true
-}
-
-export function sanitize(amount) {
-  return amount.replace(',', '.')
+  return bip39.validateMnemonic(str)
 }
 
 /**

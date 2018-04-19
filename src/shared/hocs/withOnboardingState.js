@@ -1,7 +1,9 @@
-import * as validators from '../validators';
-import { withClient } from './clientContext';
-import PropTypes from 'prop-types';
-import React from 'react';
+import * as validators from '../validators'
+import { withClient } from './clientContext'
+import * as selectors from '../selectors'
+import { connect } from 'react-redux'
+import PropTypes from 'prop-types'
+import React from 'react'
 
 /**
  * Returns an interpolated CSS hue value between red & green
@@ -13,19 +15,19 @@ import React from 'react';
  */
 function getPasswordStrengthHue(ratio) {
   // Hues are adapted to match the theme's success and danger colors
-  const orangeHue = 50;
-  const greenHue = 139;
-  const redHue = 11;
+  const orangeHue = 50
+  const greenHue = 139
+  const redHue = 11
 
-  return ratio < 1 ? ratio * orangeHue + redHue : greenHue;
+  return ratio < 1 ? ratio * orangeHue + redHue : greenHue
 }
 
 function getPasswordStrengthMessage(ratio) {
-  if (ratio > 0 && ratio < 0.75) return 'Too weak';
-  if (ratio >= 0.75 && ratio < 1) return 'Almost there...';
-  if (ratio >= 1 && ratio < 1.5) return 'Strong';
-  if (ratio >= 1.5) return 'Very strong';
-  return '';
+  if (ratio > 0 && ratio < 0.75) return 'Too weak'
+  if (ratio >= 0.75 && ratio < 1) return 'Almost there...'
+  if (ratio >= 1 && ratio < 1.5) return 'Strong'
+  if (ratio >= 1.5) return 'Very strong'
+  return ''
 }
 
 const withOnboardingState = WrappedComponent => {
@@ -36,15 +38,15 @@ const withOnboardingState = WrappedComponent => {
         onTermsLinkClick: PropTypes.func.isRequired,
         getStringEntropy: PropTypes.func.isRequired,
         isValidMnemonic: PropTypes.func.isRequired,
-        createMnemonic: PropTypes.func.isRequired,
-        config: PropTypes.shape({
-          REQUIRED_PASSWORD_ENTROPY: PropTypes.number.isRequired
-        }).isRequired
+        createMnemonic: PropTypes.func.isRequired
+      }).isRequired,
+      config: PropTypes.shape({
+        REQUIRED_PASSWORD_ENTROPY: PropTypes.number.isRequired
       }).isRequired
-    };
+    }
 
     static displayName = `withOnboardingState(${WrappedComponent.displayName ||
-      WrappedComponent.name})`;
+      WrappedComponent.name})`
 
     state = {
       isPasswordDefined: false,
@@ -57,31 +59,34 @@ const withOnboardingState = WrappedComponent => {
       password: null,
       mnemonic: null,
       errors: {}
-    };
+    }
 
     componentDidMount() {
       this.props.client
         .createMnemonic()
-        .then(mnemonic => this.setState({ mnemonic }));
+        .then(mnemonic => this.setState({ mnemonic }))
     }
 
-    onTermsAccepted = () => this.setState({ areTermsAccepted: true });
+    onTermsAccepted = () => this.setState({ areTermsAccepted: true })
 
     onPasswordSubmit = () => {
-      const { password, passwordAgain } = this.state;
-      const { client } = this.props;
+      const { password, passwordAgain } = this.state
 
-      const errors = validators.validatePasswordCreation(client, password);
+      const errors = validators.validatePasswordCreation(
+        this.props.client,
+        this.props.config,
+        password
+      )
 
       if (!errors.password && !passwordAgain) {
-        errors.passwordAgain = 'Repeat the password';
+        errors.passwordAgain = 'Repeat the password'
       } else if (!errors.password && passwordAgain !== password) {
-        errors.passwordAgain = "Passwords don't match";
+        errors.passwordAgain = "Passwords don't match"
       }
-      if (Object.keys(errors).length > 0) return this.setState({ errors });
+      if (Object.keys(errors).length > 0) return this.setState({ errors })
 
-      this.setState({ isPasswordDefined: true });
-    };
+      this.setState({ isPasswordDefined: true })
+    }
 
     onUseUserMnemonicToggled = () => {
       this.setState(state => ({
@@ -92,8 +97,8 @@ const withOnboardingState = WrappedComponent => {
           ...state.errors,
           userMnemonic: null
         }
-      }));
-    };
+      }))
+    }
 
     onMnemonicCopiedToggled = () => {
       this.setState(state => ({
@@ -104,8 +109,8 @@ const withOnboardingState = WrappedComponent => {
           ...state.errors,
           mnemonicAgain: null
         }
-      }));
-    };
+      }))
+    }
 
     onMnemonicAccepted = () => {
       if (this.state.useUserMnemonic) {
@@ -113,8 +118,8 @@ const withOnboardingState = WrappedComponent => {
           this.props.client,
           this.state.userMnemonic,
           'userMnemonic'
-        );
-        if (Object.keys(errors).length > 0) return this.setState({ errors });
+        )
+        if (Object.keys(errors).length > 0) return this.setState({ errors })
       } else {
         if (this.state.mnemonic !== this.state.mnemonicAgain) {
           return this.setState({
@@ -122,7 +127,7 @@ const withOnboardingState = WrappedComponent => {
               mnemonicAgain:
                 'The text provided does not match your recovery passphrase.'
             }
-          });
+          })
         }
       }
       return this.props.client.onOnboardingCompleted({
@@ -130,8 +135,8 @@ const withOnboardingState = WrappedComponent => {
         mnemonic: this.state.useUserMnemonic
           ? this.state.userMnemonic
           : this.state.mnemonic
-      });
-    };
+      })
+    }
 
     onInputChange = ({ id, value }) => {
       this.setState(state => ({
@@ -141,30 +146,30 @@ const withOnboardingState = WrappedComponent => {
           ...state.errors,
           [id]: null
         }
-      }));
-    };
+      }))
+    }
 
     getCurrentStep() {
-      if (!this.state.areTermsAccepted) return 'ask-for-terms';
-      if (!this.state.isPasswordDefined) return 'define-password';
-      if (this.state.useUserMnemonic) return 'recover-from-mnemonic';
-      if (this.state.isMnemonicCopied) return 'verify-mnemonic';
-      return 'copy-mnemonic';
+      if (!this.state.areTermsAccepted) return 'ask-for-terms'
+      if (!this.state.isPasswordDefined) return 'define-password'
+      if (this.state.useUserMnemonic) return 'recover-from-mnemonic'
+      if (this.state.isMnemonicCopied) return 'verify-mnemonic'
+      return 'copy-mnemonic'
     }
 
     render() {
       const passwordEntropy = this.state.password
         ? this.props.client.getStringEntropy(this.state.password)
-        : 0;
+        : 0
 
       const passwordStrengthRatio =
-        passwordEntropy / this.props.client.config.REQUIRED_PASSWORD_ENTROPY;
+        passwordEntropy / this.props.config.REQUIRED_PASSWORD_ENTROPY
 
       const passwordStrengthMessage = getPasswordStrengthMessage(
         passwordStrengthRatio
-      );
+      )
 
-      const passwordStrengthHue = getPasswordStrengthHue(passwordStrengthRatio);
+      const passwordStrengthHue = getPasswordStrengthHue(passwordStrengthRatio)
 
       return (
         <WrappedComponent
@@ -181,11 +186,15 @@ const withOnboardingState = WrappedComponent => {
           currentStep={this.getCurrentStep()}
           {...this.state}
         />
-      );
+      )
     }
   }
 
-  return withClient(Container);
-};
+  const mapStateToProps = state => ({
+    config: selectors.getConfig(state)
+  })
 
-export default withOnboardingState;
+  return connect(mapStateToProps)(withClient(Container))
+}
+
+export default withOnboardingState
