@@ -1,9 +1,9 @@
-import { View, Text, TextInput, Btn } from './common';
-import { errorPropTypes } from '../utils';
-import withLoginState from '../shared/hocs/withLoginState';
-import PropTypes from 'prop-types';
-import React from 'react';
-import RN from 'react-native';
+import { View, Text, TextInput, Btn } from './common'
+import { errorPropTypes } from '../utils'
+import withLoginState from '../shared/hocs/withLoginState'
+import PropTypes from 'prop-types'
+import React from 'react'
+import RN from 'react-native'
 
 class Login extends React.Component {
   static propTypes = {
@@ -14,10 +14,10 @@ class Login extends React.Component {
       .isRequired,
     errors: errorPropTypes('password'),
     error: PropTypes.string
-  };
+  }
 
   render() {
-    const { onInputChange, onSubmit, password, errors, error } = this.props;
+    const { onInputChange, onSubmit, password, errors, error } = this.props
 
     return (
       <View bg="dark" flex={1}>
@@ -52,7 +52,7 @@ class Login extends React.Component {
           </View>
         </RN.ImageBackground>
       </View>
-    );
+    )
   }
 }
 
@@ -60,6 +60,6 @@ const styles = RN.StyleSheet.create({
   bg: {
     flex: 1
   }
-});
+})
 
-export default withLoginState(Login);
+export default withLoginState(Login)

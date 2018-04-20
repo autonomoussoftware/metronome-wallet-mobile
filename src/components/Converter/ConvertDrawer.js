@@ -1,24 +1,24 @@
-import { pageStatusPropTypes } from '../../utils';
-import ConvertETHtoMETForm from './ConvertETHtoMETForm';
-import ConvertMETtoETHForm from './ConvertMETtoETHForm';
-import { View, Tab, Text } from '../common';
-import React from 'react';
+import { pageStatusPropTypes } from '../../utils'
+import ConvertETHtoMETForm from './ConvertETHtoMETForm'
+import ConvertMETtoETHForm from './ConvertMETtoETHForm'
+import { View, Tab, Text } from '../common'
+import React from 'react'
 
-const DEFAULT_TAB = 'eth';
+const DEFAULT_TAB = 'eth'
 
 class ConvertDrawer extends React.Component {
   static propTypes = {
     ...pageStatusPropTypes
-  };
+  }
 
-  state = { activeTab: DEFAULT_TAB };
+  state = { activeTab: DEFAULT_TAB }
 
   componentDidUpdate(prevProps) {
     if (
       this.props.pageStatus === 'offscreen' &&
       prevProps.pageStatus !== 'offscreen'
     ) {
-      this.setState({ activeTab: DEFAULT_TAB });
+      this.setState({ activeTab: DEFAULT_TAB })
     }
   }
 
@@ -49,8 +49,8 @@ class ConvertDrawer extends React.Component {
           )}
         </View>
       </View>
-    );
+    )
   }
 }
 
-export default ConvertDrawer;
+export default ConvertDrawer

@@ -1,18 +1,18 @@
-import PropTypes from 'prop-types';
-import theme from '../../theme';
-import React from 'react';
-import Text from './Text';
-import RN from 'react-native';
+import PropTypes from 'prop-types'
+import theme from '../../theme'
+import React from 'react'
+import Text from './Text'
+import RN from 'react-native'
 
 export default class Tab extends React.Component {
   static propTypes = {
     textProps: PropTypes.object,
     isActive: PropTypes.bool.isRequired,
     children: PropTypes.node.isRequired
-  };
+  }
 
   render() {
-    const { isActive, children, textProps, ...other } = this.props;
+    const { isActive, children, textProps, ...other } = this.props
 
     return (
       <RN.TouchableOpacity
@@ -31,7 +31,7 @@ export default class Tab extends React.Component {
           {children}
         </Text>
       </RN.TouchableOpacity>
-    );
+    )
   }
 }
 
@@ -50,4 +50,4 @@ const styles = RN.StyleSheet.create({
     borderBottomColor: theme.colors.primary,
     backgroundColor: theme.colors.translucentPrimary
   }
-});
+})

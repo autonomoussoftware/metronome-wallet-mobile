@@ -1,10 +1,10 @@
-import { TextInput, View, Text, Btn, BaseBtn } from '../common';
-import withOnboardingState from '../../shared/hocs/withOnboardingState';
-import { errorPropTypes } from '../../utils';
-import EntropyMeter from './EntropyMeter';
-import PropTypes from 'prop-types';
-import React from 'react';
-import RN from 'react-native';
+import { TextInput, View, Text, Btn, BaseBtn } from '../common'
+import withOnboardingState from '../../shared/hocs/withOnboardingState'
+import { errorPropTypes } from '../../utils'
+import EntropyMeter from './EntropyMeter'
+import PropTypes from 'prop-types'
+import React from 'react'
+import RN from 'react-native'
 
 class Onboarding extends React.Component {
   static propTypes = {
@@ -36,7 +36,7 @@ class Onboarding extends React.Component {
       'userMnemonic',
       'password'
     )
-  };
+  }
 
   _renderTermsStep() {
     return (
@@ -61,7 +61,7 @@ class Onboarding extends React.Component {
           />
         </View>
       </View>
-    );
+    )
   }
 
   _renderPasswordStep() {
@@ -107,7 +107,7 @@ class Onboarding extends React.Component {
           />
         </View>
       </RN.KeyboardAvoidingView>
-    );
+    )
   }
 
   _renderCopyMnemonicStep() {
@@ -144,7 +144,7 @@ class Onboarding extends React.Component {
           block
         />
       </View>
-    );
+    )
   }
 
   _renderVerifyMnemonicStep() {
@@ -181,7 +181,7 @@ class Onboarding extends React.Component {
           />
         </View>
       </RN.KeyboardAvoidingView>
-    );
+    )
   }
 
   _renderUserMnemonicStep() {
@@ -218,7 +218,7 @@ class Onboarding extends React.Component {
           />
         </View>
       </RN.KeyboardAvoidingView>
-    );
+    )
   }
 
   render() {
@@ -245,7 +245,7 @@ class Onboarding extends React.Component {
             this._renderUserMnemonicStep()}
         </RN.ImageBackground>
       </View>
-    );
+    )
   }
 }
 
@@ -257,6 +257,6 @@ const styles = RN.StyleSheet.create({
     justifyContent: 'center',
     flex: 1
   }
-});
+})
 
-export default withOnboardingState(Onboarding);
+export default withOnboardingState(Onboarding)

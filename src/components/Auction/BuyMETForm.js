@@ -1,9 +1,9 @@
-import { AmountFields, GasEditor, View, Btn, Text } from '../common';
-import { pageStatusPropTypes } from '../../utils';
-import withBuyMETFormState from '../../shared/hocs/withBuyMETFormState';
-import ConfirmationWizard from '../common/Confirmation';
-import PropTypes from 'prop-types';
-import React from 'react';
+import { AmountFields, GasEditor, View, Btn, Text } from '../common'
+import { pageStatusPropTypes } from '../../utils'
+import withBuyMETFormState from '../../shared/hocs/withBuyMETFormState'
+import ConfirmationWizard from '../common/Confirmation'
+import PropTypes from 'prop-types'
+import React from 'react'
 
 class BuyMETForm extends React.Component {
   static propTypes = {
@@ -22,14 +22,14 @@ class BuyMETForm extends React.Component {
     gasLimit: PropTypes.string,
     errors: PropTypes.object.isRequired,
     ...pageStatusPropTypes
-  };
+  }
 
   componentDidUpdate(prevProps) {
     if (
       this.props.pageStatus === 'offscreen' &&
       prevProps.pageStatus !== 'offscreen'
     ) {
-      this.props.resetForm();
+      this.props.resetForm()
     }
   }
 
@@ -38,8 +38,8 @@ class BuyMETForm extends React.Component {
       <View>
         <Text>The preview will go here</Text>
       </View>
-    );
-  };
+    )
+  }
 
   renderForm = ({ goToReview }) => {
     return (
@@ -65,11 +65,11 @@ class BuyMETForm extends React.Component {
         </View>
         <Btn label="Review Buy" mt={4} onPress={goToReview} />
       </View>
-    );
-  };
+    )
+  }
 
   render() {
-    if (this.props.pageStatus === 'offscreen') return null;
+    if (this.props.pageStatus === 'offscreen') return null
 
     return (
       <ConfirmationWizard
@@ -79,8 +79,8 @@ class BuyMETForm extends React.Component {
         renderForm={this.renderForm}
         validate={this.props.validate}
       />
-    );
+    )
   }
 }
 
-export default withBuyMETFormState(BuyMETForm);
+export default withBuyMETFormState(BuyMETForm)

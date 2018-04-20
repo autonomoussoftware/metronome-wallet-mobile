@@ -1,8 +1,8 @@
-import { GasEditor, TextInput, View, Btn, BaseBtn } from '../common';
-import { pageStatusPropTypes } from '../../utils';
-import withSendMETFormState from '../../shared/hocs/withSendMETFormState';
-import PropTypes from 'prop-types';
-import React from 'react';
+import { GasEditor, TextInput, View, Btn, BaseBtn } from '../common'
+import { pageStatusPropTypes } from '../../utils'
+import withSendMETFormState from '../../shared/hocs/withSendMETFormState'
+import PropTypes from 'prop-types'
+import React from 'react'
 
 class SendMETForm extends React.Component {
   static propTypes = {
@@ -17,14 +17,14 @@ class SendMETForm extends React.Component {
     gasLimit: PropTypes.string,
     errors: PropTypes.object.isRequired,
     ...pageStatusPropTypes
-  };
+  }
 
   componentDidUpdate(prevProps) {
     if (
       this.props.pageStatus === 'offscreen' &&
       prevProps.pageStatus !== 'offscreen'
     ) {
-      this.props.resetForm();
+      this.props.resetForm()
     }
   }
 
@@ -68,8 +68,8 @@ class SendMETForm extends React.Component {
         </View>
         <Btn label="Review Send" mt={3} />
       </View>
-    );
+    )
   }
 }
 
-export default withSendMETFormState(SendMETForm);
+export default withSendMETFormState(SendMETForm)

@@ -33,7 +33,7 @@ export default config => ({
         addresses: {
           '0xd6758d1907ed647605429d40cd19c58a6d05eb8b': {
             token: { [config.MTN_TOKEN_ADDR]: { balance: '980' } },
-            balance: '100',
+            balance: '000000080000000000',
             transactions: [
               {
                 _id: 'pDouGpwoY1kd7sPj',

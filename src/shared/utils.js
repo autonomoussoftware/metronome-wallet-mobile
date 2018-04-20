@@ -1,56 +1,78 @@
+import BigNumber from 'bignumber.js'
+
+const format = {
+  decimalSeparator: '.',
+  groupSeparator: ',',
+  groupSize: 3
+}
+
+BigNumber.config({ FORMAT: format })
+
+export function smartRound(client, weiAmount) {
+  let n = Number.parseFloat(client.fromWei(weiAmount), 10)
+  let decimals = -Math.log10(n) + 10
+  if (decimals < 2) {
+    decimals = 2
+  } else if (decimals >= 18) {
+    decimals = 18
+  }
+  // round extra decimals and remove trailing zeroes
+  return new BigNumber(n.toFixed(Math.ceil(decimals))).toFormat()
+}
+
 export function sanitize(amount = '') {
-  return amount.replace(',', '.');
+  return amount.replace(',', '.')
 }
 
 export function isWeiable(client, amount, unit = 'ether') {
-  let isValid;
+  let isValid
   try {
-    client.toWei(sanitize(amount), unit);
-    isValid = true;
+    client.toWei(sanitize(amount), unit)
+    isValid = true
   } catch (e) {
-    isValid = false;
+    isValid = false
   }
-  return isValid;
+  return isValid
 }
 
 export function isHexable(client, amount) {
-  let isValid;
+  let isValid
   try {
-    client.toHex(amount);
-    isValid = true;
+    client.toHex(amount)
+    isValid = true
   } catch (e) {
-    isValid = false;
+    isValid = false
   }
-  return isValid;
+  return isValid
 }
 
 export function isGreaterThanZero(client, amount) {
-  const weiAmount = client.toBN(client.toWei(sanitize(amount)));
-  return weiAmount.gt(client.toBN(0));
+  const weiAmount = client.toBN(client.toWei(sanitize(amount)))
+  return weiAmount.gt(client.toBN(0))
 }
 
 export function toUSD(client, amount, rate, errorValue = 'Invalid amount') {
-  let isValidAmount;
-  let usdAmount;
+  let isValidAmount
+  let usdAmount
   try {
-    if (!isWeiable(client, sanitize(amount))) throw new Error();
-    usdAmount = parseFloat(sanitize(amount), 10) * parseFloat(rate, 10);
-    isValidAmount = usdAmount >= 0;
+    if (!isWeiable(client, sanitize(amount))) throw new Error()
+    usdAmount = parseFloat(sanitize(amount), 10) * parseFloat(rate, 10)
+    isValidAmount = usdAmount >= 0
   } catch (e) {
-    isValidAmount = false;
+    isValidAmount = false
   }
-  const expectedUSDamount = isValidAmount ? usdAmount.toString(10) : errorValue;
-  return expectedUSDamount;
+  const expectedUSDamount = isValidAmount ? usdAmount.toString(10) : errorValue
+  return expectedUSDamount
 }
 
 export function toETH(client, amount, rate, errorValue = 'Invalid amount') {
-  let isValidAmount;
-  let weiAmount;
+  let isValidAmount
+  let weiAmount
   try {
-    weiAmount = client.toBN(client.toWei(sanitize(amount)));
-    isValidAmount = weiAmount.gte(client.toBN(0));
+    weiAmount = client.toBN(client.toWei(sanitize(amount)))
+    isValidAmount = weiAmount.gte(client.toBN(0))
   } catch (e) {
-    isValidAmount = false;
+    isValidAmount = false
   }
 
   const expectedETHamount = isValidAmount
@@ -58,9 +80,9 @@ export function toETH(client, amount, rate, errorValue = 'Invalid amount') {
         .dividedBy(client.toBN(client.toWei(String(rate))))
         .decimalPlaces(18)
         .toString(10)
-    : errorValue;
+    : errorValue
 
-  return expectedETHamount;
+  return expectedETHamount
 }
 
 export function toMET(
@@ -70,13 +92,13 @@ export function toMET(
   errorValue = 'Invalid amount',
   remaining
 ) {
-  let isValidAmount;
-  let weiAmount;
+  let isValidAmount
+  let weiAmount
   try {
-    weiAmount = client.toBN(client.toWei(sanitize(amount)));
-    isValidAmount = weiAmount.gte(client.toBN(0));
+    weiAmount = client.toBN(client.toWei(sanitize(amount)))
+    isValidAmount = weiAmount.gte(client.toBN(0))
   } catch (e) {
-    isValidAmount = false;
+    isValidAmount = false
   }
 
   const expectedMETamount = isValidAmount
@@ -86,11 +108,11 @@ export function toMET(
           .decimalPlaces(18)
           .toString(10)
       )
-    : errorValue;
+    : errorValue
 
   const excedes = isValidAmount
     ? client.toBN(expectedMETamount).gte(client.toBN(remaining))
-    : null;
+    : null
 
   const usedETHAmount =
     isValidAmount && excedes
@@ -100,14 +122,14 @@ export function toMET(
           .dividedBy(client.toBN(client.toWei('1')))
           .decimalPlaces(18)
           .toString(10)
-      : null;
+      : null
 
   const excessETHAmount =
     isValidAmount && excedes
       ? weiAmount.minus(usedETHAmount).toString(10)
-      : null;
+      : null
 
-  return { expectedMETamount, excedes, usedETHAmount, excessETHAmount };
+  return { expectedMETamount, excedes, usedETHAmount, excessETHAmount }
 }
 
 export function syncAmounts(state, ETHprice, id, value, client) {
@@ -117,5 +139,5 @@ export function syncAmounts(state, ETHprice, id, value, client) {
       id === 'ethAmount' ? toUSD(client, value, ETHprice) : state.usdAmount,
     ethAmount:
       id === 'usdAmount' ? toETH(client, value, ETHprice) : state.ethAmount
-  };
+  }
 }

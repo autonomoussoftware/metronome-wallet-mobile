@@ -1,17 +1,17 @@
-import CountDownProvider from '../../shared/hocs/CountDownProvider';
-import { Text, View } from '../common';
-import PropTypes from 'prop-types';
-import theme from '../../theme';
-import React from 'react';
-import RN from 'react-native';
+import CountDownProvider from '../../shared/hocs/CountDownProvider'
+import { Text, View } from '../common'
+import PropTypes from 'prop-types'
+import theme from '../../theme'
+import React from 'react'
+import RN from 'react-native'
 
 export default class CountDown extends React.Component {
   static propTypes = {
     targetTimestamp: PropTypes.number.isRequired
-  };
+  }
 
   render() {
-    const { targetTimestamp } = this.props;
+    const { targetTimestamp } = this.props
 
     return (
       <CountDownProvider targetTimestamp={targetTimestamp}>
@@ -40,7 +40,7 @@ export default class CountDown extends React.Component {
           )
         }
       </CountDownProvider>
-    );
+    )
   }
 }
 
@@ -53,14 +53,14 @@ const Cell = ({ number, label, isFaded, isFirst }) => (
       {label}
     </Text>
   </View>
-);
+)
 
 Cell.propTypes = {
   isFaded: PropTypes.bool.isRequired,
   isFirst: PropTypes.bool,
   number: PropTypes.number.isRequired,
   label: PropTypes.string.isRequired
-};
+}
 
 const styles = RN.StyleSheet.create({
   cell: {
@@ -74,4 +74,4 @@ const styles = RN.StyleSheet.create({
   isFirst: {
     borderLeftColor: 'transparent'
   }
-});
+})

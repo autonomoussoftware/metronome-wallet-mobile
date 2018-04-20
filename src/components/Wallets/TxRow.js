@@ -1,12 +1,12 @@
-import { DisplayValue, View, Text } from '../common';
-import withTxRowState from '../../shared/hocs/withTxRowState';
-import ConverterIcon from '../icons/ConverterIcon';
-import AuctionIcon from '../icons/AuctionIcon';
-import PropTypes from 'prop-types';
-import TxIcon from '../icons/TxIcon';
-import theme from '../../theme';
-import React from 'react';
-import RN from 'react-native';
+import { DisplayValue, View, Text } from '../common'
+import withTxRowState from '../../shared/hocs/withTxRowState'
+import ConverterIcon from '../icons/ConverterIcon'
+import AuctionIcon from '../icons/AuctionIcon'
+import PropTypes from 'prop-types'
+import TxIcon from '../icons/TxIcon'
+import theme from '../../theme'
+import React from 'react'
+import RN from 'react-native'
 // import theme from '../theme';
 
 class TxRow extends React.Component {
@@ -30,7 +30,7 @@ class TxRow extends React.Component {
       'sent'
     ]).isRequired,
     value: PropTypes.string.isRequired
-  };
+  }
 
   // state = {};
 
@@ -38,11 +38,9 @@ class TxRow extends React.Component {
     if (this.props.txType === 'unknown' || this.props.isPending) {
       return (
         <View style={styles.confirmations}>
-          <Text color="weak" size="small">
-            {this.props.confirmations}
-          </Text>
+          <Text color="weak">{this.props.confirmations}</Text>
         </View>
-      );
+      )
     }
     switch (this.props.txType) {
       case 'received':
@@ -50,23 +48,20 @@ class TxRow extends React.Component {
         return (
           <TxIcon
             color={this.props.contractCallFailed ? 'danger' : 'primary'}
-            size="20"
           />
-        );
+        )
       case 'converted':
         return (
           <ConverterIcon
             color={this.props.contractCallFailed ? 'danger' : 'primary'}
-            size="20"
           />
-        );
+        )
       case 'auction':
         return (
           <AuctionIcon
             color={this.props.contractCallFailed ? 'danger' : 'primary'}
-            size="20"
           />
-        );
+        )
     }
   }
 
@@ -76,23 +71,26 @@ class TxRow extends React.Component {
         // isCancelApproval={isCancelApproval}
         // isPending={isPending}
         opacity={this.props.isFailed ? 0.5 : 1}
-        row
+        // row
+        align="flex-end"
       >
         {this.props.txType === 'auction' ? (
           <React.Fragment>
             <DisplayValue
               color="primary"
-              size="small"
+              size="xLarge"
               value={this.props.ethSpentInAuction}
               post=" ETH"
             />
 
             {this.props.mtnBoughtInAuction && (
               <React.Fragment>
-                <Text color="primary">&rarr;</Text>
+                <Text color="primary" mr={2}>
+                  &darr;
+                </Text>
                 <DisplayValue
                   color="primary"
-                  size="small"
+                  size="xLarge"
                   value={this.props.mtnBoughtInAuction}
                   post=" MET"
                 />
@@ -104,7 +102,7 @@ class TxRow extends React.Component {
             {this.props.fromValue ? (
               <DisplayValue
                 color="primary"
-                size="small"
+                size="xLarge"
                 value={this.props.fromValue}
                 post={this.props.convertedFrom === 'ETH' ? ' ETH' : ' MET'}
               />
@@ -115,10 +113,12 @@ class TxRow extends React.Component {
             {this.props.fromValue &&
               this.props.toValue && (
                 <React.Fragment>
-                  <Text color="primary">&rarr;</Text>
+                  <Text color="primary" mr={2}>
+                    &darr;
+                  </Text>
                   <DisplayValue
                     color="primary"
-                    size="small"
+                    size="xLarge"
                     value={this.props.toValue}
                     post={this.props.convertedFrom === 'ETH' ? ' MET' : ' ETH'}
                   />
@@ -130,19 +130,19 @@ class TxRow extends React.Component {
         ) : (
           <DisplayValue
             color="primary"
-            size="small"
+            size="xLarge"
             value={this.props.value}
             post={` ${this.props.symbol}`}
           />
         )}
       </View>
-    );
+    )
   }
 
   _renderDetails() {
     return (
       <View grow={0} mt={1}>
-        <Text size="small">
+        <Text size="medium">
           {(this.props.txType === 'auction' &&
             !this.props.isPending &&
             !this.props.mtnBoughtInAuction) ||
@@ -152,7 +152,7 @@ class TxRow extends React.Component {
             <React.Fragment>
               {this.props.txType === 'converted' && (
                 <View>
-                  <Text color="weak" size="small">
+                  <Text color="weak" size="medium">
                     {this.props.isPending && 'Pending conversion from '}
                     <Text color="copy">{this.props.convertedFrom}</Text>
                     {this.props.isPending ? ' to ' : ' converted to '}
@@ -167,7 +167,7 @@ class TxRow extends React.Component {
                 <View>
                   <Text
                     color="weak"
-                    size="small"
+                    size="medium"
                     ellipsizeMode="middle"
                     numberOfLines={1}
                   >
@@ -181,7 +181,7 @@ class TxRow extends React.Component {
 
               {this.props.txType === 'auction' && (
                 <View>
-                  <Text color="weak" size="small">
+                  <Text color="weak" size="medium">
                     <Text color="copy">MET</Text> purchased in auction
                   </Text>
                 </View>
@@ -191,7 +191,7 @@ class TxRow extends React.Component {
                 <View color="weak">
                   <Text
                     color="weak"
-                    size="small"
+                    size="medium"
                     ellipsizeMode="middle"
                     numberOfLines={1}
                   >
@@ -212,7 +212,7 @@ class TxRow extends React.Component {
                       'CONVERTER CONTRACT'
                     ) : (
                       <Text
-                        size="small"
+                        size="medium"
                         color="copy"
                         ellipsizeMode="middle"
                         numberOfLines={1}
@@ -230,7 +230,7 @@ class TxRow extends React.Component {
           )}
         </Text>
       </View>
-    );
+    )
   }
 
   render() {
@@ -257,13 +257,13 @@ class TxRow extends React.Component {
         >
           {this._renderIcon()}
 
-          <View grow={0} shrink={1} align="flex-end" ml={2}>
+          <View grow={1} shrink={1} align="flex-end" ml={2}>
             {this._renderAmount()}
             {this._renderDetails()}
           </View>
         </View>
       </RN.TouchableOpacity>
-    );
+    )
   }
 }
 
@@ -275,13 +275,13 @@ const styles = RN.StyleSheet.create({
   confirmations: {
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: 11,
+    borderRadius: 12,
     borderWidth: 1,
     borderColor: theme.colors.weak,
-    width: 22,
-    height: 22,
-    marginLeft: -2
+    width: 24,
+    height: 24
+    // marginLeft: -2
   }
-});
+})
 
-export default withTxRowState(TxRow);
+export default withTxRowState(TxRow)

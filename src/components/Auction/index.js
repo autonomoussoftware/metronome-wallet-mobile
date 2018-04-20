@@ -1,13 +1,13 @@
-import { RoutePager, Text, View, Btn } from '../common';
-import { pageStatusPropTypes } from '../../utils';
-import withAuctionState from '../../shared/hocs/withAuctionState';
-import BuyMETForm from './BuyMETForm';
-import CountDown from './CountDown';
-import PropTypes from 'prop-types';
-import { Link } from 'react-router-native';
-import Stats from './Stats';
-import React from 'react';
-import RN from 'react-native';
+import { RoutePager, Text, View, Btn } from '../common'
+import { pageStatusPropTypes } from '../../utils'
+import withAuctionState from '../../shared/hocs/withAuctionState'
+import BuyMETForm from './BuyMETForm'
+import CountDown from './CountDown'
+import PropTypes from 'prop-types'
+import { Link } from 'react-router-native'
+import Stats from './Stats'
+import React from 'react'
+import RN from 'react-native'
 
 export default class Auction extends React.Component {
   render() {
@@ -18,7 +18,7 @@ export default class Auction extends React.Component {
           '/auction/buy': BuyMETForm
         }}
       />
-    );
+    )
   }
 }
 
@@ -32,9 +32,9 @@ const AuctionHome = props => {
     pageStatus,
     showStats,
     title
-  } = props;
+  } = props
 
-  if (pageStatus === 'offscreen') return null;
+  if (pageStatus === 'offscreen') return null
 
   return (
     <View flex={1} px={2} py={4} justify="space-between">
@@ -78,8 +78,8 @@ const AuctionHome = props => {
         </View>
       )}
     </View>
-  );
-};
+  )
+}
 
 AuctionHome.propTypes = {
   countdownTargetTimestamp: PropTypes.number.isRequired,
@@ -96,4 +96,4 @@ AuctionHome.propTypes = {
   showStats: PropTypes.bool.isRequired,
   title: PropTypes.string,
   ...pageStatusPropTypes
-};
+}

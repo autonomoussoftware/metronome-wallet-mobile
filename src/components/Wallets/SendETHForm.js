@@ -1,8 +1,8 @@
-import { AmountFields, GasEditor, TextInput, View, Btn } from '../common';
-import { pageStatusPropTypes } from '../../utils';
-import withSendETHFormState from '../../shared/hocs/withSendETHFormState';
-import PropTypes from 'prop-types';
-import React from 'react';
+import { AmountFields, GasEditor, TextInput, View, Btn } from '../common'
+import { pageStatusPropTypes } from '../../utils'
+import withSendETHFormState from '../../shared/hocs/withSendETHFormState'
+import PropTypes from 'prop-types'
+import React from 'react'
 
 class SendETHForm extends React.Component {
   static propTypes = {
@@ -19,14 +19,14 @@ class SendETHForm extends React.Component {
     gasLimit: PropTypes.string,
     errors: PropTypes.object.isRequired,
     ...pageStatusPropTypes
-  };
+  }
 
   componentDidUpdate(prevProps) {
     if (
       this.props.pageStatus === 'offscreen' &&
       prevProps.pageStatus !== 'offscreen'
     ) {
-      this.props.resetForm();
+      this.props.resetForm()
     }
   }
 
@@ -63,8 +63,8 @@ class SendETHForm extends React.Component {
         </View>
         <Btn label="Review Send" mt={3} />
       </View>
-    );
+    )
   }
 }
 
-export default withSendETHFormState(SendETHForm);
+export default withSendETHFormState(SendETHForm)

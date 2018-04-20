@@ -1,8 +1,8 @@
-import { TextInput, GasEditor, BaseBtn, Btn, View } from '../common';
-import { errorPropTypes, pageStatusPropTypes } from '../../utils';
-import withConvertMETtoETHState from '../../shared/hocs/withConvertMETtoETHState';
-import PropTypes from 'prop-types';
-import React from 'react';
+import { TextInput, GasEditor, BaseBtn, Btn, View } from '../common'
+import { errorPropTypes, pageStatusPropTypes } from '../../utils'
+import withConvertMETtoETHState from '../../shared/hocs/withConvertMETtoETHState'
+import PropTypes from 'prop-types'
+import React from 'react'
 
 class ConvertMETtoETHForm extends React.Component {
   static propTypes = {
@@ -17,11 +17,11 @@ class ConvertMETtoETHForm extends React.Component {
     gasLimit: PropTypes.string,
     errors: errorPropTypes('metAmount'),
     ...pageStatusPropTypes
-  };
+  }
 
   componentDidUpdate(prevProps) {
     if (this.props.status === 'offscreen' && prevProps.status !== 'offscreen') {
-      this.props.resetForm();
+      this.props.resetForm()
     }
   }
 
@@ -55,8 +55,8 @@ class ConvertMETtoETHForm extends React.Component {
         </View>
         <Btn label="Review Convert" mt={4} />
       </View>
-    );
+    )
   }
 }
 
-export default withConvertMETtoETHState(ConvertMETtoETHForm);
+export default withConvertMETtoETHState(ConvertMETtoETHForm)

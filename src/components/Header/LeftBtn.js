@@ -1,8 +1,8 @@
-import { TouchableOpacity } from 'react-native';
-import Svg, { G, Line } from 'react-native-svg';
-import { withRouter } from 'react-router-native';
-import PropTypes from 'prop-types';
-import React from 'react';
+import { default as Svg, G, Line } from 'react-native-svg'
+import { TouchableOpacity } from 'react-native'
+import { withRouter } from 'react-router'
+import PropTypes from 'prop-types'
+import React from 'react'
 
 const backIcon = (
   <Svg key="back" viewBox="0 0 37 27" width="35" height="27">
@@ -17,7 +17,7 @@ const backIcon = (
       <Line x1="12" y1="14" x2="20" y2="22" />
     </G>
   </Svg>
-);
+)
 
 const menuIcon = (
   <Svg key="menu" viewBox="0 0 37 27" width="35" height="27">
@@ -33,7 +33,7 @@ const menuIcon = (
       <Line x1="8" y1="20" x2="29" y2="20" />
     </G>
   </Svg>
-);
+)
 
 class LeftBtn extends React.Component {
   static propTypes = {
@@ -44,7 +44,7 @@ class LeftBtn extends React.Component {
       push: PropTypes.func.isRequired
     }).isRequired,
     openDrawer: PropTypes.func.isRequired
-  };
+  }
 
   getOnPress() {
     return (
@@ -54,11 +54,13 @@ class LeftBtn extends React.Component {
         '/wallets/send': () => this.props.history.push('/wallets'),
         '/auction/buy': () => this.props.history.push('/auction')
       }[this.props.location.pathname] || this.props.openDrawer
-    );
+    )
   }
 
   render() {
-    const { location: { pathname: newPath } } = this.props;
+    const {
+      location: { pathname: newPath }
+    } = this.props
 
     return (
       <TouchableOpacity
@@ -75,8 +77,8 @@ class LeftBtn extends React.Component {
           ? backIcon
           : menuIcon}
       </TouchableOpacity>
-    );
+    )
   }
 }
 
-export default withRouter(LeftBtn);
+export default withRouter(LeftBtn)

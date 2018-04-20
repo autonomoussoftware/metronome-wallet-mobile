@@ -1,15 +1,15 @@
-import React from 'react';
+import React from 'react'
 
 const withSomeState = WrappedComponent =>
   class Container extends React.Component {
     static displayName = `withSomeState(${WrappedComponent.displayName ||
-      WrappedComponent.name}`;
+      WrappedComponent.name}`
 
-    state = {};
+    state = {}
 
     render() {
-      return <WrappedComponent {...this.state} {...this.props} />;
+      return <WrappedComponent {...this.state} {...this.props} />
     }
-  };
+  }
 
-export default withSomeState;
+export default withSomeState

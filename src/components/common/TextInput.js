@@ -1,8 +1,8 @@
-import PropTypes from 'prop-types';
-import theme from '../../theme';
-import React from 'react';
-import Text from './Text';
-import RN from 'react-native';
+import PropTypes from 'prop-types'
+import theme from '../../theme'
+import React from 'react'
+import Text from './Text'
+import RN from 'react-native'
 
 export default class TextInput extends React.Component {
   static propTypes = {
@@ -24,19 +24,19 @@ export default class TextInput extends React.Component {
     type: PropTypes.oneOf(['text', 'number', 'password', 'url']),
     cols: PropTypes.number,
     id: PropTypes.string.isRequired
-  };
+  }
 
-  state = { isFocused: false };
+  state = { isFocused: false }
 
   onFocus = () => {
-    this.setState({ isFocused: true });
-    if (this.props.onFocus) this.props.onFocus();
-  };
+    this.setState({ isFocused: true })
+    if (this.props.onFocus) this.props.onFocus()
+  }
 
   onBlur = () => {
-    this.setState({ isFocused: false });
-    if (this.props.onBlur) this.props.onBlur();
-  };
+    this.setState({ isFocused: false })
+    if (this.props.onBlur) this.props.onBlur()
+  }
 
   render() {
     const {
@@ -49,10 +49,10 @@ export default class TextInput extends React.Component {
       value,
       id,
       ...other
-    } = this.props;
+    } = this.props
 
-    const { isFocused } = this.state;
-    const hasErrors = error && error.length > 0;
+    const { isFocused } = this.state
+    const hasErrors = error && error.length > 0
 
     return (
       <RN.View style={[styles.container, topMargin && styles.topMargin]}>
@@ -89,7 +89,7 @@ export default class TextInput extends React.Component {
           )}
         </RN.View>
       </RN.View>
-    );
+    )
   }
 }
 
@@ -138,4 +138,4 @@ const styles = RN.StyleSheet.create({
   noFocus: {
     borderBottomColor: theme.colors.transparent
   }
-});
+})

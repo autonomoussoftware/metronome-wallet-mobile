@@ -1,15 +1,15 @@
-import { RoutePager, View, Text, Btn } from '../common';
-import withDashboardState from '../../shared/hocs/withDashboardState';
-import ReceiveDrawer from './ReceiveDrawer';
-import TxListHeader from './TxListHeader';
-import BalanceBlock from './BalanceBlock';
-import SendDrawer from './SendDrawer';
-import PropTypes from 'prop-types';
-import { Link } from 'react-router-native';
-import TxList from './TxList';
-import theme from '../../theme';
-import React from 'react';
-import RN from 'react-native';
+import { RoutePager, View, Text, Btn } from '../common'
+import withDashboardState from '../../shared/hocs/withDashboardState'
+import ReceiveDrawer from './ReceiveDrawer'
+import TxListHeader from './TxListHeader'
+import BalanceBlock from './BalanceBlock'
+import SendDrawer from './SendDrawer'
+import PropTypes from 'prop-types'
+import { Link } from 'react-router-native'
+import TxList from './TxList'
+import theme from '../../theme'
+import React from 'react'
+import RN from 'react-native'
 
 export default class Wallets extends React.Component {
   render() {
@@ -21,7 +21,7 @@ export default class Wallets extends React.Component {
           '/wallets/receive': ReceiveDrawer
         }}
       />
-    );
+    )
   }
 }
 
@@ -30,11 +30,11 @@ class DashboardHome extends React.Component {
     sendDisabledReason: PropTypes.string,
     hasTransactions: PropTypes.bool.isRequired,
     sendDisabled: PropTypes.bool.isRequired
-  };
+  }
 
-  state = { selectedFilter: 'all' };
+  state = { selectedFilter: 'all' }
 
-  selectFilter = key => this.setState({ selectedFilter: key });
+  selectFilter = key => this.setState({ selectedFilter: key })
 
   render() {
     return (
@@ -86,7 +86,7 @@ class DashboardHome extends React.Component {
           </View>
         )}
       </RN.ScrollView>
-    );
+    )
   }
 }
 const styles = RN.StyleSheet.create({
@@ -94,4 +94,4 @@ const styles = RN.StyleSheet.create({
     backgroundColor: theme.colors.primary,
     flex: 1
   }
-});
+})

@@ -1,6 +1,6 @@
-import Svg, { Path, G, Rect } from 'react-native-svg';
-import theme from '../../theme';
-import React from 'react';
+import { default as Svg, Path, G, Rect } from 'react-native-svg'
+import theme from '../../theme'
+import React from 'react'
 
 export default class LogoIcon extends React.Component {
   render() {
@@ -14,6 +14,6 @@ export default class LogoIcon extends React.Component {
           />
         </G>
       </Svg>
-    );
+    )
   }
 }

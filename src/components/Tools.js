@@ -1,8 +1,8 @@
-import { View, Text, TextInput, Btn } from './common';
-import withRecoverFromMnemonicState from '../shared/hocs/withRecoverFromMnemonicState';
-import ConfirmationWizard from './common/Confirmation';
-import PropTypes from 'prop-types';
-import React from 'react';
+import { View, Text, TextInput, Btn } from './common'
+import withRecoverFromMnemonicState from '../shared/hocs/withRecoverFromMnemonicState'
+import ConfirmationWizard from './common/Confirmation'
+import PropTypes from 'prop-types'
+import React from 'react'
 
 class Tools extends React.Component {
   static propTypes = {
@@ -13,7 +13,7 @@ class Tools extends React.Component {
     errors: PropTypes.shape({
       mnemonic: PropTypes.string
     }).isRequired
-  };
+  }
 
   renderForm = ({ goToReview }) => {
     return (
@@ -35,8 +35,8 @@ class Tools extends React.Component {
         </View>
         <Btn onPress={goToReview} label="Recover" block mt={2} />
       </View>
-    );
-  };
+    )
+  }
 
   renderConfirmation = () => {
     return (
@@ -46,8 +46,8 @@ class Tools extends React.Component {
           This operation will overwrite and restart the current wallet!
         </Text>
       </View>
-    );
-  };
+    )
+  }
 
   render() {
     return (
@@ -60,8 +60,8 @@ class Tools extends React.Component {
         renderForm={this.renderForm}
         validate={this.props.validate}
       />
-    );
+    )
   }
 }
 
-export default withRecoverFromMnemonicState(Tools);
+export default withRecoverFromMnemonicState(Tools)

@@ -1,10 +1,10 @@
-import { StyleSheet, Platform, View as RNView } from 'react-native';
-import { spacing } from '../../utils';
-import PropTypes from 'prop-types';
-import theme from '../../theme';
-import React from 'react';
+import { StyleSheet, Platform, View as RNView } from 'react-native'
+import { spacing } from '../../utils'
+import PropTypes from 'prop-types'
+import theme from '../../theme'
+import React from 'react'
 
-const isOldIOS = Platform.OS === 'ios' && parseFloat(Platform.Version) < 11;
+const isOldIOS = Platform.OS === 'ios' && parseFloat(Platform.Version) < 11
 
 const View = props => {
   const {
@@ -23,7 +23,7 @@ const View = props => {
     row,
     bg,
     ...other
-  } = props;
+  } = props
 
   return (
     <RNView
@@ -47,8 +47,8 @@ const View = props => {
     >
       {children}
     </RNView>
-  );
-};
+  )
+}
 
 View.propTypes = {
   justify: PropTypes.oneOf([
@@ -72,7 +72,7 @@ View.propTypes = {
   safe: PropTypes.bool,
   bg: PropTypes.oneOf(Object.keys(theme.colors)),
   ...spacing.propTypes
-};
+}
 
 const styles = StyleSheet.create({
   row: {
@@ -84,6 +84,6 @@ const styles = StyleSheet.create({
   safe: {
     paddingTop: 20
   }
-});
+})
 
-export default View;
+export default View

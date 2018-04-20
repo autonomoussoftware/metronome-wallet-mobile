@@ -1,28 +1,28 @@
-import { pageStatusPropTypes } from '../../utils';
-import withSendDrawerState from '../../shared/hocs/withSendDrawerState';
-import { View, Text, Tab } from '../common';
-import SendETHForm from './SendETHForm';
-import SendMETForm from './SendMETForm';
-import PropTypes from 'prop-types';
-import React from 'react';
+import { pageStatusPropTypes } from '../../utils'
+import withSendDrawerState from '../../shared/hocs/withSendDrawerState'
+import { View, Text, Tab } from '../common'
+import SendETHForm from './SendETHForm'
+import SendMETForm from './SendMETForm'
+import PropTypes from 'prop-types'
+import React from 'react'
 
-const DEFAULT_TAB = 'eth';
+const DEFAULT_TAB = 'eth'
 
 class SendDrawer extends React.Component {
   static propTypes = {
     sendMetDisabledReason: PropTypes.string,
     sendMetDisabled: PropTypes.bool.isRequired,
     ...pageStatusPropTypes
-  };
+  }
 
-  state = { activeTab: DEFAULT_TAB };
+  state = { activeTab: DEFAULT_TAB }
 
   componentDidUpdate(prevProps) {
     if (
       this.props.pageStatus === 'offscreen' &&
       prevProps.pageStatus !== 'offscreen'
     ) {
-      this.setState({ activeTab: DEFAULT_TAB });
+      this.setState({ activeTab: DEFAULT_TAB })
     }
   }
 
@@ -58,8 +58,8 @@ class SendDrawer extends React.Component {
             ))}
         </View>
       </View>
-    );
+    )
   }
 }
 
-export default withSendDrawerState(SendDrawer);
+export default withSendDrawerState(SendDrawer)

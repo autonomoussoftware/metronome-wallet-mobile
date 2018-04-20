@@ -1,15 +1,15 @@
-import { View, Text, BaseBtn } from '../common';
-import Svg, { G, Line } from 'react-native-svg';
-import PropTypes from 'prop-types';
-import theme from '../../theme';
-import React from 'react';
-import RN from 'react-native';
+import { default as Svg, G, Line } from 'react-native-svg'
+import { View, Text, BaseBtn } from '../common'
+import PropTypes from 'prop-types'
+import theme from '../../theme'
+import React from 'react'
+import RN from 'react-native'
 
 class TxListHeader extends React.Component {
   static propTypes = {
     selectFilter: PropTypes.func.isRequired,
     filter: PropTypes.string.isRequired
-  };
+  }
 
   options = {
     all: 'ALL',
@@ -17,17 +17,17 @@ class TxListHeader extends React.Component {
     received: 'RECEIVED',
     auction: 'AUCTION',
     converted: 'CONVERTED'
-  };
+  }
 
-  state = { isOpen: false };
+  state = { isOpen: false }
 
   toggleDropdown = () => {
-    this.setState(s => ({ ...s, isOpen: !s.isOpen }));
-  };
+    this.setState(s => ({ ...s, isOpen: !s.isOpen }))
+  }
 
   onOptionSelect = key => {
-    this.setState({ isOpen: false }, () => this.props.selectFilter(key));
-  };
+    this.setState({ isOpen: false }, () => this.props.selectFilter(key))
+  }
 
   render() {
     return (
@@ -92,7 +92,7 @@ class TxListHeader extends React.Component {
           </View>
         </View>
       </View>
-    );
+    )
   }
 }
 
@@ -116,6 +116,6 @@ const styles = RN.StyleSheet.create({
   dropdownOption: {
     paddingHorizontal: theme.spacing(3)
   }
-});
+})
 
-export default TxListHeader;
+export default TxListHeader

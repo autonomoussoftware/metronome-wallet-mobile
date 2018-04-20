@@ -1,8 +1,8 @@
-import { withClient } from './hocs/clientContext';
-import * as selectors from './selectors';
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
-import React from 'react';
+import { withClient } from './hocs/clientContext'
+import * as selectors from './selectors'
+import { connect } from 'react-redux'
+import PropTypes from 'prop-types'
+import React from 'react'
 
 class Root extends React.Component {
   static propTypes = {
@@ -18,19 +18,19 @@ class Root extends React.Component {
       onLoginSubmit: PropTypes.func.isRequired,
       onInit: PropTypes.func.isRequired
     }).isRequired
-  };
+  }
 
   state = {
     onboardingComplete: null
-  };
+  }
 
   componentDidMount() {
     this.props.client
       .onInit()
       .then(({ onboardingComplete }) => {
-        this.setState({ onboardingComplete });
+        this.setState({ onboardingComplete })
       })
-      .catch(console.error);
+      .catch(console.error)
   }
 
   onOnboardingCompleted = ({ password, mnemonic }) => {
@@ -40,17 +40,17 @@ class Root extends React.Component {
         mnemonic
       })
       .then(() => {
-        this.setState({ onboardingComplete: true });
-        this.props.dispatch({ type: 'session-started' });
+        this.setState({ onboardingComplete: true })
+        this.props.dispatch({ type: 'session-started' })
       })
-      .catch(console.error);
-  };
+      .catch(console.error)
+  }
 
   onLoginSubmit = ({ password }) => {
     return this.props.client
       .onLoginSubmit({ password })
-      .then(() => this.props.dispatch({ type: 'session-started' }));
-  };
+      .then(() => this.props.dispatch({ type: 'session-started' }))
+  }
 
   render() {
     const {
@@ -60,11 +60,11 @@ class Root extends React.Component {
       isSessionActive,
       LoginComponent,
       hasEnoughData
-    } = this.props;
+    } = this.props
 
-    const { onboardingComplete } = this.state;
+    const { onboardingComplete } = this.state
 
-    if (onboardingComplete === null) return null;
+    if (onboardingComplete === null) return null
 
     return !onboardingComplete ? (
       <OnboardingComponent onOnboardingCompleted={this.onOnboardingCompleted} />
@@ -74,13 +74,13 @@ class Root extends React.Component {
       <LoadingComponent />
     ) : (
       <RouterComponent />
-    );
+    )
   }
 }
 
 const mapStateToProps = state => ({
   isSessionActive: selectors.isSessionActive(state),
   hasEnoughData: selectors.hasEnoughData(state)
-});
+})
 
-export default connect(mapStateToProps)(withClient(Root));
+export default connect(mapStateToProps)(withClient(Root))

@@ -1,8 +1,8 @@
-import { Text, View } from '../common';
-import PropTypes from 'prop-types';
-import theme from '../../theme';
-import React from 'react';
-import RN from 'react-native';
+import { Text, View } from '../common'
+import PropTypes from 'prop-types'
+import theme from '../../theme'
+import React from 'react'
+import RN from 'react-native'
 
 export default class Stats extends React.Component {
   static propTypes = {
@@ -11,10 +11,10 @@ export default class Stats extends React.Component {
       availableEth: PropTypes.string.isRequired,
       availableMet: PropTypes.string.isRequired
     })
-  };
+  }
 
   render() {
-    const { converterPriceUSD, converterStatus } = this.props;
+    const { converterPriceUSD, converterStatus } = this.props
 
     return (
       <View bg="lightShade" mt={2}>
@@ -43,7 +43,7 @@ export default class Stats extends React.Component {
           <Text size="medium">{converterStatus.availableEth} MET</Text>
         </View>
       </View>
-    );
+    )
   }
 }
 
@@ -60,4 +60,4 @@ const styles = RN.StyleSheet.create({
   topRow: {
     borderTopColor: theme.colors.transparent
   }
-});
+})

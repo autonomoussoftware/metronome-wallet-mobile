@@ -1,7 +1,7 @@
-import { TextInput, Text, View, Btn } from './common';
-import withSettingsState from '../shared/hocs/withSettingsState';
-import PropTypes from 'prop-types';
-import React from 'react';
+import { TextInput, Text, View, Btn } from './common'
+import withSettingsState from '../shared/hocs/withSettingsState'
+import PropTypes from 'prop-types'
+import React from 'react'
 
 class Settings extends React.Component {
   static propTypes = {
@@ -12,7 +12,7 @@ class Settings extends React.Component {
     errors: PropTypes.shape({
       ethereumNetworkUrl: PropTypes.string
     }).isRequired
-  };
+  }
 
   render() {
     return (
@@ -40,8 +40,8 @@ class Settings extends React.Component {
           label="Rescan Transactions"
         />
       </View>
-    );
+    )
   }
 }
 
-export default withSettingsState(Settings);
+export default withSettingsState(Settings)

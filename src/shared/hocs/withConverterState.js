@@ -1,7 +1,7 @@
-import * as selectors from '../selectors';
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
-import React from 'react';
+import * as selectors from '../selectors'
+import { connect } from 'react-redux'
+import PropTypes from 'prop-types'
+import React from 'react'
 
 const withConverterState = WrappedComponent => {
   class Container extends React.Component {
@@ -17,13 +17,13 @@ const withConverterState = WrappedComponent => {
         availableEth: PropTypes.string.isRequired,
         availableMet: PropTypes.string.isRequired
       })
-    };
+    }
 
     static displayName = `withConverterState(${WrappedComponent.displayName ||
-      WrappedComponent.name})`;
+      WrappedComponent.name})`
 
     render() {
-      const { convertFeatureStatus } = this.props;
+      const { convertFeatureStatus } = this.props
 
       const convertDisabledReason =
         convertFeatureStatus === 'offline'
@@ -32,7 +32,7 @@ const withConverterState = WrappedComponent => {
             ? 'Conversions are disabled during Initial Auction'
             : convertFeatureStatus === 'transfer-disabled'
               ? 'MET conversions not enabled yet'
-              : null;
+              : null
 
       return (
         <WrappedComponent
@@ -40,7 +40,7 @@ const withConverterState = WrappedComponent => {
           convertDisabled={convertFeatureStatus !== 'ok'}
           {...this.props}
         />
-      );
+      )
     }
   }
 
@@ -48,9 +48,9 @@ const withConverterState = WrappedComponent => {
     convertFeatureStatus: selectors.convertFeatureStatus(state),
     converterPriceUSD: selectors.getConverterPriceUSD(state),
     converterStatus: selectors.getConverterStatus(state)
-  });
+  })
 
-  return connect(mapStateToProps)(Container);
-};
+  return connect(mapStateToProps)(Container)
+}
 
-export default withConverterState;
+export default withConverterState

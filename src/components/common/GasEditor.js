@@ -1,11 +1,11 @@
-import withGasEditorState from '../../shared/hocs/withGasEditorState';
-import { errorPropTypes } from '../../utils';
-import TextInput from './TextInput';
-import PropTypes from 'prop-types';
-import BaseBtn from './BaseBtn';
-import React from 'react';
-import View from './View';
-import Text from './Text';
+import withGasEditorState from '../../shared/hocs/withGasEditorState'
+import { errorPropTypes } from '../../utils'
+import TextInput from './TextInput'
+import PropTypes from 'prop-types'
+import BaseBtn from './BaseBtn'
+import React from 'react'
+import View from './View'
+import Text from './Text'
 
 class GasEditor extends React.Component {
   static propTypes = {
@@ -15,7 +15,7 @@ class GasEditor extends React.Component {
     gasPrice: PropTypes.string.isRequired,
     gasLimit: PropTypes.string.isRequired,
     errors: errorPropTypes('gasPrice', 'gasLimit')
-  };
+  }
 
   render() {
     return this.props.useCustomGas ? (
@@ -55,8 +55,8 @@ class GasEditor extends React.Component {
         </View>
         <BaseBtn label="EDIT GAS" onPress={this.props.onGasToggle} />
       </View>
-    );
+    )
   }
 }
 
-export default withGasEditorState(GasEditor);
+export default withGasEditorState(GasEditor)

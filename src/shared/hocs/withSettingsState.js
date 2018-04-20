@@ -1,6 +1,6 @@
-import { withClient } from './clientContext';
-import PropTypes from 'prop-types';
-import React from 'react';
+import { withClient } from './clientContext'
+import PropTypes from 'prop-types'
+import React from 'react'
 
 const withSettingsState = WrappedComponent => {
   class Container extends React.Component {
@@ -10,22 +10,20 @@ const withSettingsState = WrappedComponent => {
         setEthereumNetworkUrl: PropTypes.func.isRequired,
         clearCache: PropTypes.func.isRequired
       }).isRequired
-    };
+    }
 
     static displayName = `withSettingsState(${WrappedComponent.displayName ||
-      WrappedComponent.name})`;
+      WrappedComponent.name})`
 
     state = {
       ethereumNetworkUrl: null,
       errors: {}
-    };
+    }
 
     componentDidMount() {
       this.props.client
         .getEthereumNetworkUrl()
-        .then(({ ethereumNetworkUrl }) =>
-          this.setState({ ethereumNetworkUrl })
-        );
+        .then(({ ethereumNetworkUrl }) => this.setState({ ethereumNetworkUrl }))
     }
 
     onInputChange = ({ id, value }) => {
@@ -36,19 +34,19 @@ const withSettingsState = WrappedComponent => {
           ...state.errors,
           [id]: null
         }
-      }));
-    };
+      }))
+    }
 
     onNetworkUrlSubmit = () => {
       // TODO: validate URL
       return this.props.client.setEthereumNetworkUrl({
         ethereumNetworkUrl: this.state.ethereumNetworkUrl
-      });
-    };
+      })
+    }
 
     onRescanTransactions = () => {
-      return this.props.client.clearCache();
-    };
+      return this.props.client.clearCache()
+    }
 
     render() {
       return (
@@ -59,11 +57,11 @@ const withSettingsState = WrappedComponent => {
           onInputChange={this.onInputChange}
           {...this.state}
         />
-      );
+      )
     }
   }
 
-  return withClient(Container);
-};
+  return withClient(Container)
+}
 
-export default withSettingsState;
+export default withSettingsState

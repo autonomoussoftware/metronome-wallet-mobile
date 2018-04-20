@@ -1,9 +1,9 @@
-import withBalanceBlockState from '../../shared/hocs/withBalanceBlockState';
-import { View, Text } from '../common';
-import PropTypes from 'prop-types';
-import theme from '../../theme';
-import React from 'react';
-import RN from 'react-native';
+import { DisplayValue, View, Text } from '../common'
+import withBalanceBlockState from '../../shared/hocs/withBalanceBlockState'
+import PropTypes from 'prop-types'
+import theme from '../../theme'
+import React from 'react'
+import RN from 'react-native'
 
 class BalanceBlock extends React.Component {
   static propTypes = {
@@ -11,7 +11,7 @@ class BalanceBlock extends React.Component {
     mtnBalanceUSD: PropTypes.string.isRequired,
     ethBalanceWei: PropTypes.string.isRequired,
     ethBalanceUSD: PropTypes.string.isRequired
-  };
+  }
 
   render() {
     return (
@@ -24,7 +24,7 @@ class BalanceBlock extends React.Component {
         />
         <Row symbol="MET" value={this.props.mtnBalanceWei} />
       </View>
-    );
+    )
   }
 }
 
@@ -38,8 +38,14 @@ const Row = ({ symbol, value, usdValue, isFirst }) => (
     <View style={styles.symbol} bg="primary" py={0.5} px={1.5} mt={0.5}>
       <Text size="large">{symbol}</Text>
     </View>
-    <View ml={2}>
-      <Text size="xxLarge">{value}</Text>
+    <View grow={1} shrink={1} ml={2}>
+      <DisplayValue
+        value={value}
+        // ellipsizeMode="middle"
+        size="xxLarge"
+        // style={{ backgroundColor: 'red', fontSize: 24 }}
+      />
+
       {usdValue && (
         <Text size="medium" opacity={0.8}>
           ${usdValue} USD
@@ -47,17 +53,16 @@ const Row = ({ symbol, value, usdValue, isFirst }) => (
       )}
     </View>
   </View>
-);
+)
 
 Row.propTypes = {
   usdValue: PropTypes.string,
   isFirst: PropTypes.bool,
   symbol: PropTypes.string.isRequired,
   value: PropTypes.string.isRequired
-};
+}
 
 const styles = RN.StyleSheet.create({
-  container: {},
   symbol: {
     borderRadius: 8
   },
@@ -68,6 +73,6 @@ const styles = RN.StyleSheet.create({
   isFirst: {
     borderTopColor: 'transparent'
   }
-});
+})
 
-export default withBalanceBlockState(BalanceBlock);
+export default withBalanceBlockState(BalanceBlock)

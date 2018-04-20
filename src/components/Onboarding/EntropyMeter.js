@@ -1,36 +1,38 @@
-import { View, Text } from '../common';
-import PropTypes from 'prop-types';
-import theme from '../../theme';
-import React from 'react';
-import RN from 'react-native';
+import { View, Text } from '../common'
+import PropTypes from 'prop-types'
+import theme from '../../theme'
+import React from 'react'
+import RN from 'react-native'
 
 export default class EntropyMeter extends React.Component {
   static propTypes = {
     message: PropTypes.string.isRequired,
     ratio: PropTypes.number.isRequired,
     hue: PropTypes.number.isRequired
-  };
+  }
 
-  ratio = new RN.Animated.Value(0);
+  ratio = new RN.Animated.Value(0)
 
   color = ratio =>
     ratio >= 1
       ? theme.colors.success
-      : ratio >= 0.75 ? 'hsla(40, 100%, 50%, 0.75)' : theme.colors.danger;
+      : ratio >= 0.75
+        ? 'hsla(40, 100%, 50%, 0.75)'
+        : theme.colors.danger
 
   componentDidMount() {
-    this.animateBar();
+    this.animateBar()
   }
 
   componentDidUpdate({ ratio }) {
-    if (ratio !== this.props.ratio) this.animateBar();
+    if (ratio !== this.props.ratio) this.animateBar()
   }
 
   animateBar = () => {
     RN.Animated.spring(this.ratio, {
       toValue: this.props.ratio
-    }).start();
-  };
+    }).start()
+  }
 
   render() {
     return (
@@ -57,7 +59,7 @@ export default class EntropyMeter extends React.Component {
           {this.props.message}
         </Text>
       </View>
-    );
+    )
   }
 }
 
@@ -80,4 +82,4 @@ const styles = RN.StyleSheet.create({
     lineHeight: 18,
     fontSize: 14
   }
-});
+})

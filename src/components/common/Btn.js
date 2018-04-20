@@ -1,12 +1,12 @@
-import { spacing } from '../../utils';
-import PropTypes from 'prop-types';
-import React from 'react';
-import Text from './Text';
-import View from './View';
-import RN from 'react-native';
+import { spacing } from '../../utils'
+import PropTypes from 'prop-types'
+import React from 'react'
+import Text from './Text'
+import View from './View'
+import RN from 'react-native'
 
 const Btn = props => {
-  const { style, label, block, disabled, ...other } = props;
+  const { style, label, block, disabled, ...other } = props
 
   return (
     <RN.TouchableOpacity
@@ -21,15 +21,15 @@ const Btn = props => {
         </Text>
       </View>
     </RN.TouchableOpacity>
-  );
-};
+  )
+}
 
 Btn.propTypes = {
   label: PropTypes.string.isRequired,
   block: PropTypes.bool,
   style: PropTypes.any,
   ...spacing.propTypes
-};
+}
 
 const styles = RN.StyleSheet.create({
   container: {
@@ -38,6 +38,6 @@ const styles = RN.StyleSheet.create({
   block: {
     width: '100%'
   }
-});
+})
 
-export default Btn;
+export default Btn

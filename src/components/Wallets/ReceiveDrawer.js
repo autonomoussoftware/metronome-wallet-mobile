@@ -1,18 +1,18 @@
-import withReceiveDrawerState from '../../shared/hocs/withReceiveDrawerState';
-import { View, Text } from '../common';
-import PropTypes from 'prop-types';
-import CopyIcon from '../icons/CopyIcon';
-import QRCode from 'react-native-qrcode-svg';
-import theme from '../../theme';
-import React from 'react';
-import RN from 'react-native';
+import withReceiveDrawerState from '../../shared/hocs/withReceiveDrawerState'
+import { View, Text } from '../common'
+import PropTypes from 'prop-types'
+import CopyIcon from '../icons/CopyIcon'
+import QRCode from 'react-native-qrcode-svg'
+import theme from '../../theme'
+import React from 'react'
+import RN from 'react-native'
 
 class ReceiveDrawer extends React.Component {
   static propTypes = {
     copyToClipboard: PropTypes.func.isRequired,
     copyBtnLabel: PropTypes.string.isRequired,
     address: PropTypes.string.isRequired
-  };
+  }
 
   render() {
     return (
@@ -44,7 +44,7 @@ class ReceiveDrawer extends React.Component {
           </RN.TouchableOpacity>
         </View>
       </View>
-    );
+    )
   }
 }
 
@@ -62,6 +62,6 @@ const styles = RN.StyleSheet.create({
     marginTop: theme.spacing(1),
     marginBottom: theme.spacing(1)
   }
-});
+})
 
-export default withReceiveDrawerState(ReceiveDrawer);
+export default withReceiveDrawerState(ReceiveDrawer)

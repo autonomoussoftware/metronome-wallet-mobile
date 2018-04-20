@@ -1,23 +1,24 @@
-import { TouchableOpacity, SafeAreaView, StyleSheet, View } from 'react-native';
-import { Link, Route } from 'react-router-native';
-import ConverterIcon from './icons/ConverterIcon';
-import AuctionIcon from './icons/AuctionIcon';
-import WalletIcon from './icons/WalletIcon';
-import PropTypes from 'prop-types';
-import LogoIcon from './icons/LogoIcon';
-import DotIcon from './icons/DotIcon';
-import theme from '../theme';
-import React from 'react';
-import Text from './common/Text';
-import Logo from './icons/Logo';
+import { TouchableOpacity, SafeAreaView, StyleSheet, View } from 'react-native'
+import ConverterIcon from './icons/ConverterIcon'
+import AuctionIcon from './icons/AuctionIcon'
+import WalletIcon from './icons/WalletIcon'
+import { Route } from 'react-router'
+import PropTypes from 'prop-types'
+import { Link } from 'react-router-native'
+import LogoIcon from './icons/LogoIcon'
+import DotIcon from './icons/DotIcon'
+import theme from '../theme'
+import React from 'react'
+import Text from './common/Text'
+import Logo from './icons/Logo'
 
 export default class Sidebar extends React.Component {
   static propTypes = {
     onLinkPress: PropTypes.func.isRequired
-  };
+  }
 
   render() {
-    const { onLinkPress } = this.props;
+    const { onLinkPress } = this.props
 
     return (
       <View style={styles.container}>
@@ -56,7 +57,7 @@ export default class Sidebar extends React.Component {
           <LogoIcon style={styles.footerLogo} />
         </SafeAreaView>
       </View>
-    );
+    )
   }
 }
 
@@ -79,14 +80,14 @@ const NavBtn = ({ label, isFirst, IconComponent, to, ...other }) => (
       )}
     </Route>
   </Link>
-);
+)
 
 NavBtn.propTypes = {
   IconComponent: PropTypes.func.isRequired,
   isFirst: PropTypes.bool,
   label: PropTypes.string.isRequired,
   to: PropTypes.string.isRequired
-};
+}
 
 const SecondaryNavBtn = ({ label, to, ...other }) => (
   <Link component={TouchableOpacity} activeOpacity={0.5} to={to} {...other}>
@@ -105,13 +106,13 @@ const SecondaryNavBtn = ({ label, to, ...other }) => (
       )}
     </Route>
   </Link>
-);
+)
 
 SecondaryNavBtn.propTypes = {
   isFirst: PropTypes.bool,
   label: PropTypes.string.isRequired,
   to: PropTypes.string.isRequired
-};
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -171,4 +172,4 @@ const styles = StyleSheet.create({
   footerLogo: {
     margin: theme.spacing(2)
   }
-});
+})

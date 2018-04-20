@@ -1,12 +1,12 @@
-import { Text, View, Btn } from '../common';
-import withConverterState from '../../shared/hocs/withConverterState';
-import ConvertDrawer from './ConvertDrawer';
-import RoutePager from '../common/RoutePager';
-import PropTypes from 'prop-types';
-import { Link } from 'react-router-native';
-import Stats from './Stats';
-import React from 'react';
-import RN from 'react-native';
+import { Text, View, Btn } from '../common'
+import withConverterState from '../../shared/hocs/withConverterState'
+import ConvertDrawer from './ConvertDrawer'
+import RoutePager from '../common/RoutePager'
+import PropTypes from 'prop-types'
+import { Link } from 'react-router-native'
+import Stats from './Stats'
+import React from 'react'
+import RN from 'react-native'
 
 export default class Converter extends React.Component {
   render() {
@@ -17,7 +17,7 @@ export default class Converter extends React.Component {
           '/converter/convert': ConvertDrawer
         }}
       />
-    );
+    )
   }
 }
 
@@ -27,7 +27,7 @@ class Home extends React.Component {
     converterPriceUSD: PropTypes.string.isRequired,
     convertDisabled: PropTypes.bool.isRequired,
     converterStatus: PropTypes.object
-  };
+  }
 
   render() {
     const {
@@ -35,7 +35,7 @@ class Home extends React.Component {
       converterPriceUSD,
       converterStatus,
       convertDisabled
-    } = this.props;
+    } = this.props
 
     return (
       <View flex={1} px={2} py={4} justify="space-between">
@@ -70,6 +70,6 @@ class Home extends React.Component {
           </View>
         )}
       </View>
-    );
+    )
   }
 }

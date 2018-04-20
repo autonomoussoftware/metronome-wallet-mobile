@@ -1,4 +1,4 @@
-const darkShade = 'rgba(0, 0, 0, 0.2)';
+const darkShade = 'rgba(0, 0, 0, 0.2)'
 
 export default {
   colors: {
@@ -13,7 +13,7 @@ export default {
     darkShade,
     success: '#45d48d',
     danger: '#d46045',
-    weak: '#ababab',
+    weak: '#888',
 
     // BACKGROUNDS
     medium: '#f4f4f4',
@@ -33,4 +33,4 @@ export default {
 
   textShadow: `0 1px 1px ${darkShade}`,
   spacing: n => n * 8 // used as rem multiplier
-};
+}

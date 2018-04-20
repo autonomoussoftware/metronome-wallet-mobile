@@ -1,10 +1,10 @@
-import { errorPropTypes } from '../../utils';
-import TextInput from './TextInput';
-import PropTypes from 'prop-types';
-import BaseBtn from './BaseBtn';
-import React from 'react';
-import Text from './Text';
-import View from './View';
+import { errorPropTypes } from '../../utils'
+import TextInput from './TextInput'
+import PropTypes from 'prop-types'
+import BaseBtn from './BaseBtn'
+import React from 'react'
+import Text from './Text'
+import View from './View'
 
 class AmountFields extends React.Component {
   static propTypes = {
@@ -16,7 +16,7 @@ class AmountFields extends React.Component {
     usdAmount: PropTypes.string,
     autoFocus: PropTypes.bool,
     errors: errorPropTypes('ethAmount', 'usdAmount')
-  };
+  }
 
   render() {
     return (
@@ -55,8 +55,8 @@ class AmountFields extends React.Component {
           />
         </View>
       </View>
-    );
+    )
   }
 }
 
-export default AmountFields;
+export default AmountFields

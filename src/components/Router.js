@@ -1,30 +1,31 @@
-import { NativeRouter, Switch, Route, Redirect } from 'react-router-native';
-import DrawerLayout from 'react-native-drawer-layout-polyfill';
-import Converter from './Converter';
-import Settings from './Settings';
-import { View } from './common';
-import Wallets from './Wallets';
-import Sidebar from './Sidebar';
-import Auction from './Auction';
-import Header from './Header';
-import Tools from './Tools';
-import React from 'react';
+import { Switch, Route, Redirect } from 'react-router'
+import { NativeRouter } from 'react-router-native'
+import DrawerLayout from 'react-native-drawer-layout-polyfill'
+import Converter from './Converter'
+import Settings from './Settings'
+import { View } from './common'
+import Wallets from './Wallets'
+import Sidebar from './Sidebar'
+import Auction from './Auction'
+import Header from './Header'
+import Tools from './Tools'
+import React from 'react'
 
 export default class Router extends React.Component {
   getDrawerRef = element => {
-    this.drawer = element;
-  };
+    this.drawer = element
+  }
 
-  openDrawer = () => this.drawer.openDrawer();
+  openDrawer = () => this.drawer.openDrawer()
 
-  closeDrawer = () => this.drawer.closeDrawer();
+  closeDrawer = () => this.drawer.closeDrawer()
 
-  renderNavigationView = () => <Sidebar onLinkPress={this.closeDrawer} />;
+  renderNavigationView = () => <Sidebar onLinkPress={this.closeDrawer} />
 
-  homeRoute = () => <Redirect to="/wallets" />;
+  homeRoute = () => <Redirect to="/wallets" />
 
   shouldComponentUpdate() {
-    return false;
+    return false
   }
 
   render() {
@@ -50,6 +51,6 @@ export default class Router extends React.Component {
           </View>
         </DrawerLayout>
       </NativeRouter>
-    );
+    )
   }
 }

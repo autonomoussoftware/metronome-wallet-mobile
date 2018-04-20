@@ -1,8 +1,8 @@
-import { withRouter } from 'react-router-native';
-import { View, Text } from '../common';
-import PropTypes from 'prop-types';
-import React from 'react';
-import RN from 'react-native';
+import { withRouter } from 'react-router'
+import { View, Text } from '../common'
+import PropTypes from 'prop-types'
+import React from 'react'
+import RN from 'react-native'
 
 const titlesByPath = {
   '/wallets/receive': 'Receive',
@@ -18,31 +18,36 @@ const titlesByPath = {
   '/settings': 'Settings',
   '/tools': 'Recover wallet',
   '/help': 'Help'
-};
+}
 
 class Title extends React.Component {
   static propTypes = {
     location: PropTypes.shape({
       pathname: PropTypes.string.isRequired
     }).isRequired
-  };
+  }
 
-  state = { title: '' };
+  state = { title: '' }
 
-  static getDerivedStateFromProps({ location: { pathname } }, prevState) {
-    const newPathTitle = titlesByPath[pathname] || '';
+  static getDerivedStateFromProps(
+    {
+      location: { pathname }
+    },
+    prevState
+  ) {
+    const newPathTitle = titlesByPath[pathname] || ''
 
     // Avoid updating anything if title didn't change
-    if (newPathTitle === prevState.title) return null;
+    if (newPathTitle === prevState.title) return null
 
     // Schedule an animation for the title update
-    RN.LayoutAnimation.easeInEaseOut();
+    RN.LayoutAnimation.easeInEaseOut()
 
-    return { title: newPathTitle };
+    return { title: newPathTitle }
   }
 
   render() {
-    const { title } = this.state;
+    const { title } = this.state
 
     return (
       <View justify="center" align="center" grow={1} mr={4} px={1}>
@@ -56,8 +61,8 @@ class Title extends React.Component {
           {title}
         </Text>
       </View>
-    );
+    )
   }
 }
 
-export default withRouter(Title);
+export default withRouter(Title)

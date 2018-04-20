@@ -1,8 +1,8 @@
-import { Text, View } from '../common';
-import PropTypes from 'prop-types';
-import theme from '../../theme';
-import React from 'react';
-import RN from 'react-native';
+import { Text, View } from '../common'
+import PropTypes from 'prop-types'
+import theme from '../../theme'
+import React from 'react'
+import RN from 'react-native'
 
 export default class Stats extends React.Component {
   static propTypes = {
@@ -11,10 +11,10 @@ export default class Stats extends React.Component {
       tokenRemaining: PropTypes.string.isRequired,
       currentPrice: PropTypes.string.isRequired
     })
-  };
+  }
 
   render() {
-    const { auctionPriceUSD, auctionStatus } = this.props;
+    const { auctionPriceUSD, auctionStatus } = this.props
 
     return (
       <View bg="lightShade" mt={2}>
@@ -38,7 +38,7 @@ export default class Stats extends React.Component {
           <Text size="medium">{auctionStatus.tokenRemaining} MET</Text>
         </View>
       </View>
-    );
+    )
   }
 }
 
@@ -55,4 +55,4 @@ const styles = RN.StyleSheet.create({
   topRow: {
     borderTopColor: theme.colors.transparent
   }
-});
+})

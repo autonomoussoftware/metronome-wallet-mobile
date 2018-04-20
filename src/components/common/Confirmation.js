@@ -1,14 +1,14 @@
-import ConfirmationWizard from '../../shared/ConfirmationWizard';
-import CheckIcon from '../icons/CheckIcon';
-import CloseIcon from '../icons/CloseIcon';
-import TextInput from './TextInput';
-import PropTypes from 'prop-types';
-import BaseBtn from './BaseBtn';
-import React from 'react';
-import View from './View';
-import Text from './Text';
-import Btn from './Btn';
-import RN from 'react-native';
+import ConfirmationWizard from '../../shared/ConfirmationWizard'
+import CheckIcon from '../icons/CheckIcon'
+import CloseIcon from '../icons/CloseIcon'
+import TextInput from './TextInput'
+import PropTypes from 'prop-types'
+import BaseBtn from './BaseBtn'
+import React from 'react'
+import View from './View'
+import Text from './Text'
+import Btn from './Btn'
+import RN from 'react-native'
 
 export default class Confirmation extends React.Component {
   static propTypes = {
@@ -22,7 +22,7 @@ export default class Confirmation extends React.Component {
     pendingText: PropTypes.string,
     renderForm: PropTypes.func.isRequired,
     validate: PropTypes.func
-  };
+  }
 
   static defaultProps = {
     confirmationTitle: 'Transaction Preview',
@@ -31,7 +31,7 @@ export default class Confirmation extends React.Component {
     failureTitle: 'Error',
     successText:
       'You can view the status of this transaction in the transaction list.'
-  };
+  }
 
   renderConfirmation = ({
     onPasswordChange,
@@ -66,8 +66,8 @@ export default class Confirmation extends React.Component {
         />
         <Btn label="Confirm" onPress={onConfirm} />
       </View>
-    );
-  };
+    )
+  }
 
   renderPending = () => {
     return (
@@ -84,8 +84,8 @@ export default class Confirmation extends React.Component {
           </Text>
         )}
       </View>
-    );
-  };
+    )
+  }
 
   renderSuccess = () => {
     return (
@@ -100,8 +100,8 @@ export default class Confirmation extends React.Component {
           </Text>
         )}
       </View>
-    );
-  };
+    )
+  }
 
   renderFailure = ({ onTryAgain, error }) => {
     return (
@@ -122,8 +122,8 @@ export default class Confirmation extends React.Component {
           mt={2}
         />
       </View>
-    );
-  };
+    )
+  }
 
   render() {
     return (
@@ -136,6 +136,6 @@ export default class Confirmation extends React.Component {
         renderForm={this.props.renderForm}
         validate={this.props.validate}
       />
-    );
+    )
   }
 }

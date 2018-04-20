@@ -1,7 +1,8 @@
-import { AmountFields, GasEditor, Btn, View } from '../common';
-import withConvertETHtoMETState from '../../shared/hocs/withConvertETHtoMETState';
-import PropTypes from 'prop-types';
-import React from 'react';
+import { AmountFields, GasEditor, Btn, View } from '../common'
+import withConvertETHtoMETState from '../../shared/hocs/withConvertETHtoMETState'
+import { pageStatusPropTypes } from '../../utils'
+import PropTypes from 'prop-types'
+import React from 'react'
 
 class ConvertETHtoMETForm extends React.Component {
   static propTypes = {
@@ -16,12 +17,16 @@ class ConvertETHtoMETForm extends React.Component {
     usdAmount: PropTypes.string,
     gasPrice: PropTypes.string,
     gasLimit: PropTypes.string,
-    errors: PropTypes.object.isRequired
-  };
+    errors: PropTypes.object.isRequired,
+    ...pageStatusPropTypes
+  }
 
   componentDidUpdate(prevProps) {
-    if (this.props.status === 'offscreen' && prevProps.status !== 'offscreen') {
-      this.props.resetForm();
+    if (
+      this.props.pageStatus === 'offscreen' &&
+      prevProps.pageStatus !== 'offscreen'
+    ) {
+      this.props.resetForm()
     }
   }
 
@@ -48,8 +53,8 @@ class ConvertETHtoMETForm extends React.Component {
         </View>
         <Btn label="Review Convert" mt={4} />
       </View>
-    );
+    )
   }
 }
 
-export default withConvertETHtoMETState(ConvertETHtoMETForm);
+export default withConvertETHtoMETState(ConvertETHtoMETForm)
