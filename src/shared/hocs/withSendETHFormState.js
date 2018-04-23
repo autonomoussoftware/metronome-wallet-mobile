@@ -1,7 +1,7 @@
 import { getInitialState } from './withGasEditorState'
 import * as validators from '../validators'
-import * as selectors from '../selectors'
 import { withClient } from './clientContext'
+import * as selectors from '../selectors'
 import { debounce } from 'lodash'
 import { connect } from 'react-redux'
 import * as utils from '../utils'

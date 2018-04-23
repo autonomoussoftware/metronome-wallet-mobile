@@ -1,7 +1,7 @@
 import { getInitialState } from './withGasEditorState'
 import * as validators from '../validators'
-import * as selectors from '../selectors'
 import { withClient } from './clientContext'
+import * as selectors from '../selectors'
 import { debounce } from 'lodash'
 import { connect } from 'react-redux'
 import * as utils from '../utils'
@@ -32,6 +32,7 @@ const withSendMETFormState = WrappedComponent => {
 
     initialState = {
       ...getInitialState('MET', this.props.client, this.props.config),
+      gasEstimateError: false,
       toAddress: null,
       metAmount: null,
       errors: {}
@@ -44,6 +45,7 @@ const withSendMETFormState = WrappedComponent => {
     onInputChange = ({ id, value }) => {
       this.setState(state => ({
         ...state,
+        gasEstimateError: id === 'gasLimit' ? false : state.gasEstimateError,
         errors: { ...state.errors, [id]: null },
         [id]: value
       }))
@@ -70,9 +72,12 @@ const withSendMETFormState = WrappedComponent => {
           to: toAddress
         })
         .then(({ gasLimit }) =>
-          this.setState({ gasLimit: gasLimit.toString() })
+          this.setState({
+            gasEstimateError: false,
+            gasLimit: gasLimit.toString()
+          })
         )
-        .catch(err => console.warn('Gas estimation failed', err))
+        .catch(() => this.setState({ gasEstimateError: true }))
     }, 500)
 
     onWizardSubmit = password => {
@@ -87,13 +92,14 @@ const withSendMETFormState = WrappedComponent => {
     }
 
     validate = () => {
-      const { metAmount, toAddress, gasPrice, gasLimit, client } = this.state
+      const { metAmount, toAddress, gasPrice, gasLimit } = this.state
+      const { client } = this.props
       const max = client.fromWei(this.props.availableMET)
       const errors = {
-        ...validators.validateToAddress(toAddress),
-        ...validators.validateMetAmount(metAmount, max),
-        ...validators.validateGasPrice(gasPrice),
-        ...validators.validateGasLimit(gasLimit)
+        ...validators.validateToAddress(client, toAddress),
+        ...validators.validateMetAmount(client, metAmount, max),
+        ...validators.validateGasPrice(client, gasPrice),
+        ...validators.validateGasLimit(client, gasLimit)
       }
       const hasErrors = Object.keys(errors).length > 0
       if (hasErrors) this.setState({ errors })
@@ -110,6 +116,7 @@ const withSendMETFormState = WrappedComponent => {
 
       return (
         <WrappedComponent
+          onWizardSubmit={this.onWizardSubmit}
           onInputChange={this.onInputChange}
           onMaxClick={this.onMaxClick}
           resetForm={this.resetForm}
@@ -119,6 +126,7 @@ const withSendMETFormState = WrappedComponent => {
             metAmount === 'Invalid amount' ? 'Invalid amount' : '0.00'
           }
           metAmount={metAmount === 'Invalid amount' ? '' : metAmount}
+          validate={this.validate}
         />
       )
     }
