@@ -107,7 +107,7 @@ const styles = RN.StyleSheet.create({
     alignItems: 'center'
   },
   label: {
-    fontSize: 12,
+    fontSize: 14,
     lineHeight: 16
   },
   fieldContainer: {

@@ -17,7 +17,7 @@ export function smartRound(client, weiAmount) {
     decimals = 18
   }
   // round extra decimals and remove trailing zeroes
-  return new BigNumber(n.toFixed(Math.ceil(decimals))).toFormat()
+  return new BigNumber(n.toFixed(Math.ceil(decimals))).toString(10)
 }
 
 export function sanitize(amount = '') {
@@ -95,8 +95,8 @@ export function toMET(
   let isValidAmount
   let weiAmount
   try {
-    weiAmount = client.toBN(client.toWei(sanitize(amount)))
-    isValidAmount = weiAmount.gte(client.toBN(0))
+    weiAmount = new BigNumber(client.toWei(sanitize(amount)))
+    isValidAmount = weiAmount.gte(new BigNumber(0))
   } catch (e) {
     isValidAmount = false
   }
@@ -104,22 +104,21 @@ export function toMET(
   const expectedMETamount = isValidAmount
     ? client.toWei(
         weiAmount
-          .dividedBy(client.toBN(rate))
+          .dividedBy(new BigNumber(rate))
           .decimalPlaces(18)
           .toString(10)
       )
     : errorValue
 
   const excedes = isValidAmount
-    ? client.toBN(expectedMETamount).gte(client.toBN(remaining))
+    ? client.toBN(expectedMETamount).gt(client.toBN(remaining))
     : null
 
   const usedETHAmount =
     isValidAmount && excedes
-      ? client
-          .toBN(remaining)
-          .multipliedBy(client.toBN(rate))
-          .dividedBy(client.toBN(client.toWei('1')))
+      ? new BigNumber(remaining)
+          .multipliedBy(new BigNumber(rate))
+          .dividedBy(new BigNumber(client.toWei('1')))
           .decimalPlaces(18)
           .toString(10)
       : null

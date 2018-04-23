@@ -40,7 +40,7 @@ class AmountFields extends React.Component {
             id="ethAmount"
           />
         </View>
-        <View mt={2} mx={1}>
+        <View mt={0.25} mx={1}>
           <Text>&larr;</Text>
           <Text>&rarr;</Text>
         </View>

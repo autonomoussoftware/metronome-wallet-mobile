@@ -17,9 +17,9 @@ export default config => ({
   auction: {
     status: {
       nextAuctionStartTime: inOneHour(),
-      tokenRemaining: '770',
+      tokenRemaining: '1000000000000000000',
       currentAuction: '10',
-      currentPrice: '3300',
+      currentPrice: '33000000000000',
       genesisTime: twoWeeksAgo()
     }
   },
@@ -33,7 +33,7 @@ export default config => ({
         addresses: {
           '0xd6758d1907ed647605429d40cd19c58a6d05eb8b': {
             token: { [config.MTN_TOKEN_ADDR]: { balance: '980' } },
-            balance: '000000080000000000',
+            balance: '3500000000000000000',
             transactions: [
               {
                 _id: 'pDouGpwoY1kd7sPj',

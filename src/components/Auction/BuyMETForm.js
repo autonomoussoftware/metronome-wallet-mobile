@@ -1,12 +1,24 @@
-import { AmountFields, GasEditor, View, Btn, Text } from '../common'
 import { pageStatusPropTypes } from '../../utils'
 import withBuyMETFormState from '../../shared/hocs/withBuyMETFormState'
 import ConfirmationWizard from '../common/Confirmation'
 import PropTypes from 'prop-types'
 import React from 'react'
+import {
+  AmountFields,
+  DisplayValue,
+  GasEditor,
+  View,
+  Btn,
+  Text
+} from '../common'
 
 class BuyMETForm extends React.Component {
   static propTypes = {
+    expectedMETamount: PropTypes.string,
+    excessETHAmount: PropTypes.string,
+    usedETHAmount: PropTypes.string,
+    excedes: PropTypes.bool,
+    gasEstimateError: PropTypes.bool,
     onWizardSubmit: PropTypes.func.isRequired,
     ethPlaceholder: PropTypes.string,
     usdPlaceholder: PropTypes.string,
@@ -34,10 +46,53 @@ class BuyMETForm extends React.Component {
   }
 
   renderConfirmation = () => {
-    return (
-      <View>
-        <Text>The preview will go here</Text>
-      </View>
+    return this.props.excedes ? (
+      <React.Fragment>
+        <View>
+          <Text size="large">
+            You will use{' '}
+            <DisplayValue
+              value={this.props.usedETHAmount}
+              color="primary"
+              post=" ETH"
+            />{' '}
+            to buy{' '}
+            <DisplayValue
+              value={this.props.tokenRemaining}
+              color="primary"
+              post=" MET"
+            />{' '}
+            at current price and get a return of approximately{' '}
+            <DisplayValue
+              value={this.props.excessETHAmount}
+              color="primary"
+              post=" ETH"
+            />.
+          </Text>
+        </View>
+        <View my={2}>
+          <Text color="danger" size="medium">
+            This operation will deplete the current auction.
+          </Text>
+        </View>
+      </React.Fragment>
+    ) : (
+      <Text size="large">
+        You will use{' '}
+        <DisplayValue
+          value={this.props.ethAmount}
+          toWei
+          post=" ETH"
+          color="primary"
+        />{' '}
+        (${this.props.usdAmount}) to buy approximately{' '}
+        <DisplayValue
+          value={this.props.expectedMETamount}
+          post=" MET"
+          color="primary"
+        />{' '}
+        at current price.
+      </Text>
     )
   }
 
@@ -56,12 +111,42 @@ class BuyMETForm extends React.Component {
 
         <View grow={1} mt={4}>
           <GasEditor
+            gasEstimateError={this.props.gasEstimateError}
             onInputChange={this.props.onInputChange}
             useCustomGas={this.props.useCustomGas}
             gasLimit={this.props.gasLimit}
             gasPrice={this.props.gasPrice}
             errors={this.props.errors}
           />
+
+          {this.props.expectedMETamount && (
+            <View mt={4}>
+              {this.props.excedes ? (
+                <Text color="danger" size="medium">
+                  You would get all remaining{' '}
+                  <DisplayValue
+                    value={this.props.tokenRemaining}
+                    color="danger"
+                    post=" MET"
+                  />{' '}
+                  and receive a return of approximately{' '}
+                  <DisplayValue
+                    value={this.props.excessETHAmount}
+                    color="danger"
+                    post=" ETH"
+                  />.
+                </Text>
+              ) : (
+                <Text size="medium">
+                  You would get approximately{' '}
+                  <DisplayValue
+                    value={this.props.expectedMETamount}
+                    post=" MET"
+                  />.
+                </Text>
+              )}
+            </View>
+          )}
         </View>
         <Btn label="Review Buy" mt={4} onPress={goToReview} />
       </View>

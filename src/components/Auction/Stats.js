@@ -1,4 +1,4 @@
-import { Text, View } from '../common'
+import { DisplayValue, Text, View } from '../common'
 import PropTypes from 'prop-types'
 import theme from '../../theme'
 import React from 'react'
@@ -25,7 +25,11 @@ export default class Stats extends React.Component {
               <Text color="primary" size="medium" mr={1}>
                 1 MET =
               </Text>
-              <Text size="medium">{auctionStatus.currentPrice} ETH</Text>
+              <DisplayValue
+                value={auctionStatus.currentPrice}
+                size="medium"
+                post=" ETH"
+              />
             </View>
             <Text opacity={0.8} size="small" align="right">
               ${auctionPriceUSD}
@@ -35,7 +39,11 @@ export default class Stats extends React.Component {
 
         <View style={styles.row}>
           <Text>Available</Text>
-          <Text size="medium">{auctionStatus.tokenRemaining} MET</Text>
+          <DisplayValue
+            value={auctionStatus.tokenRemaining}
+            size="medium"
+            post=" MET"
+          />
         </View>
       </View>
     )

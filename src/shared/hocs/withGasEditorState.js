@@ -28,6 +28,8 @@ const withGasEditorState = WrappedComponent => {
     static displayName = `withGasEditorState(${WrappedComponent.displayName ||
       WrappedComponent.name})`
 
+    state = { priceError: false }
+
     componentDidMount() {
       // Avoid getting current price if using custom price
       if (this.props.useCustomGas) return
@@ -35,12 +37,13 @@ const withGasEditorState = WrappedComponent => {
       this.props.client
         .getGasPrice()
         .then(({ gasPrice }) => {
+          this.setState({ priceError: false })
           this.props.onInputChange({
             id: 'gasPrice',
             value: this.props.client.fromWei(gasPrice, 'gwei')
           })
         })
-        .catch(err => console.warn('Gas price request failed', err))
+        .catch(() => this.setState({ priceError: true }))
     }
 
     onGasToggle = () => {
@@ -49,7 +52,13 @@ const withGasEditorState = WrappedComponent => {
     }
 
     render() {
-      return <WrappedComponent onGasToggle={this.onGasToggle} {...this.props} />
+      return (
+        <WrappedComponent
+          onGasToggle={this.onGasToggle}
+          {...this.props}
+          {...this.state}
+        />
+      )
     }
   }
 

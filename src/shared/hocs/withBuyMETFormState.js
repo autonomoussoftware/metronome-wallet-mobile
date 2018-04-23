@@ -19,7 +19,8 @@ const withBuyMETFormState = WrappedComponent => {
         getAuctionGasLimit: PropTypes.func.isRequired,
         buyMetronome: PropTypes.func.isRequired,
         fromWei: PropTypes.func.isRequired,
-        toWei: PropTypes.func.isRequired
+        toWei: PropTypes.func.isRequired,
+        toBN: PropTypes.func.isRequired
       }).isRequired,
       config: PropTypes.shape({
         MET_DEFAULT_GAS_LIMIT: PropTypes.string.isRequired,
@@ -32,6 +33,7 @@ const withBuyMETFormState = WrappedComponent => {
       WrappedComponent.name})`
 
     initialState = {
+      gasEstimateError: false,
       ethAmount: null,
       usdAmount: null,
       ...getInitialState('MET', this.props.client, this.props.config),
@@ -47,6 +49,7 @@ const withBuyMETFormState = WrappedComponent => {
       this.setState(state => ({
         ...state,
         ...utils.syncAmounts(state, ETHprice, id, value, client),
+        gasEstimateError: id === 'gasLimit' ? false : state.gasEstimateError,
         errors: { ...state.errors, [id]: null },
         [id]: value
       }))
@@ -58,17 +61,20 @@ const withBuyMETFormState = WrappedComponent => {
     getGasEstimate = debounce(() => {
       const { ethAmount } = this.state
 
-      if (!utils.isWeiable(ethAmount)) return
+      if (!utils.isWeiable(this.props.client, ethAmount)) return
 
       this.props.client
         .getAuctionGasLimit({
           value: this.props.client.toWei(utils.sanitize(ethAmount)),
           from: this.props.from
         })
-        .then(({ gasLimit }) =>
-          this.setState({ gasLimit: gasLimit.toString() })
-        )
-        .catch(err => console.warn('Gas estimation failed', err))
+        .then(({ gasLimit }) => {
+          this.setState({
+            gasEstimateError: false,
+            gasLimit: gasLimit.toString()
+          })
+        })
+        .catch(() => this.setState({ gasEstimateError: true }))
     }, 500)
 
     onWizardSubmit = password => {
@@ -103,6 +109,14 @@ const withBuyMETFormState = WrappedComponent => {
     render() {
       const { ethAmount, usdAmount } = this.state
 
+      const expected = utils.toMET(
+        this.props.client,
+        ethAmount,
+        this.props.currentPrice,
+        null,
+        this.props.tokenRemaining
+      )
+
       return (
         <WrappedComponent
           onWizardSubmit={this.onWizardSubmit}
@@ -111,6 +125,7 @@ const withBuyMETFormState = WrappedComponent => {
           resetForm={this.resetForm}
           {...this.props}
           {...this.state}
+          {...expected}
           ethPlaceholder={
             ethAmount === 'Invalid amount' ? 'Invalid amount' : '0.00'
           }

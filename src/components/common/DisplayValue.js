@@ -10,17 +10,19 @@ class DisplayValue extends React.Component {
       fromWei: PropTypes.func.isRequired
     }).isRequired,
     value: PropTypes.string,
+    toWei: PropTypes.bool,
     post: PropTypes.string,
     pre: PropTypes.string
   }
 
   render() {
-    const { value, post, pre, client, ...other } = this.props
+    const { toWei, value, post, pre, client, ...other } = this.props
 
     let formattedValue
 
     try {
-      formattedValue = smartRound(client, value)
+      const weiValue = toWei ? client.toWei(value) : value
+      formattedValue = smartRound(client, weiValue)
     } catch (e) {
       formattedValue = null
     }
