@@ -1,9 +1,9 @@
 import { pageStatusPropTypes } from '../../utils'
 import withBuyMETFormState from '../../shared/hocs/withBuyMETFormState'
-import ConfirmationWizard from '../common/Confirmation'
 import PropTypes from 'prop-types'
 import React from 'react'
 import {
+  ConfirmationWizard,
   AmountFields,
   DisplayValue,
   GasEditor,

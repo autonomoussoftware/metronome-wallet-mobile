@@ -1,3 +1,4 @@
+import ConfirmationWizard from './Confirmation'
 import AmountFields from './AmountFields'
 import DisplayValue from './DisplayValue'
 import RoutePager from './RoutePager'
@@ -10,6 +11,7 @@ import Tab from './Tab'
 import Btn from './Btn'
 
 export {
+  ConfirmationWizard,
   AmountFields,
   DisplayValue,
   RoutePager,

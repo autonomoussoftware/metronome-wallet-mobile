@@ -31,6 +31,7 @@ const withSendETHFormState = WrappedComponent => {
 
     initialState = {
       ...getInitialState('ETH', this.props.client, this.props.config),
+      gasEstimateError: false,
       toAddress: null,
       ethAmount: null,
       usdAmount: null,
@@ -46,6 +47,7 @@ const withSendETHFormState = WrappedComponent => {
       this.setState(state => ({
         ...state,
         ...utils.syncAmounts(state, ETHprice, id, value, client),
+        gasEstimateError: id === 'gasLimit' ? false : state.gasEstimateError,
         errors: { ...state.errors, [id]: null },
         [id]: value
       }))
@@ -65,9 +67,12 @@ const withSendETHFormState = WrappedComponent => {
           from: this.props.from
         })
         .then(({ gasLimit }) =>
-          this.setState({ gasLimit: gasLimit.toString() })
+          this.setState({
+            gasEstimateError: false,
+            gasLimit: gasLimit.toString()
+          })
         )
-        .catch(err => console.warn('Gas estimation failed', err))
+        .catch(() => this.setState({ gasEstimateError: true }))
     }, 500)
 
     onWizardSubmit = password => {
@@ -82,13 +87,14 @@ const withSendETHFormState = WrappedComponent => {
     }
 
     validate = () => {
-      const { ethAmount, toAddress, gasPrice, gasLimit, client } = this.state
+      const { ethAmount, toAddress, gasPrice, gasLimit } = this.state
+      const { client } = this.props
       const max = client.fromWei(this.props.availableETH)
       const errors = {
-        ...validators.validateToAddress(toAddress),
-        ...validators.validateEthAmount(ethAmount, max),
-        ...validators.validateGasPrice(gasPrice),
-        ...validators.validateGasLimit(gasLimit)
+        ...validators.validateToAddress(client, toAddress),
+        ...validators.validateEthAmount(client, ethAmount, max),
+        ...validators.validateGasPrice(client, gasPrice),
+        ...validators.validateGasLimit(client, gasLimit)
       }
       const hasErrors = Object.keys(errors).length > 0
       if (hasErrors) this.setState({ errors })
@@ -105,6 +111,7 @@ const withSendETHFormState = WrappedComponent => {
 
       return (
         <WrappedComponent
+          onWizardSubmit={this.onWizardSubmit}
           onInputChange={this.onInputChange}
           onMaxClick={this.onMaxClick}
           resetForm={this.resetForm}
@@ -118,6 +125,7 @@ const withSendETHFormState = WrappedComponent => {
           }
           ethAmount={ethAmount === 'Invalid amount' ? '' : ethAmount}
           usdAmount={usdAmount === 'Invalid amount' ? '' : usdAmount}
+          validate={this.validate}
         />
       )
     }
