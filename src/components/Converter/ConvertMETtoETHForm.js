@@ -1,11 +1,22 @@
-import { TextInput, GasEditor, BaseBtn, Btn, View } from '../common'
 import { errorPropTypes, pageStatusPropTypes } from '../../utils'
 import withConvertMETtoETHState from '../../shared/hocs/withConvertMETtoETHState'
 import PropTypes from 'prop-types'
 import React from 'react'
+import {
+  ConfirmationWizard,
+  DisplayValue,
+  TextInput,
+  GasEditor,
+  BaseBtn,
+  Text,
+  View,
+  Btn
+} from '../common'
 
 class ConvertMETtoETHForm extends React.Component {
   static propTypes = {
+    gasEstimateError: PropTypes.bool,
+    onWizardSubmit: PropTypes.func.isRequired,
     metPlaceholder: PropTypes.string,
     onInputChange: PropTypes.func.isRequired,
     availableMET: PropTypes.string.isRequired,
@@ -13,6 +24,7 @@ class ConvertMETtoETHForm extends React.Component {
     onMaxClick: PropTypes.func.isRequired,
     resetForm: PropTypes.func.isRequired,
     metAmount: PropTypes.string,
+    validate: PropTypes.func.isRequired,
     gasPrice: PropTypes.string,
     gasLimit: PropTypes.string,
     errors: errorPropTypes('metAmount'),
@@ -25,7 +37,23 @@ class ConvertMETtoETHForm extends React.Component {
     }
   }
 
-  render() {
+  renderConfirmation = () => {
+    return (
+      <Text size="large">
+        You will convert{' '}
+        <DisplayValue
+          value={this.props.metAmount}
+          color="primary"
+          toWei
+          post=" MET"
+        />{' '}
+        and get approximately{' '}
+        <DisplayValue value={this.props.estimate} post=" ETH" color="primary" />.
+      </Text>
+    )
+  }
+
+  renderForm = ({ goToReview }) => {
     return (
       <View flex={1} px={2} py={4} justify="space-between">
         <TextInput
@@ -53,8 +81,24 @@ class ConvertMETtoETHForm extends React.Component {
             errors={this.props.errors}
           />
         </View>
-        <Btn label="Review Convert" mt={4} />
+        <Btn label="Review Convert" mt={4} onPress={goToReview} />
       </View>
+    )
+  }
+
+  render() {
+    if (this.props.pageStatus === 'offscreen') return null
+
+    return (
+      <ConfirmationWizard
+        renderConfirmation={this.renderConfirmation}
+        onWizardSubmit={this.props.onWizardSubmit}
+        pendingTitle="Converting MET..."
+        pendingText="This may take a while. You can close this and follow the status of the conversion in the transaction list."
+        renderForm={this.renderForm}
+        editLabel="Edit this conversion"
+        validate={this.props.validate}
+      />
     )
   }
 }

@@ -1,11 +1,21 @@
-import { AmountFields, GasEditor, Btn, View } from '../common'
 import withConvertETHtoMETState from '../../shared/hocs/withConvertETHtoMETState'
 import { pageStatusPropTypes } from '../../utils'
 import PropTypes from 'prop-types'
 import React from 'react'
+import {
+  ConfirmationWizard,
+  AmountFields,
+  DisplayValue,
+  GasEditor,
+  Text,
+  Btn,
+  View
+} from '../common'
 
 class ConvertETHtoMETForm extends React.Component {
   static propTypes = {
+    gasEstimateError: PropTypes.bool,
+    onWizardSubmit: PropTypes.func.isRequired,
     ethPlaceholder: PropTypes.string,
     usdPlaceholder: PropTypes.string,
     onInputChange: PropTypes.func.isRequired,
@@ -15,7 +25,9 @@ class ConvertETHtoMETForm extends React.Component {
     resetForm: PropTypes.func.isRequired,
     ethAmount: PropTypes.string,
     usdAmount: PropTypes.string,
+    validate: PropTypes.func.isRequired,
     gasPrice: PropTypes.string,
+    estimate: PropTypes.string,
     gasLimit: PropTypes.string,
     errors: PropTypes.object.isRequired,
     ...pageStatusPropTypes
@@ -30,7 +42,23 @@ class ConvertETHtoMETForm extends React.Component {
     }
   }
 
-  render() {
+  renderConfirmation = () => {
+    return (
+      <Text size="large">
+        You will convert{' '}
+        <DisplayValue
+          value={this.props.ethAmount}
+          color="primary"
+          toWei
+          post=" ETH"
+        />{' '}
+        (${this.props.usdAmount}) and get approximately{' '}
+        <DisplayValue value={this.props.estimate} post=" MTN" color="primary" />.
+      </Text>
+    )
+  }
+
+  renderForm = ({ goToReview }) => {
     return (
       <View flex={1} px={2} py={4} justify="space-between">
         <AmountFields
@@ -44,6 +72,7 @@ class ConvertETHtoMETForm extends React.Component {
         />
         <View grow={1} mt={4}>
           <GasEditor
+            gasEstimateError={this.props.gasEstimateError}
             onInputChange={this.props.onInputChange}
             useCustomGas={this.props.useCustomGas}
             gasLimit={this.props.gasLimit}
@@ -51,8 +80,23 @@ class ConvertETHtoMETForm extends React.Component {
             errors={this.props.errors}
           />
         </View>
-        <Btn label="Review Convert" mt={4} />
+        <Btn label="Review Convert" mt={4} onPress={goToReview} />
       </View>
+    )
+  }
+
+  render() {
+    if (this.props.pageStatus === 'offscreen') return null
+
+    return (
+      <ConfirmationWizard
+        renderConfirmation={this.renderConfirmation}
+        onWizardSubmit={this.props.onWizardSubmit}
+        pendingTitle="Converting ETH..."
+        renderForm={this.renderForm}
+        editLabel="Edit this conversion"
+        validate={this.props.validate}
+      />
     )
   }
 }

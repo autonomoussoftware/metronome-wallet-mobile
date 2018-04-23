@@ -30,9 +30,10 @@ const withConvertETHtoMETState = WrappedComponent => {
       WrappedComponent.name})`
 
     initialState = {
+      ...getInitialState('MET', this.props.client, this.props.config),
+      gasEstimateError: false,
       ethAmount: null,
       usdAmount: null,
-      ...getInitialState('MET', this.props.client, this.props.config),
       estimate: null,
       errors: {}
     }
@@ -46,6 +47,7 @@ const withConvertETHtoMETState = WrappedComponent => {
       this.setState(state => ({
         ...state,
         ...utils.syncAmounts(state, ETHprice, id, value, client),
+        gasEstimateError: id === 'gasLimit' ? false : state.gasEstimateError,
         errors: { ...state.errors, [id]: null },
         [id]: value
       }))
@@ -65,9 +67,12 @@ const withConvertETHtoMETState = WrappedComponent => {
           from: this.props.from
         })
         .then(({ gasLimit }) =>
-          this.setState({ gasLimit: gasLimit.toString() })
+          this.setState({
+            gasEstimateError: false,
+            gasLimit: gasLimit.toString()
+          })
         )
-        .catch(err => console.warn('Gas estimation failed', err))
+        .catch(() => this.setState({ gasEstimateError: true }))
     }, 500)
 
     onWizardSubmit = password => {
@@ -81,12 +86,13 @@ const withConvertETHtoMETState = WrappedComponent => {
     }
 
     validate = () => {
-      const { ethAmount, gasPrice, gasLimit, client } = this.state
+      const { ethAmount, gasPrice, gasLimit } = this.state
+      const { client } = this.props
       const max = client.fromWei(this.props.availableETH)
       const errors = {
-        ...validators.validateEthAmount(ethAmount, max),
-        ...validators.validateGasPrice(gasPrice),
-        ...validators.validateGasLimit(gasLimit)
+        ...validators.validateEthAmount(client, ethAmount, max),
+        ...validators.validateGasPrice(client, gasPrice),
+        ...validators.validateGasLimit(client, gasLimit)
       }
       const hasErrors = Object.keys(errors).length > 0
       if (hasErrors) this.setState({ errors })
@@ -103,6 +109,7 @@ const withConvertETHtoMETState = WrappedComponent => {
 
       return (
         <WrappedComponent
+          onWizardSubmit={this.onWizardSubmit}
           onInputChange={this.onInputChange}
           onMaxClick={this.onMaxClick}
           resetForm={this.resetForm}
@@ -116,6 +123,7 @@ const withConvertETHtoMETState = WrappedComponent => {
           }
           ethAmount={ethAmount === 'Invalid amount' ? '' : ethAmount}
           usdAmount={usdAmount === 'Invalid amount' ? '' : usdAmount}
+          validate={this.validate}
         />
       )
     }
