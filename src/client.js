@@ -209,6 +209,24 @@ export function convertMet({ gasPrice, gasLimit, password, value, from }) {
 }
 
 /**
+ * Called when "Convert ETH to MET" requests a conversion estimate
+ * (e.g. when amount or conversion price changes)
+ * Returns a Promise
+ */
+export function getConvertEthEstimate({ value }) {
+  return fakeResponse({ result: '2300000000000000' })
+}
+
+/**
+ * Called when "Convert MET to ETH" requests a conversion estimate
+ * (e.g. when amount or conversion price changes)
+ * Returns a Promise
+ */
+export function getConvertMetEstimate({ value }) {
+  return fakeResponse({ result: '1800000000000000' })
+}
+
+/**
  * Called when "Copy address to clipboard" is pressed
  * Returns a Promise
  */
