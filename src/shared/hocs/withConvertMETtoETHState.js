@@ -11,8 +11,10 @@ import React from 'react'
 const withConvertMETtoETHState = WrappedComponent => {
   class Container extends React.Component {
     static propTypes = {
+      converterPrice: PropTypes.string.isRequired,
       availableMET: PropTypes.string.isRequired,
       client: PropTypes.shape({
+        getConvertMetEstimate: PropTypes.func.isRequired,
         getConvertMetGasLimit: PropTypes.func.isRequired,
         convertMet: PropTypes.func.isRequired,
         fromWei: PropTypes.func.isRequired,
@@ -31,6 +33,7 @@ const withConvertMETtoETHState = WrappedComponent => {
     initialState = {
       ...getInitialState('MET', this.props.client, this.props.config),
       gasEstimateError: false,
+      estimateError: null,
       metAmount: null,
       estimate: null,
       errors: {}
@@ -39,6 +42,16 @@ const withConvertMETtoETHState = WrappedComponent => {
     state = this.initialState
 
     resetForm = () => this.setState(this.initialState)
+
+    componentWillUpdate({ converterPrice }, { metAmount }) {
+      // Recalculate estimate if amount or price changed
+      if (
+        this.props.converterPrice !== converterPrice ||
+        this.state.metAmount !== metAmount
+      ) {
+        this.getConversionEstimate()
+      }
+    }
 
     onInputChange = ({ id, value }) => {
       this.setState(state => ({
@@ -55,7 +68,7 @@ const withConvertMETtoETHState = WrappedComponent => {
     getGasEstimate = debounce(() => {
       const { metAmount } = this.state
 
-      if (!utils.isWeiable(metAmount)) return
+      if (!utils.isWeiable(this.props.client, metAmount)) return
 
       this.props.client
         .getConvertMetGasLimit({
@@ -69,6 +82,28 @@ const withConvertMETtoETHState = WrappedComponent => {
           })
         )
         .catch(() => this.setState({ gasEstimateError: true }))
+    }, 500)
+
+    getConversionEstimate = debounce(() => {
+      const { metAmount } = this.state
+      const { client } = this.props
+
+      if (
+        !utils.isGreaterThanZero(client, metAmount) ||
+        !utils.isWeiable(client, metAmount)
+      ) {
+        return this.setState({ estimateError: null, estimate: null })
+      }
+      client
+        .getConvertMetEstimate({
+          value: client.toWei(utils.sanitize(metAmount))
+        })
+        .then(({ result }) => {
+          this.setState({ estimateError: null, estimate: result })
+        })
+        .catch(err => {
+          this.setState({ estimateError: err.message, estimate: null })
+        })
     }, 500)
 
     onWizardSubmit = password => {
@@ -122,6 +157,7 @@ const withConvertMETtoETHState = WrappedComponent => {
   }
 
   const mapStateToProps = state => ({
+    converterPrice: selectors.getConverterPrice(state),
     availableMET: selectors.getMtnBalanceWei(state),
     config: selectors.getConfig(state),
     from: selectors.getActiveWalletAddresses(state)[0]

@@ -18,6 +18,7 @@ class ConvertMETtoETHForm extends React.Component {
     gasEstimateError: PropTypes.bool,
     onWizardSubmit: PropTypes.func.isRequired,
     metPlaceholder: PropTypes.string,
+    estimateError: PropTypes.string,
     onInputChange: PropTypes.func.isRequired,
     availableMET: PropTypes.string.isRequired,
     useCustomGas: PropTypes.bool.isRequired,
@@ -27,6 +28,7 @@ class ConvertMETtoETHForm extends React.Component {
     validate: PropTypes.func.isRequired,
     gasPrice: PropTypes.string,
     gasLimit: PropTypes.string,
+    estimate: PropTypes.string,
     errors: errorPropTypes('metAmount'),
     ...pageStatusPropTypes
   }
@@ -80,6 +82,21 @@ class ConvertMETtoETHForm extends React.Component {
             gasPrice={this.props.gasPrice}
             errors={this.props.errors}
           />
+          {this.props.estimate && (
+            <Text size="medium" mt={4}>
+              You would get approximately{' '}
+              <DisplayValue
+                value={this.props.estimate}
+                color="primary"
+                post=" ETH"
+              />.
+            </Text>
+          )}
+          {this.props.estimateError && (
+            <Text color="danger" mt={1}>
+              Error getting conversion estimate: {this.props.estimateError}
+            </Text>
+          )}
         </View>
         <Btn label="Review Convert" mt={4} onPress={goToReview} />
       </View>

@@ -28,8 +28,8 @@ class ConvertETHtoMETForm extends React.Component {
     usdAmount: PropTypes.string,
     validate: PropTypes.func.isRequired,
     gasPrice: PropTypes.string,
-    estimate: PropTypes.string,
     gasLimit: PropTypes.string,
+    estimate: PropTypes.string,
     errors: PropTypes.object.isRequired,
     ...pageStatusPropTypes
   }
