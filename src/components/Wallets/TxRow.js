@@ -144,7 +144,7 @@ class TxRow extends React.Component {
   _renderDetails() {
     return (
       <View grow={0} mt={1}>
-        <Text size="medium">
+        <Text size="medium" align="right">
           {(this.props.txType === 'auction' &&
             !this.props.isPending &&
             !this.props.mtnBoughtInAuction) ||
@@ -154,7 +154,7 @@ class TxRow extends React.Component {
             <React.Fragment>
               {this.props.txType === 'converted' && (
                 <View>
-                  <Text color="weak" size="medium">
+                  <Text color="weak" size="medium" align="right">
                     {this.props.isPending && 'Pending conversion from '}
                     <Text color="copy">{this.props.convertedFrom}</Text>
                     {this.props.isPending ? ' to ' : ' converted to '}
@@ -166,67 +166,63 @@ class TxRow extends React.Component {
               )}
 
               {this.props.txType === 'received' && (
-                <View>
-                  <Text
-                    color="weak"
-                    size="medium"
-                    ellipsizeMode="middle"
-                    numberOfLines={1}
-                  >
-                    {this.props.isPending ? 'Pending' : 'Received'} from{' '}
-                    <Text color="copy" ellipsizeMode="middle" numberOfLines={1}>
-                      {this.props.from}
-                    </Text>
+                <Text
+                  color="weak"
+                  size="medium"
+                  ellipsizeMode="middle"
+                  numberOfLines={1}
+                  align="right"
+                >
+                  {this.props.isPending ? 'Pending' : 'Received'} from{' '}
+                  <Text color="copy" ellipsizeMode="middle" numberOfLines={1}>
+                    {this.props.from}
                   </Text>
-                </View>
+                </Text>
               )}
 
               {this.props.txType === 'auction' && (
-                <View>
-                  <Text color="weak" size="medium">
-                    <Text color="copy">MET</Text> purchased in auction
-                  </Text>
-                </View>
+                <Text color="weak" size="medium">
+                  <Text color="copy">MET</Text> purchased in auction
+                </Text>
               )}
 
               {this.props.txType === 'sent' && (
-                <View color="weak">
-                  <Text
-                    color="weak"
-                    size="medium"
-                    ellipsizeMode="middle"
-                    numberOfLines={1}
-                  >
-                    {this.props.isPending
-                      ? this.props.isApproval
-                        ? 'Pending allowance for'
-                        : this.props.isCancelApproval
-                          ? 'Pending cancel allowance for'
-                          : 'Pending to'
-                      : this.props.isApproval
-                        ? 'Allowance set for'
-                        : this.props.isCancelApproval
-                          ? 'Allowance cancelled for'
-                          : 'Sent to'}{' '}
-                    {this.props.to === this.props.MTN_TOKEN_ADDR ? (
-                      'MET TOKEN CONTRACT'
-                    ) : this.props.to === this.props.CONVERTER_ADDR ? (
-                      'CONVERTER CONTRACT'
-                    ) : (
-                      <Text
-                        size="medium"
-                        color="copy"
-                        ellipsizeMode="middle"
-                        numberOfLines={1}
-                      >
-                        {this.props.to}
-                      </Text>
-                    )}
-                  </Text>
-                </View>
+                <Text
+                  color="weak"
+                  size="small"
+                  align="right"
+                  // ellipsizeMode="middle"
+                  // numberOfLines={1}
+                >
+                  {this.props.isPending
+                    ? this.props.isApproval
+                      ? 'Pending allowance for'
+                      : this.props.isCancelApproval
+                        ? 'Pending cancel allowance for'
+                        : 'Pending to'
+                    : this.props.isApproval
+                      ? 'Allowance set for'
+                      : this.props.isCancelApproval
+                        ? 'Allowance cancelled for'
+                        : 'Sent to'}{' '}
+                  {this.props.to === this.props.MTN_TOKEN_ADDR ? (
+                    'MET TOKEN CONTRACT'
+                  ) : this.props.to === this.props.CONVERTER_ADDR ? (
+                    'CONVERTER CONTRACT'
+                  ) : (
+                    <Text
+                      size="medium"
+                      color="copy"
+                      ellipsizeMode="middle"
+                      numberOfLines={1}
+                    >
+                      {this.props.to}
+                    </Text>
+                  )}
+                </Text>
               )}
               {this.props.txType === 'unknown' && (
-                <View color="weak">Waiting for metadata</View>
+                <Text color="weak">Waiting for metadata</Text>
               )}
             </React.Fragment>
           )}
@@ -269,21 +265,15 @@ class TxRow extends React.Component {
           paddingLeft: theme.spacing(2)
         }}
       >
-        <View
-          style={styles.container}
-          align="flex-start"
-          row
-          bg="light"
-          pr={1}
-          py={1.5}
-          grow={1}
-        >
-          {this._renderIcon()}
+        <View style={styles.container} pr={1} py={1.5}>
+          <View align="flex-start" row bg="light" grow={1}>
+            {this._renderIcon()}
 
-          <View grow={1} shrink={1} align="flex-end" ml={2}>
-            {this._renderAmount()}
-            {this._renderDetails()}
+            <View grow={1} shrink={1} align="flex-end" ml={2}>
+              {this._renderAmount()}
+            </View>
           </View>
+          {this._renderDetails()}
         </View>
       </RN.TouchableOpacity>
     )
