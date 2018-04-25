@@ -56,6 +56,14 @@ export function onTermsLinkClick() {
 }
 
 /**
+ * Called when the link "Open in Explorer" is clicked
+ * It should trigger opening the link with the platform default browser
+ */
+export function onExplorerLinkClick() {
+  return fakeResponse({})
+}
+
+/**
  * Called by onboarding process to create a new wallet
  * Must return a Promise that resolves to the mnemonic string to be consistent
  * with React Native BIP 39

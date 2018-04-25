@@ -1,6 +1,7 @@
 import { RoutePager, View, Text, Btn } from '../common'
 import withDashboardState from '../../shared/hocs/withDashboardState'
 import ReceiveDrawer from './ReceiveDrawer'
+import ReceiptDrawer from './ReceiptDrawer'
 import TxListHeader from './TxListHeader'
 import BalanceBlock from './BalanceBlock'
 import SendDrawer from './SendDrawer'
@@ -18,7 +19,8 @@ export default class Wallets extends React.Component {
         pages={{
           '/wallets': withDashboardState(DashboardHome),
           '/wallets/send': SendDrawer,
-          '/wallets/receive': ReceiveDrawer
+          '/wallets/receive': ReceiveDrawer,
+          '/wallets/receipt': ReceiptDrawer
         }}
       />
     )

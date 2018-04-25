@@ -1,4 +1,4 @@
-import { StyleSheet, Platform, View as RNView } from 'react-native'
+import { StyleSheet, Platform, ScrollView, View as RNView } from 'react-native'
 import { spacing } from '../../utils'
 import PropTypes from 'prop-types'
 import theme from '../../theme'
@@ -14,6 +14,7 @@ const View = props => {
     rowwrap,
     align,
     shrink,
+    scroll,
     basis,
     order,
     style,
@@ -25,8 +26,10 @@ const View = props => {
     ...other
   } = props
 
+  const Component = scroll ? ScrollView : RNView
+
   return (
-    <RNView
+    <Component
       style={[
         opacity !== undefined && { opacity: opacity },
         shrink !== undefined && { flexShrink: shrink },
@@ -46,7 +49,7 @@ const View = props => {
       {...other}
     >
       {children}
-    </RNView>
+    </Component>
   )
 }
 
@@ -63,6 +66,7 @@ View.propTypes = {
   opacity: PropTypes.number,
   rowwrap: PropTypes.bool,
   shrink: PropTypes.number,
+  scroll: PropTypes.bool,
   basis: PropTypes.number,
   order: PropTypes.number,
   align: PropTypes.oneOf(['center', 'flex-start', 'flex-end', 'baseline']),

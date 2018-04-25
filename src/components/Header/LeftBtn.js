@@ -47,35 +47,43 @@ class LeftBtn extends React.Component {
   }
 
   getOnPress() {
-    return (
-      {
-        '/converter/convert': () => this.props.history.push('/converter'),
-        '/wallets/receive': () => this.props.history.push('/wallets'),
-        '/wallets/send': () => this.props.history.push('/wallets'),
-        '/auction/buy': () => this.props.history.push('/auction')
-      }[this.props.location.pathname] || this.props.openDrawer
+    const handlersByPath = {
+      '/converter/convert': () => this.props.history.push('/converter'),
+      '/wallets/receipt': () => this.props.history.push('/wallets'),
+      '/wallets/receive': () => this.props.history.push('/wallets'),
+      '/wallets/send': () => this.props.history.push('/wallets'),
+      '/auction/buy': () => this.props.history.push('/auction')
+    }
+    const index = Object.keys(handlersByPath).findIndex(
+      path => this.props.location.pathname === path
     )
+    return index >= 0
+      ? Object.values(handlersByPath)[index]
+      : this.props.openDrawer
+  }
+
+  getIcon() {
+    const iconsByPath = {
+      '/converter/convert': backIcon,
+      '/wallets/receipt': backIcon,
+      '/wallets/receive': backIcon,
+      '/wallets/send': backIcon,
+      '/auction/buy': backIcon
+    }
+    const index = Object.keys(iconsByPath).findIndex(
+      path => this.props.location.pathname === path
+    )
+    return index >= 0 ? Object.values(iconsByPath)[index] : menuIcon
   }
 
   render() {
-    const {
-      location: { pathname: newPath }
-    } = this.props
-
     return (
       <TouchableOpacity
         activeOpacity={0.5}
         hitSlop={{ top: 20, bottom: 20, left: 20, right: 20 }}
         onPress={this.getOnPress()}
       >
-        {[
-          '/converter/convert',
-          '/wallets/receive',
-          '/wallets/send',
-          '/auction/buy'
-        ].includes(newPath)
-          ? backIcon
-          : menuIcon}
+        {this.getIcon()}
       </TouchableOpacity>
     )
   }

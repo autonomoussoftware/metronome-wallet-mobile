@@ -120,7 +120,11 @@ class RoutePager extends React.PureComponent {
               }
             ]}
           >
-            <ViewComponent pageStatus={this.getPageStatus(i)} index={i} />
+            <ViewComponent
+              pageStatus={this.getPageStatus(i)}
+              index={i}
+              {...this.props}
+            />
           </RN.Animated.View>
         ))}
       </View>

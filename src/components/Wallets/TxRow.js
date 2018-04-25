@@ -1,5 +1,6 @@
 import { DisplayValue, View, Text } from '../common'
 import withTxRowState from '../../shared/hocs/withTxRowState'
+import { withRouter } from 'react-router'
 import ConverterIcon from '../icons/ConverterIcon'
 import AuctionIcon from '../icons/AuctionIcon'
 import PropTypes from 'prop-types'
@@ -29,10 +30,11 @@ class TxRow extends React.Component {
       'unknown',
       'sent'
     ]).isRequired,
+    history: PropTypes.shape({
+      push: PropTypes.func.isRequired
+    }).isRequired,
     value: PropTypes.string.isRequired
   }
-
-  // state = {};
 
   _renderIcon() {
     if (this.props.txType === 'unknown' || this.props.isPending) {
@@ -233,14 +235,35 @@ class TxRow extends React.Component {
     )
   }
 
-  render() {
-    // const {} = this.state;
-    // const {} = this.props;
+  onPress = () => {
+    const {
+      history,
+      transaction,
+      receipt,
+      tx,
+      isPending,
+      value,
+      symbol,
+      from,
+      isFailed
+    } = this.props
+    history.push('/wallets/receipt', {
+      transaction,
+      receipt,
+      from,
+      tx,
+      value,
+      symbol,
+      isPending,
+      isFailed
+    })
+  }
 
+  render() {
     return (
       <RN.TouchableOpacity
         activeOpacity={0.95}
-        onPress={() => null}
+        onPress={this.onPress}
         style={{
           backgroundColor: theme.colors.light,
           paddingLeft: theme.spacing(2)
@@ -284,4 +307,4 @@ const styles = RN.StyleSheet.create({
   }
 })
 
-export default withTxRowState(TxRow)
+export default withTxRowState(withRouter(TxRow))

@@ -5,6 +5,7 @@ import React from 'react'
 import RN from 'react-native'
 
 const titlesByPath = {
+  '/wallets/receipt': 'Transaction Receipt',
   '/wallets/receive': 'Receive',
   '/wallets/send': 'Send',
   '/wallets': 'My wallet',
@@ -20,6 +21,13 @@ const titlesByPath = {
   '/help': 'Help'
 }
 
+function getPageTitleFromPath(props) {
+  const index = Object.keys(titlesByPath).findIndex(
+    path => props.location.pathname === path
+  )
+  return index >= 0 ? Object.values(titlesByPath)[index] : ''
+}
+
 class Title extends React.Component {
   static propTypes = {
     location: PropTypes.shape({
@@ -29,13 +37,8 @@ class Title extends React.Component {
 
   state = { title: '' }
 
-  static getDerivedStateFromProps(
-    {
-      location: { pathname }
-    },
-    prevState
-  ) {
-    const newPathTitle = titlesByPath[pathname] || ''
+  static getDerivedStateFromProps(props, prevState) {
+    const newPathTitle = getPageTitleFromPath(props)
 
     // Avoid updating anything if title didn't change
     if (newPathTitle === prevState.title) return null

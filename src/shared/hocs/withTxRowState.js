@@ -7,6 +7,9 @@ const withTxRowState = WrappedComponent => {
   class Container extends React.Component {
     static propTypes = {
       confirmations: PropTypes.number.isRequired,
+      transaction: PropTypes.shape({
+        hash: PropTypes.string.isRequired
+      }).isRequired,
       parsed: PropTypes.shape({
         mtnBoughtInAuction: PropTypes.string,
         contractCallFailed: PropTypes.bool,
@@ -37,8 +40,11 @@ const withTxRowState = WrappedComponent => {
           MTN_TOKEN_ADDR={this.props.config.MTN_TOKEN_ADDR}
           CONVERTER_ADDR={this.props.config.CONVERTER_ADDR}
           confirmations={confirmations}
+          transaction={this.props.transaction}
           isPending={isPending}
           isFailed={isFailed}
+          receipt={this.props.receipt}
+          tx={tx}
           {...tx}
         />
       )
