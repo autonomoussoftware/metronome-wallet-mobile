@@ -57,5 +57,7 @@
 			</dict>
 		</dict>
 	</dict>
+	<key>NSCameraUsageDescription</key>
+	<string>The wallet needs permission tu access the device camera in order to scan QR codes.</string>
 </dict>
 </plist>

@@ -1,5 +1,6 @@
 import { pageStatusPropTypes } from '../../utils'
 import withSendMETFormState from '../../shared/hocs/withSendMETFormState'
+import QRScanner from './qr-scanner'
 import PropTypes from 'prop-types'
 import React from 'react'
 import {
@@ -29,6 +30,17 @@ class SendMETForm extends React.Component {
     gasLimit: PropTypes.string,
     errors: PropTypes.object.isRequired,
     ...pageStatusPropTypes
+  }
+
+  state = { showQRscanner: false }
+
+  onCloseScanQRClick = () => this.setState({ showQRscanner: false })
+
+  onScanQRClick = () => this.setState({ showQRscanner: true })
+
+  onQRcodeRead = e => {
+    this.props.onInputChange({ id: 'toAddress', value: e.data })
+    this.setState({ showQRscanner: false })
   }
 
   componentDidUpdate(prevProps) {
@@ -64,6 +76,14 @@ class SendMETForm extends React.Component {
         <View grow={1}>
           <TextInput
             placeholder="e.g. 0x2345678998765434567"
+            postLabel={
+              <BaseBtn
+                textProps={{ opacity: 0.75 }}
+                onPress={this.onScanQRClick}
+                label="SCAN QR"
+                size="small"
+              />
+            }
             onChange={this.props.onInputChange}
             error={this.props.errors.toAddress}
             label="Send to Address"
@@ -106,12 +126,20 @@ class SendMETForm extends React.Component {
     if (this.props.pageStatus === 'offscreen') return null
 
     return (
-      <ConfirmationWizard
-        renderConfirmation={this.renderConfirmation}
-        onWizardSubmit={this.props.onWizardSubmit}
-        renderForm={this.renderForm}
-        validate={this.props.validate}
-      />
+      <React.Fragment>
+        <ConfirmationWizard
+          renderConfirmation={this.renderConfirmation}
+          onWizardSubmit={this.props.onWizardSubmit}
+          renderForm={this.renderForm}
+          validate={this.props.validate}
+        />
+        {this.state.showQRscanner && (
+          <QRScanner
+            onClose={this.onCloseScanQRClick}
+            onRead={this.onQRcodeRead}
+          />
+        )}
+      </React.Fragment>
     )
   }
 }
