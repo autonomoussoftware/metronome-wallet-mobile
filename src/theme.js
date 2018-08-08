@@ -24,12 +24,22 @@ export default {
 
   // SIZES
   sizes: {
-    xSmall: 12,
+    xSmall: 11,
     small: 14,
     medium: 16,
     large: 20,
     xLarge: 24,
     xxLarge: 32
+  },
+
+  weights: {
+    xlight: '200',
+    light: '300',
+    regular: '400',
+    semibold: '600',
+    bold: '700',
+    xbold: '800',
+    black: '900'
   },
 
   textShadow: `0 1px 1px ${darkShade}`,

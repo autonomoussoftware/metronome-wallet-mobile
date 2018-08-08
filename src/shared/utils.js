@@ -8,18 +8,6 @@ const format = {
 
 BigNumber.config({ FORMAT: format })
 
-export function smartRound(client, weiAmount) {
-  let n = Number.parseFloat(client.fromWei(weiAmount), 10)
-  let decimals = -Math.log10(n) + 10
-  if (decimals < 2) {
-    decimals = 2
-  } else if (decimals >= 18) {
-    decimals = 18
-  }
-  // round extra decimals and remove trailing zeroes
-  return new BigNumber(n.toFixed(Math.ceil(decimals))).toString(10)
-}
-
 export function sanitize(amount = '') {
   return amount.replace(',', '.')
 }

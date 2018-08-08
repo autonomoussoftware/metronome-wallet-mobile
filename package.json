@@ -9,6 +9,11 @@
     "start": "node node_modules/react-native/local-cli/cli.js start",
     "test": "jest"
   },
+  "rnpm": {
+    "assets": [
+      "./src/assets/fonts"
+    ]
+  },
   "dependencies": {
     "babel-preset-es2015": "^6.24.1",
     "bignumber.js": "^6.0.0",
@@ -32,6 +37,7 @@
     "redux": "^3.7.2",
     "redux-actions": "^2.3.0",
     "reselect": "^3.0.1",
+    "smart-round": "^1.0.0",
     "web3": "1.0.0-beta.34"
   },
   "devDependencies": {

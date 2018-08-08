@@ -39,16 +39,15 @@
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string></string>
+	<string/>
 	<key>NSAppTransportSecurity</key>
-	<!--See http://ste.vn/2015/06/10/configuring-app-transport-security-ios-9-osx-10-11/ -->
 	<dict>
 		<key>NSExceptionDomains</key>
 		<dict>
 			<key>api.mtn.bloqrock.net</key>
-		  <dict>
-		    <key>NSTemporaryExceptionAllowsInsecureHTTPLoads</key>
-		    <true/>
+			<dict>
+				<key>NSTemporaryExceptionAllowsInsecureHTTPLoads</key>
+				<true/>
 			</dict>
 			<key>localhost</key>
 			<dict>
@@ -58,6 +57,16 @@
 		</dict>
 	</dict>
 	<key>NSCameraUsageDescription</key>
-	<string>The wallet needs permission tu access the device camera in order to scan QR codes.</string>
+	<string>The wallet needs permission to access the device camera in order to scan QR codes.</string>
+	<key>UIAppFonts</key>
+	<array>
+		<string>Muli-Black.ttf</string>
+		<string>Muli-Bold.ttf</string>
+		<string>Muli-ExtraBold.ttf</string>
+		<string>Muli-ExtraLight.ttf</string>
+		<string>Muli-Light.ttf</string>
+		<string>Muli-Regular.ttf</string>
+		<string>Muli-SemiBold.ttf</string>
+	</array>
 </dict>
 </plist>

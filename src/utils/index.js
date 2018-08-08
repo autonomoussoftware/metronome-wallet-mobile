@@ -17,24 +17,16 @@ export const pageStatusPropTypes = {
     .isRequired
 }
 
-export const sizes = ({ size }) => ({
-  fontSize: size ? theme.sizes[size] : undefined
-})
-
-sizes.propTypes = {
-  size: PropTypes.oneOf(Object.keys(theme.sizes))
-}
-
 export const spacing = props => ({
-  marginBottom: theme.spacing(props.m || props.mb || props.my || undefined),
-  marginRight: theme.spacing(props.m || props.mr || props.mx || undefined),
-  marginLeft: theme.spacing(props.m || props.ml || props.mx || undefined),
-  marginTop: theme.spacing(props.m || props.mt || props.my || undefined),
+  marginBottom: theme.spacing(props.m || props.mb || props.my || null),
+  marginRight: theme.spacing(props.m || props.mr || props.mx || null),
+  marginLeft: theme.spacing(props.m || props.ml || props.mx || null),
+  marginTop: theme.spacing(props.m || props.mt || props.my || null),
 
-  paddingBottom: theme.spacing(props.p || props.pb || props.py || undefined),
-  paddingRight: theme.spacing(props.p || props.pr || props.px || undefined),
-  paddingLeft: theme.spacing(props.p || props.pl || props.px || undefined),
-  paddingTop: theme.spacing(props.p || props.pt || props.py || undefined)
+  paddingBottom: theme.spacing(props.p || props.pb || props.py || null),
+  paddingRight: theme.spacing(props.p || props.pr || props.px || null),
+  paddingLeft: theme.spacing(props.p || props.pl || props.px || null),
+  paddingTop: theme.spacing(props.p || props.pt || props.py || null)
 })
 
 spacing.propTypes = {
