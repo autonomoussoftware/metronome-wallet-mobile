@@ -9,9 +9,9 @@ export default config => ({
   metronome: { transferAllowed: true },
   converter: {
     status: {
-      availableEth: '71',
-      availableMet: '62',
-      currentPrice: '9'
+      availableEth: '71000354120000000000000',
+      availableMet: '620002512221000000000000',
+      currentPrice: '91234567000987652'
     }
   },
   auction: {
@@ -32,9 +32,109 @@ export default config => ({
       foo: {
         addresses: {
           '0xd6758d1907ed647605429d40cd19c58a6d05eb8b': {
-            token: { [config.MTN_TOKEN_ADDR]: { balance: '980' } },
-            balance: '3500000000000000000',
+            token: {
+              [config.MTN_TOKEN_ADDR]: { balance: '23900811030471000000000' }
+            },
+            balance: '1735010000000000000',
             transactions: [
+              {
+                _id: 'DdvJpTQxTD6tlAvr',
+                address: '0xd6758d1907ed647605429d40cd19c58a6d05eb8b',
+                meta: {
+                  addresses: [
+                    '0xd6758d1907ed647605429d40cd19c58a6d05eb8b',
+                    '0xd6758d1907ed647605429d40cd19c58a6d05eb8b'
+                  ],
+                  contractCallFailed: false,
+                  metronome: {},
+                  ours: [true, true, true],
+                  returnedValue: '0',
+                  tokens: {
+                    '0x825a2ce3547e77397b7eac4eb464e2edcfaae514': {
+                      event: 'Approval',
+                      from: '0xd6758d1907ed647605429d40cd19c58a6d05eb8b',
+                      processing: false,
+                      to: '0x25d99454d94d9459f0abb06009840a48bd04ca44',
+                      value: '0'
+                    }
+                  },
+                  walletId: [
+                    '881fdf500df6d5d9d99b5080457643356b3eaae86e7379aa61930f0d9d723630'
+                  ],
+                  walletIds: [
+                    '881fdf500df6d5d9d99b5080457643356b3eaae86e7379aa61930f0d9d723630'
+                  ]
+                },
+                receipt: {
+                  blockHash:
+                    '0x4908a09b72dc28ff50ba8a8e095ad27b9e1d3ee9d45ab8bf297b5a24c53a6fd9',
+                  blockNumber: 616111,
+                  contractAddress: null,
+                  cumulativeGasUsed: 15275,
+                  gasUsed: 15275,
+                  logs: [
+                    {
+                      address: '0x825A2cE3547e77397b7EAc4eb464E2eDCFaAE514',
+                      blockHash:
+                        '0x4908a09b72dc28ff50ba8a8e095ad27b9e1d3ee9d45ab8bf297b5a24c53a6fd9',
+                      blockNumber: 616111,
+                      data:
+                        '0x0000000000000000000000000000000000000000000000000000000000000000',
+                      id: 'log_3b56afd9',
+                      logIndex: 0,
+                      topics: [
+                        '0x8c5be1e5ebec7d5bd14f71427d1e84f3dd0314c0f7b2291e5b200ac8c7c3b925',
+                        '0x000000000000000000000000d6758d1907ed647605429d40cd19c58a6d05eb8b',
+                        '0x00000000000000000000000025d99454d94d9459f0abb06009840a48bd04ca44'
+                      ],
+                      transactionHash:
+                        '0x4f41cc097b7e621485c6fbde51b6abc741f63a7fcc6d543800198e8d15925986',
+                      transactionIndex: 0,
+                      transactionLogIndex: '0x0',
+                      type: 'mined'
+                    }
+                  ],
+                  logsBloom:
+                    '0x00000040000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000040000000000000000000000200000400000000000000001000000000000000000000000000000000000000000000000000000000000000000000020000000000000000000000000000000000400000000000000000000000000000000000000000000000000000000020080000000020000000000000000000000010000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000',
+                  root:
+                    '0x255fdfc21df63bad065aae8638bd944b6ff90ba8879830cfcb783db9a73b7d45',
+                  status: null,
+                  transactionHash:
+                    '0x4f21cc097b7e621485c6fbde51b6abc741f63a7fcc6d543800198e8d15925986',
+                  transactionIndex: 0
+                },
+                transaction: {
+                  blockHash:
+                    '0x4908a09b72dc28ff50ba8a8e095ad27b9e1d3ee9d45ab8bf297b5a24c53a6fd9',
+                  blockNumber: 616111,
+                  chainId: '0x1195f',
+                  condition: null,
+                  creates: null,
+                  from: '0xD6758d1907Ed647605429d40cd19C58A6d05Eb8b',
+                  gas: 2000000,
+                  gasPrice: '1000000000',
+                  hash:
+                    '0x4f21cc097b7e621485c6fbde51b6abc741f63a7fcc6d543800198e8d15925986',
+                  input:
+                    '0x095ea7b300000000000000000000000025d99454d94d9459f0abb06009840a48bd04ca440000000000000000000000000000000000000000000000000000000000000000',
+                  nonce: 240,
+                  publicKey:
+                    '0xf4e67abd74d91b8064b92e33ed03d1abac1a98813514aa72a0a72d36099768ea65eb9cd5c07d18b5308bb5a17b9fbf47f53b641cef037df168e5f93d9252080c',
+                  r:
+                    '0xe07a3f3ac3ad3223231d0d6cd5d5bcc6074bcb05f233050db6a6536c2107058b',
+                  raw:
+                    '0xf8ad81f0843b9aca00831e848094825a2ce3547e77397b7eac4eb464e2edcfaae51480b844095ea7b300000000000000000000000025d99454d94d9459f0abb06009840a48bd04ca440000000000000000000000000000000000000000000000000000000000000000830232e1a0e07a3f3ac3ad3223231d0d6cd5d5bcc6074bcb05f233050db6a6536c2107058ba07da3430ab35528125709505b8ac8340f165ca6dd442ca9c344fe2ff2a89967a7',
+                  s:
+                    '0x7da3430ab35528125709505b8ac8340f165ca6dd442ca9c344fe2ff2a89967a7',
+                  standardV: '0x0',
+                  to: '0x825A2cE3547e77397b7EAc4eb464E2eDCFaAE514',
+                  transactionIndex: 0,
+                  v: '0x232e1',
+                  value: '0'
+                },
+                walletId:
+                  '881fdf500df6d5d9d99b5080457643356b3eaae86e7379aa61930f0d9d723630'
+              },
               {
                 _id: 'pDouGpwoY1kd7sPj',
                 address: '0xd6758d1907ed647605429d40cd19c58a6d05eb8b',
@@ -55,7 +155,7 @@ export default config => ({
                       from: '0xd6758d1907ed647605429d40cd19c58a6d05eb8b',
                       processing: false,
                       to: '0x25d99454d94d9459f0abb06009840a48bd04ca44',
-                      value: '12300000000000000'
+                      value: '123000000000000000000'
                     }
                   },
                   walletId: [

@@ -44,18 +44,18 @@ export default class Confirmation extends React.Component {
       <View py={4} px={2} flex={1}>
         <View grow={1}>
           {this.props.confirmationTitle && (
-            <Text size="medium" mb={2}>
+            <Text size="large" mb={2} weight="semibold">
               {this.props.confirmationTitle}
             </Text>
           )}
           {this.props.renderConfirmation()}
           <TextInput
+            topMargin
             onChange={({ value }) => onPasswordChange(value)}
             label="Enter your password to confirm"
             error={errors.password}
             value={password}
             id="password"
-            topMargin
           />
         </View>
         <BaseBtn

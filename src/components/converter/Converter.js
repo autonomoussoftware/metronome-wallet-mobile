@@ -13,7 +13,7 @@ export default class Converter extends React.Component {
     return (
       <RoutePager
         pages={{
-          '/converter': withConverterState(Home),
+          '/converter': withConverterState(ConverterHome),
           '/converter/convert': ConvertDrawer
         }}
       />
@@ -21,7 +21,7 @@ export default class Converter extends React.Component {
   }
 }
 
-class Home extends React.Component {
+class ConverterHome extends React.Component {
   static propTypes = {
     convertDisabledReason: PropTypes.string,
     converterPriceUSD: PropTypes.string.isRequired,

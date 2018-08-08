@@ -1,10 +1,7 @@
-// import { View, Text } from '../common';
-// import { Link } from 'react-router-native';
 import withTxListState from '../../shared/hocs/withTxListState'
 import PropTypes from 'prop-types'
 import TxRow from './TxRow'
 import React from 'react'
-// import RN from 'react-native';
 
 class TxList extends React.Component {
   static propTypes = {

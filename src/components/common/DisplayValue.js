@@ -1,28 +1,44 @@
 import { withClient } from '../../shared/hocs/clientContext'
-import { smartRound } from '../../shared/utils'
+import smartRounder from 'smart-round'
 import PropTypes from 'prop-types'
 import React from 'react'
 import Text from './Text'
 
 class DisplayValue extends React.Component {
   static propTypes = {
+    maxPrecision: PropTypes.number,
+    shouldFormat: PropTypes.bool,
+    minDecimals: PropTypes.number,
+    maxDecimals: PropTypes.number,
     client: PropTypes.shape({
       fromWei: PropTypes.func.isRequired
     }).isRequired,
     value: PropTypes.string,
-    toWei: PropTypes.bool,
     post: PropTypes.string,
     pre: PropTypes.string
   }
 
+  static defaultProps = {
+    shouldFormat: true,
+    maxPrecision: 6,
+    minDecimals: 0,
+    maxDecimals: 6,
+    maxSize: 'inherit'
+  }
+
+  round = smartRounder(
+    this.props.maxPrecision,
+    this.props.minDecimals,
+    this.props.maxDecimals
+  )
+
   render() {
-    const { toWei, value, post, pre, client, ...other } = this.props
+    const { shouldFormat, client, value, post, pre, ...other } = this.props
 
     let formattedValue
 
     try {
-      const weiValue = toWei ? client.toWei(value) : value
-      formattedValue = smartRound(client, weiValue)
+      formattedValue = this.round(client.fromWei(value), shouldFormat)
     } catch (e) {
       formattedValue = null
     }

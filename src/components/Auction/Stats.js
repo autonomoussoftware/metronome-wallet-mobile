@@ -18,27 +18,41 @@ export default class Stats extends React.Component {
 
     return (
       <View bg="lightShade" mt={2}>
-        <View style={[styles.row, styles.topRow]}>
-          <Text>Current Price</Text>
+        <View style={[styles.row, styles.topRow]} py={1} px={2}>
+          <Text weight="semibold" size="medium">
+            Current Price
+          </Text>
           <View>
             <View row align="center">
-              <Text color="primary" size="medium" mr={1}>
-                1 MET =
-              </Text>
+              <View bg="primary" style={styles.badge}>
+                <Text
+                  color="light"
+                  size="medium"
+                  mr={1}
+                  align="center"
+                  my={0.3}
+                  mx={0.6}
+                >
+                  1 MET
+                </Text>
+              </View>
               <DisplayValue
                 value={auctionStatus.currentPrice}
                 size="medium"
+                pre=" = "
                 post=" ETH"
               />
             </View>
             <Text opacity={0.8} size="small" align="right">
-              ${auctionPriceUSD}
+              ${auctionPriceUSD} (USD)
             </Text>
           </View>
         </View>
 
-        <View style={styles.row}>
-          <Text>Available</Text>
+        <View style={styles.row} p={2}>
+          <Text weight="semibold" size="medium">
+            Available
+          </Text>
           <DisplayValue
             value={auctionStatus.tokenRemaining}
             size="medium"
@@ -55,12 +69,13 @@ const styles = RN.StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'baseline',
-    paddingVertical: theme.spacing(2),
-    paddingHorizontal: theme.spacing(1),
     borderTopWidth: 1,
     borderTopColor: theme.colors.darkShade
   },
   topRow: {
     borderTopColor: theme.colors.transparent
+  },
+  badge: {
+    borderRadius: 12
   }
 })

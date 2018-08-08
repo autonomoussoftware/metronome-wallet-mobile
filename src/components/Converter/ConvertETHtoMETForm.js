@@ -45,7 +45,7 @@ class ConvertETHtoMETForm extends React.Component {
 
   renderConfirmation = () => {
     return (
-      <Text size="large">
+      <Text size="medium">
         You will convert{' '}
         <DisplayValue
           value={this.props.ethAmount}

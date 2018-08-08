@@ -41,7 +41,7 @@ class ConvertMETtoETHForm extends React.Component {
 
   renderConfirmation = () => {
     return (
-      <Text size="large">
+      <Text size="medium">
         You will convert{' '}
         <DisplayValue
           value={this.props.metAmount}
@@ -62,10 +62,10 @@ class ConvertMETtoETHForm extends React.Component {
           placeholder={this.props.metPlaceholder}
           postLabel={
             <BaseBtn
-              textProps={{ opacity: 0.75 }}
+              textProps={{ opacity: 0.8, weight: 'semibold' }}
               onPress={this.props.onMaxClick}
               label="MAX"
-              size="small"
+              size="xSmall"
             />
           }
           onChange={this.props.onInputChange}

@@ -16,7 +16,14 @@ const Btn = props => {
       {...other}
     >
       <View style={styles.container} bg="xLight" opacity={disabled ? 0.5 : 1}>
-        <Text size="large" color="primary" px={4} py={2} align="center">
+        <Text
+          weight="semibold"
+          size="large"
+          color="primary"
+          px={4}
+          py={2}
+          align="center"
+        >
           {label}
         </Text>
       </View>

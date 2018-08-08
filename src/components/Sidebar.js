@@ -73,7 +73,10 @@ const NavBtn = ({ label, isFirst, IconComponent, to, ...other }) => (
           ]}
         >
           <IconComponent isActive={!!isActive} />
-          <Text style={[styles.btnLabel, isActive && styles.labelActive]}>
+          <Text
+            weight="semibold"
+            style={[styles.btnLabel, isActive && styles.labelActive]}
+          >
             {label}
           </Text>
         </View>
@@ -98,6 +101,7 @@ const SecondaryNavBtn = ({ label, to, ...other }) => (
         >
           {isActive && <DotIcon />}
           <Text
+            weight="semibold"
             style={[styles.secondaryBtnLabel, isActive && styles.labelActive]}
           >
             {label}
@@ -154,6 +158,7 @@ const styles = StyleSheet.create({
     borderTopColor: theme.colors.darkShade
   },
   btnLabel: {
+    letterSpacing: 1.6,
     marginLeft: theme.spacing(2),
     color: theme.colors.light,
     fontSize: 16,

@@ -49,7 +49,7 @@ class BuyMETForm extends React.Component {
     return this.props.excedes ? (
       <React.Fragment>
         <View>
-          <Text size="large">
+          <Text size="medium">
             You will use{' '}
             <DisplayValue
               value={this.props.usedETHAmount}

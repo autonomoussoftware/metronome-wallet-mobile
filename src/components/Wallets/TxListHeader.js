@@ -33,7 +33,7 @@ class TxListHeader extends React.Component {
     return (
       <View justify="space-between" align="center" row bg="primary" py={1}>
         <View>
-          <Text size="medium" ml={2} py={1}>
+          <Text size="medium" ml={2} py={1} shadow weight="semibold">
             Transactions
           </Text>
         </View>
@@ -50,7 +50,14 @@ class TxListHeader extends React.Component {
               py={1.25}
               px={1}
             >
-              <Text size="small" mx={1} opacity={1}>
+              <Text
+                ls={1.4}
+                size="small"
+                mx={1}
+                opacity={1}
+                weight="semibold"
+                shadow
+              >
                 {this.options[this.props.filter]}
               </Text>
               <Svg viewBox="0 2 21 20" width="14" height="12">
@@ -79,10 +86,11 @@ class TxListHeader extends React.Component {
                   .filter(key => this.props.filter !== key)
                   .map(key => (
                     <BaseBtn
+                      textProps={{ weight: 'semibold' }}
                       onPress={() => this.onOptionSelect(key)}
                       style={styles.dropdownOption}
                       label={this.options[key]}
-                      size="medium"
+                      size="small"
                       key={key}
                       py={1.5}
                     />
@@ -109,8 +117,8 @@ const styles = RN.StyleSheet.create({
     borderRadius: 4,
     borderTopRightRadius: 0,
     position: 'absolute',
-    right: 0,
-    width: 160,
+    right: 0.5,
+    width: 150,
     alignItems: 'stretch'
   },
   dropdownOption: {

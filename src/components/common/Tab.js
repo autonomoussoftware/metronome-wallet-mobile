@@ -24,8 +24,11 @@ export default class Tab extends React.Component {
           adjustsFontSizeToFit
           numberOfLines={1}
           opacity={this.props.isActive ? 1 : 0.75}
+          weight="semibold"
           align="center"
           color="light"
+          size="medium"
+          ls={1.6}
           {...textProps}
         >
           {children}

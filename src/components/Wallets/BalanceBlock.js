@@ -16,19 +16,18 @@ class BalanceBlock extends React.Component {
   render() {
     return (
       <View bg="lightShade" px={2}>
+        <Row isFirst isBig symbol="MET" value={this.props.mtnBalanceWei} />
         <Row
           usdValue={this.props.ethBalanceUSD}
-          isFirst
           symbol="ETH"
           value={this.props.ethBalanceWei}
         />
-        <Row symbol="MET" value={this.props.mtnBalanceWei} />
       </View>
     )
   }
 }
 
-const Row = ({ symbol, value, usdValue, isFirst }) => (
+const Row = ({ symbol, value, usdValue, isFirst, isBig }) => (
   <View
     style={[styles.balanceRow, isFirst && styles.isFirst]}
     align="flex-start"
@@ -36,19 +35,21 @@ const Row = ({ symbol, value, usdValue, isFirst }) => (
     py={2}
   >
     <View style={styles.symbol} bg="primary" py={0.5} px={1.5} mt={0.5}>
-      <Text size="large">{symbol}</Text>
+      <Text size="large" weight="semibold">
+        {symbol}
+      </Text>
     </View>
     <View grow={1} shrink={1} ml={2}>
       <DisplayValue
+        shadow
         value={value}
-        // ellipsizeMode="middle"
-        size="xxLarge"
-        // style={{ backgroundColor: 'red', fontSize: 24 }}
+        size={isBig ? 'xxLarge' : 'xLarge'}
+        ls={-0.7}
       />
 
       {usdValue && (
-        <Text size="medium" opacity={0.8}>
-          ${usdValue} USD
+        <Text size="medium" weight="semibold">
+          ${usdValue} (USD)
         </Text>
       )}
     </View>
@@ -59,12 +60,13 @@ Row.propTypes = {
   usdValue: PropTypes.string,
   isFirst: PropTypes.bool,
   symbol: PropTypes.string.isRequired,
-  value: PropTypes.string.isRequired
+  value: PropTypes.string.isRequired,
+  isBig: PropTypes.bool
 }
 
 const styles = RN.StyleSheet.create({
   symbol: {
-    borderRadius: 8
+    borderRadius: 14
   },
   balanceRow: {
     borderTopWidth: 1,

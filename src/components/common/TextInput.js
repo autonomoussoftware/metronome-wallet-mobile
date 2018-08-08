@@ -57,7 +57,9 @@ export default class TextInput extends React.Component {
     return (
       <RN.View style={[styles.container, topMargin && styles.topMargin]}>
         <RN.View style={styles.labelContainer}>
-          <Text style={styles.label}>{label}</Text>
+          <Text weight="semibold" ls={0.5} shadow style={styles.label}>
+            {label}
+          </Text>
           {postLabel}
         </RN.View>
         <RN.View style={styles.fieldContainer}>
@@ -107,7 +109,7 @@ const styles = RN.StyleSheet.create({
     alignItems: 'center'
   },
   label: {
-    fontSize: 14,
+    fontSize: 13,
     lineHeight: 16
   },
   fieldContainer: {

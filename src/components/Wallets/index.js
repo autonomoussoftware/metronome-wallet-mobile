@@ -43,7 +43,7 @@ class DashboardHome extends React.Component {
       <RN.ScrollView stickyHeaderIndices={[2]} style={styles.container}>
         <BalanceBlock />
 
-        <View px={2} pt={3} pb={1}>
+        <View px={2} pt={2} pb={1}>
           <View row justify="space-between">
             <View grow={1} basis={0}>
               <Link

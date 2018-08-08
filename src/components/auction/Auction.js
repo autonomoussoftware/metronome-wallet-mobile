@@ -41,7 +41,7 @@ const AuctionHome = props => {
       {auctionStatus ? (
         <React.Fragment>
           <View>
-            <Text data-testid="title" my={1} align="center">
+            <Text my={1} align="center" size="medium" weight="semibold" shadow>
               {title}
             </Text>
             <CountDown targetTimestamp={countdownTargetTimestamp} />

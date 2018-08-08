@@ -26,10 +26,10 @@ class AmountFields extends React.Component {
             placeholder={this.props.ethPlaceholder}
             postLabel={
               <BaseBtn
-                textProps={{ opacity: 0.75 }}
+                textProps={{ opacity: 0.8, weight: 'semibold' }}
                 onPress={this.props.onMaxClick}
                 label="MAX"
-                size="small"
+                size="xSmall"
               />
             }
             autoFocus={this.props.autoFocus}

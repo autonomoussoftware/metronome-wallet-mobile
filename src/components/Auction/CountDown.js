@@ -17,18 +17,18 @@ export default class CountDown extends React.Component {
       <CountDownProvider targetTimestamp={targetTimestamp}>
         {({ days, hours, minutes, seconds, inFuture }) =>
           inFuture ? (
-            <View row bg="lightShade">
+            <View row bg="lightShade" py={1}>
               <Cell number={days} label="DAYS" isFaded={days === 0} isFirst />
               <Cell number={hours} label="HOURS" isFaded={days + hours === 0} />
               <Cell
-                number={minutes}
-                label="MINUTES"
                 isFaded={days + hours + minutes === 0}
+                number={minutes}
+                label="MINS"
               />
               <Cell
+                isFaded={days + hours + minutes + seconds === 0}
                 number={seconds}
                 label="SECS"
-                isFaded={days + hours + minutes + seconds === 0}
               />
             </View>
           ) : (
@@ -49,7 +49,7 @@ const Cell = ({ number, label, isFaded, isFirst }) => (
     <Text size="xxLarge" color="primary" opacity={isFaded ? 0.7 : 1}>
       {number}
     </Text>
-    <Text size="small" color="primary" opacity={isFaded ? 0.7 : 1}>
+    <Text size="medium" color="primary" opacity={isFaded ? 0.7 : 1}>
       {label}
     </Text>
   </View>
@@ -67,7 +67,6 @@ const styles = RN.StyleSheet.create({
     flexBasis: 0,
     flexGrow: 1,
     alignItems: 'center',
-    padding: theme.spacing(1),
     borderLeftWidth: 1,
     borderLeftColor: theme.colors.darkShade
   },

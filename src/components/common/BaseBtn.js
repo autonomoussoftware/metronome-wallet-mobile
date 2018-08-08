@@ -1,5 +1,5 @@
 import { TouchableOpacity } from 'react-native'
-import { spacing, sizes } from '../../utils'
+import { spacing } from '../../utils'
 import PropTypes from 'prop-types'
 import React from 'react'
 import Text from './Text'
@@ -23,8 +23,7 @@ const BaseBtn = props => {
 BaseBtn.propTypes = {
   label: PropTypes.string.isRequired,
   style: PropTypes.oneOfType([PropTypes.number, PropTypes.object]),
-  ...spacing.propTypes,
-  ...sizes.propTypes
+  ...spacing.propTypes
 }
 
 export default BaseBtn

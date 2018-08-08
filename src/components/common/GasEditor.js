@@ -57,7 +57,12 @@ class GasEditor extends React.Component {
                 Gas Price: {this.props.gasPrice} (Gwei)
               </Text>
             </View>
-            <BaseBtn label="EDIT GAS" onPress={this.props.onGasToggle} />
+            <BaseBtn
+              textProps={{ opacity: 0.8 }}
+              onPress={this.props.onGasToggle}
+              label="EDIT GAS"
+              size="xSmall"
+            />
           </View>
         )}
         {this.props.priceError && (

@@ -57,6 +57,8 @@ class Title extends React.Component {
         <Text
           ellipsizeMode="tail"
           numberOfLines={1}
+          weight="bold"
+          shadow
           color="light"
           size="large"
           key={title} // We need to re-mount the title for the animation to work

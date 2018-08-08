@@ -54,7 +54,7 @@ class SendMETForm extends React.Component {
 
   renderConfirmation = () => {
     return (
-      <Text size="large">
+      <Text size="medium">
         You will send{' '}
         <DisplayValue
           value={this.props.metAmount}
@@ -78,10 +78,10 @@ class SendMETForm extends React.Component {
             placeholder="e.g. 0x2345678998765434567"
             postLabel={
               <BaseBtn
-                textProps={{ opacity: 0.75 }}
+                textProps={{ opacity: 0.8, weight: 'semibold' }}
                 onPress={this.onScanQRClick}
                 label="SCAN QR"
-                size="small"
+                size="xSmall"
               />
             }
             onChange={this.props.onInputChange}
@@ -95,10 +95,10 @@ class SendMETForm extends React.Component {
               placeholder={this.props.metPlaceholder}
               postLabel={
                 <BaseBtn
-                  textProps={{ opacity: 0.75 }}
+                  textProps={{ opacity: 0.8, weight: 'semibold' }}
                   onPress={this.props.onMaxClick}
                   label="MAX"
-                  size="small"
+                  size="xSmall"
                 />
               }
               onChange={this.props.onInputChange}
