@@ -15,8 +15,8 @@ export default class ConfirmationWizard extends React.Component {
 
   static initialState = {
     password: null,
-    errors: {},
     status: 'init', // init | confirm | pending | success | failure
+    errors: {},
     result: null,
     error: null
   }

@@ -30,7 +30,7 @@ class Root extends React.Component {
       .then(({ onboardingComplete }) => {
         this.setState({ onboardingComplete })
       })
-      .catch(console.error)
+      .catch(console.error) // eslint-disable-line
   }
 
   onOnboardingCompleted = ({ password, mnemonic }) => {
@@ -43,7 +43,7 @@ class Root extends React.Component {
         this.setState({ onboardingComplete: true })
         this.props.dispatch({ type: 'session-started' })
       })
-      .catch(console.error)
+      .catch(console.error) // eslint-disable-line
   }
 
   onLoginSubmit = ({ password }) => {

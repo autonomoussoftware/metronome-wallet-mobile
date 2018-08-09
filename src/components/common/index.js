@@ -1,4 +1,5 @@
 import ConfirmationWizard from './Confirmation'
+import ChecklistItem from './ChecklistItem'
 import AmountFields from './AmountFields'
 import DisplayValue from './DisplayValue'
 import RoutePager from './RoutePager'
@@ -12,6 +13,7 @@ import Btn from './Btn'
 
 export {
   ConfirmationWizard,
+  ChecklistItem,
   AmountFields,
   DisplayValue,
   RoutePager,

@@ -23,7 +23,10 @@ export default config => ({
       genesisTime: twoWeeksAgo()
     }
   },
-  session: { isLoggedIn: true },
+  session: {
+    hasEnoughData: false,
+    isLoggedIn: true
+  },
   rates: { ETH: { token: 'ETH', price: 100 } },
   wallets: {
     active: 'foo',

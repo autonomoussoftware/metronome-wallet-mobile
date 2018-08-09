@@ -1,6 +1,8 @@
 import { createSelector } from 'reselect'
 import _ from 'lodash'
 
+const hasFunds = (client, val) => val && client.toBN(val).gt(client.toBN(0))
+
 function getTxType(meta, tokenData, transaction, address) {
   if (_.get(meta, 'metronome.auction')) {
     return 'auction'
@@ -328,20 +330,7 @@ export const getMetTransferAllowed = createSelector(
   metronomeStatus => metronomeStatus.transferAllowed
 )
 
-// Returns true if Main Process has sent enough data to render dashboard
-export const hasEnoughData = createSelector(
-  getActiveWalletEthBalance,
-  getActiveWalletMtnBalance,
-  getMetTransferAllowed,
-  getBlockHeight,
-  getEthRate,
-  (ethBalance, mtnBalance, metTransferAllowed, blockHeight, ethRate) =>
-    metTransferAllowed !== null &&
-    blockHeight !== null &&
-    ethBalance !== null &&
-    mtnBalance !== null &&
-    ethRate !== null
-)
+export const hasEnoughData = state => state.session.hasEnoughData
 
 export const sendFeatureStatus = createSelector(
   getActiveWalletEthBalance,
@@ -349,10 +338,9 @@ export const sendFeatureStatus = createSelector(
   getIsOnline,
   getClient,
   (ethBalance, mtnBalance, isOnline, client) => {
-    const hasFunds = val => val && client.toBN(val).gt(client.toBN(0))
     return !isOnline
       ? 'offline'
-      : !hasFunds(ethBalance) && !hasFunds(mtnBalance)
+      : !hasFunds(client, ethBalance) && !hasFunds(client, mtnBalance)
         ? 'no-funds'
         : 'ok'
   }
@@ -360,11 +348,10 @@ export const sendFeatureStatus = createSelector(
 
 export const sendMetFeatureStatus = createSelector(
   getActiveWalletMtnBalance,
-  getMetTransferAllowed,
   getIsInitialAuction,
   getIsOnline,
   getClient,
-  (mtnBalance, metTransferAllowed, isInitialAuction, isOnline, client) => {
+  (mtnBalance, isInitialAuction, isOnline, client) => {
     const hasFunds = val => val && client.toBN(val).gt(client.toBN(0))
     return !isOnline
       ? 'offline'
@@ -372,9 +359,7 @@ export const sendMetFeatureStatus = createSelector(
         ? 'no-funds'
         : isInitialAuction
           ? 'in-initial-auction'
-          : !metTransferAllowed
-            ? 'transfer-disabled'
-            : 'ok'
+          : 'ok'
   }
 )
 
@@ -392,16 +377,42 @@ export const buyFeatureStatus = createSelector(
 )
 
 export const convertFeatureStatus = createSelector(
-  getMetTransferAllowed,
+  getActiveWalletEthBalance,
   getIsInitialAuction,
   getIsOnline,
-  (metTransferAllowed, isInitialAuction, isOnline) => {
+  getClient,
+  (ethBalance, isInitialAuction, isOnline, client) => {
     return !isOnline
       ? 'offline'
       : isInitialAuction
         ? 'in-initial-auction'
-        : !metTransferAllowed
-          ? 'transfer-disabled'
+        : !hasFunds(client, ethBalance)
+          ? 'no-eth'
           : 'ok'
   }
 )
+
+// Returns the conversion from ETH status. Useful for disabling "ETH -> MET" tab
+export const convertEthFeatureStatus = createSelector(
+  getActiveWalletEthBalance,
+  getClient,
+  (ethBalance, client) => {
+    return hasFunds(client, ethBalance) ? 'ok' : 'no-eth'
+  }
+)
+
+// Returns the conversion from MET status. Useful for disabling "MET -> ETH" tab
+export const convertMetFeatureStatus = createSelector(
+  getActiveWalletEthBalance,
+  getActiveWalletMtnBalance,
+  getClient,
+  (ethBalance, metBalance, client) => {
+    return !hasFunds(client, ethBalance)
+      ? 'no-eth'
+      : !hasFunds(client, metBalance)
+        ? 'no-met'
+        : 'ok'
+  }
+)
+
+export const getIsScanningTx = state => state.wallets.isScanningTx
