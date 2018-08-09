@@ -13,12 +13,13 @@ export default class EntropyMeter extends React.Component {
 
   ratio = new RN.Animated.Value(0)
 
-  color = ratio =>
-    ratio >= 1
+  color = ratio => {
+    return ratio >= 1
       ? theme.colors.success
       : ratio >= 0.75
         ? 'hsla(40, 100%, 50%, 0.75)'
         : theme.colors.danger
+  }
 
   componentDidMount() {
     this.animateBar()

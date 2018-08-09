@@ -2,10 +2,10 @@ import { Switch, Route, Redirect } from 'react-router'
 import { NativeRouter } from 'react-router-native'
 import DrawerLayout from 'react-native-drawer-layout-polyfill'
 import Converter from './converter/Converter'
+import Dashboard from './dashboard/Dashboard'
 import Settings from './Settings'
 import { View } from './common'
 import Auction from './auction/Auction'
-import Wallets from './Wallets'
 import Sidebar from './Sidebar'
 import Header from './Header'
 import Tools from './Tools'
@@ -22,7 +22,7 @@ export default class Router extends React.Component {
 
   renderNavigationView = () => <Sidebar onLinkPress={this.closeDrawer} />
 
-  homeRoute = () => <Redirect to="/wallets" />
+  homeRoute = () => <Redirect to="/dashboard" />
 
   shouldComponentUpdate() {
     return false
@@ -42,9 +42,9 @@ export default class Router extends React.Component {
             <Header openDrawer={this.openDrawer} />
             <Switch>
               <Route path="/" exact render={this.homeRoute} />
+              <Route path="/dashboard" component={Dashboard} />
               <Route path="/converter" component={Converter} />
               <Route path="/settings" component={Settings} />
-              <Route path="/wallets" component={Wallets} />
               <Route path="/auction" component={Auction} />
               <Route path="/tools" component={Tools} />
             </Switch>

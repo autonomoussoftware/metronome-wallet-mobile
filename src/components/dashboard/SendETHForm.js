@@ -1,6 +1,6 @@
 import { pageStatusPropTypes } from '../../utils'
 import withSendETHFormState from '../../shared/hocs/withSendETHFormState'
-import QRScanner from './qr-scanner'
+import QRScanner from './QRScanner'
 import PropTypes from 'prop-types'
 import React from 'react'
 import {
