@@ -2,7 +2,7 @@ import { Provider as ClientProvider } from '../shared/hocs/clientContext'
 import getInitialState from '../getInitialState'
 import { Provider } from 'react-redux'
 import createStore from '../shared/createStore'
-import * as client from '../client'
+import createClient from '../client'
 import Onboarding from './onboarding/Onboarding'
 import Loading from './Loading'
 import config from '../config'
@@ -21,7 +21,7 @@ const reduxDevtoolsOptions = {
 const store = createStore(reduxDevtoolsOptions, getInitialState(config))
 
 const App = () => (
-  <ClientProvider value={client}>
+  <ClientProvider value={createClient(store)}>
     <Provider store={store}>
       <Root
         OnboardingComponent={Onboarding}

@@ -1,3 +1,4 @@
+import core from 'metronome-wallet-core'
 import fastPasswordEntropy from 'fast-password-entropy'
 import bip39 from 'react-native-bip39'
 import utils from 'web3-utils'
@@ -240,4 +241,55 @@ export function getConvertMetEstimate({ value }) {
  */
 export function copyToClipboard(text) {
   return fakeResponse({ text })
+}
+
+export default function createClient (store) {
+
+  const { emitter } = core.start()
+
+  const events = [
+    'eth-price-updated'
+  ]
+
+  events.forEach(function (event) {
+    emitter.on(event, function (data) {
+      store.dispatch({ type: event, payload: data })
+    })
+  })
+
+  const api = {
+    buyMetronome,
+    clearCache,
+    convertEth,
+    convertMet,
+    copyToClipboard,
+    createMnemonic,
+    fromWei,
+    getAuctionGasLimit,
+    getConvertEthEstimate,
+    getConvertEthGasLimit,
+    getConvertMetEstimate,
+    getConvertMetGasLimit,
+    getEthereumNetworkUrl,
+    getGasLimit,
+    getGasPrice,
+    getStringEntropy,
+    getTokensGasLimit,
+    isAddress,
+    isValidMnemonic,
+    onExplorerLinkClick,
+    onInit,
+    onLoginSubmit,
+    onOnboardingCompleted,
+    onTermsLinkClick,
+    recoverFromMnemonic,
+    sendEth,
+    sendMet,
+    setEthereumNetworkUrl,
+    toBN,
+    toHex,
+    toWei
+  }
+
+  return api
 }
