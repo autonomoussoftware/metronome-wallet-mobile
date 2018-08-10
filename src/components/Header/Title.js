@@ -5,10 +5,10 @@ import React from 'react'
 import RN from 'react-native'
 
 const titlesByPath = {
-  '/wallets/receipt': 'Transaction Receipt',
-  '/wallets/receive': 'Receive',
-  '/wallets/send': 'Send',
-  '/wallets': 'My wallet',
+  '/dashboard/receipt': 'Transaction Receipt',
+  '/dashboard/receive': 'Receive',
+  '/dashboard/send': 'Send',
+  '/dashboard': 'My wallet',
 
   '/auction': 'Auction',
   '/auction/buy': 'Buy Metronome',

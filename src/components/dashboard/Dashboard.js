@@ -17,10 +17,10 @@ export default class Dashboard extends React.Component {
     return (
       <RoutePager
         pages={{
-          '/wallets': withDashboardState(DashboardHome),
-          '/wallets/send': SendDrawer,
-          '/wallets/receive': ReceiveDrawer,
-          '/wallets/receipt': ReceiptDrawer
+          '/dashboard': withDashboardState(DashboardHome),
+          '/dashboard/send': SendDrawer,
+          '/dashboard/receive': ReceiveDrawer,
+          '/dashboard/receipt': ReceiptDrawer
         }}
       />
     )
