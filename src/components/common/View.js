@@ -18,6 +18,7 @@ const View = props => {
     basis,
     order,
     style,
+    self,
     grow,
     flex,
     safe,
@@ -40,6 +41,7 @@ const View = props => {
         justify && { justifyContent: justify },
         rowwrap && styles.rowwrap,
         align && { alignItems: align },
+        self && { alignSelf: self },
         row && styles.row,
         bg && { backgroundColor: theme.colors[bg] },
         spacing(props),
@@ -69,7 +71,20 @@ View.propTypes = {
   scroll: PropTypes.bool,
   basis: PropTypes.number,
   order: PropTypes.number,
-  align: PropTypes.oneOf(['center', 'flex-start', 'flex-end', 'baseline']),
+  align: PropTypes.oneOf([
+    'flex-start',
+    'flex-end',
+    'baseline',
+    'stretch',
+    'center'
+  ]),
+  self: PropTypes.oneOf([
+    'flex-start',
+    'flex-end',
+    'baseline',
+    'stretch',
+    'center'
+  ]),
   style: PropTypes.any,
   grow: PropTypes.number,
   flex: PropTypes.number,

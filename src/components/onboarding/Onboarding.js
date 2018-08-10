@@ -1,10 +1,13 @@
-import { TextInput, View, Text, Btn, BaseBtn } from '../common'
+import { TextInput, Checkbox, View, Text, Btn, BaseBtn } from '../common'
 import withOnboardingState from '../../shared/hocs/withOnboardingState'
+import TermsAndConditions from '../../shared/TermsAndConditions'
 import { errorPropTypes } from '../../utils'
 import EntropyMeter from './EntropyMeter'
 import PropTypes from 'prop-types'
 import React from 'react'
 import RN from 'react-native'
+
+const TermsText = p => <Text my={1} size="small" align="justify" {...p} />
 
 class Onboarding extends React.Component {
   static propTypes = {
@@ -38,28 +41,55 @@ class Onboarding extends React.Component {
     )
   }
 
+  state = { licenseCheckbox: false, termsCheckbox: false }
+
+  onCheckboxChange = ({ id, value }) => this.setState({ [id]: value })
+
   _renderTermsStep() {
     return (
-      <View justify="center" flex={1}>
-        <View align="center" p={2}>
-          <Text size="large" mb={2}>
-            Accept to Continue
-          </Text>
-          <Text align="center">
-            By clicking “Accept”, you confirm you have read and agreed to our{' '}
-            <RN.TouchableOpacity onPress={this.props.onTermsLinkClick}>
-              <Text color="success" mb={-0.4}>
-                software license
-              </Text>
-            </RN.TouchableOpacity>.
-          </Text>
-          <Btn
-            onPress={this.props.onTermsAccepted}
-            label="Accept"
-            block
-            my={4}
-          />
+      <View justify="center" align="center" flex={1} p={2}>
+        <Text size="large" weight="semibold" mt={4}>
+          Accept to Continue
+        </Text>
+        <Text size="medium" mt={3} align="center">
+          Please read and accept these terms and permissions.
+        </Text>
+
+        <View flex={1} grow={1} mt={3} px={1} bg="translucentPrimary">
+          <RN.ScrollView>
+            <TermsAndConditions ParagraphComponent={TermsText} />
+          </RN.ScrollView>
         </View>
+        <Checkbox
+          onChange={this.onCheckboxChange}
+          checked={this.state.termsCheckbox}
+          label="I have read and accept these terms"
+          id="termsCheckbox"
+          mt={4}
+        />
+        <Checkbox
+          onChange={this.onCheckboxChange}
+          checked={this.state.licenseCheckbox}
+          label={
+            <React.Fragment>
+              I have read and accept the{' '}
+              <RN.TouchableOpacity onPress={this.props.onTermsLinkClick}>
+                <Text color="success" mb={-0.4}>
+                  software license
+                </Text>
+              </RN.TouchableOpacity>
+            </React.Fragment>
+          }
+          id="licenseCheckbox"
+          mt={1}
+        />
+        <Btn
+          disabled={!this.state.licenseCheckbox || !this.state.termsCheckbox}
+          onPress={this.props.onTermsAccepted}
+          label="Continue"
+          block
+          mt={2}
+        />
       </View>
     )
   }
@@ -68,10 +98,10 @@ class Onboarding extends React.Component {
     return (
       <RN.KeyboardAvoidingView behavior="padding" style={styles.step}>
         <View align="center" p={2}>
-          <Text size="large" mb={2}>
+          <Text size="large" weight="semibold" mb={2}>
             Define a Password
           </Text>
-          <Text align="center" mb={2} px={4}>
+          <Text size="medium" align="center" mb={2} px={4}>
             Enter a strong password until the meter turns{' '}
             <Text color="success">green</Text>.
           </Text>
@@ -113,17 +143,24 @@ class Onboarding extends React.Component {
   _renderCopyMnemonicStep() {
     return (
       <View justify="center" align="center" flex={1} p={2}>
-        <Text size="large" mb={2}>
+        <Text size="large" weight="semibold" mb={2}>
           Recovery Passphrase
         </Text>
-        <Text mb={4} align="center">
+        <Text size="medium" mb={4} align="center">
           Copy the following word list and keep it in a safe place. You will
           need these to recover your wallet in the future —don’t lose it.
         </Text>
         {this.props.mnemonic ? (
           <View row rowwrap justify="space-evenly">
             {this.props.mnemonic.split(' ').map(w => (
-              <Text key={w} color="primary" m={1} size="large">
+              <Text
+                weight="bold"
+                color="primary"
+                size="large"
+                key={w}
+                ls={0.5}
+                m={1}
+              >
                 {w}
               </Text>
             ))}
@@ -151,10 +188,10 @@ class Onboarding extends React.Component {
     return (
       <RN.KeyboardAvoidingView behavior="padding" style={styles.step}>
         <View align="center" p={2}>
-          <Text size="large" mb={2}>
+          <Text size="large" weight="semibold" mb={2}>
             Recovery Passphrase
           </Text>
-          <Text mb={4} align="center">
+          <Text size="medium" mb={4} align="center">
             To verify you have copied the recovery passphrase correctly, enter
             the 12 words provided before in the field below.
           </Text>
@@ -188,10 +225,10 @@ class Onboarding extends React.Component {
     return (
       <RN.KeyboardAvoidingView behavior="padding" style={styles.step}>
         <View align="center" p={2}>
-          <Text size="large" mb={2}>
+          <Text size="large" weight="semibold" mb={2}>
             Recovery Passphrase
           </Text>
-          <Text mb={4} align="center">
+          <Text size="medium" mb={4} align="center">
             Enter a valid 12 word passphrase to recover a previously created
             wallet.
           </Text>
