@@ -244,8 +244,9 @@ export function copyToClipboard(text) {
 }
 
 export default function createClient (store) {
+  const { config } = store.getState()
 
-  const { emitter } = core.start()
+  const { emitter } = core.start({ config })
 
   const events = [
     'eth-price-updated'
