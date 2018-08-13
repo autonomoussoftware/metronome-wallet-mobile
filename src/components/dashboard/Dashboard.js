@@ -51,7 +51,7 @@ class DashboardHome extends React.Component {
                 disabled={this.props.sendDisabled}
                 label="Send"
                 block
-                to="/wallets/send"
+                to="/dashboard/send"
               />
             </View>
             <View mx={1} />
@@ -60,7 +60,7 @@ class DashboardHome extends React.Component {
                 component={Btn}
                 label="Receive"
                 block
-                to="/wallets/receive"
+                to="/dashboard/receive"
               />
             </View>
           </View>

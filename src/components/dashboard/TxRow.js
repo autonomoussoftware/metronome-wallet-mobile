@@ -249,7 +249,7 @@ class TxRow extends React.Component {
 
   onPress = () => {
     const { history, ...other } = this.props
-    history.push('/wallets/receipt', other)
+    history.push('/dashboard/receipt', other)
   }
 
   render() {

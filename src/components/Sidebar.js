@@ -30,7 +30,7 @@ export default class Sidebar extends React.Component {
               onPress={onLinkPress}
               isFirst
               label="WALLETS"
-              to="/wallets"
+              to="/dashboard"
             />
             <NavBtn
               IconComponent={AuctionIcon}

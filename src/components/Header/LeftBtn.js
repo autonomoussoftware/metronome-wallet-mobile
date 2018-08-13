@@ -49,9 +49,9 @@ class LeftBtn extends React.Component {
   getOnPress() {
     const handlersByPath = {
       '/converter/convert': () => this.props.history.push('/converter'),
-      '/wallets/receipt': () => this.props.history.push('/wallets'),
-      '/wallets/receive': () => this.props.history.push('/wallets'),
-      '/wallets/send': () => this.props.history.push('/wallets'),
+      '/dashboard/receipt': () => this.props.history.push('/dashboard'),
+      '/dashboard/receive': () => this.props.history.push('/dashboard'),
+      '/dashboard/send': () => this.props.history.push('/dashboard'),
       '/auction/buy': () => this.props.history.push('/auction')
     }
     const index = Object.keys(handlersByPath).findIndex(
@@ -65,9 +65,9 @@ class LeftBtn extends React.Component {
   getIcon() {
     const iconsByPath = {
       '/converter/convert': backIcon,
-      '/wallets/receipt': backIcon,
-      '/wallets/receive': backIcon,
-      '/wallets/send': backIcon,
+      '/dashboard/receipt': backIcon,
+      '/dashboard/receive': backIcon,
+      '/dashboard/send': backIcon,
       '/auction/buy': backIcon
     }
     const index = Object.keys(iconsByPath).findIndex(
