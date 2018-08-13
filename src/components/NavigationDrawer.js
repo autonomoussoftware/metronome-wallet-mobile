@@ -2,9 +2,7 @@ import { TouchableOpacity, SafeAreaView, StyleSheet, View } from 'react-native'
 import ConverterIcon from './icons/ConverterIcon'
 import AuctionIcon from './icons/AuctionIcon'
 import WalletIcon from './icons/WalletIcon'
-import { Route } from 'react-router'
 import PropTypes from 'prop-types'
-import { Link } from 'react-router-native'
 import LogoIcon from './icons/LogoIcon'
 import DotIcon from './icons/DotIcon'
 import theme from '../theme'
@@ -12,13 +10,16 @@ import React from 'react'
 import Text from './common/Text'
 import Logo from './icons/Logo'
 
-export default class Sidebar extends React.Component {
+export default class NavigationDrawer extends React.Component {
   static propTypes = {
-    onLinkPress: PropTypes.func.isRequired
+    navigation: PropTypes.shape({
+      isFocused: PropTypes.func.isRequired,
+      navigate: PropTypes.func.isRequired
+    }).isRequired
   }
 
   render() {
-    const { onLinkPress } = this.props
+    const { isFocused, navigate } = this.props.navigation
 
     return (
       <View style={styles.container}>
@@ -27,32 +28,40 @@ export default class Sidebar extends React.Component {
           <View style={styles.primaryNav}>
             <NavBtn
               IconComponent={WalletIcon}
-              onPress={onLinkPress}
+              isActive={isFocused('Dashboard')}
+              onPress={() => navigate('Dashboard')}
               isFirst
               label="WALLETS"
-              to="/dashboard"
             />
             <NavBtn
               IconComponent={AuctionIcon}
-              onPress={onLinkPress}
+              isActive={isFocused('Auction')}
+              onPress={() => navigate('Auction')}
               label="AUCTION"
-              to="/auction"
             />
             <NavBtn
               IconComponent={ConverterIcon}
-              onPress={onLinkPress}
+              isActive={isFocused('Converter')}
+              onPress={() => navigate('Converter')}
               label="CONVERTER"
-              to="/converter"
             />
           </View>
           <View style={styles.secondaryNav}>
             <SecondaryNavBtn
-              onPress={onLinkPress}
+              isActive={isFocused('Settings')}
+              onPress={() => navigate('Settings')}
               label="Settings"
-              to="/settings"
             />
-            <SecondaryNavBtn onPress={onLinkPress} label="Tools" to="/tools" />
-            <SecondaryNavBtn onPress={onLinkPress} label="Help" to="/help" />
+            <SecondaryNavBtn
+              isActive={isFocused('Tools')}
+              onPress={() => navigate('Tools')}
+              label="Tools"
+            />
+            <SecondaryNavBtn
+              isActive={isFocused('Help')}
+              onPress={() => navigate('Help')}
+              label="Help"
+            />
           </View>
           <LogoIcon style={styles.footerLogo} />
         </SafeAreaView>
@@ -61,61 +70,51 @@ export default class Sidebar extends React.Component {
   }
 }
 
-const NavBtn = ({ label, isFirst, IconComponent, to, ...other }) => (
-  <Link component={TouchableOpacity} activeOpacity={0.5} to={to} {...other}>
-    <Route path={to}>
-      {({ match: isActive }) => (
-        <View
-          style={[
-            styles.btn,
-            isFirst && styles.btnFirst,
-            isActive && styles.btnActive
-          ]}
-        >
-          <IconComponent isActive={!!isActive} />
-          <Text
-            weight="semibold"
-            style={[styles.btnLabel, isActive && styles.labelActive]}
-          >
-            {label}
-          </Text>
-        </View>
-      )}
-    </Route>
-  </Link>
+const NavBtn = ({ label, isFirst, IconComponent, isActive, ...other }) => (
+  <TouchableOpacity activeOpacity={0.5} {...other}>
+    <View
+      style={[
+        styles.btn,
+        isFirst && styles.btnFirst,
+        isActive && styles.btnActive
+      ]}
+    >
+      <IconComponent isActive={!!isActive} />
+      <Text
+        weight="semibold"
+        style={[styles.btnLabel, isActive && styles.labelActive]}
+      >
+        {label}
+      </Text>
+    </View>
+  </TouchableOpacity>
 )
 
 NavBtn.propTypes = {
   IconComponent: PropTypes.func.isRequired,
+  isActive: PropTypes.bool.isRequired,
   isFirst: PropTypes.bool,
-  label: PropTypes.string.isRequired,
-  to: PropTypes.string.isRequired
+  label: PropTypes.string.isRequired
 }
 
-const SecondaryNavBtn = ({ label, to, ...other }) => (
-  <Link component={TouchableOpacity} activeOpacity={0.5} to={to} {...other}>
-    <Route path={to} exact>
-      {({ match: isActive }) => (
-        <View
-          style={[styles.secondaryBtn, isActive && styles.secondaryBtnActive]}
-        >
-          {isActive && <DotIcon />}
-          <Text
-            weight="semibold"
-            style={[styles.secondaryBtnLabel, isActive && styles.labelActive]}
-          >
-            {label}
-          </Text>
-        </View>
-      )}
-    </Route>
-  </Link>
+const SecondaryNavBtn = ({ label, isActive, ...other }) => (
+  <TouchableOpacity activeOpacity={0.5} {...other}>
+    <View style={[styles.secondaryBtn, isActive && styles.secondaryBtnActive]}>
+      {isActive && <DotIcon />}
+      <Text
+        weight="semibold"
+        style={[styles.secondaryBtnLabel, isActive && styles.labelActive]}
+      >
+        {label}
+      </Text>
+    </View>
+  </TouchableOpacity>
 )
 
 SecondaryNavBtn.propTypes = {
+  isActive: PropTypes.bool.isRequired,
   isFirst: PropTypes.bool,
-  label: PropTypes.string.isRequired,
-  to: PropTypes.string.isRequired
+  label: PropTypes.string.isRequired
 }
 
 const styles = StyleSheet.create({

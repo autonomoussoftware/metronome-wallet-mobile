@@ -2,7 +2,6 @@ import ConfirmationWizard from './Confirmation'
 import ChecklistItem from './ChecklistItem'
 import AmountFields from './AmountFields'
 import DisplayValue from './DisplayValue'
-import RoutePager from './RoutePager'
 import TextInput from './TextInput'
 import GasEditor from './GasEditor'
 import Checkbox from './Checkbox'
@@ -17,7 +16,6 @@ export {
   ChecklistItem,
   AmountFields,
   DisplayValue,
-  RoutePager,
   TextInput,
   GasEditor,
   Checkbox,

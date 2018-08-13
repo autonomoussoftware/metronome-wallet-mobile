@@ -16,7 +16,7 @@ class Settings extends React.Component {
 
   render() {
     return (
-      <View flex={1} py={4} px={2}>
+      <View bg="dark" flex={1} py={4} px={2}>
         <TextInput
           disabled={this.props.ethereumNetworkUrl === null}
           onChange={this.props.onInputChange}

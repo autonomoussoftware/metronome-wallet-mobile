@@ -1,43 +1,25 @@
-import { RoutePager, Text, View, Btn } from '../common'
-import { pageStatusPropTypes } from '../../utils'
+import { Text, View, Btn } from '../common'
 import withAuctionState from '../../shared/hocs/withAuctionState'
-import BuyMETForm from './BuyMETForm'
 import CountDown from './CountDown'
 import PropTypes from 'prop-types'
-import { Link } from 'react-router-native'
 import Stats from './Stats'
 import React from 'react'
 import RN from 'react-native'
 
-export default class Auction extends React.Component {
-  render() {
-    return (
-      <RoutePager
-        pages={{
-          '/auction': withAuctionState(AuctionHome),
-          '/auction/buy': BuyMETForm
-        }}
-      />
-    )
-  }
-}
-
-const AuctionHome = props => {
+const Auction = props => {
   const {
     countdownTargetTimestamp,
     buyDisabledReason,
     auctionPriceUSD,
     auctionStatus,
     buyDisabled,
-    pageStatus,
+    navigation,
     showStats,
     title
   } = props
 
-  if (pageStatus === 'offscreen') return null
-
   return (
-    <View flex={1} px={2} py={4} justify="space-between">
+    <View bg="dark" flex={1} px={2} py={4} justify="space-between">
       {auctionStatus ? (
         <React.Fragment>
           <View>
@@ -53,12 +35,11 @@ const AuctionHome = props => {
                 auctionPriceUSD={auctionPriceUSD}
                 auctionStatus={auctionStatus}
               />
-              <Link
-                component={Btn}
+              <Btn
                 disabled={buyDisabled}
                 label="Buy Metronome"
                 block
-                to="/auction/buy"
+                onPress={() => navigation.navigate('BuyDrawer')}
                 mt={2}
               />
               {buyDisabledReason && (
@@ -81,7 +62,7 @@ const AuctionHome = props => {
   )
 }
 
-AuctionHome.propTypes = {
+Auction.propTypes = {
   countdownTargetTimestamp: PropTypes.number.isRequired,
   buyDisabledReason: PropTypes.string,
   auctionPriceUSD: PropTypes.string.isRequired,
@@ -93,7 +74,11 @@ AuctionHome.propTypes = {
     genesisTime: PropTypes.number.isRequired
   }),
   buyDisabled: PropTypes.bool.isRequired,
+  navigation: PropTypes.shape({
+    navigate: PropTypes.func.isRequired
+  }).isRequired,
   showStats: PropTypes.bool.isRequired,
-  title: PropTypes.string,
-  ...pageStatusPropTypes
+  title: PropTypes.string
 }
+
+export default withAuctionState(Auction)

@@ -1,32 +1,19 @@
 import { Text, View, Btn } from '../common'
 import withConverterState from '../../shared/hocs/withConverterState'
-import ConvertDrawer from './ConvertDrawer'
-import RoutePager from '../common/RoutePager'
 import PropTypes from 'prop-types'
-import { Link } from 'react-router-native'
 import Stats from './Stats'
 import React from 'react'
 import RN from 'react-native'
 
-export default class Converter extends React.Component {
-  render() {
-    return (
-      <RoutePager
-        pages={{
-          '/converter': withConverterState(ConverterHome),
-          '/converter/convert': ConvertDrawer
-        }}
-      />
-    )
-  }
-}
-
-class ConverterHome extends React.Component {
+class Converter extends React.Component {
   static propTypes = {
     convertDisabledReason: PropTypes.string,
     converterPriceUSD: PropTypes.string.isRequired,
     convertDisabled: PropTypes.bool.isRequired,
-    converterStatus: PropTypes.object
+    converterStatus: PropTypes.object,
+    navigation: PropTypes.shape({
+      navigate: PropTypes.func.isRequired
+    }).isRequired
   }
 
   render() {
@@ -34,11 +21,12 @@ class ConverterHome extends React.Component {
       convertDisabledReason,
       converterPriceUSD,
       converterStatus,
-      convertDisabled
+      convertDisabled,
+      navigation
     } = this.props
 
     return (
-      <View flex={1} px={2} py={4} justify="space-between">
+      <View bg="dark" flex={1} px={2} py={4} justify="space-between">
         {converterStatus ? (
           <React.Fragment>
             <View grow={1}>
@@ -47,12 +35,11 @@ class ConverterHome extends React.Component {
                 converterStatus={converterStatus}
               />
             </View>
-            <Link
-              component={Btn}
+            <Btn
               disabled={convertDisabled}
               label="Convert"
               block
-              to="/converter/convert"
+              onPress={() => navigation.navigate('ConvertDrawer')}
               mt={2}
             />
             {convertDisabledReason && (
@@ -73,3 +60,5 @@ class ConverterHome extends React.Component {
     )
   }
 }
+
+export default withConverterState(Converter)

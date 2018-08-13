@@ -1,37 +1,27 @@
-import { RoutePager, View, Text, Btn } from '../common'
+import { View, Text, Btn } from '../common'
 import withDashboardState from '../../shared/hocs/withDashboardState'
-import ReceiveDrawer from './ReceiveDrawer'
-import ReceiptDrawer from './ReceiptDrawer'
 import TxListHeader from './TxListHeader'
 import BalanceBlock from './BalanceBlock'
-import SendDrawer from './SendDrawer'
 import PropTypes from 'prop-types'
-import { Link } from 'react-router-native'
 import TxList from './TxList'
 import theme from '../../theme'
 import React from 'react'
 import RN from 'react-native'
 
-export default class Dashboard extends React.Component {
-  render() {
-    return (
-      <RoutePager
-        pages={{
-          '/dashboard': withDashboardState(DashboardHome),
-          '/dashboard/send': SendDrawer,
-          '/dashboard/receive': ReceiveDrawer,
-          '/dashboard/receipt': ReceiptDrawer
-        }}
-      />
-    )
-  }
-}
-
-class DashboardHome extends React.Component {
+class Dashboard extends React.Component {
   static propTypes = {
     sendDisabledReason: PropTypes.string,
     hasTransactions: PropTypes.bool.isRequired,
-    sendDisabled: PropTypes.bool.isRequired
+    sendDisabled: PropTypes.bool.isRequired,
+    navigation: PropTypes.shape({
+      navigate: PropTypes.func.isRequired
+    }).isRequired
+  }
+
+  static navigationOptions = {
+    title: 'a1',
+    headerTitle: 'asdss'
+    // headerBackTitle: null
   }
 
   state = { selectedFilter: 'all' }
@@ -46,21 +36,19 @@ class DashboardHome extends React.Component {
         <View px={2} pt={2} pb={1}>
           <View row justify="space-between">
             <View grow={1} basis={0}>
-              <Link
-                component={Btn}
+              <Btn
                 disabled={this.props.sendDisabled}
+                onPress={() => this.props.navigation.navigate('SendDrawer')}
                 label="Send"
                 block
-                to="/dashboard/send"
               />
             </View>
             <View mx={1} />
             <View grow={1} basis={0}>
-              <Link
-                component={Btn}
+              <Btn
+                onPress={() => this.props.navigation.navigate('ReceiveDrawer')}
                 label="Receive"
                 block
-                to="/dashboard/receive"
               />
             </View>
           </View>
@@ -97,3 +85,5 @@ const styles = RN.StyleSheet.create({
     flex: 1
   }
 })
+
+export default withDashboardState(Dashboard)

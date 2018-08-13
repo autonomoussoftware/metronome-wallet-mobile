@@ -1,4 +1,3 @@
-import { pageStatusPropTypes } from '../../utils'
 import withBuyMETFormState from '../../shared/hocs/withBuyMETFormState'
 import PropTypes from 'prop-types'
 import React from 'react'
@@ -15,13 +14,12 @@ import {
 class BuyMETForm extends React.Component {
   static propTypes = {
     expectedMETamount: PropTypes.string,
-    excessETHAmount: PropTypes.string,
-    usedETHAmount: PropTypes.string,
-    excedes: PropTypes.bool,
     gasEstimateError: PropTypes.bool,
+    excessETHAmount: PropTypes.string,
     onWizardSubmit: PropTypes.func.isRequired,
     ethPlaceholder: PropTypes.string,
     usdPlaceholder: PropTypes.string,
+    usedETHAmount: PropTypes.string,
     onInputChange: PropTypes.func.isRequired,
     availableETH: PropTypes.string.isRequired,
     useCustomGas: PropTypes.bool.isRequired,
@@ -32,17 +30,8 @@ class BuyMETForm extends React.Component {
     validate: PropTypes.func.isRequired,
     gasPrice: PropTypes.string,
     gasLimit: PropTypes.string,
-    errors: PropTypes.object.isRequired,
-    ...pageStatusPropTypes
-  }
-
-  componentDidUpdate(prevProps) {
-    if (
-      this.props.pageStatus === 'offscreen' &&
-      prevProps.pageStatus !== 'offscreen'
-    ) {
-      this.props.resetForm()
-    }
+    excedes: PropTypes.bool,
+    errors: PropTypes.object.isRequired
   }
 
   renderConfirmation = () => {
@@ -67,7 +56,8 @@ class BuyMETForm extends React.Component {
               value={this.props.excessETHAmount}
               color="primary"
               post=" ETH"
-            />.
+            />
+            .
           </Text>
         </View>
         <View my={2}>
@@ -85,7 +75,8 @@ class BuyMETForm extends React.Component {
           post=" ETH"
           color="primary"
         />{' '}
-        (${this.props.usdAmount}) to buy approximately{' '}
+        ($
+        {this.props.usdAmount}) to buy approximately{' '}
         <DisplayValue
           value={this.props.expectedMETamount}
           post=" MET"
@@ -134,7 +125,8 @@ class BuyMETForm extends React.Component {
                     value={this.props.excessETHAmount}
                     color="danger"
                     post=" ETH"
-                  />.
+                  />
+                  .
                 </Text>
               ) : (
                 <Text size="medium">
@@ -142,7 +134,8 @@ class BuyMETForm extends React.Component {
                   <DisplayValue
                     value={this.props.expectedMETamount}
                     post=" MET"
-                  />.
+                  />
+                  .
                 </Text>
               )}
             </View>
@@ -154,8 +147,6 @@ class BuyMETForm extends React.Component {
   }
 
   render() {
-    if (this.props.pageStatus === 'offscreen') return null
-
     return (
       <ConfirmationWizard
         renderConfirmation={this.renderConfirmation}

@@ -12,11 +12,6 @@ export const errorPropTypes = (...fields) => {
   return PropTypes.shape(shape).isRequired
 }
 
-export const pageStatusPropTypes = {
-  pageStatus: PropTypes.oneOf(['entering', 'entered', 'exiting', 'offscreen'])
-    .isRequired
-}
-
 export const spacing = props => ({
   marginBottom: theme.spacing(props.m || props.mb || props.my || null),
   marginRight: theme.spacing(props.m || props.mr || props.mx || null),

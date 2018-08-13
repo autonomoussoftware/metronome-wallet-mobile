@@ -17,7 +17,7 @@ class Tools extends React.Component {
 
   renderForm = ({ goToReview }) => {
     return (
-      <View flex={1} py={4} px={2}>
+      <View bg="dark" flex={1} py={4} px={2}>
         <View grow={1}>
           <Text>Enter the 12 words to recover your wallet.</Text>
           <Text my={4} color="danger">

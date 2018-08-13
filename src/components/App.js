@@ -10,6 +10,7 @@ import Router from './Router'
 import Login from './Login'
 import React from 'react'
 import Root from '../shared/Root'
+import RN from 'react-native'
 
 const reduxDevtoolsOptions = {
   actionsBlacklist: ['price-updated$'],
@@ -22,6 +23,7 @@ const store = createStore(reduxDevtoolsOptions, getInitialState(config))
 
 const App = () => (
   <ClientProvider value={createClient(store)}>
+    <RN.StatusBar barStyle="light-content" />
     <Provider store={store}>
       <Root
         OnboardingComponent={Onboarding}

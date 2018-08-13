@@ -1,6 +1,6 @@
 import { DisplayValue, View, Text } from '../common'
+import { withNavigation } from 'react-navigation'
 import withTxRowState from '../../shared/hocs/withTxRowState'
-import { withRouter } from 'react-router'
 import ConverterIcon from '../icons/ConverterIcon'
 import AuctionIcon from '../icons/AuctionIcon'
 import PropTypes from 'prop-types'
@@ -20,14 +20,14 @@ class TxRow extends React.Component {
     confirmations: PropTypes.number.isRequired,
     convertedFrom: PropTypes.string,
     isProcessing: PropTypes.bool,
+    navigation: PropTypes.shape({
+      navigate: PropTypes.func.isRequired
+    }).isRequired,
     isApproval: PropTypes.bool,
     fromValue: PropTypes.string,
     isPending: PropTypes.bool.isRequired,
     isFailed: PropTypes.bool.isRequired,
     toValue: PropTypes.string,
-    history: PropTypes.shape({
-      push: PropTypes.func.isRequired
-    }).isRequired,
     symbol: PropTypes.string,
     txType: PropTypes.oneOf([
       'converted',
@@ -248,8 +248,8 @@ class TxRow extends React.Component {
   }
 
   onPress = () => {
-    const { history, ...other } = this.props
-    history.push('/dashboard/receipt', other)
+    const { navigation, ...other } = this.props
+    navigation.navigate('ReceiptDrawer', other)
   }
 
   render() {
@@ -292,4 +292,4 @@ const styles = RN.StyleSheet.create({
   }
 })
 
-export default withTxRowState(withRouter(TxRow))
+export default withTxRowState(withNavigation(TxRow))

@@ -1,5 +1,4 @@
 import withConvertETHtoMETState from '../../shared/hocs/withConvertETHtoMETState'
-import { pageStatusPropTypes } from '../../utils'
 import PropTypes from 'prop-types'
 import React from 'react'
 import {
@@ -30,17 +29,7 @@ class ConvertETHtoMETForm extends React.Component {
     gasPrice: PropTypes.string,
     gasLimit: PropTypes.string,
     estimate: PropTypes.string,
-    errors: PropTypes.object.isRequired,
-    ...pageStatusPropTypes
-  }
-
-  componentDidUpdate(prevProps) {
-    if (
-      this.props.pageStatus === 'offscreen' &&
-      prevProps.pageStatus !== 'offscreen'
-    ) {
-      this.props.resetForm()
-    }
+    errors: PropTypes.object.isRequired
   }
 
   renderConfirmation = () => {
@@ -53,8 +42,10 @@ class ConvertETHtoMETForm extends React.Component {
           toWei
           post=" ETH"
         />{' '}
-        (${this.props.usdAmount}) and get approximately{' '}
-        <DisplayValue value={this.props.estimate} post=" MTN" color="primary" />.
+        ($
+        {this.props.usdAmount}) and get approximately{' '}
+        <DisplayValue value={this.props.estimate} post=" MTN" color="primary" />
+        .
       </Text>
     )
   }
@@ -87,7 +78,8 @@ class ConvertETHtoMETForm extends React.Component {
                 value={this.props.estimate}
                 color="primary"
                 post=" MET"
-              />.
+              />
+              .
             </Text>
           )}
           {this.props.estimateError && (
@@ -102,8 +94,6 @@ class ConvertETHtoMETForm extends React.Component {
   }
 
   render() {
-    if (this.props.pageStatus === 'offscreen') return null
-
     return (
       <ConfirmationWizard
         renderConfirmation={this.renderConfirmation}

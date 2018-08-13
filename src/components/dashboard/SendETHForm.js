@@ -1,4 +1,3 @@
-import { pageStatusPropTypes } from '../../utils'
 import withSendETHFormState from '../../shared/hocs/withSendETHFormState'
 import QRScanner from './QRScanner'
 import PropTypes from 'prop-types'
@@ -26,13 +25,13 @@ class SendETHForm extends React.Component {
     useCustomGas: PropTypes.bool.isRequired,
     onMaxClick: PropTypes.func.isRequired,
     resetForm: PropTypes.func.isRequired,
+    toAddress: PropTypes.string,
     ethAmount: PropTypes.string,
     usdAmount: PropTypes.string,
     validate: PropTypes.func.isRequired,
     gasPrice: PropTypes.string,
     gasLimit: PropTypes.string,
-    errors: PropTypes.object.isRequired,
-    ...pageStatusPropTypes
+    errors: PropTypes.object.isRequired
   }
 
   state = { showQRscanner: false }
@@ -46,15 +45,6 @@ class SendETHForm extends React.Component {
     this.setState({ showQRscanner: false })
   }
 
-  componentDidUpdate(prevProps) {
-    if (
-      this.props.pageStatus === 'offscreen' &&
-      prevProps.pageStatus !== 'offscreen'
-    ) {
-      this.props.resetForm()
-    }
-  }
-
   renderConfirmation = () => {
     return (
       <Text size="medium">
@@ -65,10 +55,12 @@ class SendETHForm extends React.Component {
           toWei
           post=" ETH"
         />{' '}
-        (${this.props.usdAmount}) to the address{' '}
+        ($
+        {this.props.usdAmount}) to the address{' '}
         <Text color="primary" numberOfLines={1}>
           {this.props.toAddress}
-        </Text>.
+        </Text>
+        .
       </Text>
     )
   }
