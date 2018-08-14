@@ -160,20 +160,24 @@ class Onboarding extends React.Component {
           need these to recover your wallet in the future —don’t lose it.
         </Text>
         {this.props.mnemonic ? (
-          <View row rowwrap justify="space-evenly">
-            {this.props.mnemonic.split(' ').map(w => (
-              <Text
-                weight="bold"
-                color="primary"
-                size="large"
-                key={w}
-                ls={0.5}
-                m={1}
-              >
-                {w}
-              </Text>
-            ))}
-          </View>
+          <RN.TouchableWithoutFeedback
+            onPress={() => RN.Clipboard.setString(this.props.mnemonic)}
+          >
+            <View row rowwrap justify="space-evenly">
+              {this.props.mnemonic.split(' ').map(w => (
+                <Text
+                  weight="bold"
+                  color="primary"
+                  size="large"
+                  key={w}
+                  ls={0.5}
+                  m={1}
+                >
+                  {w}
+                </Text>
+              ))}
+            </View>
+          </RN.TouchableWithoutFeedback>
         ) : (
           <RN.ActivityIndicator />
         )}
