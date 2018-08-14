@@ -33,8 +33,8 @@ function getPasswordStrengthMessage(ratio) {
 const withOnboardingState = WrappedComponent => {
   class Container extends React.Component {
     static propTypes = {
+      onOnboardingCompleted: PropTypes.func.isRequired,
       client: PropTypes.shape({
-        onOnboardingCompleted: PropTypes.func.isRequired,
         onTermsLinkClick: PropTypes.func.isRequired,
         getStringEntropy: PropTypes.func.isRequired,
         isValidMnemonic: PropTypes.func.isRequired,
@@ -130,7 +130,7 @@ const withOnboardingState = WrappedComponent => {
           })
         }
       }
-      return this.props.client.onOnboardingCompleted({
+      return this.props.onOnboardingCompleted({
         password: this.state.password,
         mnemonic: this.state.useUserMnemonic
           ? this.state.userMnemonic
