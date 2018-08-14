@@ -73,11 +73,13 @@ class Onboarding extends React.Component {
           label={
             <React.Fragment>
               I have read and accept the{' '}
-              <RN.TouchableOpacity onPress={this.props.onTermsLinkClick}>
-                <Text color="success" mb={-0.4}>
-                  software license
-                </Text>
-              </RN.TouchableOpacity>
+              <Text
+                onPress={this.props.onTermsLinkClick}
+                color="success"
+                mb={-0.4}
+              >
+                software license
+              </Text>
             </React.Fragment>
           }
           id="licenseCheckbox"
