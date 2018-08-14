@@ -1,8 +1,8 @@
 import { TextInput, Checkbox, View, Text, Btn, BaseBtn } from '../common'
+import { default as PinInput, PIN_LENGTH } from '../common/PinInput'
 import withOnboardingState from '../../shared/hocs/withOnboardingState'
 import TermsAndConditions from '../../shared/TermsAndConditions'
 import { errorPropTypes } from '../../utils'
-import EntropyMeter from './EntropyMeter'
 import PropTypes from 'prop-types'
 import React from 'react'
 import RN from 'react-native'
@@ -96,49 +96,56 @@ class Onboarding extends React.Component {
     )
   }
 
-  _renderPasswordStep() {
+  _renderPinStep() {
     return (
-      <RN.KeyboardAvoidingView behavior="padding" style={styles.step}>
-        <View align="center" p={2}>
-          <Text size="large" weight="semibold" mb={2}>
-            Define a Password
+      <View flex={1} align="center" px={2} pt={4} justify="center">
+        <Text size="large" weight="semibold" mb={2}>
+          Define a PIN
+        </Text>
+        <RN.View style={styles.bigPlaceholder} mb={4}>
+          <Text size="medium" align="center" px={4}>
+            All data will be encrypted using this PIN. Don&apos;t lose it.
           </Text>
-          <Text size="medium" align="center" mb={2} px={4}>
-            Enter a strong password until the meter turns{' '}
-            <Text color="success">green</Text>.
+        </RN.View>
+        <PinInput
+          onChange={this.props.onInputChange}
+          value={this.props.password || ''}
+          id="password"
+        />
+        <View style={styles.placeholder} />
+      </View>
+    )
+  }
+
+  _renderVerifyPinStep() {
+    return (
+      <View flex={1} align="center" px={2} pt={4} justify="center">
+        <Text size="large" weight="semibold" mb={2}>
+          Define a PIN
+        </Text>
+        <View style={styles.bigPlaceholder}>
+          <Text size="medium" align="center" px={4} mb={4}>
+            Please, enter your PIN again.
           </Text>
-          <TextInput
-            autoFocus
-            onChange={this.props.onInputChange}
-            error={this.props.errors.password}
-            value={this.props.password}
-            label="Password"
-            id="password"
-            noFocus
-          />
-          {!this.props.errors.password && (
-            <EntropyMeter
-              message={this.props.passwordStrengthMessage}
-              ratio={this.props.passwordStrengthRatio}
-              hue={this.props.passwordStrengthHue}
-            />
-          )}
-          <TextInput
-            topMargin
-            onChange={this.props.onInputChange}
-            error={this.props.errors.passwordAgain}
-            value={this.props.passwordAgain}
-            label="Repeat Password"
-            id="passwordAgain"
-          />
-          <Btn
-            onPress={this.props.onPasswordSubmit}
-            label="Continue"
-            block
-            mt={4}
+        </View>
+        <PinInput
+          onComplete={this.props.onPasswordSubmit}
+          onChange={this.props.onInputChange}
+          value={this.props.passwordAgain || ''}
+          error={this.props.errors.passwordAgain}
+          id="passwordAgain"
+        />
+        <View style={styles.placeholder} justify="flex-end">
+          <BaseBtn
+            onPress={() => {
+              this.props.onInputChange({ id: 'password', value: '' })
+              this.props.onInputChange({ id: 'passwordAgain', value: '' })
+            }}
+            label="Go back"
+            size="medium"
           />
         </View>
-      </RN.KeyboardAvoidingView>
+      </View>
     )
   }
 
@@ -272,7 +279,12 @@ class Onboarding extends React.Component {
             this._renderTermsStep()}
 
           {this.props.currentStep === 'define-password' &&
-            this._renderPasswordStep()}
+            (this.props.password || '').length < PIN_LENGTH &&
+            this._renderPinStep()}
+
+          {this.props.currentStep === 'define-password' &&
+            (this.props.password || '').length === PIN_LENGTH &&
+            this._renderVerifyPinStep()}
 
           {this.props.currentStep === 'copy-mnemonic' &&
             this._renderCopyMnemonicStep()}
@@ -295,6 +307,12 @@ const styles = RN.StyleSheet.create({
   step: {
     justifyContent: 'center',
     flex: 1
+  },
+  placeholder: {
+    height: 50
+  },
+  bigPlaceholder: {
+    height: 70
   }
 })
 

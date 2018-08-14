@@ -81,7 +81,7 @@ const withOnboardingState = WrappedComponent => {
       if (!errors.password && !passwordAgain) {
         errors.passwordAgain = 'Repeat the password'
       } else if (!errors.password && passwordAgain !== password) {
-        errors.passwordAgain = "Passwords don't match"
+        errors.passwordAgain = "PINs don't match"
       }
       if (Object.keys(errors).length > 0) return this.setState({ errors })
 
