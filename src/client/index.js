@@ -1,7 +1,9 @@
 import core from 'metronome-wallet-core'
-import fastPasswordEntropy from 'fast-password-entropy'
-import bip39 from 'react-native-bip39'
-import utils from 'web3-utils'
+
+import * as auth from './auth'
+import * as keys from './keys'
+import * as utils from './utils'
+import * as wallet from './wallet'
 
 const fakeResponse = (value, delay = 500) => {
   return new Promise((resolve, reject) => {
@@ -11,40 +13,11 @@ const fakeResponse = (value, delay = 500) => {
   })
 }
 
-export const getStringEntropy = str => fastPasswordEntropy(str)
-
-export const isAddress = str => utils.isAddress(str)
-
-export const fromWei = (str, unit = 'ether') => utils.fromWei(str, unit)
-
-export const toWei = (bn, unit = 'ether') => utils.toWei(bn, unit)
-
-export const toHex = bn => utils.toHex(bn)
-
-export const toBN = str => utils.toBN(str)
-
-/**
- * Called when app starts
- * Returns a Promise that resolves to an object { onboardingComplete: Bool }
- */
-export function onInit() {
-  return fakeResponse({ onboardingComplete: true }, 0)
-}
-
-/**
- * Called when the onboarding process is finished
- * Returns a Promise thet resolves if password and mnemonic are valid
- */
-export function onOnboardingCompleted({ password, mnemonic }) {
-  alert(`password: ${password} - mnemonic: ${mnemonic}`)
-  return fakeResponse({})
-}
-
 /**
  * Called when login/unlock form is submitted
  * Returns a Promise
  */
-export function onLoginSubmit({ password }) {
+function onLoginSubmit({ password }) {
   return fakeResponse({ password })
 }
 
@@ -52,7 +25,7 @@ export function onLoginSubmit({ password }) {
  * Called when the link "Terms & Conditions" is clicked
  * It should trigger opening the link with the platform default browser
  */
-export function onTermsLinkClick() {
+function onTermsLinkClick() {
   return fakeResponse({})
 }
 
@@ -60,27 +33,15 @@ export function onTermsLinkClick() {
  * Called when the link "Open in Explorer" is clicked
  * It should trigger opening the link with the platform default browser
  */
-export function onExplorerLinkClick() {
+function onExplorerLinkClick() {
   return fakeResponse({})
-}
-
-/**
- * Called by onboarding process to create a new wallet
- * Must return a Promise that resolves to the mnemonic string to be consistent
- * with React Native BIP 39
- */
-export function createMnemonic() {
-  return bip39.generateMnemonic()
-  // return Promise.resolve(
-  //   'foo house bar plane baz micro gulp sans letter zero metro mayer'
-  // );
 }
 
 /**
  * Called by "Recover wallet from mnemonic" form
  * Must return a Promise
  */
-export function recoverFromMnemonic({ mnemonic, password }) {
+function recoverFromMnemonic({ mnemonic, password }) {
   return fakeResponse({ mnemonic, password })
 }
 
@@ -88,7 +49,7 @@ export function recoverFromMnemonic({ mnemonic, password }) {
  * Called when clicking "Clear cache" button in "Settings" screen
  * Must return a Promise
  */
-export function clearCache() {
+function clearCache() {
   return fakeResponse({})
 }
 
@@ -96,7 +57,7 @@ export function clearCache() {
  * Called when prefilling the Ethereum network URL field in "Settings" screen
  * Must return a Promise
  */
-export function getEthereumNetworkUrl() {
+function getEthereumNetworkUrl() {
   // Reference implementation in desktop wallet:
   //
   // ipcRenderer.sendSync('settings-get', {
@@ -109,7 +70,7 @@ export function getEthereumNetworkUrl() {
  * Called when updating the Ethereum network URL from "Settings" screen
  * Must return a Promise
  */
-export function setEthereumNetworkUrl({ ethereumNetworkUrl }) {
+function setEthereumNetworkUrl({ ethereumNetworkUrl }) {
   // Reference implementation in desktop wallet:
   //
   // ipcRenderer.sendSync('settings-set', {
@@ -119,16 +80,12 @@ export function setEthereumNetworkUrl({ ethereumNetworkUrl }) {
   return fakeResponse({})
 }
 
-export function isValidMnemonic(str) {
-  return bip39.validateMnemonic(str)
-}
-
 /**
  * Called when the gas editor is mounted
  * Returns a Promise that resolves to an object { gasPrice: String }
  * Gas price is returned in wei
  */
-export function getGasPrice() {
+function getGasPrice() {
   return fakeResponse({ gasPrice: '10' })
 }
 
@@ -137,7 +94,7 @@ export function getGasPrice() {
  * Returns a Promise that resolves to an object { gasLimit: String }
  * Gas price is returned in wei
  */
-export function getGasLimit({ value, from }) {
+function getGasLimit({ value, from }) {
   return fakeResponse({ gasLimit: '29000' })
 }
 
@@ -146,7 +103,7 @@ export function getGasLimit({ value, from }) {
  * Returns a Promise that resolves to an object { gasLimit: String }
  * Gas price is returned in wei
  */
-export function getTokensGasLimit({ value, from }) {
+function getTokensGasLimit({ value, from }) {
   return fakeResponse({ gasLimit: '26940' })
 }
 
@@ -155,7 +112,7 @@ export function getTokensGasLimit({ value, from }) {
  * Returns a Promise that resolves to an object { gasLimit: String }
  * Gas price is returned in wei
  */
-export function getAuctionGasLimit({ value, from }) {
+function getAuctionGasLimit({ value, from }) {
   return fakeResponse({ gasLimit: '31000' })
 }
 
@@ -164,7 +121,7 @@ export function getAuctionGasLimit({ value, from }) {
  * Returns a Promise that resolves to an object { gasLimit: String }
  * Gas price is returned in wei
  */
-export function getConvertEthGasLimit({ value, from }) {
+function getConvertEthGasLimit({ value, from }) {
   return fakeResponse({ gasLimit: '22000' })
 }
 
@@ -173,7 +130,7 @@ export function getConvertEthGasLimit({ value, from }) {
  * Returns a Promise that resolves to an object { gasLimit: String }
  * Gas price is returned in wei
  */
-export function getConvertMetGasLimit({ value, from }) {
+function getConvertMetGasLimit({ value, from }) {
   return fakeResponse({ gasLimit: '23000' })
 }
 
@@ -181,7 +138,7 @@ export function getConvertMetGasLimit({ value, from }) {
  * Called when "Send ETH" form is confirmed and submitted
  * Returns a Promise
  */
-export function sendEth({ gasPrice, gasLimit, password, value, from, to }) {
+function sendEth({ gasPrice, gasLimit, password, value, from, to }) {
   return fakeResponse({}, 1500)
 }
 
@@ -189,7 +146,7 @@ export function sendEth({ gasPrice, gasLimit, password, value, from, to }) {
  * Called when "Send MET" form is confirmed and submitted
  * Returns a Promise
  */
-export function sendMet({ gasPrice, gasLimit, password, value, from, to }) {
+function sendMet({ gasPrice, gasLimit, password, value, from, to }) {
   return fakeResponse({}, 1500)
 }
 
@@ -197,7 +154,7 @@ export function sendMet({ gasPrice, gasLimit, password, value, from, to }) {
  * Called when "Buy Metronome" form is confirmed and submitted
  * Returns a Promise
  */
-export function buyMetronome({ gasPrice, gasLimit, password, value, from }) {
+function buyMetronome({ gasPrice, gasLimit, password, value, from }) {
   return fakeResponse({}, 1500)
 }
 
@@ -205,7 +162,7 @@ export function buyMetronome({ gasPrice, gasLimit, password, value, from }) {
  * Called when "Convert ETH to MET" form is confirmed and submitted
  * Returns a Promise
  */
-export function convertEth({ gasPrice, gasLimit, password, value, from }) {
+function convertEth({ gasPrice, gasLimit, password, value, from }) {
   return fakeResponse({}, 1500)
 }
 
@@ -213,7 +170,7 @@ export function convertEth({ gasPrice, gasLimit, password, value, from }) {
  * Called when "Convert MET to ETH" form is confirmed and submitted
  * Returns a Promise
  */
-export function convertMet({ gasPrice, gasLimit, password, value, from }) {
+function convertMet({ gasPrice, gasLimit, password, value, from }) {
   return fakeResponse({}, 1500)
 }
 
@@ -222,7 +179,7 @@ export function convertMet({ gasPrice, gasLimit, password, value, from }) {
  * (e.g. when amount or conversion price changes)
  * Returns a Promise
  */
-export function getConvertEthEstimate({ value }) {
+function getConvertEthEstimate({ value }) {
   return fakeResponse({ result: '2300000000000000' })
 }
 
@@ -231,7 +188,7 @@ export function getConvertEthEstimate({ value }) {
  * (e.g. when amount or conversion price changes)
  * Returns a Promise
  */
-export function getConvertMetEstimate({ value }) {
+function getConvertMetEstimate({ value }) {
   return fakeResponse({ result: '1800000000000000' })
 }
 
@@ -239,16 +196,22 @@ export function getConvertMetEstimate({ value }) {
  * Called when "Copy address to clipboard" is pressed
  * Returns a Promise
  */
-export function copyToClipboard(text) {
+function copyToClipboard(text) {
   return fakeResponse({ text })
 }
 
 export default function createClient (store) {
   const { config } = store.getState()
 
-  const { emitter } = core.start({ config })
+  const {
+    emitter,
+    createAddress,
+    openAccount
+  } = core.start({ config })
 
   const events = [
+    'connectivity-state-changed',
+    'eth-block',
     'eth-price-updated'
   ]
 
@@ -258,14 +221,33 @@ export default function createClient (store) {
     })
   })
 
+  const onInit = () =>
+    wallet.getAddress()
+      .then(address => address || Promise.reject(new Error('No address found')))
+      .then(openAccount)
+      .then(() => emitter.emit('open-wallets', { walletIds: [0], activeWallet: 0 }))
+      .then(() => true)
+      .catch(() => false)
+      .then(status => ({ onboardingComplete: status }))
+
+  const onOnboardingCompleted = ({ mnemonic }) =>
+    wallet.setAddress(createAddress(keys.mnemonicToSeedHex(mnemonic)))
+      .then(() => emitter.emit('create-wallet', { walletId: 0 }))
+      .then(wallet.getAddress)
+      .then(openAccount)
+      .then(() => emitter.emit('open-wallets', { walletIds: [0], activeWallet: 0 }))
+
   const api = {
+    ...auth,
+    onInit,
+    onOnboardingCompleted,
+    ...keys,
+    ...utils,
     buyMetronome,
     clearCache,
     convertEth,
     convertMet,
     copyToClipboard,
-    createMnemonic,
-    fromWei,
     getAuctionGasLimit,
     getConvertEthEstimate,
     getConvertEthGasLimit,
@@ -274,22 +256,14 @@ export default function createClient (store) {
     getEthereumNetworkUrl,
     getGasLimit,
     getGasPrice,
-    getStringEntropy,
     getTokensGasLimit,
-    isAddress,
-    isValidMnemonic,
     onExplorerLinkClick,
-    onInit,
     onLoginSubmit,
-    onOnboardingCompleted,
     onTermsLinkClick,
     recoverFromMnemonic,
     sendEth,
     sendMet,
-    setEthereumNetworkUrl,
-    toBN,
-    toHex,
-    toWei
+    setEthereumNetworkUrl
   }
 
   return api

@@ -1,14 +1,14 @@
 import Contracts from 'metronome-contracts'
 
-import {
-  REACT_APP_CHAIN,
-  REACT_APP_MET_EXPLORER_URL,
-  REACT_APP_SENTRY_DSN
-} from 'react-native-dotenv'
+// https://github.com/brysgo/babel-plugin-inline-dotenv/issues/1
+const REACT_APP_ETH_CHAIN = process.env.REACT_APP_ETH_CHAIN
+const REACT_APP_MET_EXPLORER_URL = process.env.REACT_APP_MET_EXPLORER_URL
+const REACT_APP_SENTRY_DSN = process.env.REACT_APP_SENTRY_DSN
+const REACT_APP_WS_API_URL = process.env.REACT_APP_WS_API_URL
 
 export default {
-  MTN_TOKEN_ADDR: Contracts.addresses[REACT_APP_CHAIN].metToken,
-  CONVERTER_ADDR: Contracts.addresses[REACT_APP_CHAIN].autonomousConverter,
+  MTN_TOKEN_ADDR: Contracts.addresses[REACT_APP_ETH_CHAIN].metToken,
+  CONVERTER_ADDR: Contracts.addresses[REACT_APP_ETH_CHAIN].autonomousConverter,
   MTN_EXPLORER_URL: REACT_APP_MET_EXPLORER_URL,
   SENTRY_DSN: REACT_APP_SENTRY_DSN,
   ETH_DEFAULT_GAS_LIMIT: '21000',
@@ -17,5 +17,9 @@ export default {
   REQUIRED_PASSWORD_ENTROPY: 20,
   rates: {
     updateMs: 15000
+  },
+  eth: {
+    chain: REACT_APP_ETH_CHAIN,
+    wsApiUrl: REACT_APP_WS_API_URL
   }
 }

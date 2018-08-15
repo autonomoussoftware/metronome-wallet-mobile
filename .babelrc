@@ -1,6 +1,17 @@
 {
+  "env": {
+    "development": {
+      "plugins": [
+        ["inline-dotenv", { "path": "../../.env.development" }]
+      ]
+    },
+    "production": {
+      "plugins": [
+        ["inline-dotenv", { "path": "../../.env" }]
+      ]
+    }
+  },
   "presets": [
-    "react-native",
-    "module:react-native-dotenv"
+    "react-native"
   ]
 }

@@ -1,15 +1,16 @@
-import { Provider as ClientProvider } from '../shared/hocs/clientContext'
-import getInitialState from '../getInitialState'
+import { AppRegistry } from 'react-native'
 import { Provider } from 'react-redux'
-import createStore from '../shared/createStore'
-import createClient from '../client'
-import Onboarding from './onboarding/Onboarding'
-import Loading from './Loading'
-import config from '../config'
-import Router from './Router'
-import Login from './Login'
 import React from 'react'
-import Root from '../shared/Root'
+import { Provider as ClientProvider } from './shared/hocs/clientContext'
+import config from './config'
+import createClient from './client'
+import createStore from './shared/createStore'
+import getInitialState from './getInitialState'
+import Loading from './components/Loading'
+import Login from './components/Login'
+import Onboarding from './components/onboarding/Onboarding'
+import Root from './shared/Root'
+import Router from './components/Router'
 import RN from 'react-native'
 
 const reduxDevtoolsOptions = {
@@ -18,7 +19,6 @@ const reduxDevtoolsOptions = {
   maxAge: 100 // default: 50
 }
 
-// We could pass some initial state to createStore()
 const store = createStore(reduxDevtoolsOptions, getInitialState(config))
 
 const App = () => (
@@ -35,4 +35,4 @@ const App = () => (
   </ClientProvider>
 )
 
-export default App
+AppRegistry.registerComponent('MetronomeWallet', () => App)
