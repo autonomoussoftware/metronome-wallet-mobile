@@ -1,6 +1,5 @@
-import { View, Text, TextInput, Btn } from './common'
-import withRecoverFromMnemonicState from '../shared/hocs/withRecoverFromMnemonicState'
-import ConfirmationWizard from './common/Confirmation'
+import { ConfirmationWizard, View, Text, TextInput, Btn } from '../common'
+import withRecoverFromMnemonicState from '../../shared/hocs/withRecoverFromMnemonicState'
 import PropTypes from 'prop-types'
 import React from 'react'
 

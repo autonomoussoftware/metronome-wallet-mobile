@@ -1,18 +1,18 @@
 import { createDrawerNavigator } from 'react-navigation'
 import DashboardNavigator from './dashboard/DashboardNavigator'
 import ConverterNavigator from './converter/ConverterNavigator'
+import SettingsNavigator from './settings/SettingsNavigator'
 import AuctionNavigator from './auction/AuctionNavigator'
 import NavigationDrawer from './NavigationDrawer'
-import Settings from './Settings'
-import Tools from './Tools'
+import ToolsNavigator from './tools/ToolsNavigator'
 
 export default createDrawerNavigator(
   {
     Dashboard: DashboardNavigator,
     Converter: ConverterNavigator,
-    Settings,
+    Settings: SettingsNavigator,
     Auction: AuctionNavigator,
-    Tools
+    Tools: ToolsNavigator
   },
   {
     useNativeAnimations: true,

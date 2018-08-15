@@ -1,5 +1,5 @@
-import { TextInput, Text, View, Btn } from './common'
-import withSettingsState from '../shared/hocs/withSettingsState'
+import { TextInput, Text, View, Btn } from '../common'
+import withSettingsState from '../../shared/hocs/withSettingsState'
 import PropTypes from 'prop-types'
 import React from 'react'
 
