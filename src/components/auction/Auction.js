@@ -69,7 +69,7 @@ Auction.propTypes = {
   auctionStatus: PropTypes.shape({
     nextAuctionStartTime: PropTypes.number.isRequired,
     tokenRemaining: PropTypes.string.isRequired,
-    currentAuction: PropTypes.string.isRequired,
+    currentAuction: PropTypes.number.isRequired,
     currentPrice: PropTypes.string.isRequired,
     genesisTime: PropTypes.number.isRequired
   }),

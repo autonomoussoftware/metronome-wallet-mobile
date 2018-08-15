@@ -1,6 +1,7 @@
-import { AppRegistry } from 'react-native'
 import { Provider } from 'react-redux'
 import React from 'react'
+import RN, { AppRegistry } from 'react-native'
+
 import { Provider as ClientProvider } from './shared/hocs/clientContext'
 import config from './config'
 import createClient from './client'
@@ -11,7 +12,6 @@ import Login from './components/Login'
 import Onboarding from './components/onboarding/Onboarding'
 import Root from './shared/Root'
 import Router from './components/Router'
-import RN from 'react-native'
 
 const reduxDevtoolsOptions = {
   actionsBlacklist: ['price-updated$'],

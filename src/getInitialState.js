@@ -18,7 +18,7 @@ export default config => ({
     status: {
       nextAuctionStartTime: inOneHour(),
       tokenRemaining: '1000000000000000000',
-      currentAuction: '10',
+      currentAuction: 10,
       currentPrice: '33000000000000',
       genesisTime: twoWeeksAgo()
     }

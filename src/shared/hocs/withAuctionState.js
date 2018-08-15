@@ -12,7 +12,7 @@ const withAuctionState = WrappedComponent => {
       auctionStatus: PropTypes.shape({
         nextAuctionStartTime: PropTypes.number.isRequired,
         tokenRemaining: PropTypes.string.isRequired,
-        currentAuction: PropTypes.string.isRequired,
+        currentAuction: PropTypes.number.isRequired,
         currentPrice: PropTypes.string.isRequired,
         genesisTime: PropTypes.number.isRequired
       }),
@@ -27,34 +27,9 @@ const withAuctionState = WrappedComponent => {
     render() {
       const { auctionStatus, buyFeatureStatus } = this.props
 
-      const initialAuctionNotStarted =
-        auctionStatus && auctionStatus.genesisTime * 1000 > Date.now()
+      const title = 'Time Remaining in Daily Auction'
 
-      const initialAuctionEndTime =
-        auctionStatus && auctionStatus.genesisTime + 7 * 24 * 60 * 60
-
-      const isInitialAuction =
-        auctionStatus &&
-        auctionStatus.currentAuction === '0' &&
-        !initialAuctionNotStarted &&
-        initialAuctionEndTime * 1000 > Date.now()
-
-      const dailyAuctionsNotStarted =
-        auctionStatus && parseInt(auctionStatus.currentAuction, 10) < 1
-
-      const title = initialAuctionNotStarted
-        ? 'Initial Auction starts in'
-        : isInitialAuction
-          ? 'Time Remaining in Initial Auction'
-          : dailyAuctionsNotStarted
-            ? 'Initial Auction ended'
-            : 'Time Remaining in Daily Auction'
-
-      const countdownTargetTimestamp = initialAuctionNotStarted
-        ? auctionStatus.genesisTime
-        : isInitialAuction || dailyAuctionsNotStarted
-          ? initialAuctionEndTime
-          : auctionStatus.nextAuctionStartTime
+      const countdownTargetTimestamp = auctionStatus.nextAuctionStartTime
 
       const buyDisabledReason =
         buyFeatureStatus === 'offline'
@@ -68,7 +43,7 @@ const withAuctionState = WrappedComponent => {
           countdownTargetTimestamp={countdownTargetTimestamp}
           buyDisabledReason={buyDisabledReason}
           buyDisabled={buyFeatureStatus !== 'ok'}
-          showStats={isInitialAuction || !dailyAuctionsNotStarted}
+          showStats={true}
           title={title}
           {...this.props}
         />
