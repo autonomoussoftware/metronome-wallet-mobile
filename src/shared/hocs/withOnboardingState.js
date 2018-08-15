@@ -69,7 +69,7 @@ const withOnboardingState = WrappedComponent => {
 
     onTermsAccepted = () => this.setState({ areTermsAccepted: true })
 
-    onPasswordSubmit = () => {
+    onPasswordSubmit = ({ clearOnError = false }) => {
       const { password, passwordAgain } = this.state
 
       const errors = validators.validatePasswordCreation(
@@ -79,11 +79,16 @@ const withOnboardingState = WrappedComponent => {
       )
 
       if (!errors.password && !passwordAgain) {
-        errors.passwordAgain = 'Repeat the password'
+        errors.passwordAgain = 'Repeat the PIN'
       } else if (!errors.password && passwordAgain !== password) {
         errors.passwordAgain = "PINs don't match"
       }
-      if (Object.keys(errors).length > 0) return this.setState({ errors })
+      if (Object.keys(errors).length > 0) {
+        return this.setState({
+          passwordAgain: clearOnError ? '' : passwordAgain,
+          errors
+        })
+      }
 
       this.setState({ isPasswordDefined: true })
     }

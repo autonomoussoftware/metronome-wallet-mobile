@@ -129,7 +129,7 @@ class Onboarding extends React.Component {
           </Text>
         </View>
         <PinInput
-          onComplete={this.props.onPasswordSubmit}
+          onComplete={() => this.props.onPasswordSubmit({ clearOnError: true })}
           onChange={this.props.onInputChange}
           value={this.props.passwordAgain || ''}
           error={this.props.errors.passwordAgain}
@@ -164,16 +164,16 @@ class Onboarding extends React.Component {
             onPress={() => RN.Clipboard.setString(this.props.mnemonic)}
           >
             <View row rowwrap justify="space-evenly">
-              {this.props.mnemonic.split(' ').map(w => (
+              {this.props.mnemonic.split(' ').map((word, i) => (
                 <Text
                   weight="bold"
                   color="primary"
                   size="large"
-                  key={w}
+                  key={`${word}-${i}`}
                   ls={0.5}
                   m={1}
                 >
-                  {w}
+                  {word}
                 </Text>
               ))}
             </View>

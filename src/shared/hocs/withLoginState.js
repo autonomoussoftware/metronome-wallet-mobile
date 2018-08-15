@@ -29,6 +29,7 @@ const withLoginState = WrappedComponent => {
         .onLoginSubmit({ password: this.state.password })
         .catch(err =>
           this.setState({
+            password: null,
             status: 'failure',
             error: err.message || 'Unknown error'
           })
@@ -42,7 +43,8 @@ const withLoginState = WrappedComponent => {
         errors: {
           ...state.errors,
           [id]: null
-        }
+        },
+        error: null
       }))
     }
 

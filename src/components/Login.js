@@ -1,7 +1,9 @@
-import { View, Text, TextInput, Btn } from './common'
+import { default as PinInput } from './common/PinInput'
 import { errorPropTypes } from '../utils'
 import withLoginState from '../shared/hocs/withLoginState'
+import { View, Text } from './common'
 import PropTypes from 'prop-types'
+import Banner from './icons/Banner'
 import React from 'react'
 import RN from 'react-native'
 
@@ -17,7 +19,7 @@ class Login extends React.Component {
   }
 
   render() {
-    const { onInputChange, onSubmit, password, errors, error } = this.props
+    const { onInputChange, onSubmit, password, error } = this.props
 
     return (
       <View bg="dark" flex={1}>
@@ -27,28 +29,19 @@ class Login extends React.Component {
           style={styles.bg}
         >
           <View flex={1} justify="center" align="center" p={2}>
-            <Text size="large" mb={2}>
-              Enter your password
+            <Banner width="220" />
+            <Text size="medium" weight="semibold" mt={4} mb={2}>
+              Enter your PIN
             </Text>
-            <TextInput
+            <PinInput
+              shakeOnError
+              onComplete={onSubmit}
+              disabled={this.props.status === 'pending'}
               onChange={onInputChange}
-              error={errors.password}
-              value={password}
-              label="Password"
+              value={password || ''}
+              error={error}
               id="password"
             />
-            <Btn
-              disabled={this.props.status === 'pending'}
-              onPress={onSubmit}
-              label="Send"
-              block
-              mt={4}
-            />
-            {error && (
-              <Text color="danger" mt={2}>
-                {error}
-              </Text>
-            )}
           </View>
         </RN.ImageBackground>
       </View>
