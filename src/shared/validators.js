@@ -1,4 +1,4 @@
-import { isWeiable, isHexable, sanitize } from './utils'
+import { isWeiable, isHexable, sanitize, sanitizeMnemonic } from './utils'
 
 function validateAmount(client, amount, propName, max, errors = {}) {
   if (!amount) {
@@ -72,7 +72,7 @@ export function validateMnemonic(
 ) {
   if (!mnemonic) {
     errors[propName] = 'The phrase is required'
-  } else if (!client.isValidMnemonic(mnemonic)) {
+  } else if (!client.isValidMnemonic(sanitizeMnemonic(mnemonic))) {
     errors[propName] = "These words don't look like a valid recovery phrase"
   }
   return errors

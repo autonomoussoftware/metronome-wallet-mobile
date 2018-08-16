@@ -64,4 +64,10 @@ const styles = RN.StyleSheet.create({
   }
 })
 
-export default withReceiveDrawerState(ReceiveDrawer)
+const EnhancedComponent = withReceiveDrawerState(ReceiveDrawer)
+
+EnhancedComponent.navigationOptions = {
+  headerTitle: 'Receive'
+}
+
+export default EnhancedComponent

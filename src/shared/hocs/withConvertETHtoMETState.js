@@ -45,7 +45,7 @@ const withConvertETHtoMETState = WrappedComponent => {
 
     resetForm = () => this.setState(this.initialState)
 
-    componentWillUpdate({ converterPrice }, { ethAmount }) {
+    componentDidUpdate({ converterPrice }, { ethAmount }) {
       // Recalculate estimate if amount or price changed
       if (
         this.props.converterPrice !== converterPrice ||
@@ -93,8 +93,8 @@ const withConvertETHtoMETState = WrappedComponent => {
       const { client } = this.props
 
       if (
-        !utils.isGreaterThanZero(client, ethAmount) ||
-        !utils.isWeiable(client, ethAmount)
+        !utils.isWeiable(client, ethAmount) ||
+        !utils.isGreaterThanZero(client, ethAmount)
       ) {
         return this.setState({ estimateError: null, estimate: null })
       }
@@ -110,7 +110,7 @@ const withConvertETHtoMETState = WrappedComponent => {
         })
     }, 500)
 
-    onWizardSubmit = password => {
+    onSubmit = password => {
       return this.props.client.convertEth({
         gasPrice: this.props.client.toWei(this.state.gasPrice, 'gwei'),
         gasLimit: this.state.gasLimit,
@@ -144,10 +144,10 @@ const withConvertETHtoMETState = WrappedComponent => {
 
       return (
         <WrappedComponent
-          onWizardSubmit={this.onWizardSubmit}
           onInputChange={this.onInputChange}
           onMaxClick={this.onMaxClick}
           resetForm={this.resetForm}
+          onSubmit={this.onSubmit}
           {...this.props}
           {...this.state}
           ethPlaceholder={

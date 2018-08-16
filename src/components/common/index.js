@@ -1,25 +1,27 @@
-import ConfirmationWizard from './Confirmation'
 import ChecklistItem from './ChecklistItem'
+import Confirmation from './Confirmation'
 import AmountFields from './AmountFields'
 import DisplayValue from './DisplayValue'
 import TextInput from './TextInput'
 import GasEditor from './GasEditor'
 import Checkbox from './Checkbox'
 import BaseBtn from './BaseBtn'
+import MenuBtn from './MenuBtn'
 import Text from './Text'
 import View from './View'
 import Tab from './Tab'
 import Btn from './Btn'
 
 export {
-  ConfirmationWizard,
   ChecklistItem,
+  Confirmation,
   AmountFields,
   DisplayValue,
   TextInput,
   GasEditor,
   Checkbox,
   BaseBtn,
+  MenuBtn,
   Text,
   View,
   Tab,

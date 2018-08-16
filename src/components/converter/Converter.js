@@ -1,4 +1,4 @@
-import { Text, View, Btn } from '../common'
+import { MenuBtn, Text, View, Btn } from '../common'
 import withConverterState from '../../shared/hocs/withConverterState'
 import PropTypes from 'prop-types'
 import Stats from './Stats'
@@ -29,24 +29,23 @@ class Converter extends React.Component {
       <View bg="dark" flex={1} px={2} py={4} justify="space-between">
         {converterStatus ? (
           <React.Fragment>
-            <View grow={1}>
-              <Stats
-                converterPriceUSD={converterPriceUSD}
-                converterStatus={converterStatus}
+            <Stats
+              converterPriceUSD={converterPriceUSD}
+              converterStatus={converterStatus}
+            />
+            <View>
+              {convertDisabledReason && (
+                <Text opacity={0.8} align="center" size="small" my={2}>
+                  {convertDisabledReason}
+                </Text>
+              )}
+              <Btn
+                disabled={convertDisabled}
+                onPress={() => navigation.navigate('ConvertDrawer')}
+                label="Convert"
+                block
               />
             </View>
-            <Btn
-              disabled={convertDisabled}
-              label="Convert"
-              block
-              onPress={() => navigation.navigate('ConvertDrawer')}
-              mt={2}
-            />
-            {convertDisabledReason && (
-              <Text opacity={0.8} align="center" size="small" my={1}>
-                {convertDisabledReason}
-              </Text>
-            )}
           </React.Fragment>
         ) : (
           <View flex={1} justify="center" align="center">
@@ -61,4 +60,12 @@ class Converter extends React.Component {
   }
 }
 
-export default withConverterState(Converter)
+const EnhancedComponent = withConverterState(Converter)
+
+EnhancedComponent.navigationOptions = ({ navigation }) => ({
+  headerTitle: 'Converter',
+  headerBackTitle: null,
+  headerLeft: <MenuBtn onPress={navigation.openDrawer} />
+})
+
+export default EnhancedComponent

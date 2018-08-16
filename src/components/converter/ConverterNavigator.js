@@ -1,44 +1,19 @@
 import { createStackNavigator } from 'react-navigation'
+import commonStackStyles from '../commonStackStyles'
+import ConfirmETHtoMET from './ConfirmETHtoMET'
+import ConfirmMETtoETH from './ConfirmMETtoETH'
 import ConvertDrawer from './ConvertDrawer'
 import Converter from './Converter'
-import MenuBtn from '../common/MenuBtn'
-import theme from '../../theme'
-import React from 'react'
 
 export default createStackNavigator(
   {
-    Converter: {
-      screen: Converter,
-      navigationOptions: ({ navigation }) => ({
-        title: 'Converter',
-        headerBackTitle: null,
-        headerLeft: <MenuBtn onPress={navigation.openDrawer} />
-      })
-    },
-    ConvertDrawer: {
-      screen: ConvertDrawer,
-      navigationOptions: {
-        title: 'Convert'
-      }
-    }
+    ConfirmETHtoMET,
+    ConfirmMETtoETH,
+    ConvertDrawer,
+    Converter
   },
   {
-    initialRouteName: 'Converter',
-    navigationOptions: {
-      headerStyle: {
-        borderBottomWidth: 0,
-        backgroundColor: theme.colors.primary
-      },
-      headerTintColor: theme.colors.light,
-      headerTitleStyle: {
-        textShadowOffset: { width: 0, height: 1 },
-        textShadowRadius: 1,
-        textShadowColor: theme.colors.darkShade,
-        fontWeight: theme.weights.bold,
-        fontFamily: 'Muli',
-        fontSize: theme.sizes.large,
-        color: theme.colors.light
-      }
-    }
+    navigationOptions: commonStackStyles,
+    initialRouteName: 'Converter'
   }
 )

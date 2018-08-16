@@ -2,12 +2,11 @@ import withBuyMETFormState from '../../shared/hocs/withBuyMETFormState'
 import PropTypes from 'prop-types'
 import React from 'react'
 import {
-  ConfirmationWizard,
   AmountFields,
   DisplayValue,
   GasEditor,
+  BaseBtn,
   View,
-  Btn,
   Text
 } from '../common'
 
@@ -16,15 +15,17 @@ class BuyMETForm extends React.Component {
     expectedMETamount: PropTypes.string,
     gasEstimateError: PropTypes.bool,
     excessETHAmount: PropTypes.string,
-    onWizardSubmit: PropTypes.func.isRequired,
     ethPlaceholder: PropTypes.string,
     usdPlaceholder: PropTypes.string,
-    usedETHAmount: PropTypes.string,
+    tokenRemaining: PropTypes.string,
     onInputChange: PropTypes.func.isRequired,
-    availableETH: PropTypes.string.isRequired,
+    usedETHAmount: PropTypes.string,
     useCustomGas: PropTypes.bool.isRequired,
     onMaxClick: PropTypes.func.isRequired,
-    resetForm: PropTypes.func.isRequired,
+    navigation: PropTypes.shape({
+      setParams: PropTypes.func.isRequired,
+      navigate: PropTypes.func.isRequired
+    }).isRequired,
     ethAmount: PropTypes.string,
     usdAmount: PropTypes.string,
     validate: PropTypes.func.isRequired,
@@ -34,60 +35,20 @@ class BuyMETForm extends React.Component {
     errors: PropTypes.object.isRequired
   }
 
-  renderConfirmation = () => {
-    return this.props.excedes ? (
-      <React.Fragment>
-        <View>
-          <Text size="medium">
-            You will use{' '}
-            <DisplayValue
-              value={this.props.usedETHAmount}
-              color="primary"
-              post=" ETH"
-            />{' '}
-            to buy{' '}
-            <DisplayValue
-              value={this.props.tokenRemaining}
-              color="primary"
-              post=" MET"
-            />{' '}
-            at current price and get a return of approximately{' '}
-            <DisplayValue
-              value={this.props.excessETHAmount}
-              color="primary"
-              post=" ETH"
-            />
-            .
-          </Text>
-        </View>
-        <View my={2}>
-          <Text color="danger" size="medium">
-            This operation will deplete the current auction.
-          </Text>
-        </View>
-      </React.Fragment>
-    ) : (
-      <Text size="large">
-        You will use{' '}
-        <DisplayValue
-          value={this.props.ethAmount}
-          toWei
-          post=" ETH"
-          color="primary"
-        />{' '}
-        ($
-        {this.props.usdAmount}) to buy approximately{' '}
-        <DisplayValue
-          value={this.props.expectedMETamount}
-          post=" MET"
-          color="primary"
-        />{' '}
-        at current price.
-      </Text>
-    )
+  componentDidMount() {
+    this.props.navigation.setParams({
+      onHeaderRightPress: this.onHeaderRightPress
+    })
   }
 
-  renderForm = ({ goToReview }) => {
+  onHeaderRightPress = () => {
+    const { navigation, validate, ...other } = this.props
+    if (validate()) {
+      navigation.navigate('ConfirmPurchase', other)
+    }
+  }
+
+  render() {
     return (
       <View bg="dark" flex={1} px={2} py={4} justify="space-between">
         <AmountFields
@@ -97,6 +58,7 @@ class BuyMETForm extends React.Component {
           onMaxClick={this.props.onMaxClick}
           ethAmount={this.props.ethAmount}
           usdAmount={this.props.usdAmount}
+          autoFocus
           errors={this.props.errors}
         />
 
@@ -141,22 +103,24 @@ class BuyMETForm extends React.Component {
             </View>
           )}
         </View>
-        <Btn label="Review Buy" mt={4} onPress={goToReview} />
       </View>
-    )
-  }
-
-  render() {
-    return (
-      <ConfirmationWizard
-        renderConfirmation={this.renderConfirmation}
-        onWizardSubmit={this.props.onWizardSubmit}
-        pendingTitle="Buying MET..."
-        renderForm={this.renderForm}
-        validate={this.props.validate}
-      />
     )
   }
 }
 
-export default withBuyMETFormState(BuyMETForm)
+const EnhancedComponent = withBuyMETFormState(BuyMETForm)
+
+EnhancedComponent.navigationOptions = ({ navigation }) => ({
+  headerTitle: 'Buy Metronome',
+  headerBackTitle: null,
+  headerRight: (
+    <BaseBtn
+      textProps={{ weight: 'semibold', size: 'medium' }}
+      onPress={navigation.getParam('onHeaderRightPress', null)}
+      label="Review"
+      mr={1}
+    />
+  )
+})
+
+export default EnhancedComponent

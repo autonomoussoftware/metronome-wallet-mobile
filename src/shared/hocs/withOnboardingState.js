@@ -2,6 +2,7 @@ import * as validators from '../validators'
 import { withClient } from './clientContext'
 import * as selectors from '../selectors'
 import { connect } from 'react-redux'
+import * as utils from '../utils'
 import PropTypes from 'prop-types'
 import React from 'react'
 
@@ -138,7 +139,7 @@ const withOnboardingState = WrappedComponent => {
       return this.props.onOnboardingCompleted({
         password: this.state.password,
         mnemonic: this.state.useUserMnemonic
-          ? this.state.userMnemonic
+          ? utils.sanitizeMnemonic(this.state.userMnemonic)
           : this.state.mnemonic
       })
     }

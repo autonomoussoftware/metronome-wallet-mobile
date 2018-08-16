@@ -7,12 +7,8 @@ import React from 'react'
 const withConverterState = WrappedComponent => {
   class Container extends React.Component {
     static propTypes = {
-      convertFeatureStatus: PropTypes.oneOf([
-        'in-initial-auction',
-        'transfer-disabled',
-        'offline',
-        'ok'
-      ]).isRequired,
+      convertFeatureStatus: PropTypes.oneOf(['offline', 'no-eth', 'ok'])
+        .isRequired,
       converterPriceUSD: PropTypes.string.isRequired,
       converterStatus: PropTypes.shape({
         availableEth: PropTypes.string.isRequired,
@@ -32,11 +28,9 @@ const withConverterState = WrappedComponent => {
       const convertDisabledReason =
         convertFeatureStatus === 'offline'
           ? "Can't convert while offline"
-          : convertFeatureStatus === 'in-initial-auction'
-            ? 'Conversions are disabled during Initial Auction'
-            : convertFeatureStatus === 'transfer-disabled'
-              ? 'MET conversions not enabled yet'
-              : null
+          : convertFeatureStatus === 'no-eth'
+            ? 'You need some ETH to pay for conversion gas'
+            : null
 
       return (
         <WrappedComponent

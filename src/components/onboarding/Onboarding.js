@@ -1,5 +1,5 @@
 import { TextInput, Checkbox, View, Text, Btn, BaseBtn } from '../common'
-import { default as PinInput, PIN_LENGTH } from '../common/PinInput'
+import { default as PinWithNumpad, PIN_LENGTH } from '../common/PinWithNumpad'
 import withOnboardingState from '../../shared/hocs/withOnboardingState'
 import TermsAndConditions from '../../shared/TermsAndConditions'
 import { errorPropTypes } from '../../utils'
@@ -107,7 +107,7 @@ class Onboarding extends React.Component {
             All data will be encrypted using this PIN. Don&apos;t lose it.
           </Text>
         </RN.View>
-        <PinInput
+        <PinWithNumpad
           onChange={this.props.onInputChange}
           value={this.props.password || ''}
           id="password"
@@ -128,7 +128,7 @@ class Onboarding extends React.Component {
             Please, enter your PIN again.
           </Text>
         </View>
-        <PinInput
+        <PinWithNumpad
           onComplete={() => this.props.onPasswordSubmit({ clearOnError: true })}
           onChange={this.props.onInputChange}
           value={this.props.passwordAgain || ''}

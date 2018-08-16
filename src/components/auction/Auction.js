@@ -1,4 +1,4 @@
-import { Text, View, Btn } from '../common'
+import { MenuBtn, Text, View, Btn } from '../common'
 import withAuctionState from '../../shared/hocs/withAuctionState'
 import CountDown from './CountDown'
 import PropTypes from 'prop-types'
@@ -14,7 +14,6 @@ const Auction = props => {
     auctionStatus,
     buyDisabled,
     navigation,
-    showStats,
     title
   } = props
 
@@ -28,27 +27,23 @@ const Auction = props => {
             </Text>
             <CountDown targetTimestamp={countdownTargetTimestamp} />
           </View>
-
-          {showStats && (
-            <React.Fragment>
-              <Stats
-                auctionPriceUSD={auctionPriceUSD}
-                auctionStatus={auctionStatus}
-              />
-              <Btn
-                disabled={buyDisabled}
-                label="Buy Metronome"
-                block
-                onPress={() => navigation.navigate('BuyDrawer')}
-                mt={2}
-              />
-              {buyDisabledReason && (
-                <Text opacity={0.8} align="center" size="small" my={1}>
-                  {buyDisabledReason}
-                </Text>
-              )}
-            </React.Fragment>
-          )}
+          <Stats
+            auctionPriceUSD={auctionPriceUSD}
+            auctionStatus={auctionStatus}
+          />
+          <View>
+            {buyDisabledReason && (
+              <Text opacity={0.8} align="center" size="small" my={2}>
+                {buyDisabledReason}
+              </Text>
+            )}
+            <Btn
+              disabled={buyDisabled}
+              onPress={() => navigation.navigate('BuyDrawer')}
+              label="Buy Metronome"
+              block
+            />
+          </View>
         </React.Fragment>
       ) : (
         <View flex={1} justify="center" align="center">
@@ -63,7 +58,7 @@ const Auction = props => {
 }
 
 Auction.propTypes = {
-  countdownTargetTimestamp: PropTypes.number.isRequired,
+  countdownTargetTimestamp: PropTypes.number,
   buyDisabledReason: PropTypes.string,
   auctionPriceUSD: PropTypes.string.isRequired,
   auctionStatus: PropTypes.shape({
@@ -77,8 +72,15 @@ Auction.propTypes = {
   navigation: PropTypes.shape({
     navigate: PropTypes.func.isRequired
   }).isRequired,
-  showStats: PropTypes.bool.isRequired,
   title: PropTypes.string
 }
 
-export default withAuctionState(Auction)
+const EnhancedComponent = withAuctionState(Auction)
+
+EnhancedComponent.navigationOptions = ({ navigation }) => ({
+  headerTitle: 'Auction',
+  headerBackTitle: null,
+  headerLeft: <MenuBtn onPress={navigation.openDrawer} />
+})
+
+export default EnhancedComponent

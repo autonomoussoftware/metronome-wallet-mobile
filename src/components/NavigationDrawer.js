@@ -1,4 +1,5 @@
 import { TouchableOpacity, SafeAreaView, StyleSheet, View } from 'react-native'
+import { StackActions } from 'react-navigation'
 import ConverterIcon from './icons/ConverterIcon'
 import AuctionIcon from './icons/AuctionIcon'
 import WalletIcon from './icons/WalletIcon'
@@ -29,32 +30,32 @@ export default class NavigationDrawer extends React.Component {
             <NavBtn
               IconComponent={WalletIcon}
               isActive={isFocused('Dashboard')}
-              onPress={() => navigate('Dashboard')}
+              onPress={() => navigate('Dashboard', {}, StackActions.popToTop())}
               isFirst
               label="WALLETS"
             />
             <NavBtn
               IconComponent={AuctionIcon}
               isActive={isFocused('Auction')}
-              onPress={() => navigate('Auction')}
+              onPress={() => navigate('Auction', {}, StackActions.popToTop())}
               label="AUCTION"
             />
             <NavBtn
               IconComponent={ConverterIcon}
               isActive={isFocused('Converter')}
-              onPress={() => navigate('Converter')}
+              onPress={() => navigate('Converter', {}, StackActions.popToTop())}
               label="CONVERTER"
             />
           </View>
           <View style={styles.secondaryNav}>
             <SecondaryNavBtn
               isActive={isFocused('Settings')}
-              onPress={() => navigate('Settings')}
+              onPress={() => navigate('Settings', {}, StackActions.popToTop())}
               label="Settings"
             />
             <SecondaryNavBtn
               isActive={isFocused('Tools')}
-              onPress={() => navigate('Tools')}
+              onPress={() => navigate('Tools', {}, StackActions.popToTop())}
               label="Tools"
             />
             <SecondaryNavBtn

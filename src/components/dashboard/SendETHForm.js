@@ -1,30 +1,22 @@
+import { AmountFields, GasEditor, TextInput, BaseBtn, View } from '../common'
 import withSendETHFormState from '../../shared/hocs/withSendETHFormState'
+import { withNavigation } from 'react-navigation'
 import QRScanner from './QRScanner'
 import PropTypes from 'prop-types'
 import React from 'react'
-import {
-  ConfirmationWizard,
-  AmountFields,
-  DisplayValue,
-  GasEditor,
-  TextInput,
-  BaseBtn,
-  View,
-  Text,
-  Btn
-} from '../common'
 
 class SendETHForm extends React.Component {
   static propTypes = {
     gasEstimateError: PropTypes.bool,
-    onWizardSubmit: PropTypes.func.isRequired,
     ethPlaceholder: PropTypes.string,
     usdPlaceholder: PropTypes.string,
     onInputChange: PropTypes.func.isRequired,
-    availableETH: PropTypes.string.isRequired,
     useCustomGas: PropTypes.bool.isRequired,
     onMaxClick: PropTypes.func.isRequired,
-    resetForm: PropTypes.func.isRequired,
+    navigation: PropTypes.shape({
+      setParams: PropTypes.func.isRequired,
+      navigate: PropTypes.func.isRequired
+    }).isRequired,
     toAddress: PropTypes.string,
     ethAmount: PropTypes.string,
     usdAmount: PropTypes.string,
@@ -36,6 +28,19 @@ class SendETHForm extends React.Component {
 
   state = { showQRscanner: false }
 
+  componentDidMount() {
+    this.props.navigation.setParams({
+      onHeaderRightPress: this.onHeaderRightPress
+    })
+  }
+
+  onHeaderRightPress = () => {
+    const { navigation, validate, ...other } = this.props
+    if (validate()) {
+      navigation.navigate('ConfirmSendETH', other)
+    }
+  }
+
   onCloseScanQRClick = () => this.setState({ showQRscanner: false })
 
   onScanQRClick = () => this.setState({ showQRscanner: true })
@@ -45,82 +50,49 @@ class SendETHForm extends React.Component {
     this.setState({ showQRscanner: false })
   }
 
-  renderConfirmation = () => {
+  render() {
     return (
-      <Text size="medium">
-        You will send{' '}
-        <DisplayValue
-          value={this.props.ethAmount}
-          color="primary"
-          toWei
-          post=" ETH"
-        />{' '}
-        ($
-        {this.props.usdAmount}) to the address{' '}
-        <Text color="primary" numberOfLines={1}>
-          {this.props.toAddress}
-        </Text>
-        .
-      </Text>
-    )
-  }
-
-  renderForm = ({ goToReview }) => {
-    return (
-      <View bg="dark" flex={1} px={2} pt={3} pb={4}>
-        <View grow={1}>
-          <TextInput
-            placeholder="e.g. 0x2345678998765434567"
-            postLabel={
-              <BaseBtn
-                textProps={{ opacity: 0.8, weight: 'semibold' }}
-                onPress={this.onScanQRClick}
-                label="SCAN QR"
-                size="xSmall"
+      <React.Fragment>
+        <View bg="dark" flex={1} px={2} pt={3} pb={4}>
+          <View grow={1}>
+            <TextInput
+              keyboardAppearance="dark"
+              placeholder="e.g. 0x2345678998765434567"
+              postLabel={
+                <BaseBtn
+                  textProps={{ opacity: 0.8, weight: 'semibold' }}
+                  onPress={this.onScanQRClick}
+                  label="SCAN QR"
+                  size="xSmall"
+                />
+              }
+              onChange={this.props.onInputChange}
+              error={this.props.errors.toAddress}
+              label="Send to Address"
+              value={this.props.toAddress}
+              id="toAddress"
+            />
+            <View my={3}>
+              <AmountFields
+                ethPlaceholder={this.props.ethPlaceholder}
+                usdPlaceholder={this.props.usdPlaceholder}
+                onInputChange={this.props.onInputChange}
+                onMaxClick={this.props.onMaxClick}
+                ethAmount={this.props.ethAmount}
+                usdAmount={this.props.usdAmount}
+                errors={this.props.errors}
               />
-            }
-            onChange={this.props.onInputChange}
-            error={this.props.errors.toAddress}
-            label="Send to Address"
-            value={this.props.toAddress}
-            id="toAddress"
-          />
-          <View my={3}>
-            <AmountFields
-              ethPlaceholder={this.props.ethPlaceholder}
-              usdPlaceholder={this.props.usdPlaceholder}
+            </View>
+            <GasEditor
+              gasEstimateError={this.props.gasEstimateError}
               onInputChange={this.props.onInputChange}
-              onMaxClick={this.props.onMaxClick}
-              ethAmount={this.props.ethAmount}
-              usdAmount={this.props.usdAmount}
+              useCustomGas={this.props.useCustomGas}
+              gasLimit={this.props.gasLimit}
+              gasPrice={this.props.gasPrice}
               errors={this.props.errors}
             />
           </View>
-          <GasEditor
-            gasEstimateError={this.props.gasEstimateError}
-            onInputChange={this.props.onInputChange}
-            useCustomGas={this.props.useCustomGas}
-            gasLimit={this.props.gasLimit}
-            gasPrice={this.props.gasPrice}
-            errors={this.props.errors}
-          />
         </View>
-        <Btn label="Review Send" mt={3} onPress={goToReview} />
-      </View>
-    )
-  }
-
-  render() {
-    if (this.props.pageStatus === 'offscreen') return null
-
-    return (
-      <React.Fragment>
-        <ConfirmationWizard
-          renderConfirmation={this.renderConfirmation}
-          onWizardSubmit={this.props.onWizardSubmit}
-          renderForm={this.renderForm}
-          validate={this.props.validate}
-        />
         {this.state.showQRscanner && (
           <QRScanner
             onClose={this.onCloseScanQRClick}
@@ -132,4 +104,4 @@ class SendETHForm extends React.Component {
   }
 }
 
-export default withSendETHFormState(SendETHForm)
+export default withSendETHFormState(withNavigation(SendETHForm))

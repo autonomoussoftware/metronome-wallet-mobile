@@ -1,12 +1,10 @@
-import { View, Text, Btn } from '../common'
+import { MenuBtn, View, Text, Btn } from '../common'
 import withDashboardState from '../../shared/hocs/withDashboardState'
 import TxListHeader from './TxListHeader'
 import BalanceBlock from './BalanceBlock'
 import PropTypes from 'prop-types'
 import TxList from './TxList'
-import theme from '../../theme'
 import React from 'react'
-import RN from 'react-native'
 
 class Dashboard extends React.Component {
   static propTypes = {
@@ -18,19 +16,13 @@ class Dashboard extends React.Component {
     }).isRequired
   }
 
-  static navigationOptions = {
-    title: 'a1',
-    headerTitle: 'asdss'
-    // headerBackTitle: null
-  }
-
   state = { selectedFilter: 'all' }
 
   selectFilter = key => this.setState({ selectedFilter: key })
 
   render() {
     return (
-      <RN.ScrollView stickyHeaderIndices={[2]} style={styles.container}>
+      <View stickyHeaderIndices={[2]} scroll flex={1} bg="primary">
         <BalanceBlock />
 
         <View px={2} pt={2} pb={1}>
@@ -75,15 +67,17 @@ class Dashboard extends React.Component {
             <Text>No transactions to show yet</Text>
           </View>
         )}
-      </RN.ScrollView>
+      </View>
     )
   }
 }
-const styles = RN.StyleSheet.create({
-  container: {
-    backgroundColor: theme.colors.primary,
-    flex: 1
-  }
+
+const EnhancedComponent = withDashboardState(Dashboard)
+
+EnhancedComponent.navigationOptions = ({ navigation }) => ({
+  title: 'My Wallet',
+  headerBackTitle: null,
+  headerLeft: <MenuBtn onPress={navigation.openDrawer} />
 })
 
-export default withDashboardState(Dashboard)
+export default EnhancedComponent

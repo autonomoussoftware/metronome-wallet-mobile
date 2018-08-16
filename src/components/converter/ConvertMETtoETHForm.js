@@ -1,29 +1,29 @@
-import { errorPropTypes } from '../../utils'
 import withConvertMETtoETHState from '../../shared/hocs/withConvertMETtoETHState'
+import { withNavigation } from 'react-navigation'
+import { errorPropTypes } from '../../utils'
 import PropTypes from 'prop-types'
 import React from 'react'
 import {
-  ConfirmationWizard,
   DisplayValue,
   TextInput,
   GasEditor,
   BaseBtn,
   Text,
-  View,
-  Btn
+  View
 } from '../common'
 
 class ConvertMETtoETHForm extends React.Component {
   static propTypes = {
     gasEstimateError: PropTypes.bool,
-    onWizardSubmit: PropTypes.func.isRequired,
     metPlaceholder: PropTypes.string,
     estimateError: PropTypes.string,
     onInputChange: PropTypes.func.isRequired,
-    availableMET: PropTypes.string.isRequired,
     useCustomGas: PropTypes.bool.isRequired,
     onMaxClick: PropTypes.func.isRequired,
-    resetForm: PropTypes.func.isRequired,
+    navigation: PropTypes.shape({
+      setParams: PropTypes.func.isRequired,
+      navigate: PropTypes.func.isRequired
+    }).isRequired,
     metAmount: PropTypes.string,
     validate: PropTypes.func.isRequired,
     gasPrice: PropTypes.string,
@@ -32,27 +32,25 @@ class ConvertMETtoETHForm extends React.Component {
     errors: errorPropTypes('metAmount')
   }
 
-  renderConfirmation = () => {
-    return (
-      <Text size="medium">
-        You will convert{' '}
-        <DisplayValue
-          value={this.props.metAmount}
-          color="primary"
-          toWei
-          post=" MET"
-        />{' '}
-        and get approximately{' '}
-        <DisplayValue value={this.props.estimate} post=" ETH" color="primary" />
-        .
-      </Text>
-    )
+  componentDidMount() {
+    this.props.navigation.setParams({
+      onHeaderRightPress: this.onHeaderRightPress
+    })
   }
 
-  renderForm = ({ goToReview }) => {
+  onHeaderRightPress = () => {
+    const { navigation, validate, ...other } = this.props
+    if (validate()) {
+      navigation.navigate('ConfirmMETtoETH', other)
+    }
+  }
+
+  render() {
     return (
-      <View flex={1} px={2} py={4} justify="space-between">
+      <View bg="dark" flex={1} px={2} py={4} justify="space-between">
         <TextInput
+          keyboardAppearance="dark"
+          keyboardType="decimal-pad"
           placeholder={this.props.metPlaceholder}
           postLabel={
             <BaseBtn
@@ -62,6 +60,7 @@ class ConvertMETtoETHForm extends React.Component {
               size="xSmall"
             />
           }
+          autoFocus
           onChange={this.props.onInputChange}
           error={this.props.errors.metAmount}
           label="Amount (MET)"
@@ -93,24 +92,9 @@ class ConvertMETtoETHForm extends React.Component {
             </Text>
           )}
         </View>
-        <Btn label="Review Convert" mt={4} onPress={goToReview} />
       </View>
-    )
-  }
-
-  render() {
-    return (
-      <ConfirmationWizard
-        renderConfirmation={this.renderConfirmation}
-        onWizardSubmit={this.props.onWizardSubmit}
-        pendingTitle="Converting MET..."
-        pendingText="This may take a while. You can close this and follow the status of the conversion in the transaction list."
-        renderForm={this.renderForm}
-        editLabel="Edit this conversion"
-        validate={this.props.validate}
-      />
     )
   }
 }
 
-export default withConvertMETtoETHState(ConvertMETtoETHForm)
+export default withConvertMETtoETHState(withNavigation(ConvertMETtoETHForm))

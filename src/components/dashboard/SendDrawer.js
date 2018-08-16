@@ -1,5 +1,5 @@
+import { BaseBtn, View, Text, Tab } from '../common'
 import withSendDrawerState from '../../shared/hocs/withSendDrawerState'
-import { View, Text, Tab } from '../common'
 import SendETHForm from './SendETHForm'
 import SendMETForm from './SendMETForm'
 import PropTypes from 'prop-types'
@@ -49,4 +49,19 @@ class SendDrawer extends React.Component {
   }
 }
 
-export default withSendDrawerState(SendDrawer)
+const EnhancedComponent = withSendDrawerState(SendDrawer)
+
+EnhancedComponent.navigationOptions = ({ navigation }) => ({
+  headerTitle: 'Send',
+  headerBackTitle: null,
+  headerRight: (
+    <BaseBtn
+      textProps={{ weight: 'semibold', size: 'medium' }}
+      onPress={navigation.getParam('onHeaderRightPress', null)}
+      label="Review"
+      mr={1}
+    />
+  )
+})
+
+export default EnhancedComponent

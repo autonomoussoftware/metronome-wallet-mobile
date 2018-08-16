@@ -136,11 +136,6 @@ export const getCurrentAuction = createSelector(
       : '-1'
 )
 
-export const getIsInitialAuction = createSelector(
-  getCurrentAuction,
-  currentAuction => parseInt(currentAuction, 10) === 0
-)
-
 export const getAuctionPriceUSD = createSelector(
   getAuctionStatus,
   getEthRate,
@@ -348,18 +343,11 @@ export const sendFeatureStatus = createSelector(
 
 export const sendMetFeatureStatus = createSelector(
   getActiveWalletMtnBalance,
-  getIsInitialAuction,
   getIsOnline,
   getClient,
-  (mtnBalance, isInitialAuction, isOnline, client) => {
+  (mtnBalance, isOnline, client) => {
     const hasFunds = val => val && client.toBN(val).gt(client.toBN(0))
-    return !isOnline
-      ? 'offline'
-      : !hasFunds(mtnBalance)
-        ? 'no-funds'
-        : isInitialAuction
-          ? 'in-initial-auction'
-          : 'ok'
+    return !isOnline ? 'offline' : !hasFunds(mtnBalance) ? 'no-funds' : 'ok'
   }
 )
 
@@ -378,17 +366,14 @@ export const buyFeatureStatus = createSelector(
 
 export const convertFeatureStatus = createSelector(
   getActiveWalletEthBalance,
-  getIsInitialAuction,
   getIsOnline,
   getClient,
-  (ethBalance, isInitialAuction, isOnline, client) => {
+  (ethBalance, isOnline, client) => {
     return !isOnline
       ? 'offline'
-      : isInitialAuction
-        ? 'in-initial-auction'
-        : !hasFunds(client, ethBalance)
-          ? 'no-eth'
-          : 'ok'
+      : !hasFunds(client, ethBalance)
+        ? 'no-eth'
+        : 'ok'
   }
 )
 

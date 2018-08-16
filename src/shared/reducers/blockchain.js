@@ -1,7 +1,7 @@
 import { handleActions } from 'redux-actions'
 
 const initialState = {
-  height: null
+  height: -1
 }
 
 const reducer = handleActions(

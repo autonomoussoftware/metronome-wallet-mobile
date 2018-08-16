@@ -116,6 +116,7 @@ const styles = RN.StyleSheet.create({
     backgroundColor: theme.colors.translucentPrimary
   },
   field: {
+    fontFamily: 'Muli',
     fontSize: 16,
     paddingHorizontal: theme.spacing(2),
     color: theme.colors.light,

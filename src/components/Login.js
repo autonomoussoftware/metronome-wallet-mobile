@@ -1,7 +1,7 @@
-import { default as PinInput } from './common/PinInput'
 import { errorPropTypes } from '../utils'
 import withLoginState from '../shared/hocs/withLoginState'
 import { View, Text } from './common'
+import PinWithNumpad from './common/PinWithNumpad'
 import PropTypes from 'prop-types'
 import Banner from './icons/Banner'
 import React from 'react'
@@ -33,7 +33,7 @@ class Login extends React.Component {
             <Text size="medium" weight="semibold" mt={4} mb={2}>
               Enter your PIN
             </Text>
-            <PinInput
+            <PinWithNumpad
               shakeOnError
               onComplete={onSubmit}
               disabled={this.props.status === 'pending'}

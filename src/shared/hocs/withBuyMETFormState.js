@@ -77,7 +77,7 @@ const withBuyMETFormState = WrappedComponent => {
         .catch(() => this.setState({ gasEstimateError: true }))
     }, 500)
 
-    onWizardSubmit = password => {
+    onSubmit = password => {
       return this.props.client.buyMetronome({
         gasPrice: this.props.client.toWei(this.state.gasPrice, 'gwei'),
         gasLimit: this.state.gasLimit,
@@ -119,10 +119,10 @@ const withBuyMETFormState = WrappedComponent => {
 
       return (
         <WrappedComponent
-          onWizardSubmit={this.onWizardSubmit}
           onInputChange={this.onInputChange}
           onMaxClick={this.onMaxClick}
           resetForm={this.resetForm}
+          onSubmit={this.onSubmit}
           {...this.props}
           {...this.state}
           {...expected}

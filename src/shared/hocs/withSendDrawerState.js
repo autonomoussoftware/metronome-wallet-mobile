@@ -7,13 +7,8 @@ import React from 'react'
 const withSendDrawerState = WrappedComponent => {
   class Container extends React.Component {
     static propTypes = {
-      sendMetFeatureStatus: PropTypes.oneOf([
-        'in-initial-auction',
-        'transfer-disabled',
-        'no-funds',
-        'offline',
-        'ok'
-      ]).isRequired,
+      sendMetFeatureStatus: PropTypes.oneOf(['no-funds', 'offline', 'ok'])
+        .isRequired,
       client: PropTypes.shape({
         toBN: PropTypes.func.isRequired
       }).isRequired
@@ -28,15 +23,11 @@ const withSendDrawerState = WrappedComponent => {
       const { sendMetFeatureStatus } = this.props
 
       const sendMetDisabledReason =
-        sendMetFeatureStatus === 'in-initial-auction'
-          ? 'MET transactions are disabled during Initial Auction'
-          : sendMetFeatureStatus === 'transfer-disabled'
-            ? 'MET transactions not enabled yet'
-            : sendMetFeatureStatus === 'no-funds'
-              ? 'You need some MET to send'
-              : sendMetFeatureStatus === 'offline'
-                ? "Can't send while offline"
-                : null
+        sendMetFeatureStatus === 'no-funds'
+          ? 'You need some MET to send'
+          : sendMetFeatureStatus === 'offline'
+            ? "Can't send while offline"
+            : null
 
       return (
         <WrappedComponent

@@ -1,4 +1,4 @@
-import { TextInput, Text, View, Btn } from '../common'
+import { TextInput, MenuBtn, Text, View, Btn } from '../common'
 import withSettingsState from '../../shared/hocs/withSettingsState'
 import PropTypes from 'prop-types'
 import React from 'react'
@@ -44,4 +44,11 @@ class Settings extends React.Component {
   }
 }
 
-export default withSettingsState(Settings)
+const EnhancedComponent = withSettingsState(Settings)
+
+EnhancedComponent.navigationOptions = ({ navigation }) => ({
+  title: 'Settings',
+  headerLeft: <MenuBtn onPress={navigation.openDrawer} />
+})
+
+export default EnhancedComponent

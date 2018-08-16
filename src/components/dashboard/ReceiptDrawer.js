@@ -167,4 +167,10 @@ class ReceiptDrawer extends React.Component {
   }
 }
 
-export default withReceiptDrawerState(ReceiptDrawer)
+const EnhancedComponent = withReceiptDrawerState(ReceiptDrawer)
+
+EnhancedComponent.navigationOptions = {
+  headerTitle: 'Transaction Receipt'
+}
+
+export default EnhancedComponent

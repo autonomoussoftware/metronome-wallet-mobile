@@ -76,7 +76,7 @@ const withSendETHFormState = WrappedComponent => {
         .catch(() => this.setState({ gasEstimateError: true }))
     }, 500)
 
-    onWizardSubmit = password => {
+    onSubmit = password => {
       return this.props.client.sendEth({
         gasPrice: this.props.client.toWei(this.state.gasPrice, 'gwei'),
         gasLimit: this.state.gasLimit,
@@ -112,10 +112,10 @@ const withSendETHFormState = WrappedComponent => {
 
       return (
         <WrappedComponent
-          onWizardSubmit={this.onWizardSubmit}
           onInputChange={this.onInputChange}
           onMaxClick={this.onMaxClick}
           resetForm={this.resetForm}
+          onSubmit={this.onSubmit}
           {...this.props}
           {...this.state}
           ethPlaceholder={

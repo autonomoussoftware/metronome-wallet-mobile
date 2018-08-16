@@ -26,6 +26,8 @@ class GasEditor extends React.Component {
           <View row align="center">
             <View grow={1} basis={0}>
               <TextInput
+                keyboardAppearance="dark"
+                keyboardType="number-pad"
                 onChange={this.props.onInputChange}
                 label="Gas Limit (Units)"
                 error={this.props.errors.gasLimit}
@@ -39,6 +41,8 @@ class GasEditor extends React.Component {
             </View>
             <View grow={1} basis={0}>
               <TextInput
+                keyboardAppearance="dark"
+                keyboardType="decimal-pad"
                 onChange={this.props.onInputChange}
                 value={this.props.gasPrice}
                 label="Gas Price (Gwei)"

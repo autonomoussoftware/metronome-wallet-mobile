@@ -1,141 +1,214 @@
-import ConfirmationWizard from '../../shared/ConfirmationWizard'
+import { withNavigation, StackActions } from 'react-navigation'
 import CheckIcon from '../icons/CheckIcon'
 import CloseIcon from '../icons/CloseIcon'
-import TextInput from './TextInput'
 import PropTypes from 'prop-types'
-import BaseBtn from './BaseBtn'
+import PinInput from './PinInput'
 import React from 'react'
 import View from './View'
 import Text from './Text'
 import Btn from './Btn'
 import RN from 'react-native'
 
-export default class Confirmation extends React.Component {
+class Confirmation extends React.Component {
   static propTypes = {
-    renderConfirmation: PropTypes.func.isRequired,
-    confirmationTitle: PropTypes.string,
-    onWizardSubmit: PropTypes.func.isRequired,
+    pendingParams: PropTypes.object,
+    successParams: PropTypes.object,
+    failureParams: PropTypes.object,
     pendingTitle: PropTypes.string,
     successTitle: PropTypes.string,
     failureTitle: PropTypes.string,
     successText: PropTypes.string,
     pendingText: PropTypes.string,
-    renderForm: PropTypes.func.isRequired,
-    validate: PropTypes.func
+    navigation: PropTypes.shape({
+      setParams: PropTypes.func.isRequired,
+      goBack: PropTypes.func.isRequired
+    }).isRequired,
+    onSubmit: PropTypes.func.isRequired,
+    children: PropTypes.node.isRequired
   }
 
   static defaultProps = {
-    confirmationTitle: 'Transaction Preview',
     pendingTitle: 'Sending...',
     successTitle: 'Success!',
     failureTitle: 'Error',
+    pendingText: 'Waiting for transaction receipt...',
     successText:
       'You can view the status of this transaction in the transaction list.'
   }
 
-  renderConfirmation = ({
-    onPasswordChange,
-    onConfirm,
-    password,
-    onCancel,
-    errors
-  }) => {
+  state = {
+    password: '',
+    status: 'confirm', // confirm | pending | success | failure
+    result: null,
+    error: null
+  }
+
+  componentDidMount() {
+    this._isMounted = true
+  }
+
+  componentWillUnmount() {
+    this._isMounted = false
+  }
+
+  onPasswordChange = ({ value }) => this.setState({ password: value })
+
+  animationConfig = {
+    duration: 300,
+    create: {
+      property: RN.LayoutAnimation.Properties.opacity,
+      type: RN.LayoutAnimation.Types.spring
+    },
+    update: {
+      duration: 200,
+      property: RN.LayoutAnimation.Properties.opacity,
+      type: RN.LayoutAnimation.Types.spring
+    },
+    delete: {
+      duration: 200,
+      property: RN.LayoutAnimation.Properties.opacity,
+      type: RN.LayoutAnimation.Types.linear
+    }
+  }
+
+  onPinComplete = () => {
+    RN.LayoutAnimation.configureNext(this.animationConfig)
+    this.setState({ status: 'pending' })
+
+    if (this.props.pendingParams) {
+      this.props.navigation.setParams(this.props.pendingParams)
+    }
+
+    this.props
+      .onSubmit(this.state.password)
+      .then(result => {
+        RN.LayoutAnimation.configureNext(this.animationConfig)
+        if (this._isMounted) {
+          this.setState({ status: 'success', result })
+        }
+        if (this.props.successParams) {
+          this.props.navigation.setParams(this.props.successParams)
+        }
+      })
+      .catch(err => {
+        RN.LayoutAnimation.configureNext(this.animationConfig)
+        if (this._isMounted) {
+          this.setState({ status: 'failure', error: err.message })
+        }
+        if (this.props.failureParams) {
+          this.props.navigation.setParams(this.props.failureParams)
+        }
+      })
+  }
+
+  renderConfirmation = () => {
     return (
-      <View py={4} px={2} flex={1}>
+      <View bg="dark" py={4} px={2} flex={1}>
         <View grow={1}>
-          {this.props.confirmationTitle && (
-            <Text size="large" mb={2} weight="semibold">
-              {this.props.confirmationTitle}
-            </Text>
-          )}
-          {this.props.renderConfirmation()}
-          <TextInput
-            topMargin
-            onChange={({ value }) => onPasswordChange(value)}
-            label="Enter your password to confirm"
-            error={errors.password}
-            value={password}
-            id="password"
-          />
+          {this.props.children}
+          <View mt={4}>
+            <PinInput
+              onComplete={this.onPinComplete}
+              onChange={this.onPasswordChange}
+              label="Enter PIN to confirm"
+              value={this.state.password}
+              id="password"
+            />
+          </View>
         </View>
-        <BaseBtn
-          textProps={{ align: 'center' }}
-          onPress={onCancel}
-          label="Go back"
-          m={4}
-        />
-        <Btn label="Confirm" onPress={onConfirm} />
       </View>
     )
   }
 
   renderPending = () => {
     return (
-      <View flex={1}>
+      <View flex={1} bg="dark" py={4} px={2}>
         <View grow={1} align="center" justify="center">
-          <Text size="large" mt={-3} mb={2}>
-            {this.props.pendingTitle}
-          </Text>
           <RN.ActivityIndicator size="large" />
-        </View>
-        {this.props.pendingText && (
-          <Text size="small" align="center" p={2} opacity={0.75}>
+          <Text size="medium" mt={2} mb={2} weight="semibold" align="center">
             {this.props.pendingText}
           </Text>
-        )}
+        </View>
       </View>
     )
   }
+
+  // Experimental: navigate to some route and hightlight an item
+  // navigateAndHightLight(routeName, hightlightId) {
+  //   this.props.navigation.navigate(
+  //     routeName,
+  //     {},
+  //     StackActions.reset({
+  //       index: 0,
+  //       actions: [
+  //         NavigationActions.navigate({
+  //           routeName: routeName,
+  //           params: { hightlightId }
+  //         })
+  //       ]
+  //     })
+  //   )
+  // }
 
   renderSuccess = () => {
+    const { successTitle, successText, navigation } = this.props
     return (
-      <View flex={1} align="center" justify="center">
+      <View flex={1} align="center" justify="center" bg="dark">
         <CheckIcon />
-        <Text size="large" mt={2}>
-          {this.props.successTitle}
+        <Text size="large" mt={2} weight="bold">
+          {successTitle}
         </Text>
-        {this.props.successText && (
-          <Text align="center" p={2}>
-            {this.props.successText}
+        {successText && (
+          <Text size="medium" align="center" p={2}>
+            {successText}
           </Text>
         )}
+        <Btn
+          onPress={() =>
+            navigation.navigate('Dashboard', {}, StackActions.popToTop())
+          }
+          label="View Transactions"
+          mt={1}
+        />
       </View>
     )
   }
 
-  renderFailure = ({ onTryAgain, error }) => {
+  renderFailure = () => {
     return (
-      <View flex={1} align="center" justify="center">
+      <View flex={1} align="center" justify="center" bg="dark">
         <CloseIcon />
-        <Text size="large" mt={2}>
+        <Text size="large" mt={2} weight="bold">
           {this.props.failureTitle}
         </Text>
-        {error && (
-          <Text align="center" px={2} mt={2}>
-            {error}
+        {this.state.error && (
+          <Text size="medium" align="center" p={2}>
+            {this.state.error}
           </Text>
         )}
-        <BaseBtn
-          onPress={onTryAgain}
+        <Btn
+          onPress={() => this.props.navigation.goBack()}
           label="Try Again"
-          color="primary"
-          mt={2}
+          mt={1}
         />
       </View>
     )
   }
 
   render() {
-    return (
-      <ConfirmationWizard
-        renderConfirmation={this.renderConfirmation}
-        onWizardSubmit={this.props.onWizardSubmit}
-        renderPending={this.renderPending}
-        renderSuccess={this.renderSuccess}
-        renderFailure={this.renderFailure}
-        renderForm={this.props.renderForm}
-        validate={this.props.validate}
-      />
-    )
+    switch (this.state.status) {
+      case 'confirm':
+        return this.renderConfirmation()
+      case 'success':
+        return this.renderSuccess()
+      case 'failure':
+        return this.renderFailure()
+      case 'pending':
+        return this.renderPending()
+      default:
+        return null
+    }
   }
 }
+
+export default withNavigation(Confirmation)

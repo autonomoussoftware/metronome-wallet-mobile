@@ -12,6 +12,19 @@ export function sanitize(amount = '') {
   return amount.replace(',', '.')
 }
 
+/**
+ * Removes extra spaces and converts to lowercase
+ * Useful for sanitizing user input before recovering a wallet.
+ *
+ * @param {string} str The string to sanitize
+ */
+export function sanitizeMnemonic(str) {
+  return str
+    .replace(/\s+/gi, ' ')
+    .trim()
+    .toLowerCase()
+}
+
 export function isWeiable(client, amount, unit = 'ether') {
   let isValid
   try {

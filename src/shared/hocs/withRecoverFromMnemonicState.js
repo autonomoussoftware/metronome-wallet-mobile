@@ -1,5 +1,6 @@
 import * as validators from '../validators'
 import { withClient } from './clientContext'
+import * as utils from '../utils'
 import PropTypes from 'prop-types'
 import React from 'react'
 
@@ -31,9 +32,9 @@ const withRecoverFromMnemonicState = WrappedComponent => {
       }))
     }
 
-    onWizardSubmit = password => {
+    onSubmit = password => {
       return this.props.client.recoverFromMnemonic({
-        mnemonic: this.state.mnemonic,
+        mnemonic: utils.sanitizeMnemonic(this.state.mnemonic),
         password
       })
     }
@@ -50,10 +51,11 @@ const withRecoverFromMnemonicState = WrappedComponent => {
     render() {
       return (
         <WrappedComponent
-          onWizardSubmit={this.onWizardSubmit}
           onInputChange={this.onInputChange}
+          onSubmit={this.onSubmit}
           validate={this.validate}
           {...this.state}
+          {...this.props}
         />
       )
     }
