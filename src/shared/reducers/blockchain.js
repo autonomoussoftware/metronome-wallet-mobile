@@ -9,6 +9,11 @@ const reducer = handleActions(
     'eth-block': (state, { payload }) => ({
       ...state,
       height: payload.number
+    }),
+
+    'blockchain-set': (state, { payload }) => ({
+      ...state,
+      ...payload
     })
   },
   initialState

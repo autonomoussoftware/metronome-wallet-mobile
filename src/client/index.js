@@ -1,5 +1,10 @@
 import core from 'metronome-wallet-core'
 
+import {
+  getState,
+  initialState,
+  persistState
+} from './store'
 import * as auth from './auth'
 import * as keys from './keys'
 import * as utils from './utils'
@@ -200,14 +205,43 @@ function copyToClipboard(text) {
   return fakeResponse({ text })
 }
 
-export default function createClient (store) {
-  const { config } = store.getState()
-
+export default function createClient (config, createStore) {
   const {
     emitter,
     events,
     wallet: { createAddress, openAccount }
   } = core.start({ config })
+
+  const reduxDevtoolsOptions = {
+    actionsBlacklist: ['price-updated$'],
+    features: { dispatch: true },
+    maxAge: 100 // default: 50
+  }
+
+  const store = createStore(
+    reduxDevtoolsOptions,
+    Object.assign(initialState, { config })
+  )
+
+  getState()
+    .then(function (pairs) {
+      console.log('======', pairs)
+
+      const stateToEvent = {
+        blockchain: 'blockchain-set',
+        converter: 'mtn-converter-status-updated',
+        auction: 'auction-status-updated',
+        rates: 'rates-set',
+        wallets: 'wallets-set'
+      }
+
+      pairs.forEach(function ([key, value]) {
+        store.dispatch({ type: stateToEvent[key], payload: value })
+      })
+
+      store.subscribe(function () {
+        persistState(store.getState())
+      })
 
   events.push('create-wallet', 'open-wallets')
 
@@ -221,17 +255,17 @@ export default function createClient (store) {
     wallet.getAddress()
       .then(address => address || Promise.reject(new Error('No address found')))
       .then(openAccount)
-      .then(() => emitter.emit('open-wallets', { walletIds: [0], activeWallet: 0 }))
+      .then(() => emitter.emit('open-wallets', { walletIds: [1], activeWallet: 1 }))
       .then(() => true)
       .catch(() => false)
       .then(status => ({ onboardingComplete: status }))
 
   const onOnboardingCompleted = ({ mnemonic }) =>
     wallet.setAddress(createAddress(keys.mnemonicToSeedHex(mnemonic)))
-      .then(() => emitter.emit('create-wallet', { walletId: 0 }))
+      .then(() => emitter.emit('create-wallet', { walletId: 1 }))
       .then(wallet.getAddress)
       .then(openAccount)
-      .then(() => emitter.emit('open-wallets', { walletIds: [0], activeWallet: 0 }))
+      .then(() => emitter.emit('open-wallets', { walletIds: [1], activeWallet: 1 }))
 
   const api = {
     ...auth,
@@ -259,7 +293,8 @@ export default function createClient (store) {
     recoverFromMnemonic,
     sendEth,
     sendMet,
-    setEthereumNetworkUrl
+    setEthereumNetworkUrl,
+    store
   }
 
   return api

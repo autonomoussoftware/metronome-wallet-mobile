@@ -33,6 +33,11 @@ const reducer = handleActions(
           }
         }
       )
+    }),
+
+    'wallets-set': (state, { payload }) => ({
+      ...state,
+      ...payload
     })
   },
   initialState

@@ -6,25 +6,18 @@ import { Provider as ClientProvider } from './shared/hocs/clientContext'
 import config from './config'
 import createClient from './client'
 import createStore from './shared/createStore'
-import getInitialState from './getInitialState'
 import Loading from './components/Loading'
 import Login from './components/Login'
 import Onboarding from './components/onboarding/Onboarding'
 import Root from './shared/Root'
 import Router from './components/Router'
 
-const reduxDevtoolsOptions = {
-  actionsBlacklist: ['price-updated$'],
-  features: { dispatch: true },
-  maxAge: 100 // default: 50
-}
-
-const store = createStore(reduxDevtoolsOptions, getInitialState(config))
+const client = createClient(config, createStore)
 
 const App = () => (
-  <ClientProvider value={createClient(store)}>
+  <ClientProvider value={client}>
     <RN.StatusBar barStyle="light-content" />
-    <Provider store={store}>
+    <Provider store={client.store}>
       <Root
         OnboardingComponent={Onboarding}
         LoadingComponent={Loading}

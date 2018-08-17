@@ -4,9 +4,14 @@ const initialState = {}
 
 const reducer = handleActions(
   {
-    'eth-price-updated': (state, action) => ({
+    'eth-price-updated': (state, { payload }) => ({
       ...state,
-      [action.payload.token]: action.payload
+      [payload.token]: payload
+    }),
+
+    'rates-set': (state, { payload }) => ({
+      ...state,
+      ...payload
     })
   },
   initialState
