@@ -29,10 +29,10 @@ export default config => ({
   },
   rates: { ETH: { token: 'ETH', price: 100 } },
   wallets: {
-    active: 'foo',
-    allIds: ['foo'],
+    active: 0,
+    allIds: [0],
     byId: {
-      foo: {
+      0: {
         addresses: {
           '0xd6758d1907ed647605429d40cd19c58a6d05eb8b': {
             token: {

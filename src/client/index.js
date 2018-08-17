@@ -205,18 +205,11 @@ export default function createClient (store) {
 
   const {
     emitter,
+    events,
     wallet: { createAddress, openAccount }
   } = core.start({ config })
 
-  const events = [
-    'auction-status-updated',
-    'connectivity-state-changed',
-    // 'create-wallet',
-    'eth-block',
-    'eth-price-updated',
-    'wallet-error',
-    'mtn-converter-status-updated',
-  ]
+  events.push('create-wallet', 'open-wallets')
 
   events.forEach(function (event) {
     emitter.on(event, function (data) {
