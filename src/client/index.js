@@ -209,7 +209,8 @@ export default function createClient (config, createStore) {
   const {
     emitter,
     events,
-    wallet: { createAddress, openAccount }
+    tokens: { getTokenBalances },
+    wallet: { createAddress, getBalance }
   } = core.start({ config })
 
   const reduxDevtoolsOptions = {
@@ -261,7 +262,7 @@ export default function createClient (config, createStore) {
   const onInit = () =>
     wallet.getAddress()
       .then(address => address || Promise.reject(new Error('No address found')))
-      .then(openAccount)
+      .then(address => Promise.all([getBalance(address), getTokenBalances(address)]))
       .then(() => emitter.emit('open-wallets', { walletIds: [1], activeWallet: 1 }))
       .then(() => true)
       .catch(() => false)
@@ -271,7 +272,7 @@ export default function createClient (config, createStore) {
     wallet.setAddress(createAddress(keys.mnemonicToSeedHex(mnemonic)))
       .then(() => emitter.emit('create-wallet', { walletId: 1 }))
       .then(wallet.getAddress)
-      .then(openAccount)
+      .then(address => Promise.all([getBalance(address), getTokenBalances(address)]))
       .then(() => emitter.emit('open-wallets', { walletIds: [1], activeWallet: 1 }))
 
   const api = {
