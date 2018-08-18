@@ -224,9 +224,11 @@ export default function createClient (config, createStore) {
   )
 
   getState()
+    .catch(function (err) {
+      console.warn('Could not get persisted state', err)
+      return []
+    })
     .then(function (pairs) {
-      console.log('======', pairs)
-
       const stateToEvent = {
         blockchain: 'blockchain-set',
         converter: 'mtn-converter-status-updated',
@@ -247,9 +249,14 @@ export default function createClient (config, createStore) {
 
   events.forEach(function (event) {
     emitter.on(event, function (data) {
+          console.log('<--', event, data)
       store.dispatch({ type: event, payload: data })
     })
   })
+    })
+    .catch(function (err) {
+      console.warn('Failed setting up store and dispatching events', err)
+    })
 
   const onInit = () =>
     wallet.getAddress()

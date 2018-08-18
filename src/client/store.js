@@ -14,7 +14,7 @@ export const initialState = {
   wallets: {}
 }
 
-const keys = [
+const keysToPersist = [
   'blockchain',
   'converter',
   'auction',
@@ -22,15 +22,26 @@ const keys = [
   'wallets'
 ]
 
-export function persistState (state) {
-  console.log('>>>>>', state) // eslint-disable-line
-  return Promise.all(keys.map(key =>
-    AsyncStorage.setItem(key, JSON.stringify(state[key]))
-  ))
+// TODO move to lib/promise-throttle
+function promiseThrottle (fn) {
+  let promise = Promise.resolve()
+  return function (...args) {
+    return promise
+      .catch()
+      .then(fn(...args))
+  }
 }
 
+export const persistState = promiseThrottle(function (state) {
+  console.log('Persisting state', state)
+
+  return Promise.all(keysToPersist.map(key =>
+    AsyncStorage.setItem(key, JSON.stringify(state[key]))
+  ))
+})
+
 export function getState () {
-  return AsyncStorage.multiGet(keys)
+  return AsyncStorage.multiGet(keysToPersist)
     .then(function (pairs) {
       return pairs.map(([key, val]) => ([key, JSON.parse(val)]))
         .filter(pair => !!pair[1])
