@@ -24,5 +24,8 @@
     "plugin:react/recommended",
     "plugin:react-native/all",
     "prettier"
-  ]
+  ],
+  "rules": {
+    "no-console": "warn"
+  }
 }
