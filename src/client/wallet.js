@@ -10,9 +10,6 @@ export const setAddress = address =>
 export const getPrivateKey = () =>
   Keychain.getGenericPassword()
     .then(credentials => credentials.password)
-// AsyncStorage.getItem('wallet.privateKey')
 
 export const setPrivateKey = privateKey =>
   Keychain.setGenericPassword('wallet.privateKey', privateKey)
-  // AsyncStorage.setItem('wallet.privateKey', privateKey)
-
