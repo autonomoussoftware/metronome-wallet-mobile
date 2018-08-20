@@ -85,15 +85,6 @@ function setEthereumNetworkUrl({ ethereumNetworkUrl }) {
 }
 
 /**
- * Called when value field of "Buy Metronome" form changes
- * Returns a Promise that resolves to an object { gasLimit: String }
- * Gas price is returned in wei
- */
-function getAuctionGasLimit({ value, from }) {
-  return fakeResponse({ gasLimit: '31000' })
-}
-
-/**
  * Called when "Send ETH" form is confirmed and submitted
  * Returns a Promise
  */
@@ -134,24 +125,6 @@ function convertMet({ gasPrice, gasLimit, password, value, from }) {
 }
 
 /**
- * Called when "Convert ETH to MET" requests a conversion estimate
- * (e.g. when amount or conversion price changes)
- * Returns a Promise
- */
-function getConvertEthEstimate({ value }) {
-  return fakeResponse({ result: '2300000000000000' })
-}
-
-/**
- * Called when "Convert MET to ETH" requests a conversion estimate
- * (e.g. when amount or conversion price changes)
- * Returns a Promise
- */
-function getConvertMetEstimate({ value }) {
-  return fakeResponse({ result: '1800000000000000' })
-}
-
-/**
  * Called when "Copy address to clipboard" is pressed
  * Returns a Promise
  */
@@ -163,7 +136,7 @@ export default function createClient(config, createStore) {
   const {
     emitter,
     events,
-    metronome: { getConvertEthGasLimit, getConvertMetGasLimit },
+    metronome,
     tokens: { getTokenBalances, getTokensGasLimit },
     wallet: { getAddressAndPrivateKey, getBalance, getGasLimit, getGasPrice }
   } = core.start({ config })
@@ -205,7 +178,7 @@ export default function createClient(config, createStore) {
 
       events.forEach(function (event) {
         emitter.on(event, function (data) {
-          console.log('<--', event, data)
+          console.log('<<--', event, data)
           store.dispatch({ type: event, payload: data })
         })
       })
@@ -244,11 +217,7 @@ export default function createClient(config, createStore) {
     convertEth,
     convertMet,
     copyToClipboard,
-    getAuctionGasLimit,
-    getConvertEthEstimate,
-    getConvertEthGasLimit,
-    getConvertMetEstimate,
-    getConvertMetGasLimit,
+    ...metronome,
     getEthereumNetworkUrl,
     getGasLimit,
     getGasPrice,
