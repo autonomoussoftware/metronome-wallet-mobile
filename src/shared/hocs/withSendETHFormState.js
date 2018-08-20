@@ -59,12 +59,13 @@ const withSendETHFormState = WrappedComponent => {
     getGasEstimate = debounce(() => {
       const { ethAmount } = this.state
 
-      if (!utils.isWeiable(ethAmount)) return
+      if (!utils.isWeiable(this.props.client, ethAmount)) return
 
       this.props.client
         .getGasLimit({
-          value: this.props.client.toWei(utils.sanitize(ethAmount)),
-          from: this.props.from
+          from: this.props.from,
+          to: this.state.toAddress,
+          value: this.props.client.toWei(utils.sanitize(ethAmount))
         })
         .then(({ gasLimit }) =>
           this.setState({

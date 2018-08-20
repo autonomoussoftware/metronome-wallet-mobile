@@ -59,7 +59,7 @@ const withSendMETFormState = WrappedComponent => {
 
       if (
         !this.props.client.isAddress(toAddress) ||
-        !utils.isWeiable(metAmount)
+        !utils.isWeiable(this.props.client, metAmount)
       ) {
         return
       }

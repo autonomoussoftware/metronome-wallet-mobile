@@ -85,33 +85,6 @@ function setEthereumNetworkUrl({ ethereumNetworkUrl }) {
 }
 
 /**
- * Called when the gas editor is mounted
- * Returns a Promise that resolves to an object { gasPrice: String }
- * Gas price is returned in wei
- */
-function getGasPrice() {
-  return fakeResponse({ gasPrice: '10' })
-}
-
-/**
- * Called when value field of "Send ETH" form changes
- * Returns a Promise that resolves to an object { gasLimit: String }
- * Gas price is returned in wei
- */
-function getGasLimit({ value, from }) {
-  return fakeResponse({ gasLimit: '29000' })
-}
-
-/**
- * Called when the value or address fields of "Send MET" form changes
- * Returns a Promise that resolves to an object { gasLimit: String }
- * Gas price is returned in wei
- */
-function getTokensGasLimit({ value, from }) {
-  return fakeResponse({ gasLimit: '26940' })
-}
-
-/**
  * Called when value field of "Buy Metronome" form changes
  * Returns a Promise that resolves to an object { gasLimit: String }
  * Gas price is returned in wei
@@ -208,8 +181,8 @@ export default function createClient(config, createStore) {
   const {
     emitter,
     events,
-    tokens: { getTokenBalances },
-    wallet: { getAddressAndPrivateKey, getBalance }
+    tokens: { getTokenBalances, getTokensGasLimit },
+    wallet: { getAddressAndPrivateKey, getBalance, getGasLimit, getGasPrice }
   } = core.start({ config })
 
   const reduxDevtoolsOptions = {
