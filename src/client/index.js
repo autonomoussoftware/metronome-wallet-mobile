@@ -2,7 +2,7 @@ import core from 'metronome-wallet-core'
 
 import {
   getState,
-  initialState,
+  getInitialState,
   persistState
 } from './store'
 import * as auth from './auth'
@@ -221,7 +221,7 @@ export default function createClient(config, createStore) {
 
   const store = createStore(
     reduxDevtoolsOptions,
-    Object.assign(initialState, { config })
+    getInitialState(config)
   )
 
   getState()

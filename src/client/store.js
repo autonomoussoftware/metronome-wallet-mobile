@@ -1,23 +1,21 @@
 import { AsyncStorage } from 'react-native'
 
-export const initialState = {
-  connectivity: { isOnline: true },
-  blockchain: { height: -1 },
-  metronome: { transferAllowed: true },
-  converter: {},
+export const getInitialState = config => ({
   auction: {},
-  session: {
-    hasEnoughData: false,
-    isLoggedIn: true
-  },
+  blockchain: { height: -1 },
+  config,
+  connectivity: { isOnline: true },
+  converter: {},
+  metronome: { transferAllowed: true },
   rates: {},
+  session: { hasEnoughData: false, isLoggedIn: true },
   wallets: {}
-}
+})
 
 const keysToPersist = [
+  // 'auction',
   'blockchain',
-  'converter',
-  'auction',
+  // 'converter',
   'rates',
   'wallets'
 ]
