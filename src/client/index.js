@@ -205,12 +205,12 @@ function copyToClipboard(text) {
   return fakeResponse({ text })
 }
 
-export default function createClient (config, createStore) {
+export default function createClient(config, createStore) {
   const {
     emitter,
     events,
     tokens: { getTokenBalances },
-    wallet: { createAddress, getBalance }
+    wallet: { getAddressAndPrivateKey, getBalance }
   } = core.start({ config })
 
   const reduxDevtoolsOptions = {
@@ -246,14 +246,14 @@ export default function createClient (config, createStore) {
         persistState(store.getState())
       })
 
-  events.push('create-wallet', 'open-wallets')
+      events.push('create-wallet', 'open-wallets')
 
-  events.forEach(function (event) {
-    emitter.on(event, function (data) {
+      events.forEach(function (event) {
+        emitter.on(event, function (data) {
           console.log('<--', event, data)
-      store.dispatch({ type: event, payload: data })
-    })
-  })
+          store.dispatch({ type: event, payload: data })
+        })
+      })
     })
     .catch(function (err) {
       console.warn('Failed setting up store and dispatching events', err)
@@ -268,12 +268,14 @@ export default function createClient (config, createStore) {
       .catch(() => false)
       .then(status => ({ onboardingComplete: status }))
 
-  const onOnboardingCompleted = ({ mnemonic }) =>
-    wallet.setAddress(createAddress(keys.mnemonicToSeedHex(mnemonic)))
+  const onOnboardingCompleted = ({ mnemonic }) => {
+    const { address, privateKey } = getAddressAndPrivateKey(keys.mnemonicToSeedHex(mnemonic))
+    return Promise.all([wallet.setAddress(address), wallet.setPrivateKey(privateKey)])
       .then(() => emitter.emit('create-wallet', { walletId: 1 }))
       .then(wallet.getAddress)
       .then(address => Promise.all([getBalance(address), getTokenBalances(address)]))
       .then(() => emitter.emit('open-wallets', { walletIds: [1], activeWallet: 1 }))
+  }
 
   const api = {
     ...auth,
