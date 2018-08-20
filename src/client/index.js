@@ -94,24 +94,6 @@ function getAuctionGasLimit({ value, from }) {
 }
 
 /**
- * Called when value field of "Convert ETH to MET" form changes
- * Returns a Promise that resolves to an object { gasLimit: String }
- * Gas price is returned in wei
- */
-function getConvertEthGasLimit({ value, from }) {
-  return fakeResponse({ gasLimit: '22000' })
-}
-
-/**
- * Called when value field of "Convert MET to ETH" form changes
- * Returns a Promise that resolves to an object { gasLimit: String }
- * Gas price is returned in wei
- */
-function getConvertMetGasLimit({ value, from }) {
-  return fakeResponse({ gasLimit: '23000' })
-}
-
-/**
  * Called when "Send ETH" form is confirmed and submitted
  * Returns a Promise
  */
@@ -181,6 +163,7 @@ export default function createClient(config, createStore) {
   const {
     emitter,
     events,
+    metronome: { getConvertEthGasLimit, getConvertMetGasLimit },
     tokens: { getTokenBalances, getTokensGasLimit },
     wallet: { getAddressAndPrivateKey, getBalance, getGasLimit, getGasPrice }
   } = core.start({ config })
