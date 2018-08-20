@@ -44,7 +44,6 @@ const withLoadingState = WrappedComponent => {
       }
     }
 
-    // eslint-disable-next-line
     checkTasks = () => {
       const {
         hasBlockHeight,

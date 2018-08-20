@@ -1,7 +1,7 @@
 import { handleActions } from 'redux-actions'
 
 const initialState = {
-  transferAllowed: null
+  transferAllowed: true
 }
 
 const reducer = handleActions(

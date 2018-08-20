@@ -20,7 +20,7 @@ const reducer = handleActions(
       ...state,
       isOnline: Boolean(action.payload.ok)
     }),
-    [combineActions(...CONNECTIVITY_PROOF_ACTIONS)]: (state, action) => ({
+    [combineActions(...CONNECTIVITY_PROOF_ACTIONS)]: state => ({
       ...state,
       isOnline: true
     })

@@ -2,7 +2,6 @@ import core from 'metronome-wallet-core'
 
 import {
   getState,
-  getInitialState,
   persistState
 } from './store'
 import * as auth from './auth'
@@ -221,7 +220,7 @@ export default function createClient(config, createStore) {
 
   const store = createStore(
     reduxDevtoolsOptions,
-    getInitialState(config)
+    { config }
   )
 
   getState()
@@ -261,6 +260,7 @@ export default function createClient(config, createStore) {
 
   const onInit = () =>
     wallet.getAddress()
+      // .then(() => null) // HACK force onboarding
       .then(address => address || Promise.reject(new Error('No address found')))
       .then(address => Promise.all([getBalance(address), getTokenBalances(address)]))
       .then(() => emitter.emit('open-wallets', { walletIds: [1], activeWallet: 1 }))

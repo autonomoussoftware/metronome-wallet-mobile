@@ -7,11 +7,11 @@ const initialState = {
 
 const reducer = handleActions(
   {
-    'session-started': (state, action) => ({
+    'session-started': state => ({
       ...state,
       isLoggedIn: true
     }),
-    'required-data-gathered': (state, action) => ({
+    'required-data-gathered': state => ({
       ...state,
       hasEnoughData: true
     })
