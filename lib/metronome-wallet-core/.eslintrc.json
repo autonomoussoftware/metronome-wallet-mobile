@@ -6,5 +6,8 @@
     "bloq",
     "bloq/experimental"
   ],
-  "root": true
+  "root": true,
+  "rules": {
+    "max-params": ["error", 5]
+  }
 }
