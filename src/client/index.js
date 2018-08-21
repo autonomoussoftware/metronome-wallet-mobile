@@ -137,8 +137,8 @@ export default function createClient(config, createStore) {
     emitter,
     events,
     metronome,
-    tokens: { getTokenBalances, getTokensGasLimit },
-    wallet: { getAddressAndPrivateKey, getBalance, getGasLimit, getGasPrice }
+    tokens: { getTokensGasLimit },
+    wallet: { getAddressAndPrivateKey, getGasLimit, getGasPrice }
   } = core.start({ config })
 
   const reduxDevtoolsOptions = {
@@ -191,8 +191,7 @@ export default function createClient(config, createStore) {
     wallet.getAddress()
       // .then(() => null) // HACK force onboarding
       .then(address => address || Promise.reject(new Error('No address found')))
-      .then(address => Promise.all([getBalance(address), getTokenBalances(address)]))
-      .then(() => emitter.emit('open-wallets', { walletIds: [1], activeWallet: 1 }))
+      .then(address => emitter.emit('open-wallets', { walletIds: [1], activeWallet: 1, address }))
       .then(() => true)
       .catch(() => false)
       .then(status => ({ onboardingComplete: status }))
@@ -201,9 +200,7 @@ export default function createClient(config, createStore) {
     const { address, privateKey } = getAddressAndPrivateKey(keys.mnemonicToSeedHex(mnemonic))
     return Promise.all([wallet.setAddress(address), wallet.setPrivateKey(privateKey)])
       .then(() => emitter.emit('create-wallet', { walletId: 1 }))
-      .then(wallet.getAddress)
-      .then(address => Promise.all([getBalance(address), getTokenBalances(address)]))
-      .then(() => emitter.emit('open-wallets', { walletIds: [1], activeWallet: 1 }))
+      .then(() => emitter.emit('open-wallets', { walletIds: [1], activeWallet: 1, address }))
   }
 
   const api = {
