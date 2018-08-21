@@ -109,7 +109,7 @@ const withConvertMETtoETHState = WrappedComponent => {
     onSubmit = password => {
       return this.props.client.convertMet({
         gasPrice: this.props.client.toWei(this.state.gasPrice, 'gwei'),
-        gasLimit: this.state.gasLimit,
+        gas: this.state.gasLimit,
         password,
         value: this.props.client.toWei(utils.sanitize(this.state.metAmount)),
         from: this.props.from

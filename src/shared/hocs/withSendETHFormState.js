@@ -79,7 +79,7 @@ const withSendETHFormState = WrappedComponent => {
     onSubmit = password => {
       return this.props.client.sendEth({
         gasPrice: this.props.client.toWei(this.state.gasPrice, 'gwei'),
-        gasLimit: this.state.gasLimit,
+        gas: this.state.gasLimit,
         password,
         value: this.props.client.toWei(utils.sanitize(this.state.ethAmount)),
         from: this.props.from,

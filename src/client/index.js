@@ -85,42 +85,10 @@ function setEthereumNetworkUrl({ ethereumNetworkUrl }) {
 }
 
 /**
- * Called when "Send ETH" form is confirmed and submitted
- * Returns a Promise
- */
-function sendEth({ gasPrice, gasLimit, password, value, from, to }) {
-  return fakeResponse({}, 1500)
-}
-
-/**
- * Called when "Send MET" form is confirmed and submitted
- * Returns a Promise
- */
-function sendMet({ gasPrice, gasLimit, password, value, from, to }) {
-  return fakeResponse({}, 1500)
-}
-
-/**
  * Called when "Buy Metronome" form is confirmed and submitted
  * Returns a Promise
  */
 function buyMetronome({ gasPrice, gasLimit, password, value, from }) {
-  return fakeResponse({}, 1500)
-}
-
-/**
- * Called when "Convert ETH to MET" form is confirmed and submitted
- * Returns a Promise
- */
-function convertEth({ gasPrice, gasLimit, password, value, from }) {
-  return fakeResponse({}, 1500)
-}
-
-/**
- * Called when "Convert MET to ETH" form is confirmed and submitted
- * Returns a Promise
- */
-function convertMet({ gasPrice, gasLimit, password, value, from }) {
   return fakeResponse({}, 1500)
 }
 
@@ -136,9 +104,7 @@ export default function createClient(config, createStore) {
   const {
     emitter,
     events,
-    metronome,
-    tokens: { getTokensGasLimit },
-    wallet: { getAddressAndPrivateKey, getGasLimit, getGasPrice }
+    api: coreApi
   } = core.start({ config })
 
   const reduxDevtoolsOptions = {
@@ -197,34 +163,41 @@ export default function createClient(config, createStore) {
       .then(status => ({ onboardingComplete: status }))
 
   const onOnboardingCompleted = ({ mnemonic }) => {
-    const { address, privateKey } = getAddressAndPrivateKey(keys.mnemonicToSeedHex(mnemonic))
+    const { address, privateKey } = coreApi.wallet.getAddressAndPrivateKey(keys.mnemonicToSeedHex(mnemonic))
     return Promise.all([wallet.setAddress(address), wallet.setPrivateKey(privateKey)])
       .then(() => emitter.emit('create-wallet', { walletId: 1 }))
       .then(() => emitter.emit('open-wallets', { walletIds: [1], activeWallet: 1, address }))
   }
 
+  const authAnd = fn => function (transactionObject) {
+    // TODO check options.password is valid
+    return wallet.getPrivateKey()
+      .then(function (privateKey) {
+        return fn(privateKey, transactionObject)
+      })
+  }
+
   const api = {
     ...auth,
-    onInit,
-    onOnboardingCompleted,
+    ...coreApi.metronome,
+    ...coreApi.tokens,
+    ...coreApi.wallet,
     ...keys,
     ...utils,
     buyMetronome,
     clearCache,
-    convertEth,
-    convertMet,
+    convertEth: authAnd(coreApi.metronome.convertEth),
+    convertMet: authAnd(coreApi.metronome.convertMet),
     copyToClipboard,
-    ...metronome,
     getEthereumNetworkUrl,
-    getGasLimit,
-    getGasPrice,
-    getTokensGasLimit,
     onExplorerLinkClick,
+    onInit,
     onLoginSubmit,
+    onOnboardingCompleted,
     onTermsLinkClick,
     recoverFromMnemonic,
-    sendEth,
-    sendMet,
+    sendEth: authAnd(coreApi.wallet.sendEth),
+    sendMet: authAnd(coreApi.metronome.sendMet),
     setEthereumNetworkUrl,
     store
   }
