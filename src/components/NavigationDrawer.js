@@ -59,7 +59,7 @@ export default class NavigationDrawer extends React.Component {
               label="Help"
             />
           </View>
-          <LogoIcon style={styles.footerLogo} />
+          <LogoIcon negative style={styles.footerLogo} />
         </SafeAreaView>
       </View>
     )
