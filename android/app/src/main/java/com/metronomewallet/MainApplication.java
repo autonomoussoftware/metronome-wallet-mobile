@@ -3,6 +3,7 @@ package com.metronomewallet;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import org.devio.rn.splashscreen.SplashScreenReactPackage;
 import com.oblador.keychain.KeychainPackage;
 import org.reactnative.camera.RNCameraPackage;
 import com.horcrux.svg.SvgPackage;
@@ -28,6 +29,7 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new SplashScreenReactPackage(),
             new KeychainPackage(),
             new RNCameraPackage(),
             new SvgPackage(),

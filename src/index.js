@@ -1,6 +1,8 @@
-import { Provider } from 'react-redux'
 import React from 'react'
 import RN, { AppRegistry } from 'react-native'
+
+import SplashScreen from 'react-native-splash-screen'
+import { Provider } from 'react-redux'
 
 import { Provider as ClientProvider } from './shared/hocs/clientContext'
 import config from './config'
@@ -13,19 +15,25 @@ import Root from './shared/Root'
 import Router from './components/Router'
 
 const client = createClient(config, createStore)
+class App extends React.Component {
+  componentDidMount() {
+    SplashScreen.hide()
+  }
 
-const App = () => (
-  <ClientProvider value={client}>
-    <RN.StatusBar barStyle="light-content" />
-    <Provider store={client.store}>
-      <Root
-        OnboardingComponent={Onboarding}
-        LoadingComponent={Loading}
-        RouterComponent={Router}
-        LoginComponent={Login}
-      />
-    </Provider>
-  </ClientProvider>
-)
+  render() {
+    return (
+      <ClientProvider value={client}>
+        <RN.StatusBar barStyle="light-content" />
+        <Provider store={client.store}>
+          <Root
+            OnboardingComponent={Onboarding}
+            LoadingComponent={Loading}
+            RouterComponent={Router}
+            LoginComponent={Login} />
+        </Provider>
+      </ClientProvider>
+    )
+  }
+}
 
 AppRegistry.registerComponent('MetronomeWallet', () => App)

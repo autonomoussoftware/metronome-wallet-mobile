@@ -21,6 +21,7 @@
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		140ED2AC1D01E1AD002B40FF /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 146834041AC3E56700842450 /* libReact.a */; };
 		146834051AC3E58100842450 /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 146834041AC3E56700842450 /* libReact.a */; };
+		2C08ED3AA7E049BD9F51F63D /* libSplashScreen.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2500C91B72BB4B538D154263 /* libSplashScreen.a */; };
 		2D02E4BC1E0B4A80006451C7 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		2D02E4BD1E0B4A84006451C7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		2D02E4BF1E0B4AB3006451C7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
@@ -291,6 +292,13 @@
 			remoteGlobalIDString = 94DDAC5C1F3D024300EED511;
 			remoteInfo = "RNSVG-tvOS";
 		};
+		706D422A212DAECD00C767D2 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A826EF83132C4A378AC07259 /* SplashScreen.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 3D7682761D8E76B80014119E;
+			remoteInfo = SplashScreen;
+		};
 		709E0C66212C7FC5007A3014 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 146833FF1AC3E56700842450 /* React.xcodeproj */;
@@ -413,6 +421,7 @@
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = MetronomeWallet/main.m; sourceTree = "<group>"; };
 		146833FF1AC3E56700842450 /* React.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = React.xcodeproj; path = "../node_modules/react-native/React/React.xcodeproj"; sourceTree = "<group>"; };
 		22724B10EEF54C3093BFFE08 /* Muli-Black.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Muli-Black.ttf"; path = "../src/assets/fonts/Muli-Black.ttf"; sourceTree = "<group>"; };
+		2500C91B72BB4B538D154263 /* libSplashScreen.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libSplashScreen.a; sourceTree = "<group>"; };
 		2D02E47B1E0B4A5D006451C7 /* MetronomeWallet-tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "MetronomeWallet-tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D02E4901E0B4A5D006451C7 /* MetronomeWallet-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "MetronomeWallet-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3AA2F8DA4FAB4423A9DBFB43 /* RNSecureKeyStore.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNSecureKeyStore.xcodeproj; path = "../node_modules/react-native-secure-key-store/ios/RNSecureKeyStore.xcodeproj"; sourceTree = "<group>"; };
@@ -430,6 +439,7 @@
 		96D16D84A14D4198820E8C34 /* ReactNativePermissions.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = ReactNativePermissions.xcodeproj; path = "../node_modules/react-native-permissions/ios/ReactNativePermissions.xcodeproj"; sourceTree = "<group>"; };
 		997FD38F4B754F98943C3C29 /* RNCamera.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNCamera.xcodeproj; path = "../node_modules/react-native-camera/ios/RNCamera.xcodeproj"; sourceTree = "<group>"; };
 		A1C0F3F2B0E14788AF1E62BB /* libRNCamera.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNCamera.a; sourceTree = "<group>"; };
+		A826EF83132C4A378AC07259 /* SplashScreen.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = SplashScreen.xcodeproj; path = "../node_modules/react-native-splash-screen/ios/SplashScreen.xcodeproj"; sourceTree = "<group>"; };
 		A91E97607A084DEAA49AA7B7 /* libRNSVG-tvOS.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = "libRNSVG-tvOS.a"; sourceTree = "<group>"; };
 		AA9E64E68BF64D57AC9BCBED /* libReactNativePermissions.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libReactNativePermissions.a; sourceTree = "<group>"; };
 		ADBDB91F1DFEBF0600ED6528 /* RCTBlob.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTBlob.xcodeproj; path = "../node_modules/react-native/Libraries/Blob/RCTBlob.xcodeproj"; sourceTree = "<group>"; };
@@ -471,6 +481,7 @@
 				71258101B23A4B62A49F6291 /* libRNCamera.a in Frameworks */,
 				D8602807D6864220A378E42E /* libReactNativePermissions.a in Frameworks */,
 				54E32A1D7CCE4D738016354D /* libRNKeychain.a in Frameworks */,
+				2C08ED3AA7E049BD9F51F63D /* libSplashScreen.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -649,6 +660,7 @@
 				AA9E64E68BF64D57AC9BCBED /* libReactNativePermissions.a */,
 				A91E97607A084DEAA49AA7B7 /* libRNSVG-tvOS.a */,
 				F7CE1171A64F4B9DB473EC6B /* libRNKeychain.a */,
+				2500C91B72BB4B538D154263 /* libSplashScreen.a */,
 			);
 			name = "Recovered References";
 			sourceTree = "<group>";
@@ -695,6 +707,14 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		706D4227212DAECD00C767D2 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				706D422B212DAECD00C767D2 /* libSplashScreen.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		709E0C7F212C7FC5007A3014 /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -734,6 +754,7 @@
 				997FD38F4B754F98943C3C29 /* RNCamera.xcodeproj */,
 				96D16D84A14D4198820E8C34 /* ReactNativePermissions.xcodeproj */,
 				89366144E8F946D7BB6569C6 /* RNKeychain.xcodeproj */,
+				A826EF83132C4A378AC07259 /* SplashScreen.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -872,7 +893,7 @@
 						TestTargetID = 13B07F861A680F5B00A75B9A;
 					};
 					13B07F861A680F5B00A75B9A = {
-						DevelopmentTeam = P7AF4RFC66;
+						DevelopmentTeam = 99Y6CF5TBP;
 					};
 					2D02E47A1E0B4A5D006451C7 = {
 						CreatedOnToolsVersion = 8.2.1;
@@ -969,6 +990,10 @@
 				{
 					ProductGroup = 6EA62FD02093B7040096BADB /* Products */;
 					ProjectRef = 6C7361753A804BC6A55B2B28 /* RNSVG.xcodeproj */;
+				},
+				{
+					ProductGroup = 706D4227212DAECD00C767D2 /* Products */;
+					ProjectRef = A826EF83132C4A378AC07259 /* SplashScreen.xcodeproj */;
 				},
 			);
 			projectRoot = "";
@@ -1204,6 +1229,13 @@
 			fileType = archive.ar;
 			path = "libRNSVG-tvOS.a";
 			remoteRef = 6EA62FE22093B7040096BADB /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		706D422B212DAECD00C767D2 /* libSplashScreen.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libSplashScreen.a;
+			remoteRef = 706D422A212DAECD00C767D2 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		709E0C67212C7FC5007A3014 /* libjsinspector.a */ = {
@@ -1458,12 +1490,14 @@
 					"$(SRCROOT)/../node_modules/react-native-camera/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-permissions/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-keychain/RNKeychainManager",
+					"$(SRCROOT)/../node_modules/react-native-splash-screen/ios",
 				);
 				INFOPLIST_FILE = MetronomeWalletTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
@@ -1493,12 +1527,14 @@
 					"$(SRCROOT)/../node_modules/react-native-camera/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-permissions/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-keychain/RNKeychainManager",
+					"$(SRCROOT)/../node_modules/react-native-splash-screen/ios",
 				);
 				INFOPLIST_FILE = MetronomeWalletTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
@@ -1520,7 +1556,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
-				DEVELOPMENT_TEAM = P7AF4RFC66;
+				DEVELOPMENT_TEAM = 99Y6CF5TBP;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-secure-key-store/ios/**",
@@ -1529,6 +1565,7 @@
 					"$(SRCROOT)/../node_modules/react-native-camera/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-permissions/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-keychain/RNKeychainManager",
+					"$(SRCROOT)/../node_modules/react-native-splash-screen/ios/**",
 				);
 				INFOPLIST_FILE = MetronomeWallet/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1548,7 +1585,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = P7AF4RFC66;
+				DEVELOPMENT_TEAM = 99Y6CF5TBP;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-secure-key-store/ios/**",
@@ -1557,6 +1594,7 @@
 					"$(SRCROOT)/../node_modules/react-native-camera/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-permissions/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-keychain/RNKeychainManager",
+					"$(SRCROOT)/../node_modules/react-native-splash-screen/ios/**",
 				);
 				INFOPLIST_FILE = MetronomeWallet/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1592,11 +1630,13 @@
 					"$(SRCROOT)/../node_modules/react-native-camera/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-permissions/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-keychain/RNKeychainManager",
+					"$(SRCROOT)/../node_modules/react-native-splash-screen/ios",
 				);
 				INFOPLIST_FILE = "MetronomeWallet-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
@@ -1636,11 +1676,13 @@
 					"$(SRCROOT)/../node_modules/react-native-camera/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-permissions/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-keychain/RNKeychainManager",
+					"$(SRCROOT)/../node_modules/react-native-splash-screen/ios",
 				);
 				INFOPLIST_FILE = "MetronomeWallet-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
@@ -1679,6 +1721,7 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.facebook.REACT.MetronomeWallet-tvOSTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1703,6 +1746,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
