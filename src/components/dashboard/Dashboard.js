@@ -1,15 +1,19 @@
 import { MenuBtn, View, Text, Btn } from '../common'
+import ScanningTxPlaceholder from './ScanningTxPlaceholder'
 import withDashboardState from '../../shared/hocs/withDashboardState'
+import NoTxPlaceholder from './NoTxPlaceholder'
 import TxListHeader from './TxListHeader'
 import BalanceBlock from './BalanceBlock'
 import PropTypes from 'prop-types'
 import TxList from './TxList'
 import React from 'react'
+import RN from 'react-native'
 
 class Dashboard extends React.Component {
   static propTypes = {
     sendDisabledReason: PropTypes.string,
     hasTransactions: PropTypes.bool.isRequired,
+    isScanningTx: PropTypes.bool.isRequired,
     sendDisabled: PropTypes.bool.isRequired,
     navigation: PropTypes.shape({
       navigate: PropTypes.func.isRequired
@@ -22,7 +26,14 @@ class Dashboard extends React.Component {
 
   render() {
     return (
-      <View stickyHeaderIndices={[2]} scroll flex={1} bg="primary">
+      <View
+        contentContainerStyle={styles.scrollContainer}
+        alwaysBounceVertical={false}
+        stickyHeaderIndices={[2]}
+        scroll
+        flex={1}
+        bg="primary"
+      >
         <BalanceBlock />
 
         <View px={2} pt={2} pb={1}>
@@ -51,26 +62,33 @@ class Dashboard extends React.Component {
           )}
         </View>
 
-        {this.props.hasTransactions && (
-          <TxListHeader
-            selectFilter={this.selectFilter}
-            filter={this.state.selectedFilter}
-          />
-        )}
+        <TxListHeader
+          isScanningTx={this.props.isScanningTx}
+          selectFilter={this.selectFilter}
+          filter={this.state.selectedFilter}
+        />
 
         {this.props.hasTransactions && (
           <TxList filter={this.state.selectedFilter} />
         )}
 
-        {!this.props.hasTransactions && (
-          <View align="center" justify="center" my={4}>
-            <Text>No transactions to show yet</Text>
-          </View>
-        )}
+        {!this.props.hasTransactions &&
+          this.props.isScanningTx && <ScanningTxPlaceholder />}
+
+        {!this.props.hasTransactions &&
+          !this.props.isScanningTx && <NoTxPlaceholder />}
       </View>
     )
   }
 }
+
+const styles = RN.StyleSheet.create({
+  scrollContainer: {
+    // expand ScrollView content if smaller than viewport:
+    justifyContent: 'space-between',
+    flexGrow: 1
+  }
+})
 
 const EnhancedComponent = withDashboardState(Dashboard)
 

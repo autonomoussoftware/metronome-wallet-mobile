@@ -2,6 +2,7 @@ import { handleActions } from 'redux-actions'
 import _ from 'lodash'
 
 const initialState = {
+  isScanningTx: false,
   active: null,
   allIds: null,
   byId: null
@@ -38,6 +39,24 @@ const reducer = handleActions(
     'wallets-set': (state, { payload }) => ({
       ...state,
       ...payload
+    }),
+
+    'transactions-scan-started': (state, { payload }) => ({
+      ...state,
+      isScanningTx:
+        state.active &&
+        payload.address === Object.keys(state.byId[state.active].addresses)[0]
+          ? true
+          : state.isScanningTx
+    }),
+
+    'transactions-scan-finished': (state, { payload }) => ({
+      ...state,
+      isScanningTx: !payload.address
+        ? false
+        : payload.address === Object.keys(state.byId[state.active].addresses)[0]
+          ? false
+          : state.isScanningTx
     })
   },
   initialState
