@@ -318,13 +318,6 @@ export const getActiveWalletTransactions = createSelector(
   }
 )
 
-export const metronomeStatus = state => state.metronome
-
-export const getMetTransferAllowed = createSelector(
-  metronomeStatus,
-  metronomeStatus => metronomeStatus.transferAllowed
-)
-
 export const hasEnoughData = state => state.session.hasEnoughData
 
 export const sendFeatureStatus = createSelector(
