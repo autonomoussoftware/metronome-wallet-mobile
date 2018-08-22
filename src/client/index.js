@@ -85,14 +85,6 @@ function setEthereumNetworkUrl({ ethereumNetworkUrl }) {
 }
 
 /**
- * Called when "Buy Metronome" form is confirmed and submitted
- * Returns a Promise
- */
-function buyMetronome({ gasPrice, gasLimit, password, value, from }) {
-  return fakeResponse({}, 1500)
-}
-
-/**
  * Called when "Copy address to clipboard" is pressed
  * Returns a Promise
  */
@@ -184,7 +176,7 @@ export default function createClient(config, createStore) {
     ...coreApi.wallet,
     ...keys,
     ...utils,
-    buyMetronome,
+    buyMetronome: authAnd(coreApi.metronome.buyMetronome),
     clearCache,
     convertEth: authAnd(coreApi.metronome.convertEth),
     convertMet: authAnd(coreApi.metronome.convertMet),
