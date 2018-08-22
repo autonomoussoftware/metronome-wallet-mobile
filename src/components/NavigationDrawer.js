@@ -49,11 +49,6 @@ export default class NavigationDrawer extends React.Component {
           </View>
           <View style={styles.secondaryNav}>
             <SecondaryNavBtn
-              isActive={isFocused('Settings')}
-              onPress={() => navigate('Settings', {}, StackActions.popToTop())}
-              label="Settings"
-            />
-            <SecondaryNavBtn
               isActive={isFocused('Tools')}
               onPress={() => navigate('Tools', {}, StackActions.popToTop())}
               label="Tools"

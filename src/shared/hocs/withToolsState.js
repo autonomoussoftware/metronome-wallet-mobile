@@ -4,16 +4,17 @@ import * as utils from '../utils'
 import PropTypes from 'prop-types'
 import React from 'react'
 
-const withRecoverFromMnemonicState = WrappedComponent => {
+const withToolsState = WrappedComponent => {
   class Container extends React.Component {
     static propTypes = {
       client: PropTypes.shape({
         recoverFromMnemonic: PropTypes.func.isRequired,
-        isValidMnemonic: PropTypes.func.isRequired
+        isValidMnemonic: PropTypes.func.isRequired,
+        clearCache: PropTypes.func.isRequired
       }).isRequired
     }
 
-    static displayName = `withRecoverFromMnemonicState(${WrappedComponent.displayName ||
+    static displayName = `withToolsState(${WrappedComponent.displayName ||
       WrappedComponent.name})`
 
     state = {
@@ -48,9 +49,19 @@ const withRecoverFromMnemonicState = WrappedComponent => {
       return !hasErrors
     }
 
+    onRescanTransactions = () => {
+      return this.props.client.clearCache()
+    }
+
     render() {
+      const isRecoverEnabled =
+        utils.sanitizeMnemonic(this.state.mnemonic || '').split(' ').length ===
+        12
+
       return (
         <WrappedComponent
+          onRescanTransactions={this.onRescanTransactions}
+          isRecoverEnabled={isRecoverEnabled}
           onInputChange={this.onInputChange}
           onSubmit={this.onSubmit}
           validate={this.validate}
@@ -64,4 +75,4 @@ const withRecoverFromMnemonicState = WrappedComponent => {
   return withClient(Container)
 }
 
-export default withRecoverFromMnemonicState
+export default withToolsState
