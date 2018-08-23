@@ -11,6 +11,7 @@ export default {
     translucentDark: '#323232EE',
     lightShade: 'rgba(0, 0, 0, 0.1)',
     darkShade,
+    darkSuccess: 'rgba(119, 132, 125, 0.68)',
     success: '#45d48d',
     danger: '#d46045',
     weak: '#888',

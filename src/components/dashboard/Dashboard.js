@@ -63,6 +63,7 @@ class Dashboard extends React.Component {
         </View>
 
         <TxListHeader
+          hasTransactions={this.props.hasTransactions}
           isScanningTx={this.props.isScanningTx}
           selectFilter={this.selectFilter}
           filter={this.state.selectedFilter}
@@ -85,7 +86,7 @@ class Dashboard extends React.Component {
 const styles = RN.StyleSheet.create({
   scrollContainer: {
     // expand ScrollView content if smaller than viewport:
-    justifyContent: 'space-between',
+    justifyContent: 'flex-start',
     flexGrow: 1
   }
 })

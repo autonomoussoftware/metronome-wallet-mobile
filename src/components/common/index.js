@@ -7,6 +7,7 @@ import GasEditor from './GasEditor'
 import Checkbox from './Checkbox'
 import BaseBtn from './BaseBtn'
 import MenuBtn from './MenuBtn'
+import Spinner from './Spinner'
 import Text from './Text'
 import View from './View'
 import Tab from './Tab'
@@ -22,6 +23,7 @@ export {
   Checkbox,
   BaseBtn,
   MenuBtn,
+  Spinner,
   Text,
   View,
   Tab,

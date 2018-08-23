@@ -1,5 +1,6 @@
 import { default as Svg, G, Line } from 'react-native-svg'
 import { View, Text, BaseBtn } from '../common'
+import ScanIndicator from './ScanIndicator'
 import PropTypes from 'prop-types'
 import theme from '../../theme'
 import React from 'react'
@@ -7,6 +8,8 @@ import RN from 'react-native'
 
 class TxListHeader extends React.Component {
   static propTypes = {
+    hasTransactions: PropTypes.bool.isRequired,
+    isScanningTx: PropTypes.bool.isRequired,
     selectFilter: PropTypes.func.isRequired,
     filter: PropTypes.string.isRequired
   }
@@ -32,10 +35,13 @@ class TxListHeader extends React.Component {
   render() {
     return (
       <View justify="space-between" align="center" row bg="primary" py={1}>
-        <View>
-          <Text size="medium" ml={2} py={1} shadow weight="semibold">
+        <View row align="center">
+          <Text size="medium" ml={2} mr={1} py={1} shadow weight="semibold">
             Transactions
           </Text>
+          {(this.props.hasTransactions || !this.props.isScanningTx) && (
+            <ScanIndicator />
+          )}
         </View>
         <View px={1}>
           <RN.TouchableOpacity
@@ -51,12 +57,12 @@ class TxListHeader extends React.Component {
               px={1}
             >
               <Text
-                ls={1.4}
-                size="small"
-                mx={1}
                 opacity={1}
                 weight="semibold"
                 shadow
+                size="small"
+                ls={1.4}
+                mx={1}
               >
                 {this.options[this.props.filter]}
               </Text>
@@ -88,10 +94,10 @@ class TxListHeader extends React.Component {
                     <BaseBtn
                       textProps={{ weight: 'semibold' }}
                       onPress={() => this.onOptionSelect(key)}
-                      style={styles.dropdownOption}
                       label={this.options[key]}
                       size="small"
                       key={key}
+                      px={3}
                       py={1.5}
                     />
                   ))}
@@ -120,9 +126,6 @@ const styles = RN.StyleSheet.create({
     right: 0.5,
     width: 150,
     alignItems: 'stretch'
-  },
-  dropdownOption: {
-    paddingHorizontal: theme.spacing(3)
   }
 })
 
