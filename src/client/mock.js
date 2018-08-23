@@ -1,0 +1,82 @@
+const fakeResponse = (value, delay = 500) => {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      typeof value === 'string' ? reject(new Error(value)) : resolve(value)
+    }, delay)
+  })
+}
+
+/**
+ * Called when login/unlock form is submitted
+ * Returns a Promise
+ */
+export function onLoginSubmit({ password }) {
+  return fakeResponse({ password })
+}
+
+/**
+ * Called when the link "Terms & Conditions" is clicked
+ * It should trigger opening the link with the platform default browser
+ */
+export function onTermsLinkClick() {
+  return fakeResponse({})
+}
+
+/**
+ * Called when the link "Open in Explorer" is clicked
+ * It should trigger opening the link with the platform default browser
+ */
+export function onExplorerLinkClick() {
+  return fakeResponse({})
+}
+
+/**
+ * Called by "Recover wallet from mnemonic" form
+ * Must return a Promise
+ */
+export function recoverFromMnemonic({ mnemonic, password }) {
+  return fakeResponse({ mnemonic, password })
+}
+
+/**
+ * Called when clicking "Clear cache" button in "Settings" screen
+ * Must return a Promise
+ */
+export function clearCache() {
+  return fakeResponse({})
+}
+
+/**
+ * Called when prefilling the Ethereum network URL field in "Settings" screen
+ * Must return a Promise
+ */
+export function getEthereumNetworkUrl() {
+  // Reference implementation in desktop wallet:
+  //
+  // ipcRenderer.sendSync('settings-get', {
+  //   key: 'app.node.websocketApiUrl'
+  // });
+  return fakeResponse({ ethereumNetworkUrl: 'ws://parity.bloqrock.net:8546' })
+}
+
+/**
+ * Called when updating the Ethereum network URL from "Settings" screen
+ * Must return a Promise
+ */
+export function setEthereumNetworkUrl({ ethereumNetworkUrl }) {
+  // Reference implementation in desktop wallet:
+  //
+  // ipcRenderer.sendSync('settings-set', {
+  //   key: 'app.node.websocketApiUrl',
+  //   value: this.state.ethereumNetworkUrl
+  // });
+  return fakeResponse({})
+}
+
+/**
+ * Called when "Copy address to clipboard" is pressed
+ * Returns a Promise
+ */
+export function copyToClipboard(text) {
+  return fakeResponse({ text })
+}

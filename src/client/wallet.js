@@ -13,3 +13,4 @@ export const getPrivateKey = () =>
 
 export const setPrivateKey = privateKey =>
   Keychain.setGenericPassword('wallet.privateKey', privateKey)
+  

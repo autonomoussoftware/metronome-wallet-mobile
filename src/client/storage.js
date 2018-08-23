@@ -1,22 +1,12 @@
 import { AsyncStorage } from 'react-native'
 
+import promiseThrottle from './promise-throttle'
+
 const keysToPersist = [
-  // 'auction',
   'blockchain',
-  // 'converter',
   'rates',
   'wallets'
 ]
-
-// TODO move to lib/promise-throttle
-function promiseThrottle (fn) {
-  let promise = Promise.resolve()
-  return function (...args) {
-    return promise
-      .catch()
-      .then(fn(...args))
-  }
-}
 
 export const persistState = promiseThrottle(function (state) {
   console.log('Persisting state', state)
@@ -32,4 +22,18 @@ export function getState () {
       return pairs.map(([key, val]) => ([key, JSON.parse(val)]))
         .filter(pair => !!pair[1])
     })
+}
+
+export function getBestBlock () {
+  return AsyncStorage.getItem('blockchain')
+    .then(value => value ? JSON.parse(value).height : null)
+}
+
+export function setSyncBlock (number) {
+  return AsyncStorage.setItem('sync', number.toString())
+}
+
+export function getSyncBlock () {
+  return AsyncStorage.getItem('sync')
+    .then(number => number ? Number.parseInt(number, 10) : 0)
 }

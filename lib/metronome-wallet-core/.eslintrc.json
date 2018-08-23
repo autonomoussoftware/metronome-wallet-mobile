@@ -8,6 +8,7 @@
   ],
   "root": true,
   "rules": {
+    "prefer-arrow/prefer-arrow-functions": "off",
     "max-params": ["error", 5]
   }
 }
