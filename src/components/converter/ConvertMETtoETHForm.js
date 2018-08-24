@@ -49,7 +49,6 @@ class ConvertMETtoETHForm extends React.Component {
     return (
       <View bg="dark" flex={1} px={2} py={4} justify="space-between">
         <TextInput
-          keyboardAppearance="dark"
           keyboardType="decimal-pad"
           placeholder={this.props.metPlaceholder}
           postLabel={

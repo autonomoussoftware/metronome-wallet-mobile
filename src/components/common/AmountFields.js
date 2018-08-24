@@ -23,7 +23,6 @@ class AmountFields extends React.Component {
       <View row align="center">
         <View grow={1} basis={0}>
           <TextInput
-            keyboardAppearance="dark"
             keyboardType="decimal-pad"
             placeholder={this.props.ethPlaceholder}
             postLabel={
@@ -48,7 +47,6 @@ class AmountFields extends React.Component {
         </View>
         <View grow={1} basis={0}>
           <TextInput
-            keyboardAppearance="dark"
             keyboardType="decimal-pad"
             placeholder={this.props.usdPlaceholder}
             onChange={this.props.onInputChange}

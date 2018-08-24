@@ -74,6 +74,7 @@ export default class TextInput extends React.Component {
         >
           <RN.TextInput
             placeholderTextColor="#888"
+            keyboardAppearance="dark"
             allowFontScaling
             autoCapitalize="none"
             onChangeText={newValue => onChange({ id, value: newValue })}

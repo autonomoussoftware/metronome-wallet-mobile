@@ -87,7 +87,6 @@ export default class MnemonicInput extends React.Component {
 
     return (
       <TextInput
-        keyboardAppearance="dark"
         numberOfLines={3}
         postInput={
           <Suggestions

@@ -55,7 +55,6 @@ class SendETHForm extends React.Component {
       <View bg="dark" flex={1} px={2} pt={3} pb={4}>
         <View grow={1}>
           <TextInput
-            keyboardAppearance="dark"
             placeholder="e.g. 0x2345678998765434567"
             postLabel={
               <BaseBtn
