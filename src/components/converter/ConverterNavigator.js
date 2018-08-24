@@ -5,7 +5,7 @@ import ConfirmMETtoETH from './ConfirmMETtoETH'
 import ConvertDrawer from './ConvertDrawer'
 import Converter from './Converter'
 
-export default createStackNavigator(
+const ConverterNavigator = createStackNavigator(
   {
     ConfirmETHtoMET,
     ConfirmMETtoETH,
@@ -17,3 +17,11 @@ export default createStackNavigator(
     initialRouteName: 'Converter'
   }
 )
+
+ConverterNavigator.navigationOptions = ({ navigation }) => ({
+  drawerLockMode: navigation.state.index > 0 ? 'locked-closed' : 'unlocked'
+})
+
+export default ConverterNavigator
+
+

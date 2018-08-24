@@ -7,7 +7,7 @@ import ReceiptDrawer from './ReceiptDrawer'
 import SendDrawer from './SendDrawer'
 import Dashboard from './Dashboard'
 
-export default createStackNavigator(
+const DashboardNavigator = createStackNavigator(
   {
     ConfirmSendETH,
     ConfirmSendMET,
@@ -21,3 +21,9 @@ export default createStackNavigator(
     initialRouteName: 'Dashboard'
   }
 )
+
+DashboardNavigator.navigationOptions = ({ navigation }) => ({
+  drawerLockMode: navigation.state.index > 0 ? 'locked-closed' : 'unlocked'
+})
+
+export default DashboardNavigator

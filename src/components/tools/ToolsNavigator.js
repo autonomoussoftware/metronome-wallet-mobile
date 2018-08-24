@@ -4,7 +4,7 @@ import ConfirmRecover from './ConfirmRecover'
 import ConfirmRescan from './ConfirmRescan'
 import Tools from './Tools'
 
-export default createStackNavigator(
+const ToolsNavigator = createStackNavigator(
   {
     ConfirmRecover,
     ConfirmRescan,
@@ -15,3 +15,9 @@ export default createStackNavigator(
     navigationOptions: commonStackStyles
   }
 )
+
+ToolsNavigator.navigationOptions = ({ navigation }) => ({
+  drawerLockMode: navigation.state.index > 0 ? 'locked-closed' : 'unlocked'
+})
+
+export default ToolsNavigator

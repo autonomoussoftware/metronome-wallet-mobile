@@ -4,7 +4,7 @@ import ConfirmPurchase from './ConfirmPurchase'
 import BuyDrawer from './BuyMETForm'
 import Auction from './Auction'
 
-export default createStackNavigator(
+const AuctionNavigator = createStackNavigator(
   {
     ConfirmPurchase,
     BuyDrawer,
@@ -15,3 +15,10 @@ export default createStackNavigator(
     initialRouteName: 'Auction'
   }
 )
+
+AuctionNavigator.navigationOptions = ({ navigation }) => ({
+  drawerLockMode: navigation.state.index > 0 ? 'locked-closed' : 'unlocked'
+})
+
+export default AuctionNavigator
+
