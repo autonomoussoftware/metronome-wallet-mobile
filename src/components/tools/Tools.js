@@ -1,7 +1,9 @@
-import { TextInput, MenuBtn, View, Text, Btn } from '../common'
+import { MnemonicInput, MenuBtn, View, Text, Btn } from '../common'
 import withToolsState from '../../shared/hocs/withToolsState'
 import PropTypes from 'prop-types'
+import theme from '../../theme'
 import React from 'react'
+import RN from 'react-native'
 
 class Tools extends React.Component {
   static propTypes = {
@@ -31,7 +33,13 @@ class Tools extends React.Component {
 
   render() {
     return (
-      <View bg="dark" flex={1} py={4} px={2} scroll>
+      <View
+        keyboardShouldPersistTaps="handled"
+        contentContainerStyle={styles.container}
+        scroll
+        flex={1}
+        bg="dark"
+      >
         <Text size="large" weight="bold">
           Recover a Wallet
         </Text>
@@ -41,16 +49,15 @@ class Tools extends React.Component {
         <Text my={2} color="danger" size="small" weight="semibold">
           This action will replace your current stored seed!
         </Text>
-        <TextInput
-          keyboardAppearance="dark"
-          numberOfLines={3}
-          multiline
+
+        <MnemonicInput
           onChange={this.props.onInputChange}
           error={this.props.errors.mnemonic}
           value={this.props.mnemonic}
           label="Recovery passphrase"
           id="mnemonic"
         />
+
         <Btn
           disabled={!this.props.isRecoverEnabled}
           onPress={this.onRecoverPress}
@@ -78,6 +85,13 @@ class Tools extends React.Component {
     )
   }
 }
+
+const styles = RN.StyleSheet.create({
+  container: {
+    paddingHorizontal: theme.spacing(2),
+    paddingVertical: theme.spacing(4)
+  }
+})
 
 const EnhancedComponent = withToolsState(Tools)
 

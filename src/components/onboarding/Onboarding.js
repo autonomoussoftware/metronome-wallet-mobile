@@ -1,4 +1,4 @@
-import { TextInput, Checkbox, View, Text, Btn, BaseBtn } from '../common'
+import { MnemonicInput, Checkbox, BaseBtn, View, Text, Btn } from '../common'
 import { default as PinWithNumpad, PIN_LENGTH } from '../common/PinWithNumpad'
 import withOnboardingState from '../../shared/hocs/withOnboardingState'
 import TermsAndConditions from '../../shared/TermsAndConditions'
@@ -208,9 +208,7 @@ class Onboarding extends React.Component {
             To verify you have copied the recovery passphrase correctly, enter
             the 12 words provided before in the field below.
           </Text>
-          <TextInput
-            numberOfLines={3}
-            multiline
+          <MnemonicInput
             onChange={this.props.onInputChange}
             error={this.props.errors.mnemonicAgain}
             value={this.props.mnemonicAgain}
@@ -245,13 +243,11 @@ class Onboarding extends React.Component {
             Enter a valid 12 word passphrase to recover a previously created
             wallet.
           </Text>
-          <TextInput
-            numberOfLines={3}
-            multiline
+          <MnemonicInput
             onChange={this.props.onInputChange}
             error={this.props.errors.userMnemonic}
             value={this.props.userMnemonic}
-            label="Recovery phrase"
+            label="Recovery passphrase"
             id="userMnemonic"
           />
           <Btn

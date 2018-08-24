@@ -1,4 +1,5 @@
 import ChecklistItem from './ChecklistItem'
+import MnemonicInput from './MnemonicInput'
 import Confirmation from './Confirmation'
 import AmountFields from './AmountFields'
 import DisplayValue from './DisplayValue'
@@ -15,6 +16,7 @@ import Btn from './Btn'
 
 export {
   ChecklistItem,
+  MnemonicInput,
   Confirmation,
   AmountFields,
   DisplayValue,

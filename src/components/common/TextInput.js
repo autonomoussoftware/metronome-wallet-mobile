@@ -9,6 +9,7 @@ export default class TextInput extends React.Component {
     'data-testid': PropTypes.string,
     placeholder: PropTypes.string,
     postLabel: PropTypes.element,
+    postInput: PropTypes.element,
     topMargin: PropTypes.bool,
     autoFocus: PropTypes.bool,
     onChange: PropTypes.func.isRequired,
@@ -42,6 +43,7 @@ export default class TextInput extends React.Component {
     const {
       topMargin,
       postLabel,
+      postInput,
       onChange,
       noFocus,
       error,
@@ -62,7 +64,14 @@ export default class TextInput extends React.Component {
           </Text>
           {postLabel}
         </RN.View>
-        <RN.View style={styles.fieldContainer}>
+        <RN.View
+          style={[
+            styles.fieldContainer,
+            isFocused && styles.isFocused,
+            noFocus && value && value.length > 0 && styles.noFocus,
+            hasErrors && styles.hasErrors
+          ]}
+        >
           <RN.TextInput
             placeholderTextColor="#888"
             allowFontScaling
@@ -74,14 +83,12 @@ export default class TextInput extends React.Component {
             onBlur={this.onBlur}
             style={[
               styles.field,
-              isFocused && styles.isFocused,
-              noFocus && value && value.length > 0 && styles.noFocus,
-              hasErrors && styles.hasErrors,
               { minHeight: 28 * (other.numberOfLines || 2) }
             ]}
             value={value || ''}
             {...other}
           />
+          {postInput}
         </RN.View>
         <RN.View style={styles.errorContainer}>
           {hasErrors && (
@@ -113,15 +120,15 @@ const styles = RN.StyleSheet.create({
     lineHeight: 16
   },
   fieldContainer: {
-    backgroundColor: theme.colors.translucentPrimary
+    backgroundColor: theme.colors.translucentPrimary,
+    borderBottomWidth: 2,
+    borderBottomColor: theme.colors.transparent
   },
   field: {
     fontFamily: 'Muli',
     fontSize: 16,
     paddingHorizontal: theme.spacing(2),
-    color: theme.colors.light,
-    borderBottomWidth: 2,
-    borderBottomColor: theme.colors.transparent
+    color: theme.colors.light
   },
   isFocused: {
     borderBottomColor: theme.colors.primary
