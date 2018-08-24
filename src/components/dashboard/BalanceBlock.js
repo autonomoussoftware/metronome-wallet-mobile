@@ -48,7 +48,7 @@ const Row = ({ symbol, value, usdValue, isFirst, isBig }) => (
       />
 
       {usdValue && (
-        <Text size="medium" weight="semibold">
+        <Text size="medium" weight="semibold" opacity={0.8}>
           ${usdValue} (USD)
         </Text>
       )}

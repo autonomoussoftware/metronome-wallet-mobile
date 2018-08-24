@@ -3,21 +3,6 @@ import { TouchableOpacity } from 'react-native'
 import PropTypes from 'prop-types'
 import React from 'react'
 
-export const backIcon = (
-  <Svg key="back" viewBox="0 0 37 27" width="35" height="27">
-    <G
-      strokeLinecap="round"
-      strokeWidth="2"
-      fillRule="evenodd"
-      stroke="white"
-      fill="none"
-    >
-      <Line x1="12" y1="13" x2="20" y2="5" />
-      <Line x1="12" y1="14" x2="20" y2="22" />
-    </G>
-  </Svg>
-)
-
 const MenuBtn = ({ onPress }) => (
   <TouchableOpacity
     activeOpacity={0.5}
