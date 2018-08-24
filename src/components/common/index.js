@@ -5,6 +5,7 @@ import AmountFields from './AmountFields'
 import DisplayValue from './DisplayValue'
 import TextInput from './TextInput'
 import GasEditor from './GasEditor'
+import PinInput from './PinInput'
 import Checkbox from './Checkbox'
 import BaseBtn from './BaseBtn'
 import MenuBtn from './MenuBtn'
@@ -22,6 +23,7 @@ export {
   DisplayValue,
   TextInput,
   GasEditor,
+  PinInput,
   Checkbox,
   BaseBtn,
   MenuBtn,

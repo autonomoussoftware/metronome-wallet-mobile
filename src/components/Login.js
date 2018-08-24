@@ -1,7 +1,6 @@
 import { errorPropTypes } from '../utils'
+import { PinInput, View } from './common'
 import withLoginState from '../shared/hocs/withLoginState'
-import { View, Text } from './common'
-import PinWithNumpad from './common/PinWithNumpad'
 import PropTypes from 'prop-types'
 import Banner from './icons/Banner'
 import React from 'react'
@@ -28,21 +27,23 @@ class Login extends React.Component {
           source={require('../assets/images/pattern.png')}
           style={styles.bg}
         >
-          <View flex={1} justify="center" align="center" p={2}>
-            <Banner width="220" />
-            <Text size="medium" weight="semibold" mt={4} mb={2}>
-              Enter your PIN
-            </Text>
-            <PinWithNumpad
-              shakeOnError
-              onComplete={onSubmit}
-              disabled={this.props.status === 'pending'}
-              onChange={onInputChange}
-              value={password || ''}
-              error={error}
-              id="password"
-            />
-          </View>
+          <RN.KeyboardAvoidingView behavior="height" style={styles.bg}>
+            <View justify="center" align="center" flex={1}>
+              <View mb={6}>
+                <Banner width="220" />
+              </View>
+
+              <PinInput
+                shakeOnError
+                onComplete={onSubmit}
+                onChange={onInputChange}
+                label="Enter your PIN"
+                value={password || ''}
+                error={error}
+                id="password"
+              />
+            </View>
+          </RN.KeyboardAvoidingView>
         </RN.ImageBackground>
       </View>
     )

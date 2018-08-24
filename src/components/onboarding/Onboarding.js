@@ -1,5 +1,5 @@
 import { MnemonicInput, Checkbox, BaseBtn, View, Text, Btn } from '../common'
-import { default as PinWithNumpad, PIN_LENGTH } from '../common/PinWithNumpad'
+import { default as PinInput, PIN_LENGTH } from '../common/PinInput'
 import withOnboardingState from '../../shared/hocs/withOnboardingState'
 import TermsAndConditions from '../../shared/TermsAndConditions'
 import { errorPropTypes } from '../../utils'
@@ -98,7 +98,7 @@ class Onboarding extends React.Component {
 
   _renderPinStep() {
     return (
-      <View flex={1} align="center" px={2} pt={4} justify="center">
+      <View flex={1} align="center" px={2} pb={10} justify="center">
         <Text size="large" weight="semibold" mb={2}>
           Define a PIN
         </Text>
@@ -107,7 +107,7 @@ class Onboarding extends React.Component {
             All data will be encrypted using this PIN. Don&apos;t lose it.
           </Text>
         </RN.View>
-        <PinWithNumpad
+        <PinInput
           onChange={this.props.onInputChange}
           value={this.props.password || ''}
           id="password"
@@ -119,7 +119,7 @@ class Onboarding extends React.Component {
 
   _renderVerifyPinStep() {
     return (
-      <View flex={1} align="center" px={2} pt={4} justify="center">
+      <View flex={1} align="center" px={2} pb={10} justify="center">
         <Text size="large" weight="semibold" mb={2}>
           Define a PIN
         </Text>
@@ -128,7 +128,7 @@ class Onboarding extends React.Component {
             Please, enter your PIN again.
           </Text>
         </View>
-        <PinWithNumpad
+        <PinInput
           onComplete={() => this.props.onPasswordSubmit({ clearOnError: true })}
           onChange={this.props.onInputChange}
           value={this.props.passwordAgain || ''}
