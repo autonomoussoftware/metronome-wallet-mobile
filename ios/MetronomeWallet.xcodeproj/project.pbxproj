@@ -890,7 +890,7 @@
 				TargetAttributes = {
 					00E356ED1AD99517003FC87E = {
 						CreatedOnToolsVersion = 6.2;
-						DevelopmentTeam = P7AF4RFC66;
+						DevelopmentTeam = 99Y6CF5TBP;
 						TestTargetID = 13B07F861A680F5B00A75B9A;
 					};
 					13B07F861A680F5B00A75B9A = {
@@ -1478,7 +1478,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				DEVELOPMENT_TEAM = P7AF4RFC66;
+				DEVELOPMENT_TEAM = 99Y6CF5TBP;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -1519,7 +1519,7 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
-				DEVELOPMENT_TEAM = P7AF4RFC66;
+				DEVELOPMENT_TEAM = 99Y6CF5TBP;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-secure-key-store/ios/**",
@@ -1575,7 +1575,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = io.metronome.wallet.mobile;
+				PRODUCT_BUNDLE_IDENTIFIER = sh.autonomous.wallet.mobile;
 				PRODUCT_NAME = MetronomeWallet;
 				TARGETED_DEVICE_FAMILY = 1;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -1605,7 +1605,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = io.metronome.wallet.mobile;
+				PRODUCT_BUNDLE_IDENTIFIER = sh.autonomous.wallet.mobile;
 				PRODUCT_NAME = MetronomeWallet;
 				TARGETED_DEVICE_FAMILY = 1;
 				VERSIONING_SYSTEM = "apple-generic";
