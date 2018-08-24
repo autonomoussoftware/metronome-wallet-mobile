@@ -74,12 +74,13 @@ export default function createClient(config, createStore) {
       .then(() => emitter.emit('open-wallets', { walletIds: [1], activeWallet: 1, address }))
   }
 
+  // TODO move this logic into the explorer plugin
   emitter.on('open-wallets', function ({ address }) {
     // TODO request to rescan unconfirmed txs
 
     Promise.all([storage.getSyncBlock(), storage.getBestBlock()])
       .then(function ([from, to]) {
-        return coreApi.tokens.syncTokenEvents(from, to, address)
+        return coreApi.explorer.syncTransactions(from, to, address)
           .then(() => storage.setSyncBlock(to))
       })
       .catch(function (err) {
@@ -87,7 +88,7 @@ export default function createClient(config, createStore) {
       })
   })
 
-  const authAnd = fn => function (transactionObject) {
+  const withAuth = fn => function (transactionObject) {
     // TODO check options.password is valid
     return wallet.getPrivateKey()
       .then(function (privateKey) {
@@ -102,13 +103,13 @@ export default function createClient(config, createStore) {
     ...coreApi.wallet,
     ...keys,
     ...utils,
-    buyMetronome: authAnd(coreApi.metronome.buyMetronome),
-    convertEth: authAnd(coreApi.metronome.convertEth),
-    convertMet: authAnd(coreApi.metronome.convertMet),
+    buyMetronome: withAuth(coreApi.metronome.buyMetronome),
+    convertEth: withAuth(coreApi.metronome.convertEth),
+    convertMet: withAuth(coreApi.metronome.convertMet),
     onInit,
     onOnboardingCompleted,
-    sendEth: authAnd(coreApi.wallet.sendEth),
-    sendMet: authAnd(coreApi.metronome.sendMet),
+    sendEth: withAuth(coreApi.wallet.sendEth),
+    sendMet: withAuth(coreApi.metronome.sendMet),
     store,
     ...mock
   }
