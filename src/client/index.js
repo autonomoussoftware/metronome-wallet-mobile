@@ -82,6 +82,14 @@ export default function createClient(config, createStore) {
       .then(function ([from, to]) {
         return coreApi.explorer.syncTransactions(from, to, address)
           .then(() => storage.setSyncBlock(to))
+          .then(function () {
+            emitter.on('eth-block', function ({ number }) {
+              storage.setSyncBlock(number)
+                .catch(function (err) {
+                  console.warn('Could not save new synced block', err)
+      })
+            })
+          })
       })
       .catch(function (err) {
         console.warn('Could not sync transactions/events', err)

@@ -30,6 +30,8 @@ export function getBestBlock () {
 }
 
 export function setSyncBlock (number) {
+  console.log('Setting sync block', number)
+  
   return AsyncStorage.setItem('sync', number.toString())
 }
 
