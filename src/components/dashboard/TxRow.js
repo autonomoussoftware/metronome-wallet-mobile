@@ -277,8 +277,9 @@ const styles = RN.StyleSheet.create({
     paddingLeft: theme.spacing(2)
   },
   container: {
-    borderBottomWidth: 1,
-    borderBottomColor: theme.colors.lightShade
+    borderBottomWidth: RN.StyleSheet.hairlineWidth,
+    borderBottomColor: theme.colors.lightShade,
+    height: 70
   },
   confirmations: {
     alignItems: 'center',

@@ -4,6 +4,7 @@ import LogoIcon from '../icons/LogoIcon'
 import { View } from '../common'
 import TxRow from './TxRow'
 import React from 'react'
+import RN from 'react-native'
 
 class TxList extends React.Component {
   static propTypes = {
@@ -17,18 +18,29 @@ class TxList extends React.Component {
     ).isRequired
   }
 
+  getFilteredItems = () => {
+    const { items, filter } = this.props
+    return items.filter(tx => ['all', tx.parsed.txType].includes(filter))
+  }
+
+  keyExtractor = item => item.transaction.hash
+
+  renderItem = ({ item }) => <TxRow {...item} />
+
+  footer = (
+    <View bg="light" align="center" py={4}>
+      <LogoIcon />
+    </View>
+  )
+
   render() {
     return (
-      <React.Fragment>
-        {this.props.items
-          .filter(tx => ['all', tx.parsed.txType].includes(this.props.filter))
-          .map(tx => (
-            <TxRow key={tx.transaction.hash} {...tx} />
-          ))}
-        <View bg="light" align="center" py={4}>
-          <LogoIcon />
-        </View>
-      </React.Fragment>
+      <RN.FlatList
+        ListFooterComponent={this.footer}
+        keyExtractor={this.keyExtractor}
+        renderItem={this.renderItem}
+        data={this.getFilteredItems()}
+      />
     )
   }
 }
