@@ -8,6 +8,7 @@
     "ethereumjs-wallet": "^0.6.2",
     "lodash": "^4.17.10",
     "metronome-contracts": "^1.4.2",
+    "p-defer": "^1.0.0",
     "promise-all-props": "^1.0.1",
     "web3": "^1.0.0-beta.34"
   },

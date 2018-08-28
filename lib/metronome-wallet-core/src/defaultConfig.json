@@ -1,0 +1,13 @@
+{
+  "debug": false,
+  "rates": {
+    "updateMs": 30000
+  },
+  "eth": {
+    "chain": "mainnet",
+    "wsApiUrl": "localhost:8545"
+  },
+  "explorer": {
+    "debounce": 2000
+  }
+}
