@@ -5,9 +5,10 @@
   },
   "eth": {
     "chain": "mainnet",
-    "wsApiUrl": "localhost:8545"
+    "wsApiUrl": "wss://eth.wallet.metronome.io:8546"
   },
   "explorer": {
-    "debounce": 2000
+    "debounce": 2000,
+    "indexerUrl": "https://indexer.metronome.io"
   }
 }
