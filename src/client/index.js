@@ -78,10 +78,11 @@ export default function createClient(config, createStore) {
   emitter.on('open-wallets', function ({ address }) {
     // TODO request to rescan unconfirmed txs
 
-    Promise.all([storage.getSyncBlock(), storage.getBestBlock()])
-      .then(function ([from, to]) {
-        return coreApi.explorer.syncTransactions(from, to, address)
-          .then(() => storage.setSyncBlock(to))
+    storage.getSyncBlock()
+      .then(function (from) {
+        return coreApi.explorer.syncTransactions(from, address)
+      })
+      .then(storage.setSyncBlock)
           .then(function () {
             emitter.on('eth-block', function ({ number }) {
               storage.setSyncBlock(number)
@@ -90,7 +91,6 @@ export default function createClient(config, createStore) {
       })
             })
           })
-      })
       .catch(function (err) {
         console.warn('Could not sync transactions/events', err)
       })
