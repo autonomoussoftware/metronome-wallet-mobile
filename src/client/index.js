@@ -61,10 +61,10 @@ export default function createClient(config, createStore) {
     })
 
   const onInit = () =>
-    wallet.getSeed()
-    // .then(() => null) // HACK force onboarding
+    auth.getHashedPIN()
+      .then(pin => pin || Promise.reject(new Error('No pin found')))
+      .then(wallet.getSeed)
       .then(coreApi.wallet.createAddress)
-      .then(address => address || Promise.reject(new Error('No address found')))
       .then(address => emitter.emit('open-wallets', { walletIds: [1], activeWallet: 1, address }))
       .then(() => ({ onboardingComplete: true }))
       .catch(err => ({ onboardingComplete: false, err }))
