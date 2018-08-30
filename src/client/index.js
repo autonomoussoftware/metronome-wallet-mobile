@@ -3,6 +3,7 @@ import core from 'metronome-wallet-core'
 import * as storage from './storage'
 import * as auth from './auth'
 import * as keys from './keys'
+import * as platformUtils from './platform-utils'
 import * as utils from './utils'
 import * as wallet from './wallet'
 
@@ -60,18 +61,23 @@ export default function createClient(config, createStore) {
     })
 
   const onInit = () =>
-    wallet.getAddress()
-      // .then(() => null) // HACK force onboarding
+    wallet.getSeed()
+    // .then(() => null) // HACK force onboarding
+      .then(coreApi.wallet.createAddress)
       .then(address => address || Promise.reject(new Error('No address found')))
       .then(address => emitter.emit('open-wallets', { walletIds: [1], activeWallet: 1, address }))
       .then(() => ({ onboardingComplete: true }))
       .catch(err => ({ onboardingComplete: false, err }))
 
   const onOnboardingCompleted = ({ mnemonic, password }) => {
-    const { address, privateKey } = coreApi.wallet.getAddressAndPrivateKey(keys.mnemonicToSeedHex(mnemonic))
-    return Promise.all([wallet.setAddress(address), wallet.setPrivateKey(privateKey), auth.setPIN(password)])
+    const seed = keys.mnemonicToSeedHex(mnemonic)
+    return Promise.all([wallet.setSeed(seed), auth.setPIN(password)])
       .then(() => emitter.emit('create-wallet', { walletId: 1 }))
-      .then(() => emitter.emit('open-wallets', { walletIds: [1], activeWallet: 1, address }))
+      .then(() => emitter.emit('open-wallets', {
+        walletIds: [1],
+        activeWallet: 1,
+        address: coreApi.wallet.createAddress(seed)
+      }))
   }
 
   // TODO move this logic into the explorer plugin
@@ -88,7 +94,7 @@ export default function createClient(config, createStore) {
               storage.setSyncBlock(number)
                 .catch(function (err) {
                   console.warn('Could not save new synced block', err)
-      })
+                })
             })
           })
       .catch(function (err) {
@@ -97,8 +103,9 @@ export default function createClient(config, createStore) {
   })
 
   const withAuth = fn => function (transactionObject) {
-    // TODO check options.password is valid
-    return wallet.getPrivateKey()
+    return auth.validatePIN(transactionObject.password)
+      .then(wallet.getSeed)
+      .then(coreApi.wallet.createPrivateKey)
       .then(function (privateKey) {
         return fn(privateKey, transactionObject)
       })
@@ -110,6 +117,7 @@ export default function createClient(config, createStore) {
     ...coreApi.tokens,
     ...coreApi.wallet,
     ...keys,
+    ...platformUtils,
     ...utils,
     buyMetronome: withAuth(coreApi.metronome.buyMetronome),
     convertEth: withAuth(coreApi.metronome.convertEth),

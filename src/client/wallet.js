@@ -1,16 +1,8 @@
-import { AsyncStorage } from 'react-native'
 import * as Keychain from 'react-native-keychain';
 
-export const getAddress = () =>
-  AsyncStorage.getItem('wallet.address')
-
-export const setAddress = address =>
-  AsyncStorage.setItem('wallet.address', address)
-
-export const getPrivateKey = () =>
+export const getSeed = () =>
   Keychain.getGenericPassword()
     .then(credentials => credentials.password)
 
-export const setPrivateKey = privateKey =>
-  Keychain.setGenericPassword('wallet.privateKey', privateKey)
-  
+export const setSeed = seed =>
+  Keychain.setGenericPassword('wallet.seed', seed)

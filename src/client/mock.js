@@ -64,11 +64,3 @@ export function setEthereumNetworkUrl({ ethereumNetworkUrl }) {
   // });
   return fakeResponse({})
 }
-
-/**
- * Called when "Copy address to clipboard" is pressed
- * Returns a Promise
- */
-export function copyToClipboard(text) {
-  return fakeResponse({ text })
-}
