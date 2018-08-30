@@ -35,13 +35,13 @@ export default {
 
   // FONT WEIGHTS
   weights: {
-    xLight: { fileName: 'Muli-ExtraLight', val: '200' },
-    light: { fileName: 'Muli-Light', val: '300' },
-    regular: { fileName: 'Muli-Regular', val: '400' },
-    semibold: { fileName: 'Muli-SemiBold', val: '600' },
-    bold: { fileName: 'Muli-Bold', val: '700' },
-    xBold: { fileName: 'Muli-ExtraBold', val: '800' },
-    black: { fileName: 'Muli-Black', val: '900' }
+    xLight: { fileName: 'Muli-ExtraLight', value: '200' },
+    light: { fileName: 'Muli-Light', value: '300' },
+    regular: { fileName: 'Muli-Regular', value: '400' },
+    semibold: { fileName: 'Muli-SemiBold', value: '600' },
+    bold: { fileName: 'Muli-Bold', value: '700' },
+    xBold: { fileName: 'Muli-ExtraBold', value: '800' },
+    black: { fileName: 'Muli-Black', value: '900' }
   },
 
   textShadow: `0 1px 1px ${darkShade}`,
