@@ -127,7 +127,10 @@ const withOnboardingState = WrappedComponent => {
         )
         if (Object.keys(errors).length > 0) return this.setState({ errors })
       } else {
-        if (this.state.mnemonic !== this.state.mnemonicAgain) {
+        if (
+          utils.sanitizeMnemonic(this.state.mnemonicAgain) !==
+          this.state.mnemonic
+        ) {
           return this.setState({
             errors: {
               mnemonicAgain:
