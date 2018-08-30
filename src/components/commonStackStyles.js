@@ -1,3 +1,4 @@
+import { fontStyles } from '../utils'
 import theme from '../theme'
 
 export default {
@@ -10,9 +11,8 @@ export default {
     textShadowOffset: { width: 0, height: 1 },
     textShadowRadius: 1,
     textShadowColor: theme.colors.darkShade,
-    fontWeight: theme.weights.bold,
-    fontFamily: 'Muli',
     fontSize: theme.sizes.large,
-    color: theme.colors.light
+    color: theme.colors.light,
+    ...fontStyles('bold')
   }
 }

@@ -1,8 +1,8 @@
-import { StyleSheet, Text as RNText } from 'react-native'
-import { spacing } from '../../utils'
+import { fontStyles, spacing } from '../../utils'
 import PropTypes from 'prop-types'
 import theme from '../../theme'
 import React from 'react'
+import RN from 'react-native'
 
 const Text = props => {
   const {
@@ -19,10 +19,10 @@ const Text = props => {
   } = props
 
   return (
-    <RNText
+    <RN.Text
       style={[
         styles.container,
-        { fontWeight: theme.weights[weight || 'regular'] },
+        fontStyles(weight),
         letterSpacing !== undefined && { letterSpacing },
         opacity !== undefined && { opacity },
         shadow && styles.shadow,
@@ -35,23 +35,14 @@ const Text = props => {
       {...other}
     >
       {children}
-    </RNText>
+    </RN.Text>
   )
 }
 
 Text.propTypes = {
   children: PropTypes.node.isRequired,
   opacity: PropTypes.number,
-  weight: PropTypes.oneOf([
-    'xlight',
-    'light',
-    'regular',
-    'semibold',
-    'bold',
-    'bold',
-    'xbold',
-    'black'
-  ]),
+  weight: PropTypes.oneOf(Object.keys(theme.weights)),
   shadow: PropTypes.bool,
   color: PropTypes.oneOf(Object.keys(theme.colors)),
   align: PropTypes.oneOf(['left', 'center', 'right', 'justify']),
@@ -61,9 +52,8 @@ Text.propTypes = {
   ...spacing.propTypes
 }
 
-const styles = StyleSheet.create({
+const styles = RN.StyleSheet.create({
   container: {
-    fontFamily: 'Muli',
     color: theme.colors.light
   },
   shadow: {

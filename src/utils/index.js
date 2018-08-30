@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types'
 import theme from '../theme'
+import RN from 'react-native'
 
 export const errorPropTypes = (...fields) => {
   const shape = fields.reduce((acc, fieldName) => {
@@ -39,4 +40,19 @@ spacing.propTypes = {
   pb: PropTypes.number,
   pl: PropTypes.number,
   pr: PropTypes.number
+}
+
+// Return proper fontFamily and fontWeight based on weight
+// @see https://gist.github.com/hilkeheremans/acb9949a06ced38ba15a2628f849e33a
+export function fontStyles(weight = 'regular') {
+  return RN.Platform.select({
+    ios: {
+      fontFamily: 'Muli',
+      fontWeight: theme.weights[weight].value
+    },
+    android: {
+      fontFamily: theme.weights[weight].fileName,
+      fontWeight: '400'
+    }
+  })
 }
