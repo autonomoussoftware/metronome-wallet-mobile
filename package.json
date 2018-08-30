@@ -46,8 +46,7 @@
     "redux-actions": "2.3.0",
     "reselect": "3.0.1",
     "smart-round": "1.0.0",
-    "web3-utils": "1.0.0-beta.35",
-    "whatwg-url": "6.5.0"
+    "web3-utils": "1.0.0-beta.35"
   },
   "devDependencies": {
     "babel-eslint": "8.2.6",
