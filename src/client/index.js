@@ -67,9 +67,9 @@ export default function createClient(config, createStore) {
       .then(() => ({ onboardingComplete: true }))
       .catch(err => ({ onboardingComplete: false, err }))
 
-  const onOnboardingCompleted = ({ mnemonic }) => {
+  const onOnboardingCompleted = ({ mnemonic, password }) => {
     const { address, privateKey } = coreApi.wallet.getAddressAndPrivateKey(keys.mnemonicToSeedHex(mnemonic))
-    return Promise.all([wallet.setAddress(address), wallet.setPrivateKey(privateKey)])
+    return Promise.all([wallet.setAddress(address), wallet.setPrivateKey(privateKey), auth.setPIN(password)])
       .then(() => emitter.emit('create-wallet', { walletId: 1 }))
       .then(() => emitter.emit('open-wallets', { walletIds: [1], activeWallet: 1, address }))
   }

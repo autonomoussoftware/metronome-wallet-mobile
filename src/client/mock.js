@@ -7,14 +7,6 @@ const fakeResponse = (value, delay = 500) => {
 }
 
 /**
- * Called when login/unlock form is submitted
- * Returns a Promise
- */
-export function onLoginSubmit({ password }) {
-  return fakeResponse({ password })
-}
-
-/**
  * Called when the link "Terms & Conditions" is clicked
  * It should trigger opening the link with the platform default browser
  */
