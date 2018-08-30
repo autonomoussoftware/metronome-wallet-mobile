@@ -191,7 +191,9 @@ class TxRow extends React.Component {
                   {this.props.isPending ? 'PENDING' : 'RECEIVED'} FROM{' '}
                 </Text>
                 <Text color="copy" weight="semibold" size="small">
-                  {this.props.from}
+                  {this.props.from.substring(0, 6)}
+                  &hellip;
+                  {this.props.from.substring(this.props.from.length - 4)}
                 </Text>
               </Text>
             )}
@@ -233,7 +235,9 @@ class TxRow extends React.Component {
                   'CONVERTER CONTRACT'
                 ) : (
                   <Text weight="semibold" color="copy" size="small">
-                    {this.props.to}
+                    {this.props.to.substring(0, 6)}
+                    &hellip;
+                    {this.props.to.substring(this.props.to.length - 4)}
                   </Text>
                 )}
               </Text>
