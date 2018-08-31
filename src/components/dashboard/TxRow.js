@@ -167,7 +167,7 @@ class TxRow extends React.Component {
               <Text>
                 {this.props.isPending && (
                   <Text color="copy" size="xSmall" ls={0.4}>
-                    PENDING CONVERSION FROM
+                    PENDING CONVERSION FROM{' '}
                   </Text>
                 )}
 
