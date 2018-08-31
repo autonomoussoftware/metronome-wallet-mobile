@@ -200,7 +200,12 @@ class Onboarding extends React.Component {
   _renderVerifyMnemonicStep() {
     return (
       <RN.KeyboardAvoidingView behavior="padding" style={styles.step}>
-        <View align="center" p={2}>
+        <View
+          keyboardShouldPersistTaps="handled"
+          contentContainerStyle={styles.scrollContainer}
+          scroll
+          p={2}
+        >
           <Text size="large" weight="semibold" mb={2}>
             Recovery Passphrase
           </Text>
@@ -235,7 +240,12 @@ class Onboarding extends React.Component {
   _renderUserMnemonicStep() {
     return (
       <RN.KeyboardAvoidingView behavior="padding" style={styles.step}>
-        <View align="center" p={2}>
+        <View
+          keyboardShouldPersistTaps="handled"
+          contentContainerStyle={styles.scrollContainer}
+          scroll
+          p={2}
+        >
           <Text size="large" weight="semibold" mb={2}>
             Recovery Passphrase
           </Text>
@@ -306,7 +316,13 @@ const styles = RN.StyleSheet.create({
   },
   step: {
     justifyContent: 'center',
+    paddingTop: 24,
     flex: 1
+  },
+  scrollContainer: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexGrow: 1
   },
   placeholder: {
     height: 50

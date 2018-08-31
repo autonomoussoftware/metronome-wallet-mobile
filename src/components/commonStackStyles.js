@@ -1,5 +1,8 @@
 import { fontStyles } from '../utils'
 import theme from '../theme'
+import RN from 'react-native'
+
+const { width } = RN.Dimensions.get('window')
 
 export default {
   headerStyle: {
@@ -11,7 +14,7 @@ export default {
     textShadowOffset: { width: 0, height: 1 },
     textShadowRadius: 1,
     textShadowColor: theme.colors.darkShade,
-    fontSize: theme.sizes.large,
+    fontSize: width < 375 ? theme.sizes.medium : theme.sizes.large,
     color: theme.colors.light,
     ...fontStyles('bold')
   }

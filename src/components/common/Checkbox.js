@@ -42,6 +42,7 @@ export default class Checkbox extends React.Component {
             <RN.TouchableOpacity
               activeOpacity={0.8}
               disabled={disabled}
+              hitSlop={{ top: 10, left: 10, right: 10, bottom: 10 }}
               onPress={() => onChange({ id, value: !checked })}
             >
               <Svg viewBox="0 0 16 16" height="20" width="20">

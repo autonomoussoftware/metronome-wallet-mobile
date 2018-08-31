@@ -1,10 +1,11 @@
-import { StyleSheet, Platform, ScrollView, View as RNView } from 'react-native'
 import { spacing } from '../../utils'
 import PropTypes from 'prop-types'
 import theme from '../../theme'
 import React from 'react'
+import RN from 'react-native'
 
-const isOldIOS = Platform.OS === 'ios' && parseFloat(Platform.Version) < 11
+const isOldIOS =
+  RN.Platform.OS === 'ios' && parseFloat(RN.Platform.Version) < 11
 
 const View = props => {
   const {
@@ -27,7 +28,7 @@ const View = props => {
     ...other
   } = props
 
-  const Component = scroll ? ScrollView : RNView
+  const Component = scroll ? RN.ScrollView : RN.View
 
   return (
     <Component
@@ -93,7 +94,7 @@ View.propTypes = {
   ...spacing.propTypes
 }
 
-const styles = StyleSheet.create({
+const styles = RN.StyleSheet.create({
   row: {
     flexDirection: 'row'
   },
