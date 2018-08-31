@@ -1,12 +1,20 @@
 import Contracts from 'metronome-contracts'
 
-import localEnv from '../.config.json'
+const __TEST__ = true
 
 const devEnv = {
   ETH_CHAIN: 'ropsten',
-  ETH_WS_API_URL: 'ws://localhost:8545',
+  ETH_WS_API_URL: 'ws://localhost:8546',
   EXPLORER_INDEXER_URL: 'http://localhost:3005',
   MET_EXPLORER_URL: 'http://localhost:3004',
+  SENTRY_DSN: ''
+}
+
+const testEnv = {
+  ETH_CHAIN: 'ropsten',
+  ETH_WS_API_URL: 'wss://eth.wallet.bloqrock.net:8546',
+  EXPLORER_INDEXER_URL: 'https://indexer.bloqrock.net',
+  MET_EXPLORER_URL: 'https://explorer.met.bloqrock.net',
   SENTRY_DSN: ''
 }
 
@@ -37,8 +45,12 @@ const createConfig = env => ({
   debug: true
 })
 
-const config = __DEV__
-  ? createConfig({ ...prodEnv, ...devEnv, ...localEnv })
-  : createConfig({ ...prodEnv, ...localEnv })
+const config = createConfig(
+  __TEST__
+    ? testEnv
+    : __DEV__
+      ? devEnv
+      : prodEnv
+)
 
 export default config
