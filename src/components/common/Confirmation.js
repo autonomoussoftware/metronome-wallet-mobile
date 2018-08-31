@@ -57,12 +57,12 @@ class Confirmation extends React.Component {
     duration: 300,
     create: {
       property: RN.LayoutAnimation.Properties.opacity,
-      type: RN.LayoutAnimation.Types.spring
+      type: RN.LayoutAnimation.Types.linear
     },
     update: {
       duration: 200,
       property: RN.LayoutAnimation.Properties.opacity,
-      type: RN.LayoutAnimation.Types.spring
+      type: RN.LayoutAnimation.Types.linear
     },
     delete: {
       duration: 200,

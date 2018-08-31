@@ -1,22 +1,26 @@
-import React from 'react'
-import RN, { AppRegistry,  YellowBox } from 'react-native'
-
+import { Provider as ClientProvider } from './shared/hocs/clientContext'
 import SplashScreen from 'react-native-splash-screen'
 import { Provider } from 'react-redux'
-
-import { Provider as ClientProvider } from './shared/hocs/clientContext'
-import config from './config'
 import createClient from './client'
 import createStore from './shared/createStore'
-import Loading from './components/Loading'
-import Login from './components/Login'
 import Onboarding from './components/onboarding/Onboarding'
-import Root from './shared/Root'
+import Loading from './components/Loading'
 import Router from './components/Router'
+import config from './config'
+import Login from './components/Login'
+import React from 'react'
+import Root from './shared/Root'
+import RN from 'react-native'
 
-YellowBox.ignoreWarnings(['Setting a timer'])
+RN.YellowBox.ignoreWarnings(['Setting a timer'])
+
+// Enable LayoutAnimation on Android
+// @see https://facebook.github.io/react-native/docs/animations
+RN.NativeModules.UIManager.setLayoutAnimationEnabledExperimental &&
+  RN.NativeModules.UIManager.setLayoutAnimationEnabledExperimental(true)
 
 const client = createClient(config, createStore)
+
 class App extends React.Component {
   componentDidMount() {
     SplashScreen.hide()
@@ -31,11 +35,12 @@ class App extends React.Component {
             OnboardingComponent={Onboarding}
             LoadingComponent={Loading}
             RouterComponent={Router}
-            LoginComponent={Login} />
+            LoginComponent={Login}
+          />
         </Provider>
       </ClientProvider>
     )
   }
 }
 
-AppRegistry.registerComponent('MetronomeWallet', () => App)
+RN.AppRegistry.registerComponent('MetronomeWallet', () => App)
