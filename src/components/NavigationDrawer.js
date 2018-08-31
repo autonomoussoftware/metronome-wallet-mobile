@@ -1,4 +1,5 @@
-import { TouchableOpacity, SafeAreaView, StyleSheet, View } from 'react-native'
+import { Alert, AsyncStorage, TouchableOpacity, SafeAreaView, StyleSheet, View } from 'react-native'
+import * as Keychain from 'react-native-keychain'
 import { StackActions } from 'react-navigation'
 import ConverterIcon from './icons/ConverterIcon'
 import AuctionIcon from './icons/AuctionIcon'
@@ -17,6 +18,22 @@ export default class NavigationDrawer extends React.Component {
       isFocused: PropTypes.func.isRequired,
       navigate: PropTypes.func.isRequired
     }).isRequired
+  }
+
+  // TODO: Remove this before final release
+  resetStorage = () => {
+    Alert.alert(
+      'WARNING',
+      'This will remove all data. Do you want to continue?',
+      [
+        { text: 'NO', onPress: () => {}, style: 'cancel' },
+        {
+          text: 'YES', onPress: () =>
+            Promise.all([AsyncStorage.clear(), Keychain.resetGenericPassword()])
+              .then(Alert.alert('Success!', 'Please kill the app and launch it again.'))
+        },
+      ]
+    )
   }
 
   render() {
@@ -59,7 +76,10 @@ export default class NavigationDrawer extends React.Component {
               label="Help"
             />
           </View>
-          <LogoIcon negative style={styles.footerLogo} />
+          {/* TODO: Remove this TouchableOpacity before final release */}
+          <TouchableOpacity onPress={this.resetStorage}>
+            <LogoIcon negative style={styles.footerLogo} />
+          </TouchableOpacity>
         </SafeAreaView>
       </View>
     )
