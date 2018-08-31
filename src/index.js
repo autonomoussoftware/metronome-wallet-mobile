@@ -1,5 +1,5 @@
 import React from 'react'
-import RN, { AppRegistry } from 'react-native'
+import RN, { AppRegistry,  YellowBox } from 'react-native'
 
 import SplashScreen from 'react-native-splash-screen'
 import { Provider } from 'react-redux'
@@ -13,6 +13,8 @@ import Login from './components/Login'
 import Onboarding from './components/onboarding/Onboarding'
 import Root from './shared/Root'
 import Router from './components/Router'
+
+YellowBox.ignoreWarnings(['Setting a timer'])
 
 const client = createClient(config, createStore)
 class App extends React.Component {
