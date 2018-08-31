@@ -111,7 +111,7 @@ class TxRow extends React.Component {
               <DisplayValue
                 color={this.props.isFailed ? 'danger' : 'primary'}
                 value={this.props.fromValue}
-                size="large"
+                size="medium"
                 post={this.props.convertedFrom === 'ETH' ? ' ETH' : ' MET'}
               />
             ) : (
@@ -130,7 +130,7 @@ class TxRow extends React.Component {
                   <DisplayValue
                     color={this.props.isFailed ? 'danger' : 'primary'}
                     value={this.props.toValue}
-                    size="large"
+                    size="medium"
                     post={this.props.convertedFrom === 'ETH' ? ' MET' : ' ETH'}
                   />
                 </React.Fragment>

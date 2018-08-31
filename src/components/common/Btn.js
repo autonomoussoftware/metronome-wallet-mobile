@@ -17,10 +17,12 @@ const Btn = props => {
     >
       <View style={styles.container} bg="xLight" opacity={disabled ? 0.5 : 1}>
         <Text
+          adjustsFontSizeToFit
+          numberOfLines={1}
           weight="semibold"
           size="large"
           color="primary"
-          px={4}
+          px={2}
           py={2}
           align="center"
         >
