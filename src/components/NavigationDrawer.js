@@ -1,6 +1,6 @@
 import { Alert, AsyncStorage, TouchableOpacity, SafeAreaView, StyleSheet, View } from 'react-native'
 import * as Keychain from 'react-native-keychain'
-import RNRestart from 'react-native-restart'; // Import package from node modules
+import RNRestart from 'react-native-restart'
 import { StackActions } from 'react-navigation'
 
 import ConverterIcon from './icons/ConverterIcon'
