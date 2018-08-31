@@ -15,6 +15,7 @@ const withSendETHFormState = WrappedComponent => {
       ETHprice: PropTypes.number.isRequired,
       client: PropTypes.shape({
         getGasLimit: PropTypes.func.isRequired,
+        isAddress: PropTypes.func.isRequired,
         sendEth: PropTypes.func.isRequired,
         fromWei: PropTypes.func.isRequired,
         toWei: PropTypes.func.isRequired
@@ -57,9 +58,14 @@ const withSendETHFormState = WrappedComponent => {
     }
 
     getGasEstimate = debounce(() => {
-      const { ethAmount } = this.state
+      const { ethAmount, toAddress } = this.state
 
-      if (!utils.isWeiable(this.props.client, ethAmount)) return
+      if (
+        !this.props.client.isAddress(toAddress) ||
+        !utils.isWeiable(this.props.client, ethAmount)
+      ) {
+        return
+      }
 
       this.props.client
         .getGasLimit({
