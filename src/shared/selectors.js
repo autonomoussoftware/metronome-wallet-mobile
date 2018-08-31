@@ -9,20 +9,14 @@ function getTxType(meta, tokenData, transaction, address) {
   } else if (_.get(meta, 'metronome.converter')) {
     return 'converted'
   } else if (
-    (!tokenData &&
-      transaction.from &&
-      transaction.from.toLowerCase() === address) ||
-    (tokenData && tokenData.from && tokenData.from.toLowerCase() === address) ||
-    (tokenData &&
-      tokenData.processing &&
-      transaction.from.toLowerCase() === address)
+    (!tokenData && transaction.from && transaction.from === address) ||
+    (tokenData && tokenData.from && tokenData.from === address) ||
+    (tokenData && tokenData.processing && transaction.from === address)
   ) {
     return 'sent'
   } else if (
-    (!tokenData &&
-      transaction.to &&
-      transaction.to.toLowerCase() === address) ||
-    (tokenData && tokenData.to && tokenData.to.toLowerCase() === address)
+    (!tokenData && transaction.to && transaction.to === address) ||
+    (tokenData && tokenData.to && tokenData.to === address)
   ) {
     return 'received'
   }
@@ -204,24 +198,22 @@ export const getActiveWalletTransactions = createSelector(
       const isProcessing = tokenData && tokenData.processing
 
       const myAddress =
-        activeWallet && addresses && addresses.length > 0
-          ? addresses[0].toLowerCase()
-          : ''
+        activeWallet && addresses && addresses.length > 0 ? addresses[0] : ''
 
       const txType = getTxType(meta, tokenData, transaction, myAddress)
 
       const from =
         txType === 'received' && tokenData && tokenData.from
-          ? tokenData.from.toLowerCase()
+          ? tokenData.from
           : transaction.from
-            ? transaction.from.toLowerCase()
+            ? transaction.from
             : null
 
       const to =
         txType === 'sent' && tokenData && tokenData.to
-          ? tokenData.to.toLowerCase()
+          ? tokenData.to
           : transaction.to
-            ? transaction.to.toLowerCase()
+            ? transaction.to
             : null
 
       const value =
