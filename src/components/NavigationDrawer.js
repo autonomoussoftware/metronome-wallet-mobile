@@ -1,6 +1,8 @@
 import { Alert, AsyncStorage, TouchableOpacity, SafeAreaView, StyleSheet, View } from 'react-native'
 import * as Keychain from 'react-native-keychain'
+import RNRestart from 'react-native-restart'; // Import package from node modules
 import { StackActions } from 'react-navigation'
+
 import ConverterIcon from './icons/ConverterIcon'
 import AuctionIcon from './icons/AuctionIcon'
 import WalletIcon from './icons/WalletIcon'
@@ -30,7 +32,7 @@ export default class NavigationDrawer extends React.Component {
         {
           text: 'YES', onPress: () =>
             Promise.all([AsyncStorage.clear(), Keychain.resetGenericPassword()])
-              .then(Alert.alert('Success!', 'Please kill the app and launch it again.'))
+              .then(RNRestart.Restart())
         },
       ]
     )
