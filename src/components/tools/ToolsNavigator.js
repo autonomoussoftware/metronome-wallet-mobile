@@ -1,23 +1,17 @@
-import { createStackNavigator } from 'react-navigation'
-import commonStackStyles from '../commonStackStyles'
+import createCustomNavigator from '../common/createCustomNavigator'
 import ConfirmRecover from './ConfirmRecover'
 import ConfirmRescan from './ConfirmRescan'
 import Tools from './Tools'
 
-const ToolsNavigator = createStackNavigator(
+const ToolsNavigator = createCustomNavigator(
   {
     ConfirmRecover,
     ConfirmRescan,
     Tools
   },
   {
-    initialRouteName: 'Tools',
-    navigationOptions: commonStackStyles
+    initialRouteName: 'Tools'
   }
 )
-
-ToolsNavigator.navigationOptions = ({ navigation }) => ({
-  drawerLockMode: navigation.state.index > 0 ? 'locked-closed' : 'unlocked'
-})
 
 export default ToolsNavigator

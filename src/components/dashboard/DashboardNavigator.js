@@ -1,5 +1,4 @@
-import { createStackNavigator } from 'react-navigation'
-import commonStackStyles from '../commonStackStyles'
+import createCustomNavigator from '../common/createCustomNavigator'
 import ConfirmSendETH from './ConfirmSendETH'
 import ConfirmSendMET from './ConfirmSendMET'
 import ReceiveDrawer from './ReceiveDrawer'
@@ -7,7 +6,7 @@ import ReceiptDrawer from './ReceiptDrawer'
 import SendDrawer from './SendDrawer'
 import Dashboard from './Dashboard'
 
-const DashboardNavigator = createStackNavigator(
+const DashboardNavigator = createCustomNavigator(
   {
     ConfirmSendETH,
     ConfirmSendMET,
@@ -17,13 +16,8 @@ const DashboardNavigator = createStackNavigator(
     Dashboard
   },
   {
-    navigationOptions: commonStackStyles,
     initialRouteName: 'Dashboard'
   }
 )
-
-DashboardNavigator.navigationOptions = ({ navigation }) => ({
-  drawerLockMode: navigation.state.index > 0 ? 'locked-closed' : 'unlocked'
-})
 
 export default DashboardNavigator

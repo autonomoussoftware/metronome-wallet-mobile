@@ -1,24 +1,18 @@
-import { createStackNavigator } from 'react-navigation'
-import commonStackStyles from '../commonStackStyles'
+import createCustomNavigator from '../common/createCustomNavigator'
 import ConfirmPurchase from './ConfirmPurchase'
 import BuyDrawer from './BuyMETForm'
 import Auction from './Auction'
 
-const AuctionNavigator = createStackNavigator(
+const AuctionNavigator = createCustomNavigator(
   {
     ConfirmPurchase,
     BuyDrawer,
     Auction
   },
   {
-    navigationOptions: commonStackStyles,
     initialRouteName: 'Auction'
   }
 )
-
-AuctionNavigator.navigationOptions = ({ navigation }) => ({
-  drawerLockMode: navigation.state.index > 0 ? 'locked-closed' : 'unlocked'
-})
 
 export default AuctionNavigator
 
