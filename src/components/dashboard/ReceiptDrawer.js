@@ -166,7 +166,7 @@ class ReceiptDrawer extends React.Component {
         )}
         <View my={4} px={2}>
           <Btn
-            onPress={routeParams.onExplorerLinkClick}
+            onPress={() => this.props.onExplorerLinkClick(routeParams.transaction.hash)}
             label="View in Explorer"
             />
         </View>

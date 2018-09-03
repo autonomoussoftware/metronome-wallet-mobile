@@ -7,14 +7,6 @@ const fakeResponse = (value, delay = 500) => {
 }
 
 /**
- * Called when the link "Open in Explorer" is clicked
- * It should trigger opening the link with the platform default browser
- */
-export function onExplorerLinkClick() {
-  return fakeResponse({})
-}
-
-/**
  * Called by "Recover wallet from mnemonic" form
  * Must return a Promise
  */
