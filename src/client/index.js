@@ -102,6 +102,8 @@ export default function createClient(config, createStore) {
       })
   })
 
+  emitter.on('wallet-error', console.warn)
+
   const withAuth = fn => function (transactionObject) {
     return auth.validatePIN(transactionObject.password)
       .then(wallet.getSeed)
