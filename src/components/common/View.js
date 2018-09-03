@@ -10,6 +10,7 @@ const isOldIOS =
 const View = props => {
   const {
     children,
+    innerRef,
     opacity,
     justify,
     rowwrap,
@@ -49,6 +50,7 @@ const View = props => {
         safe && isOldIOS && styles.safe,
         style
       ]}
+      ref={innerRef}
       {...other}
     >
       {children}

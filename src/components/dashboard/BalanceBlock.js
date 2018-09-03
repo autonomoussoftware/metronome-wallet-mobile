@@ -69,7 +69,7 @@ const styles = RN.StyleSheet.create({
     borderRadius: 14
   },
   balanceRow: {
-    borderTopWidth: 1,
+    borderTopWidth: RN.StyleSheet.hairlineWidth,
     borderTopColor: theme.colors.darkShade
   },
   isFirst: {

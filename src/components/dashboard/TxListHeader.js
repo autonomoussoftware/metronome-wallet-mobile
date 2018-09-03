@@ -34,7 +34,7 @@ class TxListHeader extends React.Component {
 
   render() {
     const shouldCondenseLabel =
-      ['received', 'converted'].includes(this.props.filter) &&
+      ['received', 'converted', 'auction'].includes(this.props.filter) &&
       RN.Dimensions.get('window').width < 375
 
     return (

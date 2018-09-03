@@ -2,6 +2,7 @@ import withTxListState from '../../shared/hocs/withTxListState'
 import PropTypes from 'prop-types'
 import LogoIcon from '../icons/LogoIcon'
 import { View } from '../common'
+import theme from '../../theme'
 import TxRow from './TxRow'
 import React from 'react'
 import RN from 'react-native'
@@ -39,10 +40,17 @@ class TxList extends React.Component {
         ListFooterComponent={this.footer}
         keyExtractor={this.keyExtractor}
         renderItem={this.renderItem}
+        style={styles.container}
         data={this.getFilteredItems()}
       />
     )
   }
 }
+
+const styles = RN.StyleSheet.create({
+  container: {
+    backgroundColor: theme.colors.light
+  }
+})
 
 export default withTxListState(TxList)

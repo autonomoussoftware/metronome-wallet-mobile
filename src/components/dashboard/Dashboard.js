@@ -25,12 +25,34 @@ class Dashboard extends React.Component {
 
   selectFilter = key => this.setState({ selectedFilter: key })
 
+  viewRef = null
+
+  viewHeight = null
+
+  storeViewRef = element => {
+    this.viewRef = element
+  }
+
+  storeViewHeight = ({ nativeEvent }) => {
+    this.viewHeight = nativeEvent.layout.height
+  }
+
+  // On content size change scroll to top if new height is shorter than the view
+  scrollTopIfFewItems = (_, contentHeight) => {
+    if (this.viewHeight && this.viewHeight >= contentHeight) {
+      this.viewRef.scrollTo({ y: 0, animated: true })
+    }
+  }
+
   render() {
     return (
       <View
         contentContainerStyle={styles.scrollContainer}
         alwaysBounceVertical={false}
+        onContentSizeChange={this.scrollTopIfFewItems}
         stickyHeaderIndices={[2]}
+        onLayout={this.storeViewHeight}
+        innerRef={this.storeViewRef}
         scroll
         flex={1}
         bg="primary"
