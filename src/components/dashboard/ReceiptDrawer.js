@@ -2,9 +2,11 @@ import { DisplayValue, View, Text, Btn } from '../common'
 import withReceiptDrawerState from '../../shared/hocs/withReceiptDrawerState'
 import PropTypes from 'prop-types'
 import React from 'react'
+import RN from 'react-native'
 
 class ReceiptDrawer extends React.Component {
   static propTypes = {
+    copyToClipboard: PropTypes.func.isRequired,
     onExplorerLinkClick: PropTypes.func.isRequired,
     navigation: PropTypes.shape({
       state: PropTypes.shape({
@@ -99,14 +101,18 @@ class ReceiptDrawer extends React.Component {
           </View>
 
           {routeParams.tx.txType === 'received' && (
-            <View my={3}>
-              <Text size="large">
-                {routeParams.isPending ? 'Pending' : 'Received'} from
-              </Text>
-              <Text size="medium" opacity={0.8} mt={1}>
-                {routeParams.from}
-              </Text>
-            </View>
+            <RN.TouchableOpacity
+              onPress={this.props.copyToClipboard}
+            >
+              <View my={3}>
+                <Text size="large">
+                  {routeParams.isPending ? 'Pending' : 'Received'} from
+                </Text>
+                <Text size="medium" opacity={0.8} mt={1}>
+                  {routeParams.from}
+                </Text>
+              </View>
+            </RN.TouchableOpacity>
           )}
 
           {routeParams.tx.txType === 'sent' && (
