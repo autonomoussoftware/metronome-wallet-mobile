@@ -10,6 +10,7 @@ export default function createCustomNavigator(routes, customConfig) {
   const defaultConfig = {
     headerLayoutPreset: 'center',
     navigationOptions: {
+      headerTitleContainerStyle: { left: 0, right: 0 },
       headerStyle: {
         borderBottomWidth: 0,
         backgroundColor: theme.colors.primary
