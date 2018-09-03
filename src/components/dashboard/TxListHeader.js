@@ -33,17 +33,21 @@ class TxListHeader extends React.Component {
   }
 
   render() {
+    const shouldCondenseLabel =
+      ['received', 'converted'].includes(this.props.filter) &&
+      RN.Dimensions.get('window').width < 375
+
     return (
       <View justify="space-between" align="center" row bg="primary" py={1}>
         <View row align="center">
-          <Text size="medium" ml={2} mr={1} py={1} shadow weight="semibold">
+          <Text size="medium" pl={2} mr={1} py={1} shadow weight="semibold">
             Transactions
           </Text>
           {(this.props.hasTransactions || !this.props.isScanningTx) && (
             <ScanIndicator />
           )}
         </View>
-        <View px={1}>
+        <View pr={1}>
           <RN.TouchableOpacity
             activeOpacity={0.9}
             onPress={this.toggleDropdown}
@@ -60,9 +64,9 @@ class TxListHeader extends React.Component {
                 opacity={1}
                 weight="semibold"
                 shadow
-                size="small"
-                ls={1.4}
-                mx={1}
+                size={shouldCondenseLabel ? 'xSmall' : 'small'}
+                ls={shouldCondenseLabel ? 0 : 1.4}
+                mr={0.5}
               >
                 {this.options[this.props.filter]}
               </Text>
