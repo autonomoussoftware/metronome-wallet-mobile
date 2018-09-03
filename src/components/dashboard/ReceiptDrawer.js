@@ -102,7 +102,7 @@ class ReceiptDrawer extends React.Component {
 
           {routeParams.tx.txType === 'received' && (
             <RN.TouchableOpacity
-              onPress={this.props.copyToClipboard}
+              onPress={() => this.props.copyToClipboard(routeParams.from)}
             >
               <View my={3}>
                 <Text size="large">
@@ -116,14 +116,18 @@ class ReceiptDrawer extends React.Component {
           )}
 
           {routeParams.tx.txType === 'sent' && (
-            <View my={3}>
-              <Text size="large">
-                {routeParams.isPending ? 'Pending' : 'Sent'} to
-              </Text>
-              <Text size="medium" opacity={0.8} mt={1}>
-                {routeParams.to}
-              </Text>
+            <RN.TouchableOpacity
+              onPress={() => this.props.copyToClipboard(routeParams.to)}
+            >
+              <View my={3}>
+                <Text size="large">
+                  {routeParams.isPending ? 'Pending' : 'Sent'} to
+                </Text>
+                <Text size="medium" opacity={0.8} mt={1}>
+                  {routeParams.to}
+                </Text>
             </View>
+          </RN.TouchableOpacity>
           )}
 
           {routeParams.confirmations && (
