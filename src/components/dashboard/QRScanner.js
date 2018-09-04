@@ -31,12 +31,16 @@ export default class QRScanner extends React.Component {
                 row
                 px={2}
               >
-                <Text size="medium">
-                  Point the camera to the QR code of the recipient address.
-                </Text>
-                <RN.TouchableOpacity onPress={this.props.onClose}>
-                  <CloseIcon size="20" color="light" />
-                </RN.TouchableOpacity>
+                <View shrink={1}>
+                  <Text size="medium">
+                    Point the camera to the QR code of the recipient address.
+                  </Text>
+                </View>
+                <View ml={2}>
+                  <RN.TouchableOpacity onPress={this.props.onClose}>
+                    <CloseIcon size="20" color="light" />
+                  </RN.TouchableOpacity>
+                </View>
               </View>
             }
           />
