@@ -15,14 +15,6 @@ export function recoverFromMnemonic({ mnemonic, password }) {
 }
 
 /**
- * Called when clicking "Clear cache" button in "Settings" screen
- * Must return a Promise
- */
-export function clearCache() {
-  return fakeResponse({})
-}
-
-/**
  * Called when prefilling the Ethereum network URL field in "Settings" screen
  * Must return a Promise
  */

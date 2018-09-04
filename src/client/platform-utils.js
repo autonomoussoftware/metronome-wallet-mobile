@@ -1,4 +1,5 @@
 import RN from 'react-native'
+import RNRestart from 'react-native-restart'
 import config from '../config'
 
 export function copyToClipboard(text) {
@@ -13,4 +14,20 @@ export function onExplorerLinkClick(transactionHash) {
 export function onTermsLinkClick() {
   const termsURL = 'https://github.com/autonomoussoftware/metronome-wallet-mobile/blob/develop/LICENSE'
   return Promise.resolve(RN.Linking.openURL(termsURL))
+}
+
+export function clearCache() {
+  const keys = [
+    'auction',
+    'blockchain',
+    'config',
+    'connectivity',
+    'converter',
+    'rates',
+    'session',
+    'sync',
+    'wallets'
+  ]
+  Promise.all([RN.AsyncStorage.multiRemove(keys)])
+    .then(RNRestart.Restart())
 }

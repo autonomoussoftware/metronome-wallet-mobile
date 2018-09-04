@@ -6,14 +6,6 @@ import fastPasswordEntropy from 'fast-password-entropy'
 export const getStringEntropy = str =>
   fastPasswordEntropy(str)
 
-// FIX these shall be stored in the secure storage of the device
-export const getWalletSeed = () =>
-  AsyncStorage.getItem('wallet.seed')
-    .then(seed => seed || Promise.reject())
-
-export const setWalletSeed = seed =>
-  AsyncStorage.setItem('wallet.seed', seed)
-
 export const getHashedPIN = () =>
   AsyncStorage.getItem('wallet.pin')
 
