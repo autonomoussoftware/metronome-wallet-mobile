@@ -50,52 +50,51 @@ class SendMETForm extends React.Component {
 
   render() {
     return (
-      <View bg="dark" flex={1} px={2} pt={3} pb={4}>
-        <View grow={1}>
+      <View flex={1} px={2} pt={3} pb={4}>
+        <TextInput
+          placeholder="e.g. 0x2345678998765434567"
+          postLabel={
+            <BaseBtn
+              textProps={{ opacity: 0.8, weight: 'semibold' }}
+              onPress={this.onScanQRPress}
+              label="SCAN QR"
+              size="xSmall"
+            />
+          }
+          onChange={this.props.onInputChange}
+          error={this.props.errors.toAddress}
+          label="Send to Address"
+          value={this.props.toAddress}
+          id="toAddress"
+        />
+        <View my={3}>
           <TextInput
-            placeholder="e.g. 0x2345678998765434567"
+            keyboardType="decimal-pad"
+            placeholder={this.props.metPlaceholder}
             postLabel={
               <BaseBtn
                 textProps={{ opacity: 0.8, weight: 'semibold' }}
-                onPress={this.onScanQRPress}
-                label="SCAN QR"
+                onPress={this.props.onMaxClick}
+                label="MAX"
                 size="xSmall"
               />
             }
             onChange={this.props.onInputChange}
-            error={this.props.errors.toAddress}
-            label="Send to Address"
-            value={this.props.toAddress}
-            id="toAddress"
-          />
-          <View my={3}>
-            <TextInput
-              keyboardType="decimal-pad"
-              placeholder={this.props.metPlaceholder}
-              postLabel={
-                <BaseBtn
-                  textProps={{ opacity: 0.8, weight: 'semibold' }}
-                  onPress={this.props.onMaxClick}
-                  label="MAX"
-                  size="xSmall"
-                />
-              }
-              onChange={this.props.onInputChange}
-              error={this.props.errors.metAmount}
-              label="Amount (MET)"
-              value={this.props.metAmount}
-              id="metAmount"
-            />
-          </View>
-          <GasEditor
-            gasEstimateError={this.props.gasEstimateError}
-            onInputChange={this.props.onInputChange}
-            useCustomGas={this.props.useCustomGas}
-            gasLimit={this.props.gasLimit}
-            gasPrice={this.props.gasPrice}
-            errors={this.props.errors}
+            error={this.props.errors.metAmount}
+            label="Amount (MET)"
+            value={this.props.metAmount}
+            id="metAmount"
           />
         </View>
+        <GasEditor
+          gasEstimateError={this.props.gasEstimateError}
+          onInputChange={this.props.onInputChange}
+          useCustomGas={this.props.useCustomGas}
+          gasLimit={this.props.gasLimit}
+          gasPrice={this.props.gasPrice}
+          errors={this.props.errors}
+        />
+
         <QRScanner
           isVisible={this.state.isQRscannerVisible}
           onClose={this.onCloseScanQR}

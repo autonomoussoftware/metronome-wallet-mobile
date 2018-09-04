@@ -103,18 +103,16 @@ class Confirmation extends React.Component {
 
   renderConfirmation = () => {
     return (
-      <View bg="dark" py={4} px={2} flex={1}>
-        <View grow={1}>
-          {this.props.children}
-          <View mt={4}>
-            <PinInput
-              onComplete={this.onPinComplete}
-              onChange={this.onPasswordChange}
-              label="Enter PIN to confirm"
-              value={this.state.password}
-              id="password"
-            />
-          </View>
+      <View withKeyboard withHeader bg="dark" flex={1} py={4} px={2}>
+        {this.props.children}
+        <View mt={4}>
+          <PinInput
+            onComplete={this.onPinComplete}
+            onChange={this.onPasswordChange}
+            label="Enter PIN to confirm"
+            value={this.state.password}
+            id="password"
+          />
         </View>
       </View>
     )

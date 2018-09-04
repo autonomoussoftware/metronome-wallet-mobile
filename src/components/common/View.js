@@ -4,11 +4,10 @@ import theme from '../../theme'
 import React from 'react'
 import RN from 'react-native'
 
-const isOldIOS =
-  RN.Platform.OS === 'ios' && parseFloat(RN.Platform.Version) < 11
-
 const View = props => {
   const {
+    withKeyboard,
+    withHeader,
     children,
     innerRef,
     opacity,
@@ -23,7 +22,6 @@ const View = props => {
     self,
     grow,
     flex,
-    safe,
     row,
     bg,
     ...other
@@ -31,34 +29,55 @@ const View = props => {
 
   const Component = scroll ? RN.ScrollView : RN.View
 
+  const viewStyles = [
+    opacity !== undefined && { opacity: opacity },
+    shrink !== undefined && { flexShrink: shrink },
+    basis !== undefined && { flexBasis: basis },
+    order !== undefined && { order: order },
+    grow !== undefined && { flexGrow: grow },
+    flex !== undefined && { flex },
+    justify && { justifyContent: justify },
+    rowwrap && styles.rowwrap,
+    align && { alignItems: align },
+    self && { alignSelf: self },
+    row && styles.row,
+    bg && { backgroundColor: theme.colors[bg] },
+    spacing(props),
+    style
+  ]
+
+  if (withKeyboard) {
+    return (
+      <RN.KeyboardAvoidingView
+        keyboardVerticalOffset={withHeader ? 64 : undefined}
+        behavior={RN.Platform.OS === 'ios' ? 'padding' : undefined}
+        style={[
+          styles.keyboardAvoidingContainer,
+          bg && { backgroundColor: theme.colors[bg] }
+        ]}
+      >
+        <RN.ScrollView
+          contentContainerStyle={styles.scrollContent}
+          style={styles.scrollView}
+        >
+          <Component style={viewStyles} ref={innerRef} {...other}>
+            {children}
+          </Component>
+        </RN.ScrollView>
+      </RN.KeyboardAvoidingView>
+    )
+  }
+
   return (
-    <Component
-      style={[
-        opacity !== undefined && { opacity: opacity },
-        shrink !== undefined && { flexShrink: shrink },
-        basis !== undefined && { flexBasis: basis },
-        order !== undefined && { order: order },
-        grow !== undefined && { flexGrow: grow },
-        flex !== undefined && { flex },
-        justify && { justifyContent: justify },
-        rowwrap && styles.rowwrap,
-        align && { alignItems: align },
-        self && { alignSelf: self },
-        row && styles.row,
-        bg && { backgroundColor: theme.colors[bg] },
-        spacing(props),
-        safe && isOldIOS && styles.safe,
-        style
-      ]}
-      ref={innerRef}
-      {...other}
-    >
+    <Component style={viewStyles} ref={innerRef} {...other}>
       {children}
     </Component>
   )
 }
 
 View.propTypes = {
+  withKeyboard: PropTypes.bool,
+  withHeader: PropTypes.bool,
   justify: PropTypes.oneOf([
     'space-between',
     'space-around',
@@ -91,21 +110,22 @@ View.propTypes = {
   style: PropTypes.any,
   grow: PropTypes.number,
   flex: PropTypes.number,
-  safe: PropTypes.bool,
   bg: PropTypes.oneOf(Object.keys(theme.colors)),
   ...spacing.propTypes
 }
 
 const styles = RN.StyleSheet.create({
+  keyboardAvoidingContainer: {
+    flex: 1
+  },
   row: {
     flexDirection: 'row'
   },
   rowwrap: {
     flexWrap: 'wrap'
   },
-  safe: {
-    paddingTop: 20
-  }
+  scrollView: { flex: 1 },
+  scrollContent: { flexGrow: 1 }
 })
 
 export default View

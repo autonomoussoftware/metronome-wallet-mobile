@@ -26,7 +26,7 @@ class ConvertDrawer extends React.Component {
           </Tab>
         </View>
 
-        <View grow={1} flex={1}>
+        <View withKeyboard withHeader flex={1}>
           {this.state.activeTab === 'eth' && <ConvertETHtoMETForm />}
           {this.state.activeTab === 'met' && <ConvertMETtoETHForm />}
         </View>

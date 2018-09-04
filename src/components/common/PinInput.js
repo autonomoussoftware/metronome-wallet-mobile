@@ -103,21 +103,6 @@ class PinInput extends React.Component {
             {label}
           </Text>
         )}
-        <RN.TextInput
-          keyboardAppearance="dark"
-          textContentType="password"
-          secureTextEntry
-          onChangeText={newValue => onChange({ id, value: newValue })}
-          keyboardType="number-pad"
-          caretHidden
-          maxLength={PIN_LENGTH}
-          autoFocus
-          style={styles.hiddenInput}
-          value={value || ''}
-          ref={ref => {
-            this.pinInput = ref
-          }}
-        />
         <RN.Animated.View style={this.shakeStyles}>
           <RN.TouchableOpacity
             activeOpacity={0.91}
@@ -136,6 +121,21 @@ class PinInput extends React.Component {
             </Text>
           )}
         </View>
+        <RN.TextInput
+          keyboardAppearance="dark"
+          textContentType="password"
+          secureTextEntry
+          onChangeText={newValue => onChange({ id, value: newValue })}
+          keyboardType="number-pad"
+          caretHidden
+          maxLength={PIN_LENGTH}
+          autoFocus
+          style={styles.hiddenInput}
+          value={value || ''}
+          ref={ref => {
+            this.pinInput = ref
+          }}
+        />
       </View>
     )
   }

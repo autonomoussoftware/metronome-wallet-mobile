@@ -50,58 +50,60 @@ class BuyMETForm extends React.Component {
 
   render() {
     return (
-      <View bg="dark" flex={1} px={2} py={4} justify="space-between">
-        <AmountFields
-          ethPlaceholder={this.props.ethPlaceholder}
-          usdPlaceholder={this.props.usdPlaceholder}
-          onInputChange={this.props.onInputChange}
-          onMaxClick={this.props.onMaxClick}
-          ethAmount={this.props.ethAmount}
-          usdAmount={this.props.usdAmount}
-          autoFocus
-          errors={this.props.errors}
-        />
-
-        <View grow={1} mt={4}>
-          <GasEditor
-            gasEstimateError={this.props.gasEstimateError}
+      <View withKeyboard withHeader bg="dark">
+        <View flex={1} px={2} py={4} grow={1}>
+          <AmountFields
+            ethPlaceholder={this.props.ethPlaceholder}
+            usdPlaceholder={this.props.usdPlaceholder}
             onInputChange={this.props.onInputChange}
-            useCustomGas={this.props.useCustomGas}
-            gasLimit={this.props.gasLimit}
-            gasPrice={this.props.gasPrice}
+            onMaxClick={this.props.onMaxClick}
+            ethAmount={this.props.ethAmount}
+            usdAmount={this.props.usdAmount}
+            autoFocus
             errors={this.props.errors}
           />
 
-          {this.props.expectedMETamount && (
-            <View mt={4}>
-              {this.props.excedes ? (
-                <Text color="danger" size="medium">
-                  You would get all remaining{' '}
-                  <DisplayValue
-                    value={this.props.tokenRemaining}
-                    color="danger"
-                    post=" MET"
-                  />{' '}
-                  and receive a return of approximately{' '}
-                  <DisplayValue
-                    value={this.props.excessETHAmount}
-                    color="danger"
-                    post=" ETH"
-                  />
-                  .
-                </Text>
-              ) : (
-                <Text size="medium">
-                  You would get approximately{' '}
-                  <DisplayValue
-                    value={this.props.expectedMETamount}
-                    post=" MET"
-                  />
-                  .
-                </Text>
-              )}
-            </View>
-          )}
+          <View grow={1} mt={4}>
+            <GasEditor
+              gasEstimateError={this.props.gasEstimateError}
+              onInputChange={this.props.onInputChange}
+              useCustomGas={this.props.useCustomGas}
+              gasLimit={this.props.gasLimit}
+              gasPrice={this.props.gasPrice}
+              errors={this.props.errors}
+            />
+
+            {this.props.expectedMETamount && (
+              <View mt={4}>
+                {this.props.excedes ? (
+                  <Text color="danger" size="medium">
+                    You would get all remaining{' '}
+                    <DisplayValue
+                      value={this.props.tokenRemaining}
+                      color="danger"
+                      post=" MET"
+                    />{' '}
+                    and receive a return of approximately{' '}
+                    <DisplayValue
+                      value={this.props.excessETHAmount}
+                      color="danger"
+                      post=" ETH"
+                    />
+                    .
+                  </Text>
+                ) : (
+                  <Text size="medium">
+                    You would get approximately{' '}
+                    <DisplayValue
+                      value={this.props.expectedMETamount}
+                      post=" MET"
+                    />
+                    .
+                  </Text>
+                )}
+              </View>
+            )}
+          </View>
         </View>
       </View>
     )

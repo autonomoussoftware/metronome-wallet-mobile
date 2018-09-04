@@ -17,7 +17,7 @@ class SendDrawer extends React.Component {
 
   render() {
     return (
-      <View bg="dark" flex={1} justify="space-between">
+      <View bg="dark" flex={1}>
         <View row>
           <Tab
             isActive={this.state.activeTab === 'eth'}
@@ -32,8 +32,7 @@ class SendDrawer extends React.Component {
             MET
           </Tab>
         </View>
-
-        <View grow={1} flex={1}>
+        <View withKeyboard withHeader flex={1}>
           {this.state.activeTab === 'eth' && <SendETHForm key="a" />}
           {this.state.activeTab === 'met' &&
             (this.props.sendMetDisabled ? (
