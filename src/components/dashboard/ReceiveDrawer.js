@@ -20,7 +20,12 @@ class ReceiveDrawer extends React.Component {
         <View basis={0} grow={1} align="center" justify="space-evenly">
           <Text>Your address</Text>
           <View bg="darkShade" p={1}>
-            <Text adjustsFontSizeToFit numberOfLines={1}>
+            <Text
+              adjustsFontSizeToFit
+              selectionColor={theme.colors.translucentPrimary}
+              numberOfLines={1}
+              selectable
+            >
               {this.props.address}
             </Text>
           </View>
