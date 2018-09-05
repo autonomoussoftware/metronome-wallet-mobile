@@ -7,6 +7,7 @@ import RN from 'react-native'
 const View = props => {
   const {
     withKeyboard,
+    scrollProps,
     withHeader,
     children,
     innerRef,
@@ -59,6 +60,7 @@ const View = props => {
         <RN.ScrollView
           contentContainerStyle={styles.scrollContent}
           style={styles.scrollView}
+          {...scrollProps}
         >
           <Component style={viewStyles} ref={innerRef} {...other}>
             {children}

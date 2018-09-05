@@ -55,7 +55,7 @@ class Onboarding extends React.Component {
           Please read and accept these terms and permissions.
         </Text>
 
-        <View flex={1} grow={1} mt={3} px={1} bg="translucentPrimary">
+        <View flex={1} grow={1} mt={3} px={1} bg="darkShade">
           <RN.ScrollView>
             <TermsAndConditions ParagraphComponent={TermsText} />
           </RN.ScrollView>
@@ -199,12 +199,18 @@ class Onboarding extends React.Component {
 
   _renderVerifyMnemonicStep() {
     return (
-      <RN.KeyboardAvoidingView behavior="padding" style={styles.step}>
+      <View pt={RN.Platform.OS === 'ios' ? 3 : 0} flex={1}>
         <View
-          keyboardShouldPersistTaps="handled"
-          contentContainerStyle={styles.scrollContainer}
-          scroll
-          p={2}
+          withKeyboard
+          scrollProps={{
+            keyboardShouldPersistTaps: 'handled'
+          }}
+          justify="center"
+          align="center"
+          flex={1}
+          px={2}
+          py={3}
+          mt={3}
         >
           <Text size="large" weight="semibold" mb={2}>
             Recovery Passphrase
@@ -233,18 +239,24 @@ class Onboarding extends React.Component {
             block
           />
         </View>
-      </RN.KeyboardAvoidingView>
+      </View>
     )
   }
 
   _renderUserMnemonicStep() {
     return (
-      <RN.KeyboardAvoidingView behavior="padding" style={styles.step}>
+      <View pt={RN.Platform.OS === 'ios' ? 3 : 0} flex={1}>
         <View
-          keyboardShouldPersistTaps="handled"
-          contentContainerStyle={styles.scrollContainer}
-          scroll
-          p={2}
+          withKeyboard
+          scrollProps={{
+            keyboardShouldPersistTaps: 'handled'
+          }}
+          justify="center"
+          align="center"
+          flex={1}
+          px={2}
+          py={3}
+          mt={3}
         >
           <Text size="large" weight="semibold" mb={2}>
             Recovery Passphrase
@@ -273,38 +285,36 @@ class Onboarding extends React.Component {
             block
           />
         </View>
-      </RN.KeyboardAvoidingView>
+      </View>
     )
   }
 
   render() {
     return (
       <View bg="dark" flex={1}>
-        <RN.StatusBar barStyle="light-content" />
-        <RN.ImageBackground
+        <RN.StatusBar backgroundColor="transparent" translucent />
+        <RN.Image
           source={require('../../assets/images/pattern.png')}
           style={styles.bg}
-        >
-          {this.props.currentStep === 'ask-for-terms' &&
-            this._renderTermsStep()}
+        />
+        {this.props.currentStep === 'ask-for-terms' && this._renderTermsStep()}
 
-          {this.props.currentStep === 'define-password' &&
-            (this.props.password || '').length < PIN_LENGTH &&
-            this._renderPinStep()}
+        {this.props.currentStep === 'define-password' &&
+          (this.props.password || '').length < PIN_LENGTH &&
+          this._renderPinStep()}
 
-          {this.props.currentStep === 'define-password' &&
-            (this.props.password || '').length === PIN_LENGTH &&
-            this._renderVerifyPinStep()}
+        {this.props.currentStep === 'define-password' &&
+          (this.props.password || '').length === PIN_LENGTH &&
+          this._renderVerifyPinStep()}
 
-          {this.props.currentStep === 'copy-mnemonic' &&
-            this._renderCopyMnemonicStep()}
+        {this.props.currentStep === 'copy-mnemonic' &&
+          this._renderCopyMnemonicStep()}
 
-          {this.props.currentStep === 'verify-mnemonic' &&
-            this._renderVerifyMnemonicStep()}
+        {this.props.currentStep === 'verify-mnemonic' &&
+          this._renderVerifyMnemonicStep()}
 
-          {this.props.currentStep === 'recover-from-mnemonic' &&
-            this._renderUserMnemonicStep()}
-        </RN.ImageBackground>
+        {this.props.currentStep === 'recover-from-mnemonic' &&
+          this._renderUserMnemonicStep()}
       </View>
     )
   }
@@ -312,7 +322,11 @@ class Onboarding extends React.Component {
 
 const styles = RN.StyleSheet.create({
   bg: {
-    flex: 1
+    position: 'absolute',
+    width: '100%',
+    top: 0,
+    left: 0,
+    right: 0
   },
   step: {
     justifyContent: 'center',
