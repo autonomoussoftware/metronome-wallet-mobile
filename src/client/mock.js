@@ -7,14 +7,6 @@ const fakeResponse = (value, delay = 500) => {
 }
 
 /**
- * Called by "Recover wallet from mnemonic" form
- * Must return a Promise
- */
-export function recoverFromMnemonic({ mnemonic, password }) {
-  return fakeResponse({ mnemonic, password })
-}
-
-/**
  * Called when prefilling the Ethereum network URL field in "Settings" screen
  * Must return a Promise
  */

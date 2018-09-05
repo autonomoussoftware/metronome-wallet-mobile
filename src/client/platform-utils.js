@@ -1,6 +1,9 @@
 import RN from 'react-native'
 import RNRestart from 'react-native-restart'
 import config from '../config'
+import { validatePIN } from './auth'
+import { setSeed } from './wallet'
+import { mnemonicToSeedHex } from './keys'
 
 export function copyToClipboard(text) {
   return Promise.resolve(RN.Clipboard.setString(text))
@@ -28,6 +31,12 @@ export function clearCache() {
     'sync',
     'wallets'
   ]
-  Promise.all([RN.AsyncStorage.multiRemove(keys)])
+  return Promise.all([RN.AsyncStorage.multiRemove(keys)])
     .then(RNRestart.Restart())
+}
+
+export function recoverFromMnemonic({ mnemonic, password }) {
+  return validatePIN(password)
+    .then(() => setSeed(mnemonicToSeedHex(mnemonic)))
+    .then(clearCache)
 }
