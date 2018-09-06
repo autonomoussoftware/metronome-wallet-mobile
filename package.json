@@ -5,9 +5,11 @@
   "scripts": {
     "android": "adb reverse tcp:8081 tcp:8081 && react-native run-android",
     "ios": "react-native run-ios",
+    "lib-deps:link": "ln -s node_modules lib/metronome-wallet-core/node_modules",
+    "lib-deps:unlink": "rm lib/metronome-wallet-core/node_modules || true",
     "lint": "eslint .",
-    "install-lib-deps": "cd lib/metronome-wallet-core && npm i",
-    "postinstall": "patch-package && react-native link && npm run install-lib-deps",
+    "postinstall": "patch-package && react-native link && npm run lib-deps:link",
+    "preinstall": "npm run lib-deps:unlink",
     "start": "node node_modules/react-native/local-cli/cli.js start",
     "test": "jest"
   },
@@ -48,7 +50,8 @@
     "redux-actions": "2.3.0",
     "reselect": "3.0.1",
     "smart-round": "1.0.0",
-    "web3-utils": "1.0.0-beta.35"
+    "web3-utils": "1.0.0-beta.36",
+    "websocket-reconnector": "1.0.0"
   },
   "devDependencies": {
     "babel-eslint": "8.2.6",
