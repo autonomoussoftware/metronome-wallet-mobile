@@ -4,7 +4,7 @@ patch-package
 @@ -25,6 +25,8 @@
  var _ = require('underscore');
  var errors = require('web3-core-helpers').errors;
- 
+
 +var WsReconnector = require('websocket-reconnector');
 +
  var Ws = null;
@@ -22,19 +22,21 @@ patch-package
      // When all node core implementations that do not have the
      // WHATWG compatible URL parser go out of service this line can be removed.
      if (parsedURL.auth) {
-@@ -234,6 +241,11 @@ WebsocketProvider.prototype._addResponseCallback = function(payload, callback) {
+@@ -232,7 +239,13 @@ WebsocketProvider.prototype._addResponseCallback = function(payload, callback) {
+         setTimeout(function () {
+             if (_this.responseCallbacks[id]) {
                  _this.responseCallbacks[id](errors.ConnectionTimeout(_this._customTimeout));
-                 delete _this.responseCallbacks[id];
-             }
 +
-+            // try to reconnect
-+            if (_this.connection.reconnect) {
-+                _this.connection.reconnect();
-+            }
+                 delete _this.responseCallbacks[id];
++
++                // try to reconnect
++                if (_this.connection.reconnect) {
++                    _this.connection.reconnect();
++                }
+             }
          }, this._customTimeout);
      }
- };
-@@ -267,11 +279,11 @@ WebsocketProvider.prototype.send = function (payload, callback) {
+@@ -267,11 +280,11 @@ WebsocketProvider.prototype.send = function (payload, callback) {
      // if(!this.connection.writable)
      //     this.connection.connect({url: this.url});
      if (this.connection.readyState !== this.connection.OPEN) {
@@ -48,29 +50,29 @@ patch-package
          }
          callback(new Error('connection not open'));
          return;
-@@ -299,15 +311,15 @@ WebsocketProvider.prototype.on = function (type, callback) {
+@@ -299,15 +312,15 @@ WebsocketProvider.prototype.on = function (type, callback) {
              break;
- 
+
          case 'connect':
 -            this.connection.onopen = callback;
 +            this.connection.addEventListener('open', callback);
              break;
- 
+
          case 'end':
 -            this.connection.onclose = callback;
 +            this.connection.addEventListener('close', callback);
              break;
- 
+
          case 'error':
 -            this.connection.onerror = callback;
 +            this.connection.addEventListener('error', callback);
              break;
- 
+
          // default:
-@@ -316,7 +328,24 @@ WebsocketProvider.prototype.on = function (type, callback) {
+@@ -316,7 +329,24 @@ WebsocketProvider.prototype.on = function (type, callback) {
      }
  };
- 
+
 -// TODO add once
 +/**
 + Subscribes to provider only once
@@ -90,13 +92,13 @@ patch-package
 +
 +    this.on(type, onceCallback);
 +};
- 
+
  /**
   Removes event listener
-@@ -336,7 +365,17 @@ WebsocketProvider.prototype.removeListener = function (type, callback) {
+@@ -336,7 +366,17 @@ WebsocketProvider.prototype.removeListener = function (type, callback) {
              });
              break;
- 
+
 -        // TODO remvoving connect missing
 +        case 'connect':
 +            this.connection.removeEventListener('open', callback);
@@ -109,6 +111,6 @@ patch-package
 +        case 'error':
 +            this.connection.removeEventListener('error', callback);
 +            break;
- 
+
          // default:
          //     this.connection.removeListener(type, callback);
