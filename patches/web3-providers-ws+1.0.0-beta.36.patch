@@ -22,6 +22,20 @@ patch-package
      // When all node core implementations that do not have the
      // WHATWG compatible URL parser go out of service this line can be removed.
      if (parsedURL.auth) {
+@@ -267,11 +274,11 @@ WebsocketProvider.prototype.send = function (payload, callback) {
+     // if(!this.connection.writable)
+     //     this.connection.connect({url: this.url});
+     if (this.connection.readyState !== this.connection.OPEN) {
+-        console.error('connection not open on send()');
++        // console.error('connection not open on send()');
+         if (typeof this.connection.onerror === 'function') {
+             this.connection.onerror(new Error('connection not open'));
+         } else {
+-            console.error('no error callback');
++            // console.error('no error callback');
+         }
+         callback(new Error('connection not open'));
+         return;
 @@ -299,15 +306,15 @@ WebsocketProvider.prototype.on = function (type, callback) {
              break;
  
