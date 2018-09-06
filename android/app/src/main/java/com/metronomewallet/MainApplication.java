@@ -5,6 +5,7 @@ import android.app.Application;
 import com.facebook.react.ReactApplication;
 import com.idehub.GoogleAnalyticsBridge.GoogleAnalyticsBridgePackage;
 import io.sentry.RNSentryPackage;
+import com.apsl.versionnumber.RNVersionNumberPackage;
 import com.avishayil.rnrestart.ReactNativeRestartPackage;
 import org.devio.rn.splashscreen.SplashScreenReactPackage;
 import com.oblador.keychain.KeychainPackage;
@@ -33,6 +34,7 @@ public class MainApplication extends Application implements ReactApplication {
           new MainReactPackage(),
             new GoogleAnalyticsBridgePackage(),
             new RNSentryPackage(),
+            new RNVersionNumberPackage(),
             new ReactNativeRestartPackage(),
             new SplashScreenReactPackage(),
             new KeychainPackage(),

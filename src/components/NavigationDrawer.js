@@ -1,4 +1,6 @@
-import { Alert, AsyncStorage, TouchableOpacity, SafeAreaView, StyleSheet, View } from 'react-native'
+import { Alert, AsyncStorage, TouchableOpacity, SafeAreaView, StyleSheet, View as RNView } from 'react-native'
+import withBlockchainState from '../shared/hocs/withBlockchainState'
+import VersionNumber from 'react-native-version-number';
 import * as Keychain from 'react-native-keychain'
 import RNRestart from 'react-native-restart'
 import { StackActions } from 'react-navigation'
@@ -6,16 +8,19 @@ import { StackActions } from 'react-navigation'
 import ConverterIcon from './icons/ConverterIcon'
 import AuctionIcon from './icons/AuctionIcon'
 import WalletIcon from './icons/WalletIcon'
-import PropTypes from 'prop-types'
 import LogoIcon from './icons/LogoIcon'
 import DotIcon from './icons/DotIcon'
-import theme from '../theme'
-import React from 'react'
+import PropTypes from 'prop-types'
+import config from '../config'
 import Text from './common/Text'
 import Logo from './icons/Logo'
+import theme from '../theme'
+import React from 'react'
+import { View } from './common'
 
-export default class NavigationDrawer extends React.Component {
+class NavigationDrawer extends React.Component {
   static propTypes = {
+    blockchainHeight: PropTypes.number.isRequired,
     navigation: PropTypes.shape({
       isFocused: PropTypes.func.isRequired,
       navigate: PropTypes.func.isRequired
@@ -28,7 +33,7 @@ export default class NavigationDrawer extends React.Component {
       'WARNING',
       'This will remove all data. Do you want to continue?',
       [
-        { text: 'NO', onPress: () => {}, style: 'cancel' },
+        { text: 'NO', onPress: () => { }, style: 'cancel' },
         {
           text: 'YES', onPress: () =>
             Promise.all([AsyncStorage.clear(), Keychain.resetGenericPassword()])
@@ -42,10 +47,10 @@ export default class NavigationDrawer extends React.Component {
     const { isFocused, navigate } = this.props.navigation
 
     return (
-      <View style={styles.container}>
+      <RNView style={styles.container}>
         <SafeAreaView style={styles.safeArea}>
           <Logo style={styles.logo} />
-          <View style={styles.primaryNav}>
+          <RNView style={styles.primaryNav}>
             <NavBtn
               IconComponent={WalletIcon}
               isActive={isFocused('Dashboard')}
@@ -65,8 +70,8 @@ export default class NavigationDrawer extends React.Component {
               onPress={() => navigate('Converter', {}, StackActions.popToTop())}
               label="CONVERTER"
             />
-          </View>
-          <View style={styles.secondaryNav}>
+          </RNView>
+          <RNView style={styles.secondaryNav}>
             <SecondaryNavBtn
               isActive={isFocused('Tools')}
               onPress={() => navigate('Tools', {}, StackActions.popToTop())}
@@ -77,20 +82,45 @@ export default class NavigationDrawer extends React.Component {
               onPress={() => navigate('Help')}
               label="Help"
             />
-          </View>
+          </RNView>
           {/* TODO: Remove this TouchableOpacity before final release */}
-          <TouchableOpacity onPress={this.resetStorage}>
-            <LogoIcon negative style={styles.footerLogo} />
-          </TouchableOpacity>
+          <View row align="center" justify="space-between" mr={2}>
+            <TouchableOpacity onPress={this.resetStorage}>
+              <LogoIcon negative style={styles.footerLogo} />
+            </TouchableOpacity>
+            <View align="flex-end">
+              <Text
+                size="small"
+                weight="semibold"
+                style={styles.secondaryBtnLabel}
+              >
+                {config.eth.chain.charAt(0).toUpperCase() + config.eth.chain.slice(1)}
+              </Text>
+              <Text
+                size="small"
+                weight="semibold"
+                style={styles.secondaryBtnLabel}
+              >
+                {this.props.blockchainHeight}
+              </Text>
+              <Text
+                size="small"
+                weight="semibold"
+                style={styles.secondaryBtnLabel}
+              >
+                {`${VersionNumber.appVersion}(${VersionNumber.buildVersion})`}
+              </Text>
+            </View>
+          </View>
         </SafeAreaView>
-      </View>
+      </RNView>
     )
   }
 }
 
 const NavBtn = ({ label, isFirst, IconComponent, isActive, ...other }) => (
   <TouchableOpacity activeOpacity={0.5} {...other}>
-    <View
+    <RNView
       style={[
         styles.btn,
         isFirst && styles.btnFirst,
@@ -104,7 +134,7 @@ const NavBtn = ({ label, isFirst, IconComponent, isActive, ...other }) => (
       >
         {label}
       </Text>
-    </View>
+    </RNView>
   </TouchableOpacity>
 )
 
@@ -117,15 +147,16 @@ NavBtn.propTypes = {
 
 const SecondaryNavBtn = ({ label, isActive, ...other }) => (
   <TouchableOpacity activeOpacity={0.5} {...other}>
-    <View style={[styles.secondaryBtn, isActive && styles.secondaryBtnActive]}>
+    <RNView style={[styles.secondaryBtn, isActive && styles.secondaryBtnActive]}>
       {isActive && <DotIcon />}
       <Text
         weight="semibold"
+        size="medium"
         style={[styles.secondaryBtnLabel, isActive && styles.labelActive]}
       >
         {label}
       </Text>
-    </View>
+    </RNView>
   </TouchableOpacity>
 )
 
@@ -184,7 +215,6 @@ const styles = StyleSheet.create({
   },
   secondaryBtnLabel: {
     color: theme.colors.light,
-    fontSize: 16,
     lineHeight: 20,
     opacity: 0.65
   },
@@ -195,3 +225,5 @@ const styles = StyleSheet.create({
     margin: theme.spacing(2)
   }
 })
+
+export default withBlockchainState(NavigationDrawer)
