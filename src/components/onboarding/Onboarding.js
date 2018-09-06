@@ -3,6 +3,7 @@ import { default as PinInput, PIN_LENGTH } from '../common/PinInput'
 import withOnboardingState from '../../shared/hocs/withOnboardingState'
 import TermsAndConditions from '../../shared/TermsAndConditions'
 import { errorPropTypes } from '../../utils'
+import PatternView from '../common/PatternView'
 import PropTypes from 'prop-types'
 import React from 'react'
 import RN from 'react-native'
@@ -291,12 +292,7 @@ class Onboarding extends React.Component {
 
   render() {
     return (
-      <View bg="dark" flex={1}>
-        <RN.StatusBar backgroundColor="transparent" translucent />
-        <RN.Image
-          source={require('../../assets/images/pattern.png')}
-          style={styles.bg}
-        />
+      <PatternView bg="dark" flex={1}>
         {this.props.currentStep === 'ask-for-terms' && this._renderTermsStep()}
 
         {this.props.currentStep === 'define-password' &&
@@ -315,19 +311,12 @@ class Onboarding extends React.Component {
 
         {this.props.currentStep === 'recover-from-mnemonic' &&
           this._renderUserMnemonicStep()}
-      </View>
+      </PatternView>
     )
   }
 }
 
 const styles = RN.StyleSheet.create({
-  bg: {
-    position: 'absolute',
-    width: '100%',
-    top: 0,
-    left: 0,
-    right: 0
-  },
   step: {
     justifyContent: 'center',
     paddingTop: 24,

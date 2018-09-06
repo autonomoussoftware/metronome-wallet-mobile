@@ -3,6 +3,7 @@ import MnemonicInput from './MnemonicInput'
 import Confirmation from './Confirmation'
 import AmountFields from './AmountFields'
 import DisplayValue from './DisplayValue'
+import PatternView from './PatternView'
 import TextInput from './TextInput'
 import GasEditor from './GasEditor'
 import PinInput from './PinInput'
@@ -21,6 +22,7 @@ export {
   Confirmation,
   AmountFields,
   DisplayValue,
+  PatternView,
   TextInput,
   GasEditor,
   PinInput,
