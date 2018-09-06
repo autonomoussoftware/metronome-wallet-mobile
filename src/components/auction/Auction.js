@@ -18,22 +18,24 @@ const Auction = props => {
   } = props
 
   return (
-    <View bg="dark" flex={1} px={2} py={4} justify="space-between">
+    <View bg="dark" flex={1} px={2} py={4}>
       {auctionStatus ? (
         <React.Fragment>
-          <View>
+          <View grow={1}>
             <Text my={1} align="center" size="medium" weight="semibold" shadow>
               {title}
             </Text>
             <CountDown targetTimestamp={countdownTargetTimestamp} />
+            <View mt={4}>
+              <Stats
+                auctionPriceUSD={auctionPriceUSD}
+                auctionStatus={auctionStatus}
+              />
+            </View>
           </View>
-          <Stats
-            auctionPriceUSD={auctionPriceUSD}
-            auctionStatus={auctionStatus}
-          />
-          <View>
+          <View mt={2}>
             {buyDisabledReason && (
-              <Text opacity={0.8} align="center" size="small" my={2}>
+              <Text opacity={0.8} align="center" size="small" mb={2}>
                 {buyDisabledReason}
               </Text>
             )}
