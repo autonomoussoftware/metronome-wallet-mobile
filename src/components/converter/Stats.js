@@ -4,6 +4,8 @@ import theme from '../../theme'
 import React from 'react'
 import RN from 'react-native'
 
+const isNarrow = RN.Dimensions.get('window').width < 375
+
 export default class Stats extends React.Component {
   static propTypes = {
     converterPriceUSD: PropTypes.string.isRequired,
@@ -18,20 +20,26 @@ export default class Stats extends React.Component {
 
     return (
       <View bg="lightShade" mt={2}>
-        <View style={[styles.row, styles.topRow]} py={1} px={2}>
+        <View
+          justify="space-between"
+          align="baseline"
+          row={!isNarrow}
+          py={1}
+          px={2}
+        >
           <Text weight="semibold" size="medium">
             Current Price
           </Text>
-          <View>
+          <View alignSelf={'flex-end'} mt={isNarrow ? 1 : 0}>
             <View row align="center">
               <View bg="primary" style={styles.badge}>
                 <Text
+                  align="center"
                   color="light"
                   size="medium"
-                  mr={1}
-                  align="center"
                   my={0.3}
                   mx={0.6}
+                  mr={1}
                 >
                   1 MET
                 </Text>
@@ -49,7 +57,13 @@ export default class Stats extends React.Component {
           </View>
         </View>
 
-        <View style={styles.row} p={2}>
+        <View
+          justify="space-between"
+          style={styles.topBorder}
+          align="baseline"
+          row
+          p={2}
+        >
           <Text weight="semibold" size="medium">
             Available MET
           </Text>
@@ -60,7 +74,13 @@ export default class Stats extends React.Component {
           />
         </View>
 
-        <View style={styles.row} p={2}>
+        <View
+          justify="space-between"
+          style={styles.topBorder}
+          align="baseline"
+          row
+          p={2}
+        >
           <Text weight="semibold" size="medium">
             Available ETH
           </Text>
@@ -76,17 +96,12 @@ export default class Stats extends React.Component {
 }
 
 const styles = RN.StyleSheet.create({
-  row: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'baseline',
+  topBorder: {
     borderTopWidth: 1,
     borderTopColor: theme.colors.darkShade
   },
-  topRow: {
-    borderTopColor: theme.colors.transparent
-  },
   badge: {
+    top: 1,
     borderRadius: 12
   }
 })
