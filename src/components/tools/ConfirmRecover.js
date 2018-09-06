@@ -1,4 +1,4 @@
-import { Confirmation, View, Text } from '../common'
+import { Confirmation, Text } from '../common'
 import PropTypes from 'prop-types'
 import React from 'react'
 
