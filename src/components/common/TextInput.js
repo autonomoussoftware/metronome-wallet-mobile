@@ -1,3 +1,4 @@
+import { fontStyles } from '../../utils'
 import PropTypes from 'prop-types'
 import theme from '../../theme'
 import React from 'react'
@@ -126,9 +127,10 @@ const styles = RN.StyleSheet.create({
     borderBottomColor: theme.colors.transparent
   },
   field: {
-    fontFamily: 'Muli',
     fontSize: 16,
     paddingHorizontal: theme.spacing(2),
+    textAlignVertical: 'top',
+    ...fontStyles(),
     color: theme.colors.light
   },
   isFocused: {
