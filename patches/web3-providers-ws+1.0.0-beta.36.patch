@@ -22,7 +22,19 @@ patch-package
      // When all node core implementations that do not have the
      // WHATWG compatible URL parser go out of service this line can be removed.
      if (parsedURL.auth) {
-@@ -267,11 +274,11 @@ WebsocketProvider.prototype.send = function (payload, callback) {
+@@ -234,6 +241,11 @@ WebsocketProvider.prototype._addResponseCallback = function(payload, callback) {
+                 _this.responseCallbacks[id](errors.ConnectionTimeout(_this._customTimeout));
+                 delete _this.responseCallbacks[id];
+             }
++
++            // try to reconnect
++            if (_this.connection.reconnect) {
++                _this.connection.reconnect();
++            }
+         }, this._customTimeout);
+     }
+ };
+@@ -267,11 +279,11 @@ WebsocketProvider.prototype.send = function (payload, callback) {
      // if(!this.connection.writable)
      //     this.connection.connect({url: this.url});
      if (this.connection.readyState !== this.connection.OPEN) {
@@ -36,7 +48,7 @@ patch-package
          }
          callback(new Error('connection not open'));
          return;
-@@ -299,15 +306,15 @@ WebsocketProvider.prototype.on = function (type, callback) {
+@@ -299,15 +311,15 @@ WebsocketProvider.prototype.on = function (type, callback) {
              break;
  
          case 'connect':
@@ -55,7 +67,7 @@ patch-package
              break;
  
          // default:
-@@ -316,7 +323,24 @@ WebsocketProvider.prototype.on = function (type, callback) {
+@@ -316,7 +328,24 @@ WebsocketProvider.prototype.on = function (type, callback) {
      }
  };
  
@@ -81,7 +93,7 @@ patch-package
  
  /**
   Removes event listener
-@@ -336,7 +360,17 @@ WebsocketProvider.prototype.removeListener = function (type, callback) {
+@@ -336,7 +365,17 @@ WebsocketProvider.prototype.removeListener = function (type, callback) {
              });
              break;
  
