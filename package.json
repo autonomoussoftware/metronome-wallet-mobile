@@ -51,7 +51,7 @@
     "reselect": "3.0.1",
     "smart-round": "1.0.0",
     "web3-utils": "1.0.0-beta.36",
-    "websocket-reconnector": "1.0.0"
+    "websocket-reconnector": "1.0.1"
   },
   "devDependencies": {
     "babel-eslint": "8.2.6",
