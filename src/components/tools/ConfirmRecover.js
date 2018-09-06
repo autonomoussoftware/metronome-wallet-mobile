@@ -18,12 +18,10 @@ class ConfirmRecover extends React.Component {
 
     return (
       <Confirmation onSubmit={onSubmit} pendingText="Recovering...">
-        <View>
-          <Text size="large">Are you sure?</Text>
-          <Text mt={2} mb={4} size="medium">
-            This operation will overwrite and restart the current wallet!
-          </Text>
-        </View>
+        <Text size="large">Are you sure?</Text>
+        <Text mt={2} mb={4} size="medium">
+          This operation will overwrite and restart the current wallet!
+        </Text>
       </Confirmation>
     )
   }

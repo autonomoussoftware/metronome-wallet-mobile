@@ -103,7 +103,7 @@ class Confirmation extends React.Component {
 
   renderConfirmation = () => {
     return (
-      <View withKeyboard withHeader bg="dark" flex={1} py={4} px={2}>
+      <View withKeyboard withHeader flex={1} py={4} px={2}>
         {this.props.children}
         <View mt={4}>
           <PinInput
@@ -120,7 +120,7 @@ class Confirmation extends React.Component {
 
   renderPending = () => {
     return (
-      <View flex={1} bg="dark" py={4} px={2}>
+      <View flex={1} py={4} px={2}>
         <View grow={1} align="center" justify="center">
           <RN.ActivityIndicator size="large" />
           <Text size="medium" mt={2} mb={2} weight="semibold" align="center">
@@ -151,7 +151,7 @@ class Confirmation extends React.Component {
   renderSuccess = () => {
     const { successTitle, successText, navigation } = this.props
     return (
-      <View flex={1} align="center" justify="center" bg="dark">
+      <View flex={1} align="center" justify="center">
         <CheckIcon />
         <Text size="large" mt={2} weight="bold">
           {successTitle}
@@ -174,7 +174,7 @@ class Confirmation extends React.Component {
 
   renderFailure = () => {
     return (
-      <View flex={1} align="center" justify="center" bg="dark">
+      <View flex={1} align="center" justify="center">
         <CloseIcon />
         <Text size="large" mt={2} weight="bold">
           {this.props.failureTitle}
@@ -194,18 +194,14 @@ class Confirmation extends React.Component {
   }
 
   render() {
-    switch (this.state.status) {
-      case 'confirm':
-        return this.renderConfirmation()
-      case 'success':
-        return this.renderSuccess()
-      case 'failure':
-        return this.renderFailure()
-      case 'pending':
-        return this.renderPending()
-      default:
-        return null
-    }
+    return (
+      <View flex={1} bg="dark">
+        {this.state.status === 'confirm' && this.renderConfirmation()}
+        {this.state.status === 'success' && this.renderSuccess()}
+        {this.state.status === 'failure' && this.renderFailure()}
+        {this.state.status === 'peding' && this.renderPending()}
+      </View>
+    )
   }
 }
 
