@@ -1,4 +1,5 @@
 import { withNavigation, StackActions } from 'react-navigation'
+import { withClient } from '../../shared/hocs/clientContext'
 import CheckIcon from '../icons/CheckIcon'
 import CloseIcon from '../icons/CloseIcon'
 import PropTypes from 'prop-types'
@@ -19,6 +20,9 @@ class Confirmation extends React.Component {
     failureTitle: PropTypes.string,
     successText: PropTypes.string,
     pendingText: PropTypes.string,
+    client: PropTypes.shape({
+      validatePIN: PropTypes.func.isRequired
+    }),
     navigation: PropTypes.shape({
       setParams: PropTypes.func.isRequired,
       goBack: PropTypes.func.isRequired
@@ -51,7 +55,7 @@ class Confirmation extends React.Component {
     this._isMounted = false
   }
 
-  onPasswordChange = ({ value }) => this.setState({ password: value })
+  onPasswordChange = ({ value }) => this.setState({ password: value, error: null })
 
   animationConfig = {
     duration: 300,
@@ -72,6 +76,18 @@ class Confirmation extends React.Component {
   }
 
   onPinComplete = () => {
+    return this.props.client
+      .validatePIN(this.state.password)
+      .then(this.onValidPIN)
+      .catch(err =>
+        this.setState({
+          password: null,
+          error: err.message || 'Unknown error'
+        })
+      )
+  }
+
+  onValidPIN = () => {
     RN.LayoutAnimation.configureNext(this.animationConfig)
     this.setState({ status: 'pending' })
 
@@ -107,10 +123,12 @@ class Confirmation extends React.Component {
         {this.props.children}
         <View mt={4}>
           <PinInput
+            shakeOnError
             onComplete={this.onPinComplete}
             onChange={this.onPasswordChange}
             label="Enter PIN to confirm"
-            value={this.state.password}
+            value={this.state.password || ''}
+            error={this.state.error}
             id="password"
           />
         </View>
@@ -199,10 +217,10 @@ class Confirmation extends React.Component {
         {this.state.status === 'confirm' && this.renderConfirmation()}
         {this.state.status === 'success' && this.renderSuccess()}
         {this.state.status === 'failure' && this.renderFailure()}
-        {this.state.status === 'peding' && this.renderPending()}
+        {this.state.status === 'pending' && this.renderPending()}
       </View>
     )
   }
 }
 
-export default withNavigation(Confirmation)
+export default withNavigation(withClient(Confirmation))
