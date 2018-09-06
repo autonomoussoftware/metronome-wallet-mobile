@@ -1,7 +1,7 @@
 patch-package
 --- a/node_modules/web3-providers-ws/src/index.js
 +++ b/node_modules/web3-providers-ws/src/index.js
-@@ -25,18 +25,20 @@
+@@ -25,6 +25,8 @@
  var _ = require('underscore');
  var errors = require('web3-core-helpers').errors;
  
@@ -10,36 +10,6 @@ patch-package
  var Ws = null;
  var _btoa = null;
  var parseURL = null;
--if (typeof window !== 'undefined' && typeof window.WebSocket !== 'undefined') {
--    Ws = function(url, protocols) {
--      return new window.WebSocket(url, protocols);
--    };
--    _btoa = btoa;
--    parseURL = function(url) {
--        return new URL(url);
--    };
--} else {
-+// if (typeof window !== 'undefined' && typeof window.WebSocket !== 'undefined') {
-+//     Ws = function(url, protocols) {
-+//       return new window.WebSocket(url, protocols);
-+//     };
-+//     _btoa = btoa;
-+//     parseURL = function(url) {
-+//         return new URL(url);
-+//     };
-+// } else {
-     Ws = require('websocket').w3cwebsocket;
-     _btoa = function(str) {
-       return Buffer(str).toString('base64');
-@@ -53,7 +55,7 @@ if (typeof window !== 'undefined' && typeof window.WebSocket !== 'undefined') {
-         // Web3 supports Node.js 5, so fall back to the legacy URL API if necessary
-         parseURL = require('url').parse;
-     }
--}
-+// }
- // Default connection ws://localhost:8546
- 
- 
 @@ -80,6 +82,11 @@ var WebsocketProvider = function WebsocketProvider(url, options)  {
      // Allow a custom client configuration
      var clientConfig = options.clientConfig || undefined;
