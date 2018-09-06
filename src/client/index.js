@@ -7,8 +7,6 @@ import * as platformUtils from './platform-utils'
 import * as utils from './utils'
 import * as wallet from './wallet'
 
-import * as mock from './mock'
-
 export default function createClient(config, createStore) {
   const reduxDevtoolsOptions = {
     actionsBlacklist: ['price-updated$'],
@@ -128,8 +126,7 @@ export default function createClient(config, createStore) {
     onOnboardingCompleted,
     sendEth: withAuth(coreApi.wallet.sendEth),
     sendMet: withAuth(coreApi.metronome.sendMet),
-    store,
-    ...mock
+    store
   }
 
   return api
