@@ -6,7 +6,7 @@
     "android": "adb reverse tcp:8081 tcp:8081 && react-native run-android",
     "ios": "react-native run-ios",
     "lib-deps:link": "ln -s node_modules lib/metronome-wallet-core/node_modules",
-    "lib-deps:unlink": "rm lib/metronome-wallet-core/node_modules || true",
+    "lib-deps:unlink": "rm -rf lib/metronome-wallet-core/node_modules || true",
     "lint": "eslint .",
     "postinstall": "patch-package && react-native link && npm run lib-deps:link",
     "preinstall": "npm run lib-deps:unlink",
