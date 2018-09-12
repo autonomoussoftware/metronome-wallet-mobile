@@ -1,31 +1,36 @@
-import CircleSnail from 'react-native-progress/CircleSnail'
+// import CircleSnail from 'react-native-progress/CircleSnail'
 import PropTypes from 'prop-types'
 import { View } from '../common'
 import theme from '../../theme'
 import React from 'react'
 import RN from 'react-native'
 
-const Spinner = ({ size = 22, ...other }) => (
-  <View
-    style={[
-      styles.container,
-      {
-        borderRadius: size * 1.1,
-        height: size * 1.1,
-        width: size * 1.1
-      }
-    ]}
-  >
-    <CircleSnail
-      spinDuration={2000}
-      thickness={size * 0.09}
-      duration={1500}
+const Spinner = ({ size = 22, ...other }) => {
+  return RN.Platform.OS === 'android' ? (
+    <View
+      style={[
+        styles.container,
+        {
+          borderRadius: size * 1.1,
+          height: size * 1.1,
+          width: size * 1.1
+        }
+      ]}
+    >
+      <RN.ActivityIndicator
+        color={theme.colors.primary}
+        size={size}
+        {...other}
+      />
+    </View>
+  ) : (
+    <RN.ActivityIndicator
       color={theme.colors.primary}
-      size={size}
+      size={size < 16 ? 'small' : 'large'}
       {...other}
     />
-  </View>
-)
+  )
+}
 
 Spinner.propTypes = {
   size: PropTypes.number

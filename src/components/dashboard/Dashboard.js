@@ -2,6 +2,7 @@ import { MenuBtn, View, Text, Btn } from '../common'
 import ScanningTxPlaceholder from './ScanningTxPlaceholder'
 import withDashboardState from '../../shared/hocs/withDashboardState'
 import NoTxPlaceholder from './NoTxPlaceholder'
+import RefreshControl from '../common/RefreshControl'
 import TxListHeader from './TxListHeader'
 import BalanceBlock from './BalanceBlock'
 import PropTypes from 'prop-types'
@@ -13,6 +14,7 @@ import RN from 'react-native'
 class Dashboard extends React.Component {
   static propTypes = {
     sendDisabledReason: PropTypes.string,
+    onWalletRefresh: PropTypes.func.isRequired,
     hasTransactions: PropTypes.bool.isRequired,
     isScanningTx: PropTypes.bool.isRequired,
     sendDisabled: PropTypes.bool.isRequired,
@@ -51,6 +53,13 @@ class Dashboard extends React.Component {
         alwaysBounceVertical={false}
         onContentSizeChange={this.scrollTopIfFewItems}
         stickyHeaderIndices={[2]}
+        refreshControl={
+          <RefreshControl
+            progressViewOffset={10}
+            refreshing={this.props.isScanningTx}
+            onRefresh={this.props.onWalletRefresh}
+          />
+        }
         onLayout={this.storeViewHeight}
         innerRef={this.storeViewRef}
         scroll

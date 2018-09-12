@@ -10,6 +10,7 @@ const withDashboardState = WrappedComponent => {
       sendFeatureStatus: PropTypes.oneOf(['offline', 'no-funds', 'ok'])
         .isRequired,
       client: PropTypes.shape({
+        onWalletRefresh: PropTypes.func.isRequired,
         toBN: PropTypes.func.isRequired
       }).isRequired
     }
@@ -30,6 +31,7 @@ const withDashboardState = WrappedComponent => {
       return (
         <WrappedComponent
           sendDisabledReason={sendDisabledReason}
+          onWalletRefresh={this.props.client.onWalletRefresh}
           sendDisabled={sendFeatureStatus !== 'ok'}
           {...this.props}
         />
