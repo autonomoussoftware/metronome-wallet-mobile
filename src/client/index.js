@@ -6,6 +6,7 @@ import * as keys from './keys'
 import * as platformUtils from './platform-utils'
 import * as utils from './utils'
 import * as wallet from './wallet'
+import { withAnalytics } from './analytics'
 
 export default function createClient(config, createStore) {
   const reduxDevtoolsOptions = {
@@ -119,9 +120,18 @@ export default function createClient(config, createStore) {
     ...keys,
     ...platformUtils,
     ...utils,
-    buyMetronome: withAuth(coreApi.metronome.buyMetronome),
-    convertEth: withAuth(coreApi.metronome.convertEth),
-    convertMet: withAuth(coreApi.metronome.convertMet),
+    buyMetronome: withAnalytics({
+      eventCategory: 'Buy',
+      eventAction: 'Buy MET in auction'
+    })(withAuth(coreApi.metronome.buyMetronome)),
+    convertEth: withAnalytics({
+      eventCategory: 'Convert',
+      eventAction: 'Convert ETH to MET'      
+    })(withAuth(coreApi.metronome.convertEth)),
+    convertMet: withAnalytics({
+      eventCategory: 'Convert',
+      eventAction: 'Convert MET to ETH'      
+    })(withAuth(coreApi.metronome.convertMet)),
     onInit,
     onOnboardingCompleted,
     sendEth: withAuth(coreApi.wallet.sendEth),
