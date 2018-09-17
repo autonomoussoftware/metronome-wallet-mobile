@@ -4,6 +4,7 @@ import android.app.Application;
 
 import com.facebook.react.ReactApplication;
 import com.idehub.GoogleAnalyticsBridge.GoogleAnalyticsBridgePackage;
+import io.sentry.RNSentryPackage;
 import com.avishayil.rnrestart.ReactNativeRestartPackage;
 import org.devio.rn.splashscreen.SplashScreenReactPackage;
 import com.oblador.keychain.KeychainPackage;
@@ -32,6 +33,7 @@ public class MainApplication extends Application implements ReactApplication {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
             new GoogleAnalyticsBridgePackage(),
+            new RNSentryPackage(),
             new ReactNativeRestartPackage(),
             new SplashScreenReactPackage(),
             new KeychainPackage(),

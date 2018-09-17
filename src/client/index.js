@@ -1,4 +1,5 @@
 import core from 'metronome-wallet-core'
+import { Sentry, SentryLog } from 'react-native-sentry'
 
 import * as storage from './storage'
 import * as auth from './auth'
@@ -9,6 +10,13 @@ import * as wallet from './wallet'
 import { withAnalytics } from './analytics'
 
 export default function createClient(config, createStore) {
+
+  if (config.SENTRY_DSN) {
+    Sentry.config(config.SENTRY_DSN, {
+      logLevel: SentryLog.Error
+    }).install()
+  }
+
   const reduxDevtoolsOptions = {
     actionsBlacklist: ['price-updated$'],
     features: { dispatch: true },
@@ -82,20 +90,19 @@ export default function createClient(config, createStore) {
   // TODO move this logic into the explorer plugin
   emitter.on('open-wallets', function ({ address }) {
     // TODO request to rescan unconfirmed txs
-
     storage.getSyncBlock()
       .then(function (from) {
         return coreApi.explorer.syncTransactions(from, address)
       })
       .then(storage.setSyncBlock)
-          .then(function () {
-            emitter.on('eth-block', function ({ number }) {
-              storage.setSyncBlock(number)
-                .catch(function (err) {
-                  console.warn('Could not save new synced block', err)
-                })
+      .then(function () {
+        emitter.on('eth-block', function ({ number }) {
+          storage.setSyncBlock(number)
+            .catch(function (err) {
+              console.warn('Could not save new synced block', err)
             })
-          })
+        })
+      })
       .catch(function (err) {
         console.warn('Could not sync transactions/events', err)
       })

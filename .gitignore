@@ -55,3 +55,6 @@ buck-out/
 # dotenv
 #
 .env.*
+
+# sentry
+sentry.properties

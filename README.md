@@ -11,6 +11,15 @@ $ npm install
 $ npm run ios
 ```
 
+### Sentry
+
+```
+$ cp sentry.properties.example ios/sentry.properties
+$ cp sentry.properties.example android/sentry.properties
+```
+
+Then add your keys into both files.
+
 ## Dev setup considerations
 
 In order to use Node.JS packages as `crypto` in a React Native app, those packages have to be explicitly added through [node-libs-browser](https://github.com/webpack/node-libs-browser). In addition, global variables as `Buffer` and `process` have to be manually set.
