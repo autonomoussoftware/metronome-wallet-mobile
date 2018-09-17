@@ -1,7 +1,7 @@
 import { GoogleAnalyticsTracker } from "react-native-google-analytics-bridge"
 import config from '../config'
 
-const tracker = new GoogleAnalyticsTracker(config.trackingId);
+const tracker = new GoogleAnalyticsTracker(config.TRACKING_ID);
 
 export  const withAnalytics = ({ eventCategory, eventAction }) => function (fn) {
   return function (...args){
