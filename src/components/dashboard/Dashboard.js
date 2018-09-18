@@ -50,7 +50,6 @@ class Dashboard extends React.Component {
     return (
       <View
         contentContainerStyle={styles.scrollContainer}
-        alwaysBounceVertical={false}
         onContentSizeChange={this.scrollTopIfFewItems}
         stickyHeaderIndices={[2]}
         refreshControl={

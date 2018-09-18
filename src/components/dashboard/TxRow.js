@@ -87,7 +87,7 @@ class TxRow extends React.Component {
             <DisplayValue
               color={this.props.isFailed ? 'danger' : 'primary'}
               value={this.props.ethSpentInAuction}
-              size="large"
+              size="medium"
               post=" ETH"
             />
 
@@ -98,7 +98,7 @@ class TxRow extends React.Component {
                 </Text>
                 <DisplayValue
                   color={this.props.isFailed ? 'danger' : 'primary'}
-                  size="large"
+                  size="medium"
                   value={this.props.mtnBoughtInAuction}
                   post=" MET"
                 />

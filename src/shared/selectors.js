@@ -111,7 +111,7 @@ export const getEthBalanceUSD = createSelector(
   (balance, ethRate, client) => {
     if (!balance || !ethRate) return '0'
     const usdValue = parseFloat(client.fromWei(balance)) * ethRate
-    return usdValue.toFixed(usdValue > 1 ? 2 : 6)
+    return usdValue.toFixed(2)
   }
 )
 
@@ -138,7 +138,7 @@ export const getAuctionPriceUSD = createSelector(
     if (!auctionStatus || !ethRate) return '0'
     const usdValue =
       parseFloat(client.fromWei(auctionStatus.currentPrice)) * ethRate
-    return usdValue.toFixed(usdValue > 1 ? 2 : 6)
+    return usdValue.toFixed(2)
   }
 )
 
@@ -162,7 +162,7 @@ export const getConverterPriceUSD = createSelector(
     if (!converterStatus || !ethRate) return '0'
     const usdValue =
       parseFloat(client.fromWei(converterStatus.currentPrice)) * ethRate
-    return usdValue.toFixed(usdValue > 1 ? 2 : 6)
+    return usdValue.toFixed(2)
   }
 )
 
