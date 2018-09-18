@@ -41,22 +41,14 @@ const reducer = handleActions(
       ...payload
     }),
 
-    'transactions-scan-started': (state, { payload }) => ({
+    'transactions-scan-started': state => ({
       ...state,
-      isScanningTx:
-        state.active &&
-        payload.address === Object.keys(state.byId[state.active].addresses)[0]
-          ? true
-          : state.isScanningTx
+      isScanningTx: true
     }),
 
-    'transactions-scan-finished': (state, { payload }) => ({
+    'transactions-scan-finished': state => ({
       ...state,
-      isScanningTx: !payload.address
-        ? false
-        : payload.address === Object.keys(state.byId[state.active].addresses)[0]
-          ? false
-          : state.isScanningTx
+      isScanningTx: false
     })
   },
   initialState

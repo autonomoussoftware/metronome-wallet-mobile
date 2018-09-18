@@ -92,10 +92,12 @@ export default function createClient(config, createStore) {
     // TODO request to rescan unconfirmed txs
     storage.getSyncBlock()
       .then(function (from) {
+        store.dispatch({ type: 'transactions-scan-started' })
         return coreApi.explorer.syncTransactions(from, address)
       })
       .then(storage.setSyncBlock)
       .then(function () {
+        store.dispatch({ type: 'transactions-scan-finished' })
         emitter.on('eth-block', function ({ number }) {
           storage.setSyncBlock(number)
             .catch(function (err) {
@@ -104,6 +106,7 @@ export default function createClient(config, createStore) {
         })
       })
       .catch(function (err) {
+        store.dispatch({ type: 'transactions-scan-finished' })
         console.warn('Could not sync transactions/events', err)
       })
   })
