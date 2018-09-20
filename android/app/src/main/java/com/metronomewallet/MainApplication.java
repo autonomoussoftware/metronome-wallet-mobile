@@ -11,7 +11,6 @@ import com.oblador.keychain.KeychainPackage;
 import org.reactnative.camera.RNCameraPackage;
 import com.horcrux.svg.SvgPackage;
 import com.bitgo.randombytes.RandomBytesPackage;
-import com.reactlibrary.securekeystore.RNSecureKeyStorePackage;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
@@ -39,8 +38,7 @@ public class MainApplication extends Application implements ReactApplication {
             new KeychainPackage(),
             new RNCameraPackage(),
             new SvgPackage(),
-            new RandomBytesPackage(),
-            new RNSecureKeyStorePackage()
+            new RandomBytesPackage()
       );
     }
 
