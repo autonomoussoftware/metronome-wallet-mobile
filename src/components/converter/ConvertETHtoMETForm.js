@@ -23,7 +23,8 @@ class ConvertETHtoMETForm extends React.Component {
     gasPrice: PropTypes.string,
     gasLimit: PropTypes.string,
     estimate: PropTypes.string,
-    errors: PropTypes.object.isRequired
+    errors: PropTypes.object.isRequired,
+    rate: PropTypes.string
   }
 
   componentDidMount() {
@@ -53,7 +54,7 @@ class ConvertETHtoMETForm extends React.Component {
           errors={this.props.errors}
         />
 
-        <View grow={1} mt={4}>
+        <View grow={1} mt={2}>
           <GasEditor
             gasEstimateError={this.props.gasEstimateError}
             onInputChange={this.props.onInputChange}
@@ -63,14 +64,15 @@ class ConvertETHtoMETForm extends React.Component {
             errors={this.props.errors}
           />
           {this.props.estimate && (
-            <Text size="medium" mt={4}>
+            <Text size="small" mt={2}>
               You would get approximately{' '}
               <DisplayValue
                 value={this.props.estimate}
                 color="primary"
                 post=" MET"
               />
-              .
+              , which means a rate of{' '}
+              <DisplayValue value={this.props.rate} post=" MET/ETH" />.
             </Text>
           )}
           {this.props.estimateError && (

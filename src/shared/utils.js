@@ -141,3 +141,10 @@ export function syncAmounts(state, ETHprice, id, value, client) {
       id === 'usdAmount' ? toETH(client, value, ETHprice) : state.ethAmount
   }
 }
+
+export function getConversionRate(amount, estimate) {
+  return new BigNumber(estimate)
+    .dividedBy(new BigNumber(amount))
+    .integerValue()
+    .toString(10)
+}
