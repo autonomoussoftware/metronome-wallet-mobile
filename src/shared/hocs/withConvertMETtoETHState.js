@@ -100,7 +100,11 @@ const withConvertMETtoETHState = WrappedComponent => {
           value: client.toWei(utils.sanitize(metAmount))
         })
         .then(({ result }) => {
-          const rate = utils.getConversionRate(metAmount, result)
+          const rate = utils.getConversionRate(
+            client,
+            client.toWei(metAmount),
+            result
+          )
           this.setState({ estimateError: null, estimate: result, rate })
         })
         .catch(err => {

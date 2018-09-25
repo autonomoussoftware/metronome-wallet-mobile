@@ -142,9 +142,10 @@ export function syncAmounts(state, ETHprice, id, value, client) {
   }
 }
 
-export function getConversionRate(amount, estimate) {
-  return new BigNumber(estimate)
-    .dividedBy(new BigNumber(amount))
+export function getConversionRate(client, metAmount, ethAmount) {
+  const compareAgainst = client.fromWei(metAmount)
+  return new BigNumber(ethAmount)
+    .dividedBy(new BigNumber(compareAgainst))
     .integerValue()
     .toString(10)
 }

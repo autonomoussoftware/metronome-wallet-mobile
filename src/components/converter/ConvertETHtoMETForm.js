@@ -72,7 +72,7 @@ class ConvertETHtoMETForm extends React.Component {
                 post=" MET"
               />
               , which means a rate of{' '}
-              <DisplayValue value={this.props.rate} post=" MET/ETH" />.
+              <DisplayValue value={this.props.rate} post=" ETH/MET" />.
             </Text>
           )}
           {this.props.estimateError && (
