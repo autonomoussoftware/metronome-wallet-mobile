@@ -46,7 +46,7 @@
     "react-native-splash-screen": "3.1.1",
     "react-native-svg": "6.5.2",
     "react-native-version-number": "0.3.4",
-    "react-navigation": "2.11.2",
+    "react-navigation": "2.16.0",
     "react-redux": "5.0.7",
     "redux": "3.7.2",
     "redux-actions": "2.3.0",
