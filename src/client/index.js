@@ -34,6 +34,15 @@ export default function createClient(config, createStore) {
     api: coreApi
   } = core.start({ config })
 
+  events.push('create-wallet', 'open-wallets')
+
+  events.forEach(function (event) {
+    emitter.on(event, function (data) {
+      // console.log('<<--', event, data)
+      store.dispatch({ type: event, payload: data })
+    })
+  })
+
   storage.getState()
     .catch(function (err) {
       console.warn('Could not get persisted state', err)
@@ -52,15 +61,6 @@ export default function createClient(config, createStore) {
 
       store.subscribe(function () {
         storage.persistState(store.getState())
-      })
-
-      events.push('create-wallet', 'open-wallets')
-
-      events.forEach(function (event) {
-        emitter.on(event, function (data) {
-          // console.log('<<--', event, data)
-          store.dispatch({ type: event, payload: data })
-        })
       })
     })
     .catch(function (err) {
@@ -136,11 +136,11 @@ export default function createClient(config, createStore) {
     })(withAuth(coreApi.metronome.buyMetronome)),
     convertEth: withAnalytics({
       eventCategory: 'Convert',
-      eventAction: 'Convert ETH to MET'      
+      eventAction: 'Convert ETH to MET'
     })(withAuth(coreApi.metronome.convertEth)),
     convertMet: withAnalytics({
       eventCategory: 'Convert',
-      eventAction: 'Convert MET to ETH'      
+      eventAction: 'Convert MET to ETH'
     })(withAuth(coreApi.metronome.convertMet)),
     onInit,
     onOnboardingCompleted,
