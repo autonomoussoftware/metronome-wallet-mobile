@@ -129,7 +129,7 @@ class ReceiptDrawer extends React.Component {
         </RN.TouchableOpacity>
         )}
 
-        {routeParams.confirmations && (
+        {!!routeParams.confirmations && (
           <View row my={3}>
             <Text size="large">Confirmations</Text>
             <View grow={1} align="flex-end">
