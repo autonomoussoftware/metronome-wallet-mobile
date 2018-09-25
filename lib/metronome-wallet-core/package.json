@@ -2,6 +2,9 @@
   "name": "metronome-wallet-core",
   "version": "1.0.0",
   "main": "src/index.js",
+  "scripts": {
+    "postinstall": "patch-package"
+  },
   "dependencies": {
     "axios": "^0.18.0",
     "coincap-lib": "^1.0.0",
@@ -25,6 +28,7 @@
     "eslint-plugin-node": "^7.0.1",
     "eslint-plugin-prefer-arrow": "^1.1.2",
     "eslint-plugin-promise": "^3.8.0",
-    "eslint-plugin-standard": "^3.1.0"
+    "eslint-plugin-standard": "^3.1.0",
+    "patch-package": "^5.1.1"
   }
 }
