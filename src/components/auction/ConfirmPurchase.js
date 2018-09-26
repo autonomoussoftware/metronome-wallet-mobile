@@ -67,8 +67,7 @@ class ConfirmPurchase extends React.Component {
           <Text size="medium">
             You will use{' '}
             <DisplayValue value={ethAmount} toWei post=" ETH" color="primary" />{' '}
-            ($
-            {usdAmount}) to buy approximately{' '}
+            {usdAmount ? `($${usdAmount})` : `(< $0.01)`} to buy approximately{' '}
             <DisplayValue
               value={expectedMETamount}
               color="primary"

@@ -29,8 +29,7 @@ class ConfirmSendETH extends React.Component {
         <Text size="medium">
           You will send{' '}
           <DisplayValue value={ethAmount} color="primary" toWei post=" ETH" />{' '}
-          ($
-          {usdAmount}) to the address{' '}
+          {usdAmount ? `($${usdAmount})` : `(< $0.01)`} to the address{' '}
           <Text color="primary" numberOfLines={1}>
             {toAddress}
           </Text>

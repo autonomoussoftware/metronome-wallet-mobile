@@ -31,8 +31,7 @@ class ConfirmETHtoMET extends React.Component {
         <Text size="medium">
           You will convert{' '}
           <DisplayValue value={ethAmount} color="primary" toWei post=" ETH" />{' '}
-          ($
-          {usdAmount}) and get approximately{' '}
+          {usdAmount ? `($${usdAmount})` : `(< $0.01)`} and get approximately{' '}
           <DisplayValue value={estimate} post=" MET" color="primary" />, which
           means a rate of <DisplayValue value={rate} post=" ETH/MET" />.
         </Text>
