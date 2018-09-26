@@ -9,14 +9,20 @@ class ConfirmMETtoETH extends React.Component {
         params: PropTypes.shape({
           metAmount: PropTypes.string.isRequired,
           estimate: PropTypes.string.isRequired,
-          onSubmit: PropTypes.func.isRequired
+          onSubmit: PropTypes.func.isRequired,
+          rate: PropTypes.string.isRequired
         }).isRequired
       }).isRequired
     }).isRequired
   }
 
   render() {
-    const { metAmount, onSubmit, estimate } = this.props.navigation.state.params
+    const {
+      metAmount,
+      onSubmit,
+      estimate,
+      rate
+    } = this.props.navigation.state.params
 
     return (
       <Confirmation
@@ -27,7 +33,8 @@ class ConfirmMETtoETH extends React.Component {
           You will convert{' '}
           <DisplayValue value={metAmount} color="primary" toWei post=" MET" />{' '}
           and get approximately{' '}
-          <DisplayValue value={estimate} post=" ETH" color="primary" />.
+          <DisplayValue value={estimate} post=" ETH" color="primary" />, which
+          means a rate of <DisplayValue value={rate} post=" ETH/MET" />.
         </Text>
       </Confirmation>
     )

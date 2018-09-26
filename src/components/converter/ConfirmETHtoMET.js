@@ -10,7 +10,8 @@ class ConfirmETHtoMET extends React.Component {
           ethAmount: PropTypes.string.isRequired,
           usdAmount: PropTypes.string.isRequired,
           estimate: PropTypes.string.isRequired,
-          onSubmit: PropTypes.func.isRequired
+          onSubmit: PropTypes.func.isRequired,
+          rate: PropTypes.string.isRequired
         }).isRequired
       }).isRequired
     }).isRequired
@@ -21,7 +22,8 @@ class ConfirmETHtoMET extends React.Component {
       ethAmount,
       usdAmount,
       onSubmit,
-      estimate
+      estimate,
+      rate
     } = this.props.navigation.state.params
 
     return (
@@ -31,7 +33,8 @@ class ConfirmETHtoMET extends React.Component {
           <DisplayValue value={ethAmount} color="primary" toWei post=" ETH" />{' '}
           ($
           {usdAmount}) and get approximately{' '}
-          <DisplayValue value={estimate} post=" MET" color="primary" />.
+          <DisplayValue value={estimate} post=" MET" color="primary" />, which
+          means a rate of <DisplayValue value={rate} post=" ETH/MET" />.
         </Text>
       </Confirmation>
     )
