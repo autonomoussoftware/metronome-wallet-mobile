@@ -31,19 +31,27 @@ const withGasEditorState = WrappedComponent => {
     state = { priceError: false }
 
     componentDidMount() {
+      this._isMounted = true
+
       // Avoid getting current price if using custom price
       if (this.props.useCustomGas) return
 
       this.props.client
         .getGasPrice()
         .then(({ gasPrice }) => {
-          this.setState({ priceError: false })
+          if (this._isMounted) this.setState({ priceError: false })
           this.props.onInputChange({
             id: 'gasPrice',
             value: this.props.client.fromWei(gasPrice, 'gwei')
           })
         })
-        .catch(() => this.setState({ priceError: true }))
+        .catch(() => {
+          if (this._isMounted) this.setState({ priceError: true })
+        })
+    }
+
+    componentWillUnmount() {
+      this._isMounted = false
     }
 
     onGasToggle = () => {
