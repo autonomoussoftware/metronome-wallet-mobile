@@ -1,5 +1,6 @@
 import { withNavigation, StackActions } from 'react-navigation'
 import { withClient } from '../../shared/hocs/clientContext'
+import * as utils from '../../shared/utils'
 import CheckIcon from '../icons/CheckIcon'
 import CloseIcon from '../icons/CloseIcon'
 import PropTypes from 'prop-types'
@@ -55,7 +56,9 @@ class Confirmation extends React.Component {
     this._isMounted = false
   }
 
-  onPasswordChange = ({ value }) => this.setState({ password: value, error: null })
+  onPasswordChange = ({ value }) => {
+    this.setState({ password: value, error: null })
+  }
 
   animationConfig = {
     duration: 300,
@@ -191,17 +194,20 @@ class Confirmation extends React.Component {
   }
 
   renderFailure = () => {
+    const messageWithReplacements = utils.messageParser(this.state.error)
+    const defaultMessage = 'Something went wrong with your transaction.'
+
     return (
       <View flex={1} align="center" justify="center">
         <CloseIcon />
         <Text size="large" mt={2} weight="bold">
           {this.props.failureTitle}
         </Text>
-        {this.state.error && (
-          <Text size="medium" align="center" p={2}>
-            {this.state.error}
-          </Text>
-        )}
+        <Text size="medium" align="center" p={2}>
+          {this.state.error === messageWithReplacements
+            ? defaultMessage
+            : messageWithReplacements}
+        </Text>
         <Btn
           onPress={() => this.props.navigation.goBack()}
           label="Try Again"
