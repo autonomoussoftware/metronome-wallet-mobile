@@ -112,7 +112,9 @@ const withSendMETFormState = WrappedComponent => {
     }
 
     render() {
-      const { metAmount } = this.state
+      const amountFieldsProps = utils.getAmountFieldsProps({
+        metAmount: this.state.metAmount
+      })
 
       return (
         <WrappedComponent
@@ -122,10 +124,8 @@ const withSendMETFormState = WrappedComponent => {
           onSubmit={this.onSubmit}
           {...this.props}
           {...this.state}
-          metPlaceholder={
-            metAmount === 'Invalid amount' ? 'Invalid amount' : '0.00'
-          }
-          metAmount={metAmount === 'Invalid amount' ? '' : metAmount}
+          metPlaceholder={amountFieldsProps.metPlaceholder}
+          metAmount={amountFieldsProps.metAmount}
           validate={this.validate}
         />
       )

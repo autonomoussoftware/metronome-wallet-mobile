@@ -146,7 +146,10 @@ const withConvertETHtoMETState = WrappedComponent => {
     }
 
     render() {
-      const { ethAmount, usdAmount } = this.state
+      const amountFieldsProps = utils.getAmountFieldsProps({
+        ethAmount: this.state.ethAmount,
+        usdAmount: this.state.usdAmount
+      })
 
       return (
         <WrappedComponent
@@ -156,14 +159,10 @@ const withConvertETHtoMETState = WrappedComponent => {
           onSubmit={this.onSubmit}
           {...this.props}
           {...this.state}
-          ethPlaceholder={
-            ethAmount === 'Invalid amount' ? 'Invalid amount' : '0.00'
-          }
-          usdPlaceholder={
-            usdAmount === 'Invalid amount' ? 'Invalid amount' : '0.00'
-          }
-          ethAmount={ethAmount === 'Invalid amount' ? '' : ethAmount}
-          usdAmount={usdAmount === 'Invalid amount' ? '' : usdAmount}
+          ethPlaceholder={amountFieldsProps.ethPlaceholder}
+          usdPlaceholder={amountFieldsProps.usdPlaceholder}
+          ethAmount={amountFieldsProps.ethAmount}
+          usdAmount={amountFieldsProps.usdAmount}
           validate={this.validate}
         />
       )

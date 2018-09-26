@@ -10,6 +10,9 @@ const format = {
 
 BigNumber.config({ FORMAT: format })
 
+const ERROR_VALUE_PLACEHOLDER = 'Invalid amount'
+const SMALL_VALUE_PLACEHOLDER = '< 0.01'
+
 export function sanitize(amount = '') {
   return amount.replace(',', '.')
 }
@@ -54,21 +57,39 @@ export function isGreaterThanZero(client, amount) {
   return weiAmount.gt(client.toBN(0))
 }
 
-export function toUSD(client, amount, rate, errorValue = 'Invalid amount') {
+export function getWeiUSDvalue(client, amount, rate) {
+  const amountBN = client.toBN(amount)
+  const rateBN = client.toBN(
+    client.toWei(typeof rate === 'string' ? rate : rate.toString())
+  )
+  return amountBN.mul(rateBN).div(client.toBN(client.toWei('1')))
+}
+
+export function toUSD(client, amount, rate) {
   let isValidAmount
-  let usdAmount
+  let weiUSDvalue
+
   try {
-    if (!isWeiable(client, sanitize(amount))) throw new Error()
-    usdAmount = parseFloat(sanitize(amount), 10) * parseFloat(rate, 10)
-    isValidAmount = usdAmount >= 0
+    weiUSDvalue = getWeiUSDvalue(client, client.toWei(sanitize(amount)), rate)
+    isValidAmount = weiUSDvalue.gte(client.toBN('0'))
   } catch (e) {
     isValidAmount = false
   }
-  const expectedUSDamount = isValidAmount ? usdAmount.toString(10) : errorValue
+
+  const expectedUSDamount = isValidAmount
+    ? weiUSDvalue.isZero()
+      ? '0'
+      : weiUSDvalue.lt(client.toBN(client.toWei('0.01')))
+        ? SMALL_VALUE_PLACEHOLDER
+        : new BigNumber(client.fromWei(weiUSDvalue.toString()))
+            .dp(2)
+            .toString(10)
+    : ERROR_VALUE_PLACEHOLDER
+
   return expectedUSDamount
 }
 
-export function toETH(client, amount, rate, errorValue = 'Invalid amount') {
+export function toETH(client, amount, rate) {
   let isValidAmount
   let weiAmount
   try {
@@ -83,18 +104,12 @@ export function toETH(client, amount, rate, errorValue = 'Invalid amount') {
         .dividedBy(client.toBN(client.toWei(String(rate))))
         .decimalPlaces(18)
         .toString(10)
-    : errorValue
+    : ERROR_VALUE_PLACEHOLDER
 
   return expectedETHamount
 }
 
-export function toMET(
-  client,
-  amount,
-  rate,
-  errorValue = 'Invalid amount',
-  remaining
-) {
+export function toMET(client, amount, rate, remaining) {
   let isValidAmount
   let weiAmount
   try {
@@ -111,7 +126,7 @@ export function toMET(
           .decimalPlaces(18)
           .toString(10)
       )
-    : errorValue
+    : null
 
   const excedes = isValidAmount
     ? client.toBN(expectedMETamount).gt(client.toBN(remaining))
@@ -191,4 +206,26 @@ export function messageParser(str) {
     (output, { search, replaceWith }) => output.replace(search, replaceWith),
     str
   )
+}
+
+export function getAmountFieldsProps({ metAmount, ethAmount, usdAmount }) {
+  return {
+    metPlaceholder:
+      metAmount === ERROR_VALUE_PLACEHOLDER ? ERROR_VALUE_PLACEHOLDER : '0.00',
+    ethPlaceholder:
+      ethAmount === ERROR_VALUE_PLACEHOLDER ? ERROR_VALUE_PLACEHOLDER : '0.00',
+    usdPlaceholder:
+      usdAmount === ERROR_VALUE_PLACEHOLDER
+        ? ERROR_VALUE_PLACEHOLDER
+        : usdAmount === SMALL_VALUE_PLACEHOLDER
+          ? SMALL_VALUE_PLACEHOLDER
+          : '0.00',
+    metAmount: metAmount === ERROR_VALUE_PLACEHOLDER ? '' : metAmount,
+    ethAmount: ethAmount === ERROR_VALUE_PLACEHOLDER ? '' : ethAmount,
+    usdAmount:
+      usdAmount === ERROR_VALUE_PLACEHOLDER ||
+      usdAmount === SMALL_VALUE_PLACEHOLDER
+        ? ''
+        : usdAmount
+  }
 }

@@ -107,13 +107,15 @@ const withBuyMETFormState = WrappedComponent => {
     }
 
     render() {
-      const { ethAmount, usdAmount } = this.state
+      const amountFieldsProps = utils.getAmountFieldsProps({
+        ethAmount: this.state.ethAmount,
+        usdAmount: this.state.usdAmount
+      })
 
       const expected = utils.toMET(
         this.props.client,
-        ethAmount,
+        this.state.ethAmount,
         this.props.currentPrice,
-        null,
         this.props.tokenRemaining
       )
 
@@ -126,14 +128,10 @@ const withBuyMETFormState = WrappedComponent => {
           {...this.props}
           {...this.state}
           {...expected}
-          ethPlaceholder={
-            ethAmount === 'Invalid amount' ? 'Invalid amount' : '0.00'
-          }
-          usdPlaceholder={
-            usdAmount === 'Invalid amount' ? 'Invalid amount' : '0.00'
-          }
-          ethAmount={ethAmount === 'Invalid amount' ? '' : ethAmount}
-          usdAmount={usdAmount === 'Invalid amount' ? '' : usdAmount}
+          ethPlaceholder={amountFieldsProps.ethPlaceholder}
+          usdPlaceholder={amountFieldsProps.usdPlaceholder}
+          ethAmount={amountFieldsProps.ethAmount}
+          usdAmount={amountFieldsProps.usdAmount}
           validate={this.validate}
         />
       )
