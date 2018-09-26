@@ -94,16 +94,23 @@ def enableSeparateBuildPerCPUArchitecture = false
  */
 def enableProguardInReleaseBuilds = false
 
+def (major, minor, patch) = getNpmVersion().tokenize('.')
+
+def getNpmVersionArray() { // major [0], minor [1], patch [2]
+    def (major, minor, patch) = getNpmVersion().tokenize('.')
+    return [Integer.parseInt(major), Integer.parseInt(minor), Integer.parseInt(patch)] as int[]
+}
+
 android {
     compileSdkVersion 27
     buildToolsVersion "27.0.2"
 
     defaultConfig {
-        applicationId "com.metronomewallet"
+        applicationId "sh.autonomous.wallet.mobile"
         minSdkVersion 18
         targetSdkVersion 27
-        versionCode 1
-        versionName "1.0"
+        versionCode 19 // versionMajor * 10000 + versionMinor * 100 + versionPatch
+        versionName "${versionMajor}.${versionMinor}.${versionPatch}"
         ndk {
             abiFilters "armeabi-v7a", "x86"
         }

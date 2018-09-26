@@ -1,7 +1,7 @@
 {
   "name": "metronome-wallet-mobile",
   "description": "Metronome wallet for mobile devices",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "author": {
     "name": "Autonomous Software",
     "email": "info@autonomous.sh",
@@ -18,7 +18,8 @@
     "lint": "eslint .",
     "postinstall": "patch-package",
     "start": "node node_modules/react-native/local-cli/cli.js start",
-    "test": "jest"
+    "test": "jest",
+    "version": "./version-ios.sh"
   },
   "rnpm": {
     "assets": [

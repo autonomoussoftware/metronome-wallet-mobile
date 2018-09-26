@@ -45,12 +45,12 @@ android_library(
 
 android_build_config(
     name = "build_config",
-    package = "com.metronomewallet",
+    package = "sh.autonomous.wallet.mobile",
 )
 
 android_resource(
     name = "res",
-    package = "com.metronomewallet",
+    package = "sh.autonomous.wallet.mobile",
     res = "src/main/res",
 )
 

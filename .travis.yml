@@ -1,0 +1,71 @@
+branches:
+  only:
+  - fastlane
+notifications:
+  email:
+    on_success: never
+    on_failure: always
+
+matrix:
+  include:
+    - language: android
+      jdk: oraclejdk8
+      sudo: required
+      dist: precise
+      before_cache:
+        - rm -f $HOME/.gradle/caches/modules-2/modules-2.lock
+        - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
+      cache:
+        directories:
+          - $HOME/.gradle/caches/
+          - $HOME/.gradle/wrapper/
+          - node_modules
+      android:
+        components:
+          - platform-tools
+          - tools
+          - build-tools-27.0.3
+          - android-27
+          - extra-android-m2repository
+          - extra-google-google_play_services
+          - extra-google-m2repository
+      licenses:
+        - android-sdk-preview-license-.+
+        - android-sdk-license-.+
+        - google-gdk-license-.+
+      before_install:
+        - nvm install 8
+        - node --version
+        - npm --version
+        - chmod +x ./android/gradlew
+        - openssl aes-256-cbc -K $encrypted_2cfeec998f68_key -iv $encrypted_2cfeec998f68_iv -in android/sentry.properties.enc -out android/sentry.properties -d
+        - openssl aes-256-cbc -K $encrypted_e9512e60983f_key -iv $encrypted_e9512e60983f_iv -in ios/sentry.properties.enc -out ios/sentry.properties -d
+        - openssl aes-256-cbc -K $encrypted_f51edf0f11bf_key -iv $encrypted_f51edf0f11bf_iv -in android/app/metronome-wallet.keystore.enc -out android/app/metronome-wallet.keystore -d
+        - gem install fastlane --no-rdoc --no-ri --no-document --quiet
+      install:
+        - npm i -f
+      script:
+        - cd android
+        - fastlane beta
+      branches:
+        only:
+        - fastlane
+    - language: objective-c
+      os: osx
+      osx_image: xcode9.0
+      node_js: false
+      before_install:
+        - nvm install 8
+        - node --version
+        - npm --version
+        - gem install fastlane --no-rdoc --no-ri --no-document --quiet
+        - openssl aes-256-cbc -K $encrypted_2cfeec998f68_key -iv $encrypted_2cfeec998f68_iv -in android/sentry.properties.enc -out android/sentry.properties -d
+        - openssl aes-256-cbc -K $encrypted_e9512e60983f_key -iv $encrypted_e9512e60983f_iv -in ios/sentry.properties.enc -out ios/sentry.properties -d
+      install:
+        - npm i -f
+      script:
+        - cd ios
+        - fastlane beta
+      branches:
+        only:
+        - fastlane

@@ -1,6 +1,6 @@
 import Contracts from 'metronome-contracts'
 
-const __TEST__ = true
+const __TEST__ = false
 
 const devEnv = {
   ETH_CHAIN: 'ropsten',
@@ -18,7 +18,7 @@ const testEnv = {
   EXPLORER_INDEXER_URL: 'https://indexer.bloqrock.net',
   MET_EXPLORER_URL: 'https://explorer.met.bloqrock.net',
   TRACKING_ID: 'UA-116275666-3',
-  SENTRY_DSN: null,
+  SENTRY_DSN: process.env.SENTRY_DSN || 'https://4211b3b9085f4931837b8b7916bfa0a5@sentry.io/1279846',
   debug: true
 }
 

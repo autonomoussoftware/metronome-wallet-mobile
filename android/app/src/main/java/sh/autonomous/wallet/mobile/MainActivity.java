@@ -1,4 +1,4 @@
-package com.metronomewallet;
+package sh.autonomous.wallet.mobile;
 
 import com.facebook.react.ReactActivity;
 import org.devio.rn.splashscreen.SplashScreen;
