@@ -31,10 +31,10 @@ const View = props => {
   const Component = scroll ? RN.ScrollView : RN.View
 
   const viewStyles = [
-    opacity !== undefined && { opacity: opacity },
+    opacity !== undefined && { opacity },
     shrink !== undefined && { flexShrink: shrink },
     basis !== undefined && { flexBasis: basis },
-    order !== undefined && { order: order },
+    order !== undefined && { order },
     grow !== undefined && { flexGrow: grow },
     flex !== undefined && { flex },
     justify && { justifyContent: justify },

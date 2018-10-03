@@ -6,7 +6,6 @@ import RefreshControl from '../common/RefreshControl'
 import TxListHeader from './TxListHeader'
 import BalanceBlock from './BalanceBlock'
 import PropTypes from 'prop-types'
-import config from '../../config'
 import TxList from './TxList'
 import React from 'react'
 import RN from 'react-native'
@@ -125,11 +124,9 @@ const styles = RN.StyleSheet.create({
 const EnhancedComponent = withDashboardState(Dashboard)
 
 EnhancedComponent.navigationOptions = ({ navigation }) => ({
-  title:
-    'My Wallet' +
-    (config.eth.chain !== 'mainnet' ? ` (${config.eth.chain})` : ''),
   headerBackTitle: null,
-  headerLeft: <MenuBtn onPress={navigation.openDrawer} />
+  headerLeft: <MenuBtn onPress={navigation.openDrawer} />,
+  title: 'My Wallet'
 })
 
 export default EnhancedComponent

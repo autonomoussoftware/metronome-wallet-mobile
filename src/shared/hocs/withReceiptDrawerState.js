@@ -1,6 +1,4 @@
 import { withClient } from './clientContext'
-// import * as selectors from '../selectors'
-import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import React from 'react'
 
@@ -16,9 +14,7 @@ const withReceiptDrawerState = WrappedComponent => {
     static displayName = `withReceiptDrawerState(${WrappedComponent.displayName ||
       WrappedComponent.name})`
 
-    state = {}
-
-    copyToClipboard = (address) => {
+    copyToClipboard = address => {
       this.props.client
         .copyToClipboard(address)
         .then(() => {})
@@ -28,26 +24,15 @@ const withReceiptDrawerState = WrappedComponent => {
     render() {
       return (
         <WrappedComponent
-          copyToClipboard={this.copyToClipboard}
           onExplorerLinkClick={this.props.client.onExplorerLinkClick}
+          copyToClipboard={this.copyToClipboard}
           {...this.props}
         />
       )
     }
   }
 
-
-  const mapStateToProps = state => {
-    // const tx = props.location && props.location.state
-    // const confirmations = tx ? selectors.getTxConfirmations(state, tx) : 0
-
-    return {
-      // confirmations,
-      // isPending: confirmations < 6
-    }
-  }
-
-  return connect(mapStateToProps)(withClient(Container))
+  return withClient(Container)
 }
 
 export default withReceiptDrawerState

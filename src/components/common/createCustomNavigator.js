@@ -27,15 +27,15 @@ export default function createCustomNavigator(routes, customConfig) {
     }
   }
 
-  const navigator = createStackNavigator(
+  const customNavigator = createStackNavigator(
     routes,
     merge(defaultConfig, customConfig)
   )
 
-  navigator.navigationOptions = ({ navigation }) => ({
+  customNavigator.navigationOptions = ({ navigation }) => ({
     // On swipe, display drawer if in first card, otherwise navigate back
     drawerLockMode: navigation.state.index > 0 ? 'locked-closed' : 'unlocked'
   })
 
-  return navigator
+  return customNavigator
 }

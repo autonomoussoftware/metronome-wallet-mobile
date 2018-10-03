@@ -33,12 +33,11 @@ const withToolsState = WrappedComponent => {
       }))
     }
 
-    onSubmit = password => {
-      return this.props.client.recoverFromMnemonic({
+    onSubmit = password =>
+      this.props.client.recoverFromMnemonic({
         mnemonic: utils.sanitizeMnemonic(this.state.mnemonic),
         password
       })
-    }
 
     validate = () => {
       const errors = {
@@ -49,9 +48,7 @@ const withToolsState = WrappedComponent => {
       return !hasErrors
     }
 
-    onRescanTransactions = () => {
-      return this.props.client.clearCache()
-    }
+    onRescanTransactions = () => this.props.client.clearCache()
 
     render() {
       const isRecoverEnabled =

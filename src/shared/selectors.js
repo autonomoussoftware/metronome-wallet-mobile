@@ -24,7 +24,7 @@ function getTxType(meta, tokenData, transaction, address) {
   return 'unknown'
 }
 
-export const getClient = (_, client) => client
+export const getClient = (props, client) => client
 
 export const getConfig = state => state.config
 
@@ -107,7 +107,7 @@ export const getEthBalanceWei = getActiveWalletEthBalance
 export const getEthBalanceUSD = createSelector(
   getActiveWalletEthBalance,
   getEthRate,
-  (_, client) => client,
+  getClient,
   (balance, ethRate, client) => {
     if (!balance || !ethRate) return '0'
     const usdValue = parseFloat(client.fromWei(balance)) * ethRate
@@ -133,7 +133,7 @@ export const getCurrentAuction = createSelector(
 export const getAuctionPriceUSD = createSelector(
   getAuctionStatus,
   getEthRate,
-  (_, client) => client,
+  getClient,
   (auctionStatus, ethRate, client) => {
     if (!auctionStatus || !ethRate) return '0'
     const usdValue =
@@ -157,7 +157,7 @@ export const getConverterPrice = createSelector(
 export const getConverterPriceUSD = createSelector(
   getConverterStatus,
   getEthRate,
-  (_, client) => client,
+  getClient,
   (converterStatus, ethRate, client) => {
     if (!converterStatus || !ethRate) return '0'
     const usdValue =
@@ -317,23 +317,20 @@ export const sendFeatureStatus = createSelector(
   getActiveWalletMtnBalance,
   getIsOnline,
   getClient,
-  (ethBalance, mtnBalance, isOnline, client) => {
-    return !isOnline
+  (ethBalance, mtnBalance, isOnline, client) =>
+    !isOnline
       ? 'offline'
       : !hasFunds(client, ethBalance) && !hasFunds(client, mtnBalance)
         ? 'no-funds'
         : 'ok'
-  }
 )
 
 export const sendMetFeatureStatus = createSelector(
   getActiveWalletMtnBalance,
   getIsOnline,
   getClient,
-  (mtnBalance, isOnline, client) => {
-    const hasFunds = val => val && client.toBN(val).gt(client.toBN(0))
-    return !isOnline ? 'offline' : !hasFunds(mtnBalance) ? 'no-funds' : 'ok'
-  }
+  (mtnBalance, isOnline, client) =>
+    !isOnline ? 'offline' : !hasFunds(client, mtnBalance) ? 'no-funds' : 'ok'
 )
 
 export const buyFeatureStatus = createSelector(
@@ -353,22 +350,15 @@ export const convertFeatureStatus = createSelector(
   getActiveWalletEthBalance,
   getIsOnline,
   getClient,
-  (ethBalance, isOnline, client) => {
-    return !isOnline
-      ? 'offline'
-      : !hasFunds(client, ethBalance)
-        ? 'no-eth'
-        : 'ok'
-  }
+  (ethBalance, isOnline, client) =>
+    !isOnline ? 'offline' : !hasFunds(client, ethBalance) ? 'no-eth' : 'ok'
 )
 
 // Returns the conversion from ETH status. Useful for disabling "ETH -> MET" tab
 export const convertEthFeatureStatus = createSelector(
   getActiveWalletEthBalance,
   getClient,
-  (ethBalance, client) => {
-    return hasFunds(client, ethBalance) ? 'ok' : 'no-eth'
-  }
+  (ethBalance, client) => (hasFunds(client, ethBalance) ? 'ok' : 'no-eth')
 )
 
 // Returns the conversion from MET status. Useful for disabling "MET -> ETH" tab
@@ -376,13 +366,12 @@ export const convertMetFeatureStatus = createSelector(
   getActiveWalletEthBalance,
   getActiveWalletMtnBalance,
   getClient,
-  (ethBalance, metBalance, client) => {
-    return !hasFunds(client, ethBalance)
+  (ethBalance, metBalance, client) =>
+    !hasFunds(client, ethBalance)
       ? 'no-eth'
       : !hasFunds(client, metBalance)
         ? 'no-met'
         : 'ok'
-  }
 )
 
 export const getIsScanningTx = state => state.wallets.isScanningTx

@@ -80,8 +80,8 @@ const withSendMETFormState = WrappedComponent => {
         .catch(() => this.setState({ gasEstimateError: true }))
     }, 500)
 
-    onSubmit = password => {
-      return this.props.client.sendMet({
+    onSubmit = password =>
+      this.props.client.sendMet({
         gasPrice: this.props.client.toWei(this.state.gasPrice, 'gwei'),
         gas: this.state.gasLimit,
         password,
@@ -89,7 +89,6 @@ const withSendMETFormState = WrappedComponent => {
         from: this.props.from,
         to: this.state.toAddress
       })
-    }
 
     validate = () => {
       const { metAmount, toAddress, gasPrice, gasLimit } = this.state

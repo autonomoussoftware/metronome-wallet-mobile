@@ -78,8 +78,8 @@ class Confirmation extends React.Component {
     }
   }
 
-  onPinComplete = () => {
-    return this.props.client
+  onPinComplete = () =>
+    this.props.client
       .validatePIN(this.state.password)
       .then(this.onValidPIN)
       .catch(err =>
@@ -88,7 +88,6 @@ class Confirmation extends React.Component {
           error: err.message || 'Unknown error'
         })
       )
-  }
 
   onValidPIN = () => {
     RN.LayoutAnimation.configureNext(this.animationConfig)
@@ -120,37 +119,33 @@ class Confirmation extends React.Component {
       })
   }
 
-  renderConfirmation = () => {
-    return (
-      <View withKeyboard withHeader flex={1} py={4} px={2}>
-        {this.props.children}
-        <View mt={4}>
-          <PinInput
-            shakeOnError
-            onComplete={this.onPinComplete}
-            onChange={this.onPasswordChange}
-            label="Enter PIN to confirm"
-            value={this.state.password || ''}
-            error={this.state.error}
-            id="password"
-          />
-        </View>
+  renderConfirmation = () => (
+    <View withKeyboard withHeader flex={1} py={4} px={2}>
+      {this.props.children}
+      <View mt={4}>
+        <PinInput
+          shakeOnError
+          onComplete={this.onPinComplete}
+          onChange={this.onPasswordChange}
+          label="Enter PIN to confirm"
+          value={this.state.password || ''}
+          error={this.state.error}
+          id="password"
+        />
       </View>
-    )
-  }
+    </View>
+  )
 
-  renderPending = () => {
-    return (
-      <View flex={1} py={4} px={2}>
-        <View grow={1} align="center" justify="center">
-          <RN.ActivityIndicator size="large" />
-          <Text size="medium" mt={2} mb={2} weight="semibold" align="center">
-            {this.props.pendingText}
-          </Text>
-        </View>
+  renderPending = () => (
+    <View flex={1} py={4} px={2}>
+      <View grow={1} align="center" justify="center">
+        <RN.ActivityIndicator size="large" />
+        <Text size="medium" mt={2} mb={2} weight="semibold" align="center">
+          {this.props.pendingText}
+        </Text>
       </View>
-    )
-  }
+    </View>
+  )
 
   // Experimental: navigate to some route and hightlight an item
   // navigateAndHightLight(routeName, hightlightId) {

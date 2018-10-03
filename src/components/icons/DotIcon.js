@@ -1,11 +1,11 @@
-import { default as Svg, Circle } from 'react-native-svg'
+import SVG, { Circle } from 'react-native-svg'
 import theme from '../../theme'
 import React from 'react'
 
 export default class DotIcon extends React.Component {
   render() {
     return (
-      <Svg viewBox="0 0 12 6" width="20" height="10" {...this.props}>
+      <SVG viewBox="0 0 12 6" width="20" height="10" {...this.props}>
         <Circle
           stroke="transparent"
           fill={theme.colors.primary}
@@ -13,7 +13,7 @@ export default class DotIcon extends React.Component {
           cy="3"
           r="2"
         />
-      </Svg>
+      </SVG>
     )
   }
 }

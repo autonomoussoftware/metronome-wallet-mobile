@@ -1,5 +1,5 @@
 import { MnemonicInput, Checkbox, BaseBtn, View, Text, Btn } from '../common'
-import { default as PinInput, PIN_LENGTH } from '../common/PinInput'
+import PinInput, { PIN_LENGTH } from '../common/PinInput'
 import withOnboardingState from '../../shared/hocs/withOnboardingState'
 import TermsAndConditions from '../../shared/TermsAndConditions'
 import { errorPropTypes } from '../../utils'

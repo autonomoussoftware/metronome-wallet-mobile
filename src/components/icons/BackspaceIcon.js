@@ -1,4 +1,4 @@
-import { default as Svg, Path } from 'react-native-svg'
+import SVG, { Path } from 'react-native-svg'
 import PropTypes from 'prop-types'
 import theme from '../../theme'
 import React from 'react'
@@ -13,7 +13,7 @@ export default class BackspaceIcon extends React.Component {
     const { color = 'primary', size = '25', ...other } = this.props
 
     return (
-      <Svg viewBox="0 0 48 48" width={size} height={size} {...other}>
+      <SVG viewBox="0 0 48 48" width={size} height={size} {...other}>
         <Path d="M0 0h48v48h-48z" fill="none" />
         <Path
           fill={theme.colors[color]}
@@ -23,7 +23,7 @@ export default class BackspaceIcon extends React.Component {
              7.17-2.83-2.83 7.17-7.17-7.17-7.17 2.83-2.83 7.17 7.17
              7.17-7.17 2.83 2.83-7.17 7.17 7.17 7.17z"
         />
-      </Svg>
+      </SVG>
     )
   }
 }
