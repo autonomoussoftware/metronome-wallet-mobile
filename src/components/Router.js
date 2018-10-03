@@ -2,7 +2,7 @@ import { createDrawerNavigator } from 'react-navigation'
 import DashboardNavigator from './dashboard/DashboardNavigator'
 import ConverterNavigator from './converter/ConverterNavigator'
 import AuctionNavigator from './auction/AuctionNavigator'
-import NavigationDrawer from './NavigationDrawer'
+import NavigationDrawer from './nav-drawer/Drawer'
 import ToolsNavigator from './tools/ToolsNavigator'
 
 export default createDrawerNavigator(
