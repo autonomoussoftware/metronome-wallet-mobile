@@ -47,6 +47,7 @@ export default function createClient(config, createStore) {
 
   storage.getState()
     .catch(function (err) {
+      // eslint-disable-next-line no-console
       console.warn('Could not get persisted state', err)
       return []
     })
@@ -66,6 +67,7 @@ export default function createClient(config, createStore) {
       })
     })
     .catch(function (err) {
+      // eslint-disable-next-line no-console
       console.warn('Failed setting up store and dispatching events', err)
     })
 
@@ -103,16 +105,19 @@ export default function createClient(config, createStore) {
         emitter.on('eth-block', function ({ number }) {
           storage.setSyncBlock(number)
             .catch(function (err) {
+              // eslint-disable-next-line no-console
               console.warn('Could not save new synced block', err)
             })
         })
       })
       .catch(function (err) {
         store.dispatch({ type: 'transactions-scan-finished' })
+        // eslint-disable-next-line no-console
         console.warn('Could not sync transactions/events', err)
       })
   })
 
+  // eslint-disable-next-line no-console
   emitter.on('wallet-error', console.warn)
 
   const withAuth = fn => function (transactionObject) {

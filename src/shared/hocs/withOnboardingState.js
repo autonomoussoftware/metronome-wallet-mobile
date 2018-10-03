@@ -13,6 +13,8 @@ import React from 'react'
  *   ratio === 0 -> red
  *   ratio  <  1 -> orange
  *   ratio >=  1 -> green
+ *
+ *   @param {number} ratio passwordEntropy / targetEntropy ratio
  */
 function getPasswordStrengthHue(ratio) {
   // Hues are adapted to match the theme's success and danger colors

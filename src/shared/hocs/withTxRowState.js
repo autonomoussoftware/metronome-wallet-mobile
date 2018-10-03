@@ -10,6 +10,7 @@ const withTxRowState = WrappedComponent => {
       transaction: PropTypes.shape({
         hash: PropTypes.string.isRequired
       }).isRequired,
+      receipt: PropTypes.object,
       parsed: PropTypes.shape({
         mtnBoughtInAuction: PropTypes.string,
         contractCallFailed: PropTypes.bool,

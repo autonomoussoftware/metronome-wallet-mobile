@@ -77,15 +77,14 @@ const withBuyMETFormState = WrappedComponent => {
         .catch(() => this.setState({ gasEstimateError: true }))
     }, 500)
 
-    onSubmit = password => {
-      return this.props.client.buyMetronome({
+    onSubmit = password =>
+      this.props.client.buyMetronome({
         gasPrice: this.props.client.toWei(this.state.gasPrice, 'gwei'),
         gas: this.state.gasLimit,
         password,
         value: this.props.client.toWei(utils.sanitize(this.state.ethAmount)),
         from: this.props.from
       })
-    }
 
     validate = () => {
       const { ethAmount, gasPrice, gasLimit } = this.state

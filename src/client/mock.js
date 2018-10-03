@@ -1,9 +1,10 @@
 const fakeResponse = (value, delay = 500) => {
-  return new Promise((resolve, reject) => {
+  const response = new Promise((resolve, reject) => {
     setTimeout(() => {
       typeof value === 'string' ? reject(new Error(value)) : resolve(value)
     }, delay)
   })
+  return response
 }
 
 /**

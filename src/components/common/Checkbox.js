@@ -1,4 +1,4 @@
-import { default as Svg, Path, Rect } from 'react-native-svg'
+import SVG, { Path, Rect } from 'react-native-svg'
 import PropTypes from 'prop-types'
 import theme from '../../theme'
 import React from 'react'
@@ -45,7 +45,7 @@ export default class Checkbox extends React.Component {
               hitSlop={{ top: 10, left: 10, right: 10, bottom: 10 }}
               onPress={() => onChange({ id, value: !checked })}
             >
-              <Svg viewBox="0 0 16 16" height="20" width="20">
+              <SVG viewBox="0 0 16 16" height="20" width="20">
                 <Rect fill="white" width="100%" height="100%" rx="4" />
                 {checked && (
                   <Path
@@ -53,7 +53,7 @@ export default class Checkbox extends React.Component {
                     d="M5.867 10.603L3.533 8.27a.656.656 0 0 0-.933 0 .656.656 0 0 0 0 .933l2.793 2.794c.26.26.68.26.94 0l7.067-7.06a.656.656 0 0 0 0-.934.656.656 0 0 0-.933 0l-6.6 6.6z"
                   />
                 )}
-              </Svg>
+              </SVG>
             </RN.TouchableOpacity>
           </View>
           <View shrink={1}>

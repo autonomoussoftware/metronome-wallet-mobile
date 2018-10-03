@@ -1,5 +1,5 @@
-import { default as Svg, G, Line } from 'react-native-svg'
 import { View, Text, BaseBtn } from '../common'
+import SVG, { G, Line } from 'react-native-svg'
 import PropTypes from 'prop-types'
 import theme from '../../theme'
 import React from 'react'
@@ -48,7 +48,7 @@ class Filter extends React.Component {
             >
               {this.props.options[this.props.filter]}
             </Text>
-            <Svg viewBox="0 2 21 20" width="14" height="12">
+            <SVG viewBox="0 2 21 20" width="14" height="12">
               <G
                 strokeLinecap="round"
                 strokeWidth="2"
@@ -61,7 +61,7 @@ class Filter extends React.Component {
                   <Line x1="7" y1="14" x2="15" y2="22" />
                 </G>
               </G>
-            </Svg>
+            </SVG>
           </View>
         </RN.TouchableOpacity>
         <View style={styles.dropdownContainer}>

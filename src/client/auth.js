@@ -14,7 +14,7 @@ export const setPIN = pin =>
 
 export const validatePIN = pin =>
   AsyncStorage.getItem('wallet.pin')
-    .then(storagePin => storagePin === sha256(pin) || Promise.reject({ message: 'Wrong PIN'}))
+    .then(storagePin => storagePin === sha256(pin) || Promise.reject(new Error('Wrong PIN')))
 
 export function onLoginSubmit({ password }) {
   return validatePIN(password)

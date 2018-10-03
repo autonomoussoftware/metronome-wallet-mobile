@@ -9,6 +9,7 @@ const keysToPersist = [
 ]
 
 export const persistState = promiseThrottle(function (state) {
+  // eslint-disable-next-line no-console
   console.log('Persisting state', state)
 
   return Promise.all(keysToPersist.map(key =>
@@ -30,6 +31,7 @@ export function getBestBlock () {
 }
 
 export function setSyncBlock (number) {
+  // eslint-disable-next-line no-console
   console.log('Setting sync block', number)
   
   return AsyncStorage.setItem('sync', number.toString())

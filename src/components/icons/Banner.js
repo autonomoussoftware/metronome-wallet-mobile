@@ -1,5 +1,4 @@
-import {
-  default as Svg,
+import SVG, {
   LinearGradient,
   Path,
   Defs,
@@ -13,7 +12,7 @@ import React from 'react'
 export default class Banner extends React.Component {
   render() {
     return (
-      <Svg width="260" height="64" viewBox="0 0 260 64" {...this.props}>
+      <SVG width="260" height="64" viewBox="0 0 260 64" {...this.props}>
         <Defs>
           <LinearGradient id="c" x1="50%" x2="50%" y1="2.421%" y2="100%">
             <Stop offset="0%" stopColor="#7E61F8" />
@@ -47,7 +46,7 @@ export default class Banner extends React.Component {
             />
           </G>
         </G>
-      </Svg>
+      </SVG>
     )
   }
 }

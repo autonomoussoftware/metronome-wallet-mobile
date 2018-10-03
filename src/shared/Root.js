@@ -30,27 +30,24 @@ class Root extends React.Component {
       .then(({ onboardingComplete }) => {
         this.setState({ onboardingComplete })
       })
+      // eslint-disable-next-line no-console
       .catch(console.error)
   }
 
-  onOnboardingCompleted = ({ password, mnemonic }) => {
-    return this.props.client
-      .onOnboardingCompleted({
-        password,
-        mnemonic
-      })
+  onOnboardingCompleted = ({ password, mnemonic }) =>
+    this.props.client
+      .onOnboardingCompleted({ password, mnemonic })
       .then(() => {
         this.setState({ onboardingComplete: true })
         this.props.dispatch({ type: 'session-started' })
       })
+      // eslint-disable-next-line no-console
       .catch(console.error)
-  }
 
-  onLoginSubmit = ({ password }) => {
-    return this.props.client
+  onLoginSubmit = ({ password }) =>
+    this.props.client
       .onLoginSubmit({ password })
       .then(() => this.props.dispatch({ type: 'session-started' }))
-  }
 
   render() {
     const {
