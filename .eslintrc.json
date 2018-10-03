@@ -19,13 +19,16 @@
   },
   "root": true,
   "extends": [
-    "eslint:recommended",
+    "bloq",
     "plugin:import/recommended",
     "plugin:react/recommended",
     "plugin:react-native/all",
     "prettier"
   ],
   "rules": {
-    "no-console": "warn"
+    "no-console": "warn",
+    "arrow-body-style": ["error", "as-needed"],
+    "no-use-before-define": ["error", { "variables": false }],
+    "complexity": ["error", { "max": 10 }]
   }
 }
