@@ -121,27 +121,20 @@ const withOnboardingState = WrappedComponent => {
     }
 
     onMnemonicAccepted = () => {
-      if (this.state.useUserMnemonic) {
-        const errors = validators.validateMnemonic(
-          this.props.client,
-          this.state.userMnemonic,
-          'userMnemonic'
-        )
-        if (Object.keys(errors).length > 0) return this.setState({ errors })
-      } else {
-        if (
-          this.state.mnemonicAgain &&
-          utils.sanitizeMnemonic(this.state.mnemonicAgain) !==
-            this.state.mnemonic
-        ) {
-          return this.setState({
-            errors: {
-              mnemonicAgain:
-                'The text provided does not match your recovery passphrase.'
-            }
-          })
-        }
-      }
+      const errors = this.state.useUserMnemonic
+        ? validators.validateMnemonic(
+            this.props.client,
+            this.state.userMnemonic,
+            'userMnemonic'
+          )
+        : validators.validateMnemonicAgain(
+            this.props.client,
+            this.state.mnemonic,
+            this.state.mnemonicAgain
+          )
+
+      if (Object.keys(errors).length > 0) return this.setState({ errors })
+
       return this.props.onOnboardingCompleted({
         password: this.state.password,
         mnemonic: this.state.useUserMnemonic
