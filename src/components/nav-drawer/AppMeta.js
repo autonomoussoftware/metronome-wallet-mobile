@@ -17,7 +17,7 @@ class AppMeta extends React.Component {
           {config.eth.chain.charAt(0).toUpperCase() + config.eth.chain.slice(1)}
         </Row>
         <Row label="height">{this.props.blockchainHeight}</Row>
-        <Row label="v">
+        <Row label="version">
           {VersionNumber.appVersion} (build {VersionNumber.buildVersion})
         </Row>
       </View>

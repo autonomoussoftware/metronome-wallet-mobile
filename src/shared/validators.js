@@ -78,6 +78,24 @@ export function validateMnemonic(
   return errors
 }
 
+export function validateMnemonicAgain(
+  client,
+  mnemonic,
+  mnemonicAgain,
+  propName = 'mnemonicAgain',
+  errors = {}
+) {
+  if (!mnemonicAgain) {
+    errors[propName] = 'The phrase is required'
+  } else if (!client.isValidMnemonic(sanitizeMnemonic(mnemonicAgain))) {
+    errors[propName] = "These words don't look like a valid recovery phrase"
+  } else if (sanitizeMnemonic(mnemonicAgain) !== mnemonic) {
+    errors[propName] =
+      'The text provided does not match your recovery passphrase.'
+  }
+  return errors
+}
+
 export function validatePassword(password, errors = {}) {
   if (!password) {
     errors.password = 'Password is required'

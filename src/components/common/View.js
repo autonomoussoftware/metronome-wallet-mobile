@@ -4,6 +4,26 @@ import theme from '../../theme'
 import React from 'react'
 import RN from 'react-native'
 
+// eslint-disable-next-line complexity
+function getViewStyles(props) {
+  return [
+    props.opacity !== undefined && { opacity: props.opacity },
+    props.shrink !== undefined && { flexShrink: props.shrink },
+    props.basis !== undefined && { flexBasis: props.basis },
+    props.order !== undefined && { order: props.order },
+    props.grow !== undefined && { flexGrow: props.grow },
+    props.flex !== undefined && { flex: props.flex },
+    props.justify && { justifyContent: props.justify },
+    props.rowwrap && styles.rowwrap,
+    props.align && { alignItems: props.align },
+    props.self && { alignSelf: props.self },
+    props.row && styles.row,
+    props.bg && { backgroundColor: theme.colors[props.bg] },
+    spacing(props),
+    props.style
+  ]
+}
+
 const View = props => {
   const {
     withKeyboard,
@@ -30,22 +50,7 @@ const View = props => {
 
   const Component = scroll ? RN.ScrollView : RN.View
 
-  const viewStyles = [
-    opacity !== undefined && { opacity },
-    shrink !== undefined && { flexShrink: shrink },
-    basis !== undefined && { flexBasis: basis },
-    order !== undefined && { order },
-    grow !== undefined && { flexGrow: grow },
-    flex !== undefined && { flex },
-    justify && { justifyContent: justify },
-    rowwrap && styles.rowwrap,
-    align && { alignItems: align },
-    self && { alignSelf: self },
-    row && styles.row,
-    bg && { backgroundColor: theme.colors[bg] },
-    spacing(props),
-    style
-  ]
+  const viewStyles = getViewStyles(props)
 
   if (withKeyboard) {
     return (
@@ -117,17 +122,11 @@ View.propTypes = {
 }
 
 const styles = RN.StyleSheet.create({
-  keyboardAvoidingContainer: {
-    flex: 1
-  },
-  row: {
-    flexDirection: 'row'
-  },
-  rowwrap: {
-    flexWrap: 'wrap'
-  },
+  keyboardAvoidingContainer: { flex: 1 },
+  scrollContent: { flexGrow: 1 },
   scrollView: { flex: 1 },
-  scrollContent: { flexGrow: 1 }
+  rowwrap: { flexWrap: 'wrap' },
+  row: { flexDirection: 'row' }
 })
 
 export default View

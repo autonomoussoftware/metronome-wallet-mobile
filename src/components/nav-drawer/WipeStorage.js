@@ -1,7 +1,6 @@
 import * as Keychain from 'react-native-keychain'
 import RNRestart from 'react-native-restart'
 import PropTypes from 'prop-types'
-import config from '../../config'
 import React from 'react'
 import RN from 'react-native'
 
@@ -30,7 +29,7 @@ export default class WipeStorage extends React.Component {
 
   render() {
     return (
-      <RN.TouchableOpacity onPress={this.resetStorage} disabled={!config.debug}>
+      <RN.TouchableOpacity disabled={!__DEV__} onPress={this.resetStorage}>
         {this.props.children}
       </RN.TouchableOpacity>
     )

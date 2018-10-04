@@ -290,6 +290,7 @@ class Onboarding extends React.Component {
     )
   }
 
+  // eslint-disable-next-line complexity
   render() {
     return (
       <PatternView bg="dark" flex={1}>

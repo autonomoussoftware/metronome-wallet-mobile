@@ -92,16 +92,28 @@ export default class TextInput extends React.Component {
           />
           {postInput}
         </RN.View>
-        <RN.View style={styles.errorContainer}>
-          {hasErrors && (
-            <Text style={styles.errorText} color="danger">
-              {typeof error === 'string' ? error : error.join('. ')}
-            </Text>
-          )}
-        </RN.View>
+        <Errors hasErrors={hasErrors} message={error} />
       </RN.View>
     )
   }
+}
+
+const Errors = ({ hasErrors, message }) => (
+  <RN.View style={styles.errorContainer}>
+    {hasErrors && (
+      <Text style={styles.errorText} color="danger">
+        {typeof message === 'string' ? message : message.join('. ')}
+      </Text>
+    )}
+  </RN.View>
+)
+
+Errors.propTypes = {
+  hasErrors: PropTypes.bool,
+  message: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.string),
+    PropTypes.string
+  ])
 }
 
 const styles = RN.StyleSheet.create({
