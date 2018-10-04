@@ -5,19 +5,18 @@ import { validatePIN } from './auth'
 import { setSeed } from './wallet'
 import { mnemonicToSeedHex } from './keys'
 
-export function copyToClipboard(text) {
-  return Promise.resolve(RN.Clipboard.setString(text))
-}
+export const copyToClipboard = text => Promise.resolve(RN.Clipboard.setString(text))
 
-export function onExplorerLinkClick(transactionHash) {
-  const explorerURL = `${config.MTN_EXPLORER_URL}/transactions/${transactionHash}`
-  return Promise.resolve(RN.Linking.openURL(explorerURL))
-}
+const openURL = URL => Promise.resolve(RN.Linking.openURL(URL))
 
-export function onTermsLinkClick() {
-  const termsURL = 'https://github.com/autonomoussoftware/metronome-wallet-mobile/blob/develop/LICENSE'
-  return Promise.resolve(RN.Linking.openURL(termsURL))
-}
+export const onExplorerLinkClick = (transactionHash) =>
+  openURL(`${config.MTN_EXPLORER_URL}/transactions/${transactionHash}`)
+
+export const onTermsLinkClick = () =>
+  openURL('https://github.com/autonomoussoftware/metronome-wallet-mobile/blob/develop/LICENSE')
+
+export const onHelpLinkClick = () =>
+  openURL('https://github.com/autonomoussoftware/documentation/blob/master/FAQ.md#metronome-faq')
 
 export function clearCache() {
   const keys = [
@@ -35,8 +34,7 @@ export function clearCache() {
     .then(RNRestart.Restart())
 }
 
-export function recoverFromMnemonic({ mnemonic, password }) {
-  return validatePIN(password)
+export const recoverFromMnemonic = ({ mnemonic, password }) =>
+  validatePIN(password)
     .then(() => setSeed(mnemonicToSeedHex(mnemonic)))
     .then(clearCache)
-}

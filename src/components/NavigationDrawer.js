@@ -1,6 +1,7 @@
 import { Alert, AsyncStorage, TouchableOpacity, SafeAreaView, StyleSheet, View as RNView } from 'react-native'
 import withBlockchainState from '../shared/hocs/withBlockchainState'
-import VersionNumber from 'react-native-version-number';
+import { withClient } from '../shared/hocs/clientContext'
+import VersionNumber from 'react-native-version-number'
 import * as Keychain from 'react-native-keychain'
 import RNRestart from 'react-native-restart'
 import { StackActions } from 'react-navigation'
@@ -21,9 +22,13 @@ import { View } from './common'
 class NavigationDrawer extends React.Component {
   static propTypes = {
     blockchainHeight: PropTypes.number.isRequired,
+    client: PropTypes.shape({
+      onHelpLinkClick: PropTypes.func.isRequired
+    }).isRequired,
     navigation: PropTypes.shape({
       isFocused: PropTypes.func.isRequired,
-      navigate: PropTypes.func.isRequired
+      navigate: PropTypes.func.isRequired,
+      closeDrawer: PropTypes.func.isRequired
     }).isRequired
   }
 
@@ -43,8 +48,14 @@ class NavigationDrawer extends React.Component {
     )
   }
 
+  navigateTo = route => {
+    const { navigate, closeDrawer } = this.props.navigation
+    navigate(route, {}, StackActions.popToTop())
+    closeDrawer()
+  }
+
   render() {
-    const { isFocused, navigate } = this.props.navigation
+    const { isFocused } = this.props.navigation
 
     return (
       <RNView style={styles.container}>
@@ -54,32 +65,32 @@ class NavigationDrawer extends React.Component {
             <NavBtn
               IconComponent={WalletIcon}
               isActive={isFocused('Dashboard')}
-              onPress={() => navigate('Dashboard', {}, StackActions.popToTop())}
+              onPress={() => this.navigateTo('Dashboard')}
               isFirst
               label="WALLETS"
             />
             <NavBtn
               IconComponent={AuctionIcon}
               isActive={isFocused('Auction')}
-              onPress={() => navigate('Auction', {}, StackActions.popToTop())}
+              onPress={() => this.navigateTo('Auction')}
               label="AUCTION"
             />
             <NavBtn
               IconComponent={ConverterIcon}
               isActive={isFocused('Converter')}
-              onPress={() => navigate('Converter', {}, StackActions.popToTop())}
+              onPress={() => this.navigateTo('Converter')}
               label="CONVERTER"
             />
           </RNView>
           <RNView style={styles.secondaryNav}>
             <SecondaryNavBtn
               isActive={isFocused('Tools')}
-              onPress={() => navigate('Tools', {}, StackActions.popToTop())}
+              onPress={() => this.navigateTo('Tools')}
               label="Tools"
             />
             <SecondaryNavBtn
               isActive={isFocused('Help')}
-              onPress={() => navigate('Help')}
+              onPress={this.props.client.onHelpLinkClick}
               label="Help"
             />
           </RNView>
@@ -226,4 +237,4 @@ const styles = StyleSheet.create({
   }
 })
 
-export default withBlockchainState(NavigationDrawer)
+export default withBlockchainState(withClient(NavigationDrawer))
