@@ -1,8 +1,6 @@
-import { Alert, AsyncStorage, TouchableOpacity, SafeAreaView, StyleSheet, View as RNView } from 'react-native'
+import { TouchableOpacity, SafeAreaView, StyleSheet, View as RNView } from 'react-native'
 import withBlockchainState from '../shared/hocs/withBlockchainState'
-import VersionNumber from 'react-native-version-number';
-import * as Keychain from 'react-native-keychain'
-import RNRestart from 'react-native-restart'
+import VersionNumber from 'react-native-version-number'
 import { StackActions } from 'react-navigation'
 
 import ConverterIcon from './icons/ConverterIcon'
@@ -25,22 +23,6 @@ class NavigationDrawer extends React.Component {
       isFocused: PropTypes.func.isRequired,
       navigate: PropTypes.func.isRequired
     }).isRequired
-  }
-
-  // TODO: Remove this before final release
-  resetStorage = () => {
-    Alert.alert(
-      'WARNING',
-      'This will remove all data. Do you want to continue?',
-      [
-        { text: 'NO', onPress: () => { }, style: 'cancel' },
-        {
-          text: 'YES', onPress: () =>
-            Promise.all([AsyncStorage.clear(), Keychain.resetGenericPassword()])
-              .then(RNRestart.Restart())
-        },
-      ]
-    )
   }
 
   render() {
@@ -83,11 +65,8 @@ class NavigationDrawer extends React.Component {
               label="Help"
             />
           </RNView>
-          {/* TODO: Remove this TouchableOpacity before final release */}
-          <View row align="center" justify="space-between" mr={2}>
-            <TouchableOpacity onPress={this.resetStorage}>
-              <LogoIcon negative style={styles.footerLogo} />
-            </TouchableOpacity>
+            <View row align="center" justify="space-between" mr={2}>
+            <LogoIcon negative style={styles.footerLogo} />
             <View align="flex-end">
               <Text
                 size="small"
