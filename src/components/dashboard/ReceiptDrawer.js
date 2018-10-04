@@ -6,8 +6,8 @@ import RN from 'react-native'
 
 class ReceiptDrawer extends React.Component {
   static propTypes = {
-    copyToClipboard: PropTypes.func.isRequired,
     onExplorerLinkClick: PropTypes.func.isRequired,
+    copyToClipboard: PropTypes.func.isRequired,
     navigation: PropTypes.shape({
       state: PropTypes.shape({
         params: PropTypes.object.isRequired
@@ -21,83 +21,18 @@ class ReceiptDrawer extends React.Component {
     return (
       <View grow={1} px={2} scroll bg="dark">
         {routeParams.tx.txType !== 'unknown' && (
-          <View row my={3}>
-            <Text size="large">Amount</Text>
-            <View grow={1} align="flex-end">
-              {routeParams.tx.txType === 'auction' ? (
-                <React.Fragment>
-                  <DisplayValue
-                    value={routeParams.tx.ethSpentInAuction}
-                    size="large"
-                    post=" ETH"
-                    color="primary"
-                  />
-                  {routeParams.tx.mtnBoughtInAuction && (
-                    <React.Fragment>
-                      <Text mr={2} color="primary" mx={2} size="xLarge">
-                        &darr;
-                      </Text>
-                      <DisplayValue
-                        size="large"
-                        value={routeParams.tx.mtnBoughtInAuction}
-                        post=" MET"
-                        color="primary"
-                      />
-                    </React.Fragment>
-                  )}
-                </React.Fragment>
-              ) : routeParams.tx.txType === 'converted' ? (
-                <React.Fragment>
-                  <DisplayValue
-                    value={routeParams.tx.fromValue}
-                    size="large"
-                    post={
-                      routeParams.tx.convertedFrom === 'ETH' ? ' ETH' : ' MET'
-                    }
-                    color="primary"
-                  />
-                  {routeParams.tx.toValue && (
-                    <React.Fragment>
-                      <Text mx={2} size="xLarge" color="primary">
-                        &darr;
-                      </Text>
-                      <DisplayValue
-                        value={routeParams.tx.toValue}
-                        size="large"
-                        post={
-                          routeParams.tx.convertedFrom === 'ETH'
-                            ? ' MET'
-                            : ' ETH'
-                        }
-                        color="primary"
-                      />
-                    </React.Fragment>
-                  )}
-                </React.Fragment>
-              ) : (
-                <DisplayValue
-                  value={routeParams.value}
-                  post={` ${routeParams.symbol}`}
-                  size="large"
-                  color="primary"
-                />
-              )}
-            </View>
-          </View>
+          <AmountRow
+            symbol={routeParams.symbol}
+            value={routeParams.value}
+            tx={routeParams.tx}
+          />
         )}
 
-        <View row my={3}>
-          <Text size="large">Type</Text>
-          <View grow={1} align="flex-end">
-            <Text size="large" opacity={0.8}>
-              {routeParams.isCancelApproval
-                ? 'Allowance canceled'
-                : routeParams.isApproval
-                  ? 'Allowance set'
-                  : routeParams.tx.txType.toUpperCase()}
-            </Text>
-          </View>
-        </View>
+        <TypeRow
+          isCancelApproval={routeParams.isCancelApproval}
+          isApproval={routeParams.isApproval}
+          tx={routeParams.tx}
+        />
 
         {routeParams.tx.txType === 'received' && (
           <RN.TouchableOpacity
@@ -125,8 +60,8 @@ class ReceiptDrawer extends React.Component {
               <Text size="medium" opacity={0.8} mt={1}>
                 {routeParams.to}
               </Text>
-          </View>
-        </RN.TouchableOpacity>
+            </View>
+          </RN.TouchableOpacity>
         )}
 
         {!!routeParams.confirmations && (
@@ -166,13 +101,104 @@ class ReceiptDrawer extends React.Component {
         )}
         <View my={4} px={2}>
           <Btn
-            onPress={() => this.props.onExplorerLinkClick(routeParams.transaction.hash)}
+            onPress={() =>
+              this.props.onExplorerLinkClick(routeParams.transaction.hash)
+            }
             label="View in Explorer"
-            />
+          />
         </View>
       </View>
     )
   }
+}
+
+const AmountRow = ({ tx, value, symbol }) => (
+  <View row my={3}>
+    <Text size="large">Amount</Text>
+    <View grow={1} align="flex-end">
+      {tx.txType === 'auction' ? (
+        <React.Fragment>
+          <DisplayValue
+            value={tx.ethSpentInAuction}
+            size="large"
+            post=" ETH"
+            color="primary"
+          />
+          {tx.mtnBoughtInAuction && (
+            <React.Fragment>
+              <Text mr={2} color="primary" mx={2} size="xLarge">
+                &darr;
+              </Text>
+              <DisplayValue
+                size="large"
+                value={tx.mtnBoughtInAuction}
+                post=" MET"
+                color="primary"
+              />
+            </React.Fragment>
+          )}
+        </React.Fragment>
+      ) : tx.txType === 'converted' ? (
+        <React.Fragment>
+          <DisplayValue
+            value={tx.fromValue}
+            size="large"
+            post={tx.convertedFrom === 'ETH' ? ' ETH' : ' MET'}
+            color="primary"
+          />
+          {tx.toValue && (
+            <React.Fragment>
+              <Text mx={2} size="xLarge" color="primary">
+                &darr;
+              </Text>
+              <DisplayValue
+                value={tx.toValue}
+                size="large"
+                post={tx.convertedFrom === 'ETH' ? ' MET' : ' ETH'}
+                color="primary"
+              />
+            </React.Fragment>
+          )}
+        </React.Fragment>
+      ) : (
+        <DisplayValue
+          value={value}
+          post={` ${symbol}`}
+          size="large"
+          color="primary"
+        />
+      )}
+    </View>
+  </View>
+)
+
+AmountRow.propTypes = {
+  symbol: PropTypes.string,
+  value: PropTypes.string,
+  tx: PropTypes.object.isRequired
+}
+
+const TypeRow = ({ tx, isApproval, isCancelApproval }) => (
+  <View row my={3}>
+    <Text size="large">Type</Text>
+    <View grow={1} align="flex-end">
+      <Text size="large" opacity={0.8}>
+        {isCancelApproval
+          ? 'Allowance canceled'
+          : isApproval
+            ? 'Allowance set'
+            : tx.txType.toUpperCase()}
+      </Text>
+    </View>
+  </View>
+)
+
+TypeRow.propTypes = {
+  isCancelApproval: PropTypes.bool,
+  isApproval: PropTypes.bool,
+  tx: PropTypes.shape({
+    txType: PropTypes.string.isRequired
+  }).isRequired
 }
 
 const EnhancedComponent = withReceiptDrawerState(ReceiptDrawer)
