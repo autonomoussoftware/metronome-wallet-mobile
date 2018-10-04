@@ -93,15 +93,15 @@ export function toETH(client, amount, rate) {
   let isValidAmount
   let weiAmount
   try {
-    weiAmount = client.toBN(client.toWei(sanitize(amount)))
-    isValidAmount = weiAmount.gte(client.toBN(0))
+    weiAmount = new BigNumber(client.toWei(sanitize(amount)))
+    isValidAmount = weiAmount.gte(new BigNumber(0))
   } catch (e) {
     isValidAmount = false
   }
 
   const expectedETHamount = isValidAmount
     ? weiAmount
-        .dividedBy(client.toBN(client.toWei(String(rate))))
+        .dividedBy(new BigNumber(client.toWei(String(rate))))
         .decimalPlaces(18)
         .toString(10)
     : ERROR_VALUE_PLACEHOLDER

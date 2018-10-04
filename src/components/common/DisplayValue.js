@@ -1,4 +1,5 @@
 import { withClient } from '../../shared/hocs/clientContext'
+import { sanitize } from '../../shared/utils'
 import smartRounder from 'smart-round'
 import PropTypes from 'prop-types'
 import React from 'react'
@@ -48,7 +49,7 @@ class DisplayValue extends React.Component {
 
     try {
       formattedValue = this.round(
-        toWei ? value : client.fromWei(value),
+        toWei ? sanitize(value) : client.fromWei(value),
         shouldFormat
       )
     } catch (e) {
