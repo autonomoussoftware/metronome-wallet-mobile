@@ -1,5 +1,6 @@
 import { TouchableOpacity, SafeAreaView, StyleSheet, View as RNView } from 'react-native'
 import withBlockchainState from '../shared/hocs/withBlockchainState'
+import { withClient } from '../shared/hocs/clientContext'
 import VersionNumber from 'react-native-version-number'
 import { StackActions } from 'react-navigation'
 
@@ -19,6 +20,9 @@ import { View } from './common'
 class NavigationDrawer extends React.Component {
   static propTypes = {
     blockchainHeight: PropTypes.number.isRequired,
+    client: PropTypes.shape({
+      onHelpLinkClick: PropTypes.func.isRequired
+    }).isRequired,
     navigation: PropTypes.shape({
       isFocused: PropTypes.func.isRequired,
       navigate: PropTypes.func.isRequired
@@ -61,7 +65,7 @@ class NavigationDrawer extends React.Component {
             />
             <SecondaryNavBtn
               isActive={isFocused('Help')}
-              onPress={() => navigate('Help')}
+              onPress={this.props.client.onHelpLinkClick}
               label="Help"
             />
           </RNView>
@@ -205,4 +209,4 @@ const styles = StyleSheet.create({
   }
 })
 
-export default withBlockchainState(NavigationDrawer)
+export default withBlockchainState(withClient(NavigationDrawer))
