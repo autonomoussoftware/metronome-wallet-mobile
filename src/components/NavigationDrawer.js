@@ -27,7 +27,8 @@ class NavigationDrawer extends React.Component {
     }).isRequired,
     navigation: PropTypes.shape({
       isFocused: PropTypes.func.isRequired,
-      navigate: PropTypes.func.isRequired
+      navigate: PropTypes.func.isRequired,
+      closeDrawer: PropTypes.func.isRequired
     }).isRequired
   }
 
@@ -47,8 +48,14 @@ class NavigationDrawer extends React.Component {
     )
   }
 
+  navigateTo = route => {
+    const { navigate, closeDrawer } = this.props.navigation
+    navigate(route, {}, StackActions.popToTop())
+    closeDrawer()
+  }
+
   render() {
-    const { isFocused, navigate } = this.props.navigation
+    const { isFocused } = this.props.navigation
 
     return (
       <RNView style={styles.container}>
@@ -58,27 +65,27 @@ class NavigationDrawer extends React.Component {
             <NavBtn
               IconComponent={WalletIcon}
               isActive={isFocused('Dashboard')}
-              onPress={() => navigate('Dashboard', {}, StackActions.popToTop())}
+              onPress={() => this.navigateTo('Dashboard')}
               isFirst
               label="WALLETS"
             />
             <NavBtn
               IconComponent={AuctionIcon}
               isActive={isFocused('Auction')}
-              onPress={() => navigate('Auction', {}, StackActions.popToTop())}
+              onPress={() => this.navigateTo('Auction')}
               label="AUCTION"
             />
             <NavBtn
               IconComponent={ConverterIcon}
               isActive={isFocused('Converter')}
-              onPress={() => navigate('Converter', {}, StackActions.popToTop())}
+              onPress={() => this.navigateTo('Converter')}
               label="CONVERTER"
             />
           </RNView>
           <RNView style={styles.secondaryNav}>
             <SecondaryNavBtn
               isActive={isFocused('Tools')}
-              onPress={() => navigate('Tools', {}, StackActions.popToTop())}
+              onPress={() => this.navigateTo('Tools')}
               label="Tools"
             />
             <SecondaryNavBtn
