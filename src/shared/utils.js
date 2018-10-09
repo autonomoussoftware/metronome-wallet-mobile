@@ -30,6 +30,17 @@ export function sanitizeMnemonic(str) {
     .toLowerCase()
 }
 
+/**
+ * Removes extra spaces, tabs and line breaks.
+ * Useful for sanitizing pasted texts that may contain
+ * invalid breaks.
+ *
+ * @param {string} str The string to sanitize
+ */
+export function sanitizeInput(str) {
+  return str.replace(/\s+|\n+|\t+/g, '')
+}
+
 export function isWeiable(client, amount, unit = 'ether') {
   let isValid
   try {
