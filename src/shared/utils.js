@@ -161,12 +161,13 @@ export function toMET(client, amount, rate, remaining) {
 }
 
 export function syncAmounts(state, ETHprice, id, value, client) {
+  const sanitizedValue = sanitizeInput(value)
   return {
     ...state,
     usdAmount:
-      id === 'ethAmount' ? toUSD(client, value, ETHprice) : state.usdAmount,
+      id === 'ethAmount' ? toUSD(client, sanitizedValue, ETHprice) : state.usdAmount,
     ethAmount:
-      id === 'usdAmount' ? toETH(client, value, ETHprice) : state.ethAmount
+      id === 'usdAmount' ? toETH(client, sanitizedValue, ETHprice) : state.ethAmount
   }
 }
 

@@ -45,13 +45,12 @@ const withSendETHFormState = WrappedComponent => {
 
     onInputChange = ({ id, value }) => {
       const { ETHprice, client } = this.props
-      const sanitizedValue = utils.sanitizeInput(value)
       this.setState(state => ({
         ...state,
-        ...utils.syncAmounts(state, ETHprice, id, sanitizedValue, client),
+        ...utils.syncAmounts(state, ETHprice, id, value, client),
         gasEstimateError: id === 'gasLimit' ? false : state.gasEstimateError,
         errors: { ...state.errors, [id]: null },
-        [id]: utils.sanitizeInput(sanitizedValue)
+        [id]: utils.sanitizeInput(value)
       }))
 
       // Estimate gas limit again if parameters changed

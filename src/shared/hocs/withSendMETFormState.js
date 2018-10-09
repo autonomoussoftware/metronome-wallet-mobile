@@ -43,12 +43,11 @@ const withSendMETFormState = WrappedComponent => {
     resetForm = () => this.setState(this.initialState)
 
     onInputChange = ({ id, value }) => {
-      const sanitizedValue = utils.sanitizeInput(value)
       this.setState(state => ({
         ...state,
         gasEstimateError: id === 'gasLimit' ? false : state.gasEstimateError,
         errors: { ...state.errors, [id]: null },
-        [id]: sanitizedValue
+        [id]: utils.sanitizeInput(value)
       }))
 
       // Estimate gas limit again if parameters changed
