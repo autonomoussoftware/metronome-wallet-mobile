@@ -60,7 +60,7 @@ const withConvertETHtoMETState = WrappedComponent => {
       const { ETHprice, client } = this.props
       this.setState(state => ({
         ...state,
-        ...utils.syncAmounts(state, ETHprice, id, value, client),
+        ...utils.syncAmounts({ state, ETHprice, id, value, client }),
         gasEstimateError: id === 'gasLimit' ? false : state.gasEstimateError,
         errors: { ...state.errors, [id]: null },
         [id]: utils.sanitizeInput(value)
