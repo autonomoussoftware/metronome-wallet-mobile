@@ -30,6 +30,17 @@ export function sanitizeMnemonic(str) {
     .toLowerCase()
 }
 
+/**
+ * Removes extra spaces, tabs and line breaks.
+ * Useful for sanitizing pasted texts that may contain
+ * invalid breaks.
+ *
+ * @param {string} str The string to sanitize
+ */
+export function sanitizeInput(str) {
+  return str.replace(/\s+|\n+|\t+/g, '')
+}
+
 export function isWeiable(client, amount, unit = 'ether') {
   let isValid
   try {
@@ -150,12 +161,13 @@ export function toMET(client, amount, rate, remaining) {
 }
 
 export function syncAmounts(state, ETHprice, id, value, client) {
+  const sanitizedValue = sanitizeInput(value)
   return {
     ...state,
     usdAmount:
-      id === 'ethAmount' ? toUSD(client, value, ETHprice) : state.usdAmount,
+      id === 'ethAmount' ? toUSD(client, sanitizedValue, ETHprice) : state.usdAmount,
     ethAmount:
-      id === 'usdAmount' ? toETH(client, value, ETHprice) : state.ethAmount
+      id === 'usdAmount' ? toETH(client, sanitizedValue, ETHprice) : state.ethAmount
   }
 }
 

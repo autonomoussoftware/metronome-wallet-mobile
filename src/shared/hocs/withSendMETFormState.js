@@ -47,7 +47,7 @@ const withSendMETFormState = WrappedComponent => {
         ...state,
         gasEstimateError: id === 'gasLimit' ? false : state.gasEstimateError,
         errors: { ...state.errors, [id]: null },
-        [id]: value
+        [id]: utils.sanitizeInput(value)
       }))
 
       // Estimate gas limit again if parameters changed
