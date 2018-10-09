@@ -40,7 +40,7 @@ const withDashboardState = WrappedComponent => {
   }
 
   const mapStateToProps = (state, { client }) => ({
-    sendFeatureStatus: selectors.sendFeatureStatus(state, client),
+    sendFeatureStatus: selectors.sendFeatureStatus(state),
     hasTransactions:
       selectors.getActiveWalletTransactions(state, client).length > 0,
     isScanningTx: selectors.getIsScanningTx(state)

@@ -52,7 +52,7 @@ const withAuctionState = WrappedComponent => {
   }
 
   const mapStateToProps = (state, { client }) => ({
-    buyFeatureStatus: selectors.buyFeatureStatus(state, client),
+    buyFeatureStatus: selectors.buyFeatureStatus(state),
     auctionPriceUSD: selectors.getAuctionPriceUSD(state, client),
     auctionStatus: selectors.getAuctionStatus(state)
   })

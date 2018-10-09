@@ -173,7 +173,7 @@ const withConvertETHtoMETState = WrappedComponent => {
     availableETH: selectors.getEthBalanceWei(state),
     ETHprice: selectors.getEthRate(state),
     config: selectors.getConfig(state),
-    from: selectors.getActiveWalletAddresses(state)[0]
+    from: selectors.getActiveAddress(state)
   })
 
   return connect(mapStateToProps)(withClient(Container))
