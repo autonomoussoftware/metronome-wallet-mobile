@@ -17,7 +17,7 @@ const testEnv = {
   EXPLORER_INDEXER_URL: 'https://indexer.bloqrock.net',
   MET_EXPLORER_URL: 'https://explorer.met.bloqrock.net',
   TRACKING_ID: 'UA-116275666-3',
-  SENTRY_DSN: process.env.SENTRY_DSN || 'https://4211b3b9085f4931837b8b7916bfa0a5@sentry.io/1279846'
+  SENTRY_DSN: null
 }
 
 const prodEnv = {
