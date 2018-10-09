@@ -7,7 +7,7 @@ import { mnemonicToSeedHex } from './keys'
 
 export const copyToClipboard = text => Promise.resolve(RN.Clipboard.setString(text))
 
-const openURL = URL => Promise.resolve(RN.Linking.openURL(URL))
+const openURL = url => Promise.resolve(RN.Linking.openURL(url))
 
 export const onExplorerLinkClick = (transactionHash) =>
   openURL(`${config.MTN_EXPLORER_URL}/transactions/${transactionHash}`)
