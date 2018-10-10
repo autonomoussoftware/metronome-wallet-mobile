@@ -6,7 +6,7 @@
     "android": "adb reverse tcp:8081 tcp:8081 && react-native run-android",
     "ios": "react-native run-ios",
     "lint": "eslint .",
-    "postinstall": "patch-package && react-native link",
+    "postinstall": "patch-package",
     "start": "node node_modules/react-native/local-cli/cli.js start",
     "test": "jest"
   },
