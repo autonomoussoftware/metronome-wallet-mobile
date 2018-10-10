@@ -10,6 +10,7 @@ class ReceiptDrawer extends React.Component {
     onExplorerLinkClick: PropTypes.func.isRequired,
     copyToClipboard: PropTypes.func.isRequired,
     onRefreshClick: PropTypes.func.isRequired,
+    confirmations: PropTypes.number.isRequired,
     navigation: PropTypes.shape({
       setParams: PropTypes.func.isRequired,
       state: PropTypes.shape({
@@ -20,7 +21,11 @@ class ReceiptDrawer extends React.Component {
     }).isRequired,
     refreshStatus: PropTypes.oneOf(['init', 'pending', 'success', 'failure'])
       .isRequired,
-    refreshError: PropTypes.string
+    refreshError: PropTypes.string,
+    isPending: PropTypes.bool.isRequired,
+    tx: PropTypes.shape({
+      hash: PropTypes.string.isRequired
+    }).isRequired
   }
 
   viewRef = null
@@ -30,8 +35,7 @@ class ReceiptDrawer extends React.Component {
   }
 
   onRefresh = () => {
-    const { navigation, onRefreshClick } = this.props
-    onRefreshClick(navigation.state.params.hash)
+    this.props.onRefreshClick()
     this.viewRef.scrollTo({ y: 0, animated: true })
   }
 
@@ -39,8 +43,17 @@ class ReceiptDrawer extends React.Component {
     this.props.navigation.setParams({ onHeaderRightPress: this.onRefresh })
   }
 
+  componentDidUpdate(prevProps) {
+    if (
+      this.props.refreshStatus !== prevProps.refreshStatus &&
+      this.props.refreshStatus === 'failure'
+    ) {
+      RN.Alert.alert('Error', this.props.refreshError)
+    }
+  }
+
   render() {
-    const { tx } = this.props
+    const { confirmations, isPending, tx } = this.props
 
     return (
       <View
@@ -58,8 +71,6 @@ class ReceiptDrawer extends React.Component {
       >
         {tx.txType !== 'unknown' && <AmountRow tx={tx} />}
 
-        <Text>{this.props.refreshStatus}</Text>
-
         <TypeRow tx={tx} />
 
         {tx.txType === 'received' && (
@@ -68,7 +79,7 @@ class ReceiptDrawer extends React.Component {
           >
             <View my={3}>
               <Text size="large">
-                {tx.isPending ? 'Pending' : 'Received'} from
+                {isPending ? 'Pending' : 'Received'} from
               </Text>
               <Text size="medium" opacity={0.8} mt={1}>
                 {tx.from}
@@ -82,7 +93,7 @@ class ReceiptDrawer extends React.Component {
             onPress={() => this.props.copyToClipboard(tx.to)}
           >
             <View my={3}>
-              <Text size="large">{tx.isPending ? 'Pending' : 'Sent'} to</Text>
+              <Text size="large">{isPending ? 'Pending' : 'Sent'} to</Text>
               <Text size="medium" opacity={0.8} mt={1}>
                 {tx.to}
               </Text>
@@ -90,14 +101,12 @@ class ReceiptDrawer extends React.Component {
           </RN.TouchableOpacity>
         )}
 
-        {!!tx.confirmations && (
-          <View row my={3}>
-            <Text size="large">Confirmations</Text>
-            <View grow={1} align="flex-end">
-              <Text size="large">{tx.confirmations}</Text>
-            </View>
+        <View row my={3}>
+          <Text size="large">Confirmations</Text>
+          <View grow={1} align="flex-end">
+            <Text size="large">{confirmations}</Text>
           </View>
-        )}
+        </View>
 
         {tx.gasUsed && (
           <View row my={3}>
@@ -224,7 +233,7 @@ TypeRow.propTypes = {
 }
 
 const EnhancedComponent = withReceiptDrawerState(
-  ({ navigation }) => navigation.state.params.hash
+  props => props.navigation.state.params.hash
 )(ReceiptDrawer)
 
 EnhancedComponent.navigationOptions = ({ navigation }) => ({
