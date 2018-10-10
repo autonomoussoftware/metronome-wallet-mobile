@@ -13,6 +13,7 @@ export const errorPropTypes = (...fields) => {
   return PropTypes.shape(shape).isRequired
 }
 
+// eslint-disable-next-line complexity
 export const spacing = props => ({
   marginBottom: theme.spacing(props.m || props.mb || props.my || null),
   marginRight: theme.spacing(props.m || props.mr || props.mx || null),

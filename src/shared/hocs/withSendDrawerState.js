@@ -1,4 +1,3 @@
-import { withClient } from './clientContext'
 import * as selectors from '../selectors'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
@@ -8,10 +7,7 @@ const withSendDrawerState = WrappedComponent => {
   class Container extends React.Component {
     static propTypes = {
       sendMetFeatureStatus: PropTypes.oneOf(['no-funds', 'offline', 'ok'])
-        .isRequired,
-      client: PropTypes.shape({
-        toBN: PropTypes.func.isRequired
-      }).isRequired
+        .isRequired
     }
 
     static displayName = `withSendDrawerState(${WrappedComponent.displayName ||
@@ -39,11 +35,11 @@ const withSendDrawerState = WrappedComponent => {
     }
   }
 
-  const mapStateToProps = (state, { client }) => ({
-    sendMetFeatureStatus: selectors.sendMetFeatureStatus(state, client)
+  const mapStateToProps = state => ({
+    sendMetFeatureStatus: selectors.sendMetFeatureStatus(state)
   })
 
-  return withClient(connect(mapStateToProps)(Container))
+  return connect(mapStateToProps)(Container)
 }
 
 export default withSendDrawerState

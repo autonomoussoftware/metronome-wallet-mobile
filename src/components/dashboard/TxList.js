@@ -2,8 +2,8 @@ import withTxListState from '../../shared/hocs/withTxListState'
 import PropTypes from 'prop-types'
 import LogoIcon from '../icons/LogoIcon'
 import { View } from '../common'
-import TxRow from './TxRow'
 import React from 'react'
+import Row from './tx-row/Row'
 import RN from 'react-native'
 
 class TxList extends React.Component {
@@ -11,21 +11,20 @@ class TxList extends React.Component {
     filter: PropTypes.string.isRequired,
     items: PropTypes.arrayOf(
       PropTypes.shape({
-        transaction: PropTypes.shape({
-          hash: PropTypes.string.isRequired
-        }).isRequired
+        txType: PropTypes.string.isRequired,
+        hash: PropTypes.string.isRequired
       })
     ).isRequired
   }
 
   getFilteredItems = () => {
     const { items, filter } = this.props
-    return items.filter(tx => ['all', tx.parsed.txType].includes(filter))
+    return items.filter(tx => ['all', tx.txType].includes(filter))
   }
 
-  keyExtractor = item => item.transaction.hash
+  keyExtractor = item => item.hash
 
-  renderItem = ({ item }) => <TxRow {...item} />
+  renderItem = ({ item }) => <Row tx={item} />
 
   footer = (
     <View bg="light" align="center" py={4}>

@@ -37,7 +37,7 @@ const withReceiveDrawerState = WrappedComponent => {
   }
 
   const mapStateToProps = state => ({
-    address: selectors.getActiveWalletAddresses(state)[0]
+    address: selectors.getActiveAddress(state)
   })
 
   return connect(mapStateToProps)(withClient(Container))

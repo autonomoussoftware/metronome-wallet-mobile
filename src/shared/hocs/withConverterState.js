@@ -43,7 +43,7 @@ const withConverterState = WrappedComponent => {
   }
 
   const mapStateToProps = (state, { client }) => ({
-    convertFeatureStatus: selectors.convertFeatureStatus(state, client),
+    convertFeatureStatus: selectors.convertFeatureStatus(state),
     converterPriceUSD: selectors.getConverterPriceUSD(state, client),
     converterStatus: selectors.getConverterStatus(state)
   })

@@ -10,8 +10,7 @@ const withDashboardState = WrappedComponent => {
       sendFeatureStatus: PropTypes.oneOf(['offline', 'no-funds', 'ok'])
         .isRequired,
       client: PropTypes.shape({
-        onWalletRefresh: PropTypes.func.isRequired,
-        toBN: PropTypes.func.isRequired
+        onWalletRefresh: PropTypes.func.isRequired
       }).isRequired
     }
 
@@ -39,10 +38,9 @@ const withDashboardState = WrappedComponent => {
     }
   }
 
-  const mapStateToProps = (state, { client }) => ({
-    sendFeatureStatus: selectors.sendFeatureStatus(state, client),
-    hasTransactions:
-      selectors.getActiveWalletTransactions(state, client).length > 0,
+  const mapStateToProps = state => ({
+    sendFeatureStatus: selectors.sendFeatureStatus(state),
+    hasTransactions: selectors.hasTransactions(state),
     isScanningTx: selectors.getIsScanningTx(state)
   })
 

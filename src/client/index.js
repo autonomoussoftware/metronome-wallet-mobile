@@ -132,6 +132,7 @@ export default function createClient(config, createStore) {
   const api = {
     ...auth,
     ...coreApi.metronome,
+    ...coreApi.explorer,
     ...coreApi.tokens,
     ...coreApi.wallet,
     ...keys,

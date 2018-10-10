@@ -48,7 +48,7 @@ const withBuyMETFormState = WrappedComponent => {
       const { ETHprice, client } = this.props
       this.setState(state => ({
         ...state,
-        ...utils.syncAmounts(state, ETHprice, id, value, client),
+        ...utils.syncAmounts({ state, ETHprice, id, value, client }),
         gasEstimateError: id === 'gasLimit' ? false : state.gasEstimateError,
         errors: { ...state.errors, [id]: null },
         [id]: utils.sanitizeInput(value)
@@ -111,12 +111,12 @@ const withBuyMETFormState = WrappedComponent => {
         usdAmount: this.state.usdAmount
       })
 
-      const expected = utils.toMET(
-        this.props.client,
-        this.state.ethAmount,
-        this.props.currentPrice,
-        this.props.tokenRemaining
-      )
+      const expected = utils.getPurchaseEstimate({
+        remaining: this.props.tokenRemaining,
+        amount: this.state.ethAmount,
+        client: this.props.client,
+        rate: this.props.currentPrice
+      })
 
       return (
         <WrappedComponent
@@ -143,7 +143,7 @@ const withBuyMETFormState = WrappedComponent => {
     availableETH: selectors.getEthBalanceWei(state),
     ETHprice: selectors.getEthRate(state),
     config: selectors.getConfig(state),
-    from: selectors.getActiveWalletAddresses(state)[0]
+    from: selectors.getActiveAddress(state)
   })
 
   return connect(mapStateToProps)(withClient(Container))

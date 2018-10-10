@@ -134,7 +134,7 @@ const withSendMETFormState = WrappedComponent => {
   const mapStateToProps = state => ({
     availableMET: selectors.getMtnBalanceWei(state),
     config: selectors.getConfig(state),
-    from: selectors.getActiveWalletAddresses(state)[0]
+    from: selectors.getActiveAddress(state)
   })
 
   return connect(mapStateToProps)(withClient(Container))

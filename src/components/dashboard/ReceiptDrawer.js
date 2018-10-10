@@ -1,5 +1,6 @@
-import { DisplayValue, View, Text, Btn } from '../common'
+import { DisplayValue, BaseBtn, View, Text, Btn } from '../common'
 import withReceiptDrawerState from '../../shared/hocs/withReceiptDrawerState'
+import RefreshControl from '../common/RefreshControl'
 import PropTypes from 'prop-types'
 import React from 'react'
 import RN from 'react-native'
@@ -8,77 +9,111 @@ class ReceiptDrawer extends React.Component {
   static propTypes = {
     onExplorerLinkClick: PropTypes.func.isRequired,
     copyToClipboard: PropTypes.func.isRequired,
+    onRefreshClick: PropTypes.func.isRequired,
+    confirmations: PropTypes.number.isRequired,
     navigation: PropTypes.shape({
+      setParams: PropTypes.func.isRequired,
       state: PropTypes.shape({
-        params: PropTypes.object.isRequired
+        params: PropTypes.shape({
+          hash: PropTypes.string.isRequired
+        }).isRequired
       }).isRequired
+    }).isRequired,
+    refreshStatus: PropTypes.oneOf(['init', 'pending', 'success', 'failure'])
+      .isRequired,
+    refreshError: PropTypes.string,
+    isPending: PropTypes.bool.isRequired,
+    tx: PropTypes.shape({
+      hash: PropTypes.string.isRequired
     }).isRequired
   }
 
+  viewRef = null
+
+  storeViewRef = element => {
+    this.viewRef = element
+  }
+
+  onRefresh = () => {
+    this.props.onRefreshClick()
+    this.viewRef.scrollTo({ y: 0, animated: true })
+  }
+
+  componentDidMount() {
+    this.props.navigation.setParams({ onHeaderRightPress: this.onRefresh })
+  }
+
+  componentDidUpdate(prevProps) {
+    if (
+      this.props.refreshStatus !== prevProps.refreshStatus &&
+      this.props.refreshStatus === 'failure'
+    ) {
+      RN.Alert.alert('Error', this.props.refreshError)
+    }
+  }
+
   render() {
-    const { params: routeParams } = this.props.navigation.state
+    const { confirmations, isPending, tx } = this.props
 
     return (
-      <View grow={1} px={2} scroll bg="dark">
-        {routeParams.tx.txType !== 'unknown' && (
-          <AmountRow
-            symbol={routeParams.symbol}
-            value={routeParams.value}
-            tx={routeParams.tx}
+      <View
+        refreshControl={
+          <RefreshControl
+            refreshing={this.props.refreshStatus === 'pending'}
+            onRefresh={this.onRefresh}
           />
-        )}
+        }
+        innerRef={this.storeViewRef}
+        scroll
+        grow={1}
+        bg="dark"
+        px={2}
+      >
+        {tx.txType !== 'unknown' && <AmountRow tx={tx} />}
 
-        <TypeRow
-          isCancelApproval={routeParams.isCancelApproval}
-          isApproval={routeParams.isApproval}
-          tx={routeParams.tx}
-        />
+        <TypeRow tx={tx} />
 
-        {routeParams.tx.txType === 'received' && (
+        {tx.txType === 'received' && (
           <RN.TouchableOpacity
-            onPress={() => this.props.copyToClipboard(routeParams.from)}
+            onPress={() => this.props.copyToClipboard(tx.from)}
           >
             <View my={3}>
               <Text size="large">
-                {routeParams.isPending ? 'Pending' : 'Received'} from
+                {isPending ? 'Pending' : 'Received'} from
               </Text>
               <Text size="medium" opacity={0.8} mt={1}>
-                {routeParams.from}
+                {tx.from}
               </Text>
             </View>
           </RN.TouchableOpacity>
         )}
 
-        {routeParams.tx.txType === 'sent' && (
+        {tx.txType === 'sent' && (
           <RN.TouchableOpacity
-            onPress={() => this.props.copyToClipboard(routeParams.to)}
+            onPress={() => this.props.copyToClipboard(tx.to)}
           >
             <View my={3}>
-              <Text size="large">
-                {routeParams.isPending ? 'Pending' : 'Sent'} to
-              </Text>
+              <Text size="large">{isPending ? 'Pending' : 'Sent'} to</Text>
               <Text size="medium" opacity={0.8} mt={1}>
-                {routeParams.to}
+                {tx.to}
               </Text>
             </View>
           </RN.TouchableOpacity>
         )}
 
-        {!!routeParams.confirmations && (
-          <View row my={3}>
-            <Text size="large">Confirmations</Text>
-            <View grow={1} align="flex-end">
-              <Text size="large">{routeParams.confirmations}</Text>
-            </View>
+        <View row my={3}>
+          <Text size="large">Confirmations</Text>
+          <View grow={1} align="flex-end">
+            <Text size="large">{confirmations}</Text>
           </View>
-        )}
+        </View>
 
-        {routeParams.receipt && (
+        {tx.gasUsed && (
           <View row my={3}>
             <Text size="large">Gas used</Text>
             <View grow={1} align="flex-end">
               <Text size="large" opacity={0.8}>
-                {routeParams.receipt.gasUsed}
+                {tx.gasUsed}
               </Text>
             </View>
           </View>
@@ -87,23 +122,21 @@ class ReceiptDrawer extends React.Component {
         <View my={3}>
           <Text size="large">Transaction hash</Text>
           <Text size="medium" opacity={0.8} mt={1}>
-            {routeParams.transaction.hash}
+            {tx.hash}
           </Text>
         </View>
 
-        {routeParams.transaction.blockNumber && (
+        {tx.blockNumber && (
           <View row my={3}>
             <Text size="large">Block number</Text>
             <View grow={1} align="flex-end" opacity={0.8}>
-              <Text size="large">{routeParams.transaction.blockNumber}</Text>
+              <Text size="large">{tx.blockNumber}</Text>
             </View>
           </View>
         )}
-        <View my={4} px={2}>
+        <View my={4}>
           <Btn
-            onPress={() =>
-              this.props.onExplorerLinkClick(routeParams.transaction.hash)
-            }
+            onPress={() => this.props.onExplorerLinkClick(tx.hash)}
             label="View in Explorer"
           />
         </View>
@@ -112,7 +145,7 @@ class ReceiptDrawer extends React.Component {
   }
 }
 
-const AmountRow = ({ tx, value, symbol }) => (
+const AmountRow = ({ tx }) => (
   <View row my={3}>
     <Text size="large">Amount</Text>
     <View grow={1} align="flex-end">
@@ -162,8 +195,8 @@ const AmountRow = ({ tx, value, symbol }) => (
         </React.Fragment>
       ) : (
         <DisplayValue
-          value={value}
-          post={` ${symbol}`}
+          value={tx.value}
+          post={` ${tx.symbol}`}
           size="large"
           color="primary"
         />
@@ -173,19 +206,17 @@ const AmountRow = ({ tx, value, symbol }) => (
 )
 
 AmountRow.propTypes = {
-  symbol: PropTypes.string,
-  value: PropTypes.string,
   tx: PropTypes.object.isRequired
 }
 
-const TypeRow = ({ tx, isApproval, isCancelApproval }) => (
+const TypeRow = ({ tx }) => (
   <View row my={3}>
     <Text size="large">Type</Text>
     <View grow={1} align="flex-end">
       <Text size="large" opacity={0.8}>
-        {isCancelApproval
+        {tx.isCancelApproval
           ? 'Allowance canceled'
-          : isApproval
+          : tx.isApproval
             ? 'Allowance set'
             : tx.txType.toUpperCase()}
       </Text>
@@ -194,17 +225,27 @@ const TypeRow = ({ tx, isApproval, isCancelApproval }) => (
 )
 
 TypeRow.propTypes = {
-  isCancelApproval: PropTypes.bool,
-  isApproval: PropTypes.bool,
   tx: PropTypes.shape({
+    isCancelApproval: PropTypes.bool,
+    isApproval: PropTypes.bool,
     txType: PropTypes.string.isRequired
   }).isRequired
 }
 
-const EnhancedComponent = withReceiptDrawerState(ReceiptDrawer)
+const EnhancedComponent = withReceiptDrawerState(
+  props => props.navigation.state.params.hash
+)(ReceiptDrawer)
 
-EnhancedComponent.navigationOptions = {
-  headerTitle: 'Transaction Receipt'
-}
+EnhancedComponent.navigationOptions = ({ navigation }) => ({
+  headerTitle: 'Transaction Receipt',
+  headerRight: (
+    <BaseBtn
+      textProps={{ weight: 'semibold', size: 'medium' }}
+      onPress={navigation.getParam('onHeaderRightPress', null)}
+      label="Refresh"
+      mr={1}
+    />
+  )
+})
 
 export default EnhancedComponent
