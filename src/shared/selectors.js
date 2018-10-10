@@ -152,7 +152,7 @@ export const getBlockHeight = createSelector(
  */
 export const getTxConfirmations = createSelector(
   getBlockHeight,
-  (state, props) => props.transaction.blockNumber,
+  (state, props) => props.tx.blockNumber,
   (blockHeight, txBlockNumber) =>
     txBlockNumber === null || txBlockNumber > blockHeight
       ? 0
@@ -161,7 +161,7 @@ export const getTxConfirmations = createSelector(
 
 /**
  * Returns the array of transactions of the current wallet/address.
- * A few extra properties useful for rendering are calculated and added here.
+ * The items are mapped to contain properties useful for rendering.
  */
 export const getActiveWalletTransactions = createSelector(
   getActiveAddressData,
@@ -173,11 +173,17 @@ export const getActiveWalletTransactions = createSelector(
 
     return _.sortBy(transactions, [
       'transaction.blockNumber',
-      'transaction.transactionIndex'
+      'transaction.transactionIndex',
+      'transaction.nonce'
     ])
       .reverse()
       .map(transactionParser)
   }
+)
+
+export const hasTransactions = createSelector(
+  getActiveWalletTransactions,
+  transactions => transactions.length > 0
 )
 
 export const hasEnoughData = state => state.session.hasEnoughData

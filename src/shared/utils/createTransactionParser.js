@@ -130,31 +130,41 @@ function getContractCallFailed(rawTx) {
   return _.get(rawTx, ['meta', 'contractCallFailed'], false)
 }
 
+function getGasUsed(rawTx) {
+  return _.get(rawTx, ['receipt', 'gasUsed'], null)
+}
+
+function getTransactionHash(rawTx) {
+  return _.get(rawTx, ['transaction', 'hash'], null)
+}
+
+function getBlockNumber(rawTx) {
+  return _.get(rawTx, ['transaction', 'blockNumber'], null)
+}
+
 export const createTransactionParser = myAddress => rawTx => {
   const txType = getTxType(rawTx, myAddress)
   const tokenData = Object.values(rawTx.meta.tokens || {})[0] || null
   const convertedFrom = getConvertedFrom(rawTx, txType)
 
   return {
-    transaction: rawTx.transaction,
-    receipt: rawTx.receipt,
-    meta: rawTx.meta,
-    parsed: {
-      mtnBoughtInAuction: getMetBoughtInAuction(rawTx, tokenData, txType),
-      contractCallFailed: getContractCallFailed(rawTx),
-      ethSpentInAuction: getEthSpentInAuction(rawTx, txType),
-      isCancelApproval: getIsCancelApproval(tokenData),
-      convertedFrom,
-      approvedValue: getApprovedValue(tokenData),
-      isProcessing: getIsProcessing(tokenData),
-      isApproval: getIsApproval(tokenData),
-      fromValue: getFromValue(rawTx, tokenData, convertedFrom),
-      toValue: getToValue(rawTx, tokenData, convertedFrom),
-      txType,
-      symbol: getSymbol(tokenData, txType),
-      value: getValue(rawTx, tokenData, txType),
-      from: getFrom(rawTx, tokenData, txType),
-      to: getTo(rawTx, tokenData, txType)
-    }
+    mtnBoughtInAuction: getMetBoughtInAuction(rawTx, tokenData, txType),
+    contractCallFailed: getContractCallFailed(rawTx),
+    ethSpentInAuction: getEthSpentInAuction(rawTx, txType),
+    isCancelApproval: getIsCancelApproval(tokenData),
+    approvedValue: getApprovedValue(tokenData),
+    convertedFrom,
+    isProcessing: getIsProcessing(tokenData),
+    blockNumber: getBlockNumber(rawTx),
+    isApproval: getIsApproval(tokenData),
+    fromValue: getFromValue(rawTx, tokenData, convertedFrom),
+    toValue: getToValue(rawTx, tokenData, convertedFrom),
+    gasUsed: getGasUsed(rawTx),
+    txType,
+    symbol: getSymbol(tokenData, txType),
+    value: getValue(rawTx, tokenData, txType),
+    from: getFrom(rawTx, tokenData, txType),
+    hash: getTransactionHash(rawTx),
+    to: getTo(rawTx, tokenData, txType)
   }
 }
