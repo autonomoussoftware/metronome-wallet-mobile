@@ -57,6 +57,9 @@ class Dashboard extends React.Component {
   }
 
   render() {
+    const showSpinner =
+      this.props.refreshStatus === 'pending' || this.props.isScanningTx
+
     return (
       <View
         contentContainerStyle={styles.scrollContainer}
@@ -105,8 +108,8 @@ class Dashboard extends React.Component {
 
         <TxListHeader
           hasTransactions={this.props.hasTransactions}
-          isScanningTx={this.props.isScanningTx}
           selectFilter={this.selectFilter}
+          isScanning={showSpinner}
           filter={this.state.selectedFilter}
         />
 
@@ -115,10 +118,9 @@ class Dashboard extends React.Component {
         )}
 
         {!this.props.hasTransactions &&
-          this.props.isScanningTx && <ScanningTxPlaceholder />}
+          showSpinner && <ScanningTxPlaceholder />}
 
-        {!this.props.hasTransactions &&
-          !this.props.isScanningTx && <NoTxPlaceholder />}
+        {!this.props.hasTransactions && !showSpinner && <NoTxPlaceholder />}
       </View>
     )
   }
