@@ -7,8 +7,8 @@ import React from 'react'
 class TxListHeader extends React.Component {
   static propTypes = {
     hasTransactions: PropTypes.bool.isRequired,
-    isScanningTx: PropTypes.bool.isRequired,
     selectFilter: PropTypes.func.isRequired,
+    isScanning: PropTypes.bool.isRequired,
     filter: PropTypes.string.isRequired
   }
 
@@ -27,8 +27,8 @@ class TxListHeader extends React.Component {
           <Text size="medium" pl={2} mr={1} py={1} shadow weight="semibold">
             Transactions
           </Text>
-          {(this.props.hasTransactions || !this.props.isScanningTx) && (
-            <ScanIndicator />
+          {(this.props.hasTransactions || !this.props.isScanning) && (
+            <ScanIndicator isScanning={this.props.isScanning} />
           )}
         </View>
         <Filter

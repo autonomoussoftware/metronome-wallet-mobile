@@ -9,8 +9,6 @@ import * as utils from './utils'
 import * as wallet from './wallet'
 import { withAnalytics } from './analytics'
 
-import * as mock from './mock'
-
 export default function createClient(config, createStore) {
 
   if (config.SENTRY_DSN) {
@@ -154,8 +152,7 @@ export default function createClient(config, createStore) {
     onOnboardingCompleted,
     sendEth: withAuth(coreApi.wallet.sendEth),
     sendMet: withAuth(coreApi.metronome.sendMet),
-    store,
-    ...mock
+    store
   }
 
   return api
