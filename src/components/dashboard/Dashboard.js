@@ -15,8 +15,10 @@ class Dashboard extends React.Component {
     sendDisabledReason: PropTypes.string,
     onWalletRefresh: PropTypes.func.isRequired,
     hasTransactions: PropTypes.bool.isRequired,
+    refreshStatus: PropTypes.oneOf(['init', 'pending', 'success', 'failure']),
     isScanningTx: PropTypes.bool.isRequired,
     sendDisabled: PropTypes.bool.isRequired,
+    refreshError: PropTypes.string,
     navigation: PropTypes.shape({
       navigate: PropTypes.func.isRequired
     }).isRequired
@@ -45,6 +47,15 @@ class Dashboard extends React.Component {
     }
   }
 
+  componentDidUpdate(prevProps) {
+    if (
+      this.props.refreshStatus !== prevProps.refreshStatus &&
+      this.props.refreshStatus === 'failure'
+    ) {
+      RN.Alert.alert('Error', this.props.refreshError)
+    }
+  }
+
   render() {
     return (
       <View
@@ -54,7 +65,7 @@ class Dashboard extends React.Component {
         refreshControl={
           <RefreshControl
             progressViewOffset={10}
-            refreshing={this.props.isScanningTx}
+            refreshing={this.props.refreshStatus === 'pending'}
             onRefresh={this.props.onWalletRefresh}
           />
         }

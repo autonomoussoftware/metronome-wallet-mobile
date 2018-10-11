@@ -9,13 +9,30 @@ const withDashboardState = WrappedComponent => {
     static propTypes = {
       sendFeatureStatus: PropTypes.oneOf(['offline', 'no-funds', 'ok'])
         .isRequired,
+      isScanningTx: PropTypes.bool.isRequired,
+      address: PropTypes.string.isRequired,
       client: PropTypes.shape({
-        onWalletRefresh: PropTypes.func.isRequired
+        refreshAllTransactions: PropTypes.func.isRequired
       }).isRequired
     }
 
     static displayName = `withDashboardState(${WrappedComponent.displayName ||
       WrappedComponent.name})`
+
+    state = {
+      refreshStatus: 'init',
+      refreshError: null
+    }
+
+    onWalletRefresh = () => {
+      this.setState({ refreshStatus: 'pending', refreshError: null })
+      this.props.client
+        .refreshAllTransactions(this.props.address)
+        .then(() => this.setState({ refreshStatus: 'success' }))
+        .catch(err =>
+          this.setState({ refreshStatus: 'failure', refreshError: err.message })
+        )
+    }
 
     render() {
       const { sendFeatureStatus } = this.props
@@ -30,9 +47,10 @@ const withDashboardState = WrappedComponent => {
       return (
         <WrappedComponent
           sendDisabledReason={sendDisabledReason}
-          onWalletRefresh={this.props.client.onWalletRefresh}
+          onWalletRefresh={this.onWalletRefresh}
           sendDisabled={sendFeatureStatus !== 'ok'}
           {...this.props}
+          {...this.state}
         />
       )
     }
@@ -41,7 +59,8 @@ const withDashboardState = WrappedComponent => {
   const mapStateToProps = state => ({
     sendFeatureStatus: selectors.sendFeatureStatus(state),
     hasTransactions: selectors.hasTransactions(state),
-    isScanningTx: selectors.getIsScanningTx(state)
+    isScanningTx: selectors.getIsScanningTx(state),
+    address: selectors.getActiveAddress(state)
   })
 
   return withClient(connect(mapStateToProps)(Container))
