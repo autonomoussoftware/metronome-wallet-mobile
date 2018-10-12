@@ -24,7 +24,7 @@ export default class Amount extends React.Component {
     const { isProcessing, txType, isFailed, value, symbol } = this.props
 
     if (txType === 'unknown' || isProcessing) {
-      return <Text>New transaction</Text>
+      return <Text color="copy">New transaction</Text>
     }
 
     switch (txType) {

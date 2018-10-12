@@ -9,7 +9,7 @@ function isConversionTransaction(rawTx) {
   return _.get(rawTx.meta, 'metronome.converter', false)
 }
 
-function isSendTransaction({ tokenData, transaction }, myAddress) {
+function isSendTransaction({ transaction }, tokenData, myAddress) {
   return (
     (!tokenData && transaction.from && transaction.from === myAddress) ||
     (tokenData && tokenData.from && tokenData.from === myAddress) ||
@@ -17,18 +17,18 @@ function isSendTransaction({ tokenData, transaction }, myAddress) {
   )
 }
 
-function isReceiveTransaction({ tokenData, transaction }, myAddress) {
+function isReceiveTransaction({ transaction }, tokenData, myAddress) {
   return (
     (!tokenData && transaction.to && transaction.to === myAddress) ||
     (tokenData && tokenData.to && tokenData.to === myAddress)
   )
 }
 
-function getTxType(rawTx, myAddress) {
+function getTxType(rawTx, tokenData, myAddress) {
   if (isAuctionTransaction(rawTx)) return 'auction'
   if (isConversionTransaction(rawTx)) return 'converted'
-  if (isSendTransaction(rawTx, myAddress)) return 'sent'
-  if (isReceiveTransaction(rawTx, myAddress)) return 'received'
+  if (isSendTransaction(rawTx, tokenData, myAddress)) return 'sent'
+  if (isReceiveTransaction(rawTx, tokenData, myAddress)) return 'received'
   return 'unknown'
 }
 
@@ -143,8 +143,8 @@ function getBlockNumber(rawTx) {
 }
 
 export const createTransactionParser = myAddress => rawTx => {
-  const txType = getTxType(rawTx, myAddress)
   const tokenData = Object.values(rawTx.meta.tokens || {})[0] || null
+  const txType = getTxType(rawTx, tokenData, myAddress)
   const convertedFrom = getConvertedFrom(rawTx, txType)
 
   return {
