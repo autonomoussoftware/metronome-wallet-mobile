@@ -17,9 +17,14 @@ class ConfirmRecover extends React.Component {
     const { onSubmit } = this.props.navigation.state.params
 
     return (
-      <Confirmation onSubmit={onSubmit} pendingText="Recovering...">
+      <Confirmation
+        pendingTitle="Recovering..."
+        pendingText="The application will restart when it is ready."
+        noReceipt
+        onSubmit={onSubmit}
+      >
         <Text size="large">Are you sure?</Text>
-        <Text mt={2} mb={4} size="medium">
+        <Text mt={2} mb={1} size="medium">
           This operation will overwrite and restart the current wallet!
         </Text>
       </Confirmation>

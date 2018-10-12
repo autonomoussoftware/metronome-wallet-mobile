@@ -1,10 +1,10 @@
 import { withNavigation, StackActions } from 'react-navigation'
 import { withClient } from '../../shared/hocs/clientContext'
 import * as utils from '../../shared/utils'
-import CheckIcon from '../icons/CheckIcon'
 import CloseIcon from '../icons/CloseIcon'
 import PropTypes from 'prop-types'
 import PinInput from './PinInput'
+import Receipt from './Receipt'
 import React from 'react'
 import View from './View'
 import Text from './Text'
@@ -13,19 +13,15 @@ import RN from 'react-native'
 
 class Confirmation extends React.Component {
   static propTypes = {
-    pendingParams: PropTypes.object,
-    successParams: PropTypes.object,
-    failureParams: PropTypes.object,
     pendingTitle: PropTypes.string,
-    successTitle: PropTypes.string,
-    failureTitle: PropTypes.string,
-    successText: PropTypes.string,
     pendingText: PropTypes.string,
+    noReceipt: PropTypes.bool,
     client: PropTypes.shape({
       validatePIN: PropTypes.func.isRequired
     }),
     navigation: PropTypes.shape({
-      setParams: PropTypes.func.isRequired,
+      popToTop: PropTypes.func.isRequired,
+      navigate: PropTypes.func.isRequired,
       goBack: PropTypes.func.isRequired
     }).isRequired,
     onSubmit: PropTypes.func.isRequired,
@@ -33,12 +29,7 @@ class Confirmation extends React.Component {
   }
 
   static defaultProps = {
-    pendingTitle: 'Sending...',
-    successTitle: 'Success!',
-    failureTitle: 'Error',
-    pendingText: 'Waiting for transaction receipt...',
-    successText:
-      'You can view the status of this transaction in the transaction list.'
+    pendingTitle: 'Waiting for receipt...'
   }
 
   state = {
@@ -78,7 +69,7 @@ class Confirmation extends React.Component {
     }
   }
 
-  onPinComplete = () =>
+  onPinComplete = () => {
     this.props.client
       .validatePIN(this.state.password)
       .then(this.onValidPIN)
@@ -88,35 +79,29 @@ class Confirmation extends React.Component {
           error: err.message || 'Unknown error'
         })
       )
+  }
 
   onValidPIN = () => {
     RN.LayoutAnimation.configureNext(this.animationConfig)
     this.setState({ status: 'pending' })
-
-    if (this.props.pendingParams) {
-      this.props.navigation.setParams(this.props.pendingParams)
-    }
-
     this.props
       .onSubmit(this.state.password)
-      .then(result => {
-        RN.LayoutAnimation.configureNext(this.animationConfig)
-        if (this._isMounted) {
-          this.setState({ status: 'success', result })
-        }
-        if (this.props.successParams) {
-          this.props.navigation.setParams(this.props.successParams)
-        }
-      })
-      .catch(err => {
-        RN.LayoutAnimation.configureNext(this.animationConfig)
-        if (this._isMounted) {
-          this.setState({ status: 'failure', error: err.message })
-        }
-        if (this.props.failureParams) {
-          this.props.navigation.setParams(this.props.failureParams)
-        }
-      })
+      .then(this.onSuccess)
+      .catch(this.onFailure)
+  }
+
+  onSuccess = result => {
+    if (this._isMounted) {
+      RN.LayoutAnimation.configureNext(this.animationConfig)
+      this.setState({ status: 'success', result })
+    }
+  }
+
+  onFailure = err => {
+    if (this._isMounted) {
+      RN.LayoutAnimation.configureNext(this.animationConfig)
+      this.setState({ status: 'failure', error: err.message })
+    }
   }
 
   renderConfirmation = () => (
@@ -136,57 +121,30 @@ class Confirmation extends React.Component {
     </View>
   )
 
+  navigateToDashboard = () => {
+    this.props.navigation.navigate('Dashboard', {}, StackActions.popToTop())
+  }
+
   renderPending = () => (
-    <View flex={1} py={4} px={2}>
-      <View grow={1} align="center" justify="center">
-        <RN.ActivityIndicator size="large" />
-        <Text size="medium" mt={2} mb={2} weight="semibold" align="center">
+    <View flex={1} py={4} px={2} align="center" justify="center">
+      <RN.ActivityIndicator size="large" />
+      <Text size="medium" mt={2} mb={1} weight="semibold" align="center">
+        {this.props.pendingTitle}
+      </Text>
+      {this.props.pendingText ? (
+        <Text size="small" mb={3} align="center" opacity={0.8} mw={260}>
           {this.props.pendingText}
         </Text>
-      </View>
+      ) : (
+        <React.Fragment>
+          <Text size="small" mb={3} align="center" opacity={0.8} mw={260}>
+            You can follow this transaction status from the Dashboard.
+          </Text>
+          <Btn onPress={this.navigateToDashboard} label="Go to Dashboard" />
+        </React.Fragment>
+      )}
     </View>
   )
-
-  // Experimental: navigate to some route and hightlight an item
-  // navigateAndHightLight(routeName, hightlightId) {
-  //   this.props.navigation.navigate(
-  //     routeName,
-  //     {},
-  //     StackActions.reset({
-  //       index: 0,
-  //       actions: [
-  //         NavigationActions.navigate({
-  //           routeName: routeName,
-  //           params: { hightlightId }
-  //         })
-  //       ]
-  //     })
-  //   )
-  // }
-
-  renderSuccess = () => {
-    const { successTitle, successText, navigation } = this.props
-    return (
-      <View flex={1} align="center" justify="center">
-        <CheckIcon />
-        <Text size="large" mt={2} weight="bold">
-          {successTitle}
-        </Text>
-        {successText && (
-          <Text size="medium" align="center" p={2}>
-            {successText}
-          </Text>
-        )}
-        <Btn
-          onPress={() =>
-            navigation.navigate('Dashboard', {}, StackActions.popToTop())
-          }
-          label="View Transactions"
-          mt={1}
-        />
-      </View>
-    )
-  }
 
   renderFailure = () => {
     const messageWithReplacements = utils.messageParser(this.state.error)
@@ -196,7 +154,7 @@ class Confirmation extends React.Component {
       <View flex={1} align="center" justify="center">
         <CloseIcon />
         <Text size="large" mt={2} weight="bold">
-          {this.props.failureTitle}
+          Error
         </Text>
         <Text size="medium" align="center" p={2}>
           {this.state.error === messageWithReplacements
@@ -212,13 +170,56 @@ class Confirmation extends React.Component {
     )
   }
 
+  closeReceiptModal = () => {
+    this.setState({ status: 'pending' })
+    this.props.navigation.popToTop()
+  }
+
+  renderReceiptModal = () => (
+    <RN.Modal
+      onRequestClose={this.closeReceiptModal}
+      animationType="slide"
+      transparent={false}
+      visible={this.state.status === 'success'}
+    >
+      <View flex={1} bg="dark">
+        <View
+          justify="space-between"
+          align="center"
+          row
+          bg="primary"
+          px={2}
+          pt={4}
+          pb={2}
+        >
+          <View shrink={1}>
+            <Text size="medium" weight="bold">
+              Transaction Receipt
+            </Text>
+          </View>
+          <View ml={2}>
+            <RN.TouchableOpacity onPress={this.closeReceiptModal}>
+              <CloseIcon size="20" color="light" />
+            </RN.TouchableOpacity>
+          </View>
+        </View>
+        {this.state.status === 'success' && (
+          <Receipt
+            navigation={this.props.navigation}
+            hash={this.state.result.receipt.transactionHash}
+          />
+        )}
+      </View>
+    </RN.Modal>
+  )
+
   render() {
     return (
       <View flex={1} bg="dark">
         {this.state.status === 'confirm' && this.renderConfirmation()}
-        {this.state.status === 'success' && this.renderSuccess()}
-        {this.state.status === 'failure' && this.renderFailure()}
         {this.state.status === 'pending' && this.renderPending()}
+        {this.state.status === 'failure' && this.renderFailure()}
+        {!this.props.noReceipt && this.renderReceiptModal()}
       </View>
     )
   }

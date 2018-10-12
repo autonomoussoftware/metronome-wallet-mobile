@@ -1,4 +1,4 @@
-import { TouchableOpacity } from 'react-native'
+import { TouchableOpacity, Keyboard } from 'react-native'
 import { Svg, G, Line } from 'react-native-svg'
 import PropTypes from 'prop-types'
 import React from 'react'
@@ -7,7 +7,10 @@ const MenuBtn = ({ onPress }) => (
   <TouchableOpacity
     activeOpacity={0.5}
     hitSlop={{ top: 10, left: 10, right: 10, bottom: 10 }}
-    onPress={onPress}
+    onPress={() => {
+      Keyboard.dismiss()
+      onPress()
+    }}
   >
     <Svg key="menu" viewBox="0 0 37 27" width="55" height="27">
       <G

@@ -4,6 +4,7 @@ import { withNavigation } from 'react-navigation'
 import QRScanner from './QRScanner'
 import PropTypes from 'prop-types'
 import React from 'react'
+import RN from 'react-native'
 
 class SendETHForm extends React.Component {
   static propTypes = {
@@ -37,6 +38,7 @@ class SendETHForm extends React.Component {
   onHeaderRightPress = () => {
     const { navigation, validate, ...other } = this.props
     if (validate()) {
+      RN.Keyboard.dismiss()
       navigation.navigate('ConfirmSendETH', other)
     }
   }

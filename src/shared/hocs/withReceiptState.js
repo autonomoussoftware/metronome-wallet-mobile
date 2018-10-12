@@ -5,7 +5,7 @@ import * as utils from '../utils'
 import PropTypes from 'prop-types'
 import React from 'react'
 
-const withReceiptDrawerState = hashGetter => WrappedComponent => {
+const withReceiptState = WrappedComponent => {
   class Container extends React.Component {
     static propTypes = {
       confirmations: PropTypes.number.isRequired,
@@ -15,12 +15,11 @@ const withReceiptDrawerState = hashGetter => WrappedComponent => {
         refreshTransaction: PropTypes.func.isRequired,
         copyToClipboard: PropTypes.func.isRequired
       }).isRequired,
-      tx: PropTypes.shape({
-        hash: PropTypes.string.isRequired
-      }).isRequired
+      hash: PropTypes.string.isRequired,
+      tx: PropTypes.object.isRequired
     }
 
-    static displayName = `withReceiptDrawerState(${WrappedComponent.displayName ||
+    static displayName = `withReceiptState(${WrappedComponent.displayName ||
       WrappedComponent.name})`
 
     state = {
@@ -35,13 +34,16 @@ const withReceiptDrawerState = hashGetter => WrappedComponent => {
         .catch(() => {})
     }
 
-    onRefreshClick = () => {
+    onRefreshRequest = () => {
       this.setState({ refreshStatus: 'pending', refreshError: null })
       this.props.client
-        .refreshTransaction(this.props.tx.hash, this.props.address)
+        .refreshTransaction(this.props.hash, this.props.address)
         .then(() => this.setState({ refreshStatus: 'success' }))
-        .catch(err =>
-          this.setState({ refreshStatus: 'failure', refreshError: err.message })
+        .catch(() =>
+          this.setState({
+            refreshStatus: 'failure',
+            refreshError: 'Could not refresh'
+          })
         )
     }
 
@@ -49,8 +51,8 @@ const withReceiptDrawerState = hashGetter => WrappedComponent => {
       return (
         <WrappedComponent
           onExplorerLinkClick={this.props.client.onExplorerLinkClick}
+          onRefreshRequest={this.onRefreshRequest}
           copyToClipboard={this.copyToClipboard}
-          onRefreshClick={this.onRefreshClick}
           isPending={utils.isPending(this.props.tx, this.props.confirmations)}
           isFailed={utils.isFailed(this.props.tx, this.props.confirmations)}
           {...this.props}
@@ -60,10 +62,8 @@ const withReceiptDrawerState = hashGetter => WrappedComponent => {
     }
   }
 
-  const mapStateToProps = (state, props) => {
-    const selectedHash = hashGetter(props)
-    const items = selectors.getActiveWalletTransactions(state)
-    const tx = items.find(({ hash }) => hash === selectedHash)
+  const mapStateToProps = (state, { hash }) => {
+    const tx = selectors.getTransactionFromHash(state, { hash })
 
     return {
       confirmations: selectors.getTxConfirmations(state, { tx }),
@@ -75,4 +75,4 @@ const withReceiptDrawerState = hashGetter => WrappedComponent => {
   return withClient(connect(mapStateToProps)(Container))
 }
 
-export default withReceiptDrawerState
+export default withReceiptState
