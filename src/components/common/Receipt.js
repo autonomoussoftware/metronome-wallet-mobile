@@ -67,94 +67,95 @@ class Receipt extends React.Component {
         scroll
         grow={1}
         bg="dark"
-        px={2}
       >
-        {tx.txType !== 'unknown' && <AmountRow tx={tx} />}
+        <View px={2}>
+          {tx.txType !== 'unknown' && <AmountRow tx={tx} />}
 
-        <TypeRow tx={tx} />
+          <TypeRow tx={tx} />
 
-        {tx.txType === 'received' && (
-          <RN.TouchableOpacity
-            activeOpacity={0.75}
-            onPress={() => this.props.copyToClipboard(tx.from)}
-          >
-            <View my={3}>
-              <View row justify="space-between">
-                <Text size="large">
-                  {isPending ? 'Pending' : 'Received'} from
+          {tx.txType === 'received' && (
+            <RN.TouchableOpacity
+              activeOpacity={0.75}
+              onPress={() => this.props.copyToClipboard(tx.from)}
+            >
+              <View my={3}>
+                <View row justify="space-between">
+                  <Text size="large">
+                    {isPending ? 'Pending' : 'Received'} from
+                  </Text>
+                  <CopyIcon opacity={0.5} width="20" />
+                </View>
+
+                <Text size="small" opacity={0.8} mt={1}>
+                  {tx.from}
                 </Text>
-                <CopyIcon opacity={0.5} width="20" />
               </View>
+            </RN.TouchableOpacity>
+          )}
 
-              <Text size="small" opacity={0.8} mt={1}>
-                {tx.from}
-              </Text>
+          {tx.txType === 'sent' && (
+            <RN.TouchableOpacity
+              activeOpacity={0.75}
+              onPress={() => this.props.copyToClipboard(tx.to)}
+            >
+              <View my={3}>
+                <View row justify="space-between">
+                  <Text size="large">{isPending ? 'Pending' : 'Sent'} to</Text>
+                  <CopyIcon opacity={0.5} width="20" />
+                </View>
+                <Text size="small" opacity={0.8} mt={1}>
+                  {tx.to}
+                </Text>
+              </View>
+            </RN.TouchableOpacity>
+          )}
+
+          <View row my={3}>
+            <Text size="large">Confirmations</Text>
+            <View grow={1} align="flex-end">
+              <Text size="large">{confirmations}</Text>
             </View>
-          </RN.TouchableOpacity>
-        )}
+          </View>
 
-        {tx.txType === 'sent' && (
           <RN.TouchableOpacity
             activeOpacity={0.75}
-            onPress={() => this.props.copyToClipboard(tx.to)}
+            onPress={() => this.props.copyToClipboard(tx.hash)}
           >
             <View my={3}>
               <View row justify="space-between">
-                <Text size="large">{isPending ? 'Pending' : 'Sent'} to</Text>
+                <Text size="large">Transaction hash</Text>
                 <CopyIcon opacity={0.5} width="20" />
               </View>
               <Text size="small" opacity={0.8} mt={1}>
-                {tx.to}
+                {tx.hash}
               </Text>
             </View>
           </RN.TouchableOpacity>
-        )}
 
-        <View row my={3}>
-          <Text size="large">Confirmations</Text>
-          <View grow={1} align="flex-end">
-            <Text size="large">{confirmations}</Text>
-          </View>
-        </View>
-
-        <RN.TouchableOpacity
-          activeOpacity={0.75}
-          onPress={() => this.props.copyToClipboard(tx.hash)}
-        >
-          <View my={3}>
-            <View row justify="space-between">
-              <Text size="large">Transaction hash</Text>
-              <CopyIcon opacity={0.5} width="20" />
+          <View row my={3} align="baseline">
+            <Text size="large">Block number</Text>
+            <View grow={1} align="flex-end" opacity={0.8}>
+              <Text size={tx.blockNumber ? 'large' : 'small'}>
+                {tx.blockNumber ? tx.blockNumber : 'Waiting to be mined'}
+              </Text>
             </View>
-            <Text size="small" opacity={0.8} mt={1}>
-              {tx.hash}
-            </Text>
           </View>
-        </RN.TouchableOpacity>
 
-        <View row my={3} align="baseline">
-          <Text size="large">Block number</Text>
-          <View grow={1} align="flex-end" opacity={0.8}>
-            <Text size={tx.blockNumber ? 'large' : 'small'}>
-              {tx.blockNumber ? tx.blockNumber : 'Waiting to be mined'}
-            </Text>
+          <View row my={3}>
+            <Text size="large">Gas used</Text>
+            <View grow={1} align="flex-end">
+              <Text size={tx.gasUsed ? 'large' : 'small'} opacity={0.8}>
+                {tx.gasUsed ? tx.gasUsed : 'Waiting to be mined'}
+              </Text>
+            </View>
           </View>
-        </View>
 
-        <View row my={3}>
-          <Text size="large">Gas used</Text>
-          <View grow={1} align="flex-end">
-            <Text size={tx.gasUsed ? 'large' : 'small'} opacity={0.8}>
-              {tx.gasUsed ? tx.gasUsed : 'Waiting to be mined'}
-            </Text>
+          <View my={4}>
+            <Btn
+              onPress={() => this.props.onExplorerLinkClick(tx.hash)}
+              label="View in Explorer"
+            />
           </View>
-        </View>
-
-        <View my={4}>
-          <Btn
-            onPress={() => this.props.onExplorerLinkClick(tx.hash)}
-            label="View in Explorer"
-          />
         </View>
       </View>
     )
