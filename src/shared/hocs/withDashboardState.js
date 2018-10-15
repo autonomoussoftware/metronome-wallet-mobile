@@ -29,8 +29,11 @@ const withDashboardState = WrappedComponent => {
       this.props.client
         .refreshAllTransactions(this.props.address)
         .then(() => this.setState({ refreshStatus: 'success' }))
-        .catch(err =>
-          this.setState({ refreshStatus: 'failure', refreshError: err.message })
+        .catch(() =>
+          this.setState({
+            refreshStatus: 'failure',
+            refreshError: 'Could not refresh'
+          })
         )
     }
 

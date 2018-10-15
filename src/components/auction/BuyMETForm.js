@@ -1,6 +1,7 @@
 import withBuyMETFormState from '../../shared/hocs/withBuyMETFormState'
 import PropTypes from 'prop-types'
 import React from 'react'
+import RN from 'react-native'
 import {
   AmountFields,
   DisplayValue,
@@ -44,6 +45,7 @@ class BuyMETForm extends React.Component {
   onHeaderRightPress = () => {
     const { navigation, validate, ...other } = this.props
     if (validate()) {
+      RN.Keyboard.dismiss()
       navigation.navigate('ConfirmPurchase', other)
     }
   }

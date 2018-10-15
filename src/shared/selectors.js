@@ -186,6 +186,12 @@ export const hasTransactions = createSelector(
   transactions => transactions.length > 0
 )
 
+export const getTransactionFromHash = createSelector(
+  getActiveWalletTransactions,
+  (state, props) => props.hash,
+  (transactions, hash) => transactions.find(tx => tx.hash === hash)
+)
+
 export const hasEnoughData = state => state.session.hasEnoughData
 
 /**

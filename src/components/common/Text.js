@@ -15,6 +15,7 @@ const Text = props => {
     align,
     size,
     ls: letterSpacing,
+    mw: maxWidth,
     ...other
   } = props
 
@@ -24,6 +25,7 @@ const Text = props => {
         styles.container,
         fontStyles(weight),
         letterSpacing !== undefined && { letterSpacing },
+        maxWidth !== undefined && { maxWidth },
         opacity !== undefined && { opacity },
         shadow && styles.shadow,
         color && { color: theme.colors[color] },

@@ -25,10 +25,7 @@ class ConfirmMETtoETH extends React.Component {
     } = this.props.navigation.state.params
 
     return (
-      <Confirmation
-        pendingText="This may take a while. You can close this and follow the status of the conversion in the transaction list."
-        onSubmit={onSubmit}
-      >
+      <Confirmation onSubmit={onSubmit}>
         <Text size="medium">
           You will convert{' '}
           <DisplayValue value={metAmount} color="primary" toWei post=" MET" />{' '}

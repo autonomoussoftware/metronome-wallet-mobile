@@ -3,6 +3,7 @@ import { withNavigation } from 'react-navigation'
 import { errorPropTypes } from '../../utils'
 import PropTypes from 'prop-types'
 import React from 'react'
+import RN from 'react-native'
 import {
   DisplayValue,
   TextInput,
@@ -42,6 +43,7 @@ class ConvertMETtoETHForm extends React.Component {
   onHeaderRightPress = () => {
     const { navigation, validate, ...other } = this.props
     if (validate()) {
+      RN.Keyboard.dismiss()
       navigation.navigate('ConfirmMETtoETH', other)
     }
   }

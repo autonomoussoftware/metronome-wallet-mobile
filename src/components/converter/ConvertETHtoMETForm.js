@@ -3,6 +3,7 @@ import withConvertETHtoMETState from '../../shared/hocs/withConvertETHtoMETState
 import { withNavigation } from 'react-navigation'
 import PropTypes from 'prop-types'
 import React from 'react'
+import RN from 'react-native'
 
 class ConvertETHtoMETForm extends React.Component {
   static propTypes = {
@@ -36,6 +37,7 @@ class ConvertETHtoMETForm extends React.Component {
   onHeaderRightPress = () => {
     const { navigation, validate, ...other } = this.props
     if (validate()) {
+      RN.Keyboard.dismiss()
       navigation.navigate('ConfirmETHtoMET', other)
     }
   }
