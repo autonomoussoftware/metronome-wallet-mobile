@@ -1,5 +1,5 @@
 import { Svg, Circle } from 'react-native-svg'
-import theme from '../../theme'
+import theme from 'metronome-wallet-ui-logic/src/theme'
 import React from 'react'
 
 export default class DotIcon extends React.Component {

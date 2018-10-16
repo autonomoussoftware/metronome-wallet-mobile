@@ -1,15 +1,16 @@
 import { withNavigation, StackActions } from 'react-navigation'
-import { withClient } from '../../shared/hocs/clientContext'
-import * as utils from '../../shared/utils'
-import CloseIcon from '../icons/CloseIcon'
+import { withClient } from 'metronome-wallet-ui-logic/src/hocs/clientContext'
+import * as utils from 'metronome-wallet-ui-logic/src/utils'
 import PropTypes from 'prop-types'
+import React from 'react'
+import RN from 'react-native'
+
+import CloseIcon from '../icons/CloseIcon'
 import PinInput from './PinInput'
 import Receipt from './Receipt'
-import React from 'react'
 import View from './View'
 import Text from './Text'
 import Btn from './Btn'
-import RN from 'react-native'
 
 class Confirmation extends React.Component {
   static propTypes = {

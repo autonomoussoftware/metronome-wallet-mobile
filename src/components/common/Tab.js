@@ -1,8 +1,9 @@
 import PropTypes from 'prop-types'
-import theme from '../../theme'
+import theme from 'metronome-wallet-ui-logic/src/theme'
 import React from 'react'
-import Text from './Text'
 import RN from 'react-native'
+
+import Text from './Text'
 
 export default class Tab extends React.Component {
   static propTypes = {

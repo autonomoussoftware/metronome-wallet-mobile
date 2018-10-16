@@ -1,8 +1,9 @@
 import { TouchableOpacity } from 'react-native'
-import { View, Text } from '../common'
 import PropTypes from 'prop-types'
-import DotIcon from '../icons/DotIcon'
 import React from 'react'
+
+import { View, Text } from '../common'
+import DotIcon from '../icons/DotIcon'
 
 const SecondaryNavBtn = ({ label, isActive, ...other }) => (
   <TouchableOpacity activeOpacity={0.5} {...other}>

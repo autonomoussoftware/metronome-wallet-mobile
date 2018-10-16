@@ -1,7 +1,8 @@
 import { Svg, G, Circle, Path } from 'react-native-svg'
-import { View, Text } from '../common'
 import React from 'react'
 import RN from 'react-native'
+
+import { View, Text } from '../common'
 
 export default class NoTxPlaceholder extends React.Component {
   render() {

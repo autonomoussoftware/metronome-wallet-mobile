@@ -1,6 +1,7 @@
-import { DisplayValue, Confirmation, View, Text } from '../common'
 import PropTypes from 'prop-types'
 import React from 'react'
+
+import { DisplayValue, Confirmation, View, Text } from '../common'
 
 class ConfirmPurchase extends React.Component {
   static propTypes = {

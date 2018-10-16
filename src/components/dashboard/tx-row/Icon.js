@@ -1,11 +1,12 @@
+import PropTypes from 'prop-types'
+import theme from 'metronome-wallet-ui-logic/src/theme'
+import React from 'react'
+import RN from 'react-native'
+
 import { View, Text } from '../../common'
 import ConverterIcon from '../../icons/ConverterIcon'
 import AuctionIcon from '../../icons/AuctionIcon'
-import PropTypes from 'prop-types'
 import TxIcon from '../../icons/TxIcon'
-import theme from '../../../theme'
-import React from 'react'
-import RN from 'react-native'
 
 export default class Icon extends React.Component {
   static propTypes = {

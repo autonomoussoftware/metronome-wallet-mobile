@@ -1,9 +1,10 @@
-import CountDownProvider from '../../shared/hocs/CountDownProvider'
-import { Text, View } from '../common'
+import CountDownProvider from 'metronome-wallet-ui-logic/src/hocs/CountDownProvider'
 import PropTypes from 'prop-types'
-import theme from '../../theme'
+import theme from 'metronome-wallet-ui-logic/src/theme'
 import React from 'react'
 import RN from 'react-native'
+
+import { Text, View } from '../common'
 
 export default class CountDown extends React.Component {
   static propTypes = {

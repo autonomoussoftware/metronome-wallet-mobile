@@ -1,9 +1,10 @@
-import { MenuBtn, Text, View, Btn } from '../common'
-import withConverterState from '../../shared/hocs/withConverterState'
+import withConverterState from 'metronome-wallet-ui-logic/src/hocs/withConverterState'
 import PropTypes from 'prop-types'
-import Stats from './Stats'
 import React from 'react'
 import RN from 'react-native'
+
+import { MenuBtn, Text, View, Btn } from '../common'
+import Stats from './Stats'
 
 class Converter extends React.Component {
   static propTypes = {

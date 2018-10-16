@@ -1,17 +1,18 @@
 import { SafeAreaView, StyleSheet } from 'react-native'
 import { StackActions } from 'react-navigation'
+import { withClient } from 'metronome-wallet-ui-logic/src/hocs/clientContext'
+import PropTypes from 'prop-types'
+import React from 'react'
+
 import SecondaryNavBtn from './SecondaryNavBtn'
-import { withClient } from '../../shared/hocs/clientContext'
 import ConverterIcon from '../icons/ConverterIcon'
 import AuctionIcon from '../icons/AuctionIcon'
 import WipeStorage from './WipeStorage'
 import WalletIcon from '../icons/WalletIcon'
-import PropTypes from 'prop-types'
 import LogoIcon from '../icons/LogoIcon'
 import { View } from '../common'
 import AppMeta from './AppMeta'
 import NavBtn from './NavBtn'
-import React from 'react'
 import Logo from '../icons/Logo'
 
 class Drawer extends React.Component {

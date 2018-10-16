@@ -1,9 +1,10 @@
-import { MnemonicInput, MenuBtn, View, Text, Btn } from '../common'
-import withToolsState from '../../shared/hocs/withToolsState'
+import withToolsState from 'metronome-wallet-ui-logic/src/hocs/withToolsState'
 import PropTypes from 'prop-types'
-import theme from '../../theme'
+import theme from 'metronome-wallet-ui-logic/src/theme'
 import React from 'react'
 import RN from 'react-native'
+
+import { MnemonicInput, MenuBtn, View, Text, Btn } from '../common'
 
 class Tools extends React.Component {
   static propTypes = {

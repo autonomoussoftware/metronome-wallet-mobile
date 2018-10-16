@@ -1,10 +1,11 @@
-import { GasEditor, TextInput, BaseBtn, View } from '../common'
-import withSendMETFormState from '../../shared/hocs/withSendMETFormState'
+import withSendMETFormState from 'metronome-wallet-ui-logic/src/hocs/withSendMETFormState'
 import { withNavigation } from 'react-navigation'
-import QRScanner from './QRScanner'
 import PropTypes from 'prop-types'
 import React from 'react'
 import RN from 'react-native'
+
+import { GasEditor, TextInput, BaseBtn, View } from '../common'
+import QRScanner from './QRScanner'
 
 class SendMETForm extends React.Component {
   static propTypes = {

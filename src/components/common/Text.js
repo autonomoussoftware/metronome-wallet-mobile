@@ -1,8 +1,9 @@
-import { fontStyles, spacing } from '../../utils'
 import PropTypes from 'prop-types'
-import theme from '../../theme'
+import theme from 'metronome-wallet-ui-logic/src/theme'
 import React from 'react'
 import RN from 'react-native'
+
+import { fontStyles, spacing } from '../../utils'
 
 const Text = props => {
   const {

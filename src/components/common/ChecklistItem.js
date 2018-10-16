@@ -1,6 +1,7 @@
 import { Svg, Path } from 'react-native-svg'
 import PropTypes from 'prop-types'
 import React from 'react'
+
 import Text from './Text'
 import View from './View'
 

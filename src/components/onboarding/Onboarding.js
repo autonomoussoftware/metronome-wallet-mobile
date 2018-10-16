@@ -1,12 +1,13 @@
-import { MnemonicInput, Checkbox, BaseBtn, View, Text, Btn } from '../common'
-import PinInput, { PIN_LENGTH } from '../common/PinInput'
-import withOnboardingState from '../../shared/hocs/withOnboardingState'
-import TermsAndConditions from '../../shared/TermsAndConditions'
-import { errorPropTypes } from '../../utils'
-import PatternView from '../common/PatternView'
+import withOnboardingState from 'metronome-wallet-ui-logic/src/hocs/withOnboardingState'
+import TermsAndConditions from 'metronome-wallet-ui-logic/src/components/TermsAndConditions'
 import PropTypes from 'prop-types'
 import React from 'react'
 import RN from 'react-native'
+
+import { MnemonicInput, Checkbox, BaseBtn, View, Text, Btn } from '../common'
+import PinInput, { PIN_LENGTH } from '../common/PinInput'
+import { errorPropTypes } from '../../utils'
+import PatternView from '../common/PatternView'
 
 const TermsText = p => <Text my={1} size="small" align="justify" {...p} />
 

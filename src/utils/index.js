@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import theme from '../theme'
+import theme from 'metronome-wallet-ui-logic/src/theme'
 import RN from 'react-native'
 
 export const errorPropTypes = (...fields) => {

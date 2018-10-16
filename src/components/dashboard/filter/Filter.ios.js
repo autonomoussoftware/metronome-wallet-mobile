@@ -1,9 +1,10 @@
-import { View, BaseBtn } from '../../common'
-import DropdownBtn from './DropdownBtn'
 import PropTypes from 'prop-types'
-import theme from '../../../theme'
+import theme from 'metronome-wallet-ui-logic/src/theme'
 import React from 'react'
 import RN from 'react-native'
+
+import { View, BaseBtn } from '../../common'
+import DropdownBtn from './DropdownBtn'
 
 class Filter extends React.Component {
   static propTypes = {

@@ -1,9 +1,10 @@
-import withBlockchainState from '../../shared/hocs/withBlockchainState'
-import { View, Text } from '../common'
+import withBlockchainState from 'metronome-wallet-ui-logic/src/hocs/withBlockchainState'
 import VersionNumber from 'react-native-version-number'
 import PropTypes from 'prop-types'
-import config from '../../config'
 import React from 'react'
+
+import { View, Text } from '../common'
+import config from '../../config'
 
 class AppMeta extends React.Component {
   static propTypes = {

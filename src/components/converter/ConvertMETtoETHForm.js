@@ -1,9 +1,10 @@
-import withConvertMETtoETHState from '../../shared/hocs/withConvertMETtoETHState'
+import withConvertMETtoETHState from 'metronome-wallet-ui-logic/src/hocs/withConvertMETtoETHState'
 import { withNavigation } from 'react-navigation'
-import { errorPropTypes } from '../../utils'
 import PropTypes from 'prop-types'
 import React from 'react'
 import RN from 'react-native'
+
+import { errorPropTypes } from '../../utils'
 import {
   DisplayValue,
   TextInput,

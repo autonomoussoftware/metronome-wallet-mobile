@@ -1,8 +1,9 @@
-import { PatternView, ChecklistItem, View, Text } from './common'
-import withLoadingState from '../shared/hocs/withLoadingState'
+import withLoadingState from 'metronome-wallet-ui-logic/src/hocs/withLoadingState'
 import PropTypes from 'prop-types'
 import React from 'react'
 import RN from 'react-native'
+
+import { PatternView, ChecklistItem, View, Text } from './common'
 
 class Loading extends React.Component {
   static propTypes = {

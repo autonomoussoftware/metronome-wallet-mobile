@@ -1,8 +1,9 @@
-import { TextInput, BaseBtn, View } from '../common'
-import mnemonicWords from '../../shared/mnemonicWords'
+import { mnemonicWords } from 'metronome-wallet-ui-logic/src/utils'
 import PropTypes from 'prop-types'
 import React from 'react'
 import RN from 'react-native'
+
+import { TextInput, BaseBtn, View } from '../common'
 
 class Suggestions extends React.Component {
   static propTypes = {

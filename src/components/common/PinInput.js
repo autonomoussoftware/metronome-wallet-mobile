@@ -1,8 +1,9 @@
-import { View, Text } from './index'
 import PropTypes from 'prop-types'
-import theme from '../../theme'
+import theme from 'metronome-wallet-ui-logic/src/theme'
 import React from 'react'
 import RN from 'react-native'
+
+import { View, Text } from './index'
 
 export const PIN_LENGTH = 6
 

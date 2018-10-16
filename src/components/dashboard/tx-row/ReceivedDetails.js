@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types'
-import { Text } from '../../common'
 import React from 'react'
+
+import { Text } from '../../common'
 
 export default class ReceivedDetails extends React.Component {
   static propTypes = {

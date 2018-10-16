@@ -1,7 +1,8 @@
-import DropdownBtn from './DropdownBtn'
 import PropTypes from 'prop-types'
 import React from 'react'
 import RN from 'react-native'
+
+import DropdownBtn from './DropdownBtn'
 
 class Filter extends React.Component {
   static propTypes = {

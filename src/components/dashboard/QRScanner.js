@@ -1,9 +1,10 @@
-import { View, Text } from '../common'
 import QRCodeScanner from 'react-native-qrcode-scanner'
-import CloseIcon from '../icons/CloseIcon'
 import PropTypes from 'prop-types'
 import React from 'react'
 import RN from 'react-native'
+
+import { View, Text } from '../common'
+import CloseIcon from '../icons/CloseIcon'
 
 export default class QRScanner extends React.Component {
   static propTypes = {

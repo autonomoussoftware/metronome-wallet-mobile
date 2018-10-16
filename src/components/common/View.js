@@ -1,8 +1,9 @@
-import { spacing } from '../../utils'
 import PropTypes from 'prop-types'
-import theme from '../../theme'
+import theme from 'metronome-wallet-ui-logic/src/theme'
 import React from 'react'
 import RN from 'react-native'
+
+import { spacing } from '../../utils'
 
 // eslint-disable-next-line complexity
 function getViewStyles(props) {

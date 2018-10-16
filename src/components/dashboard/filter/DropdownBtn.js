@@ -1,8 +1,9 @@
 import { Svg, G, Line } from 'react-native-svg'
-import { View, Text } from '../../common'
 import PropTypes from 'prop-types'
 import React from 'react'
 import RN from 'react-native'
+
+import { View, Text } from '../../common'
 
 export default class DropdownBtn extends React.Component {
   static propTypes = {

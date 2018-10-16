@@ -1,9 +1,10 @@
-import { AmountFields, DisplayValue, GasEditor, Text, View } from '../common'
-import withConvertETHtoMETState from '../../shared/hocs/withConvertETHtoMETState'
+import withConvertETHtoMETState from 'metronome-wallet-ui-logic/src/hocs/withConvertETHtoMETState'
 import { withNavigation } from 'react-navigation'
 import PropTypes from 'prop-types'
 import React from 'react'
 import RN from 'react-native'
+
+import { AmountFields, DisplayValue, GasEditor, Text, View } from '../common'
 
 class ConvertETHtoMETForm extends React.Component {
   static propTypes = {

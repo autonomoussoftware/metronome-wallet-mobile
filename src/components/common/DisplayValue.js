@@ -1,8 +1,9 @@
-import { withClient } from '../../shared/hocs/clientContext'
-import { sanitize } from '../../shared/utils'
+import { withClient } from 'metronome-wallet-ui-logic/src/hocs/clientContext'
+import { sanitize } from 'metronome-wallet-ui-logic/src/utils'
 import smartRounder from 'smart-round'
 import PropTypes from 'prop-types'
 import React from 'react'
+
 import Text from './Text'
 
 class DisplayValue extends React.Component {

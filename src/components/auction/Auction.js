@@ -1,10 +1,11 @@
-import { MenuBtn, Text, View, Btn } from '../common'
-import withAuctionState from '../../shared/hocs/withAuctionState'
-import CountDown from './CountDown'
+import withAuctionState from 'metronome-wallet-ui-logic/src/hocs/withAuctionState'
 import PropTypes from 'prop-types'
-import Stats from './Stats'
 import React from 'react'
 import RN from 'react-native'
+
+import { MenuBtn, Text, View, Btn } from '../common'
+import CountDown from './CountDown'
+import Stats from './Stats'
 
 const Auction = props => {
   const {
