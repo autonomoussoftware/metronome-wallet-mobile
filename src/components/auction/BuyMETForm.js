@@ -1,7 +1,8 @@
-import withBuyMETFormState from '../../shared/hocs/withBuyMETFormState'
+import withBuyMETFormState from 'metronome-wallet-ui-logic/src/hocs/withBuyMETFormState'
 import PropTypes from 'prop-types'
 import React from 'react'
 import RN from 'react-native'
+
 import {
   AmountFields,
   DisplayValue,

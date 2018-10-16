@@ -1,10 +1,11 @@
 import { Svg, Path, Rect } from 'react-native-svg'
 import PropTypes from 'prop-types'
-import theme from '../../theme'
+import theme from 'metronome-wallet-ui-logic/src/theme'
 import React from 'react'
+import RN from 'react-native'
+
 import View from './View'
 import Text from './Text'
-import RN from 'react-native'
 
 export default class Checkbox extends React.Component {
   static propTypes = {

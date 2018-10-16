@@ -1,9 +1,10 @@
-import { DisplayValue, View, Text } from '../common'
-import withBalanceBlockState from '../../shared/hocs/withBalanceBlockState'
+import withBalanceBlockState from 'metronome-wallet-ui-logic/src/hocs/withBalanceBlockState'
 import PropTypes from 'prop-types'
-import theme from '../../theme'
+import theme from 'metronome-wallet-ui-logic/src/theme'
 import React from 'react'
 import RN from 'react-native'
+
+import { DisplayValue, View, Text } from '../common'
 
 class BalanceBlock extends React.Component {
   static propTypes = {

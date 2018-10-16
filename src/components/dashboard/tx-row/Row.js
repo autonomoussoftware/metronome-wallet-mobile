@@ -1,13 +1,14 @@
 import { withNavigation } from 'react-navigation'
-import withTxRowState from '../../../shared/hocs/withTxRowState'
+import withTxRowState from 'metronome-wallet-ui-logic/src/hocs/withTxRowState'
 import PropTypes from 'prop-types'
+import theme from 'metronome-wallet-ui-logic/src/theme'
+import React from 'react'
+import RN from 'react-native'
+
 import { View } from '../../common'
 import Details from './Details'
 import Amount from './Amount'
-import theme from '../../../theme'
-import React from 'react'
 import Icon from './Icon'
-import RN from 'react-native'
 
 class Row extends React.Component {
   static propTypes = {

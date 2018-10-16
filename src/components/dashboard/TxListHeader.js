@@ -1,8 +1,9 @@
+import PropTypes from 'prop-types'
+import React from 'react'
+
 import { View, Text } from '../common'
 import ScanIndicator from './ScanIndicator'
-import PropTypes from 'prop-types'
 import Filter from './filter/Filter'
-import React from 'react'
 
 class TxListHeader extends React.Component {
   static propTypes = {

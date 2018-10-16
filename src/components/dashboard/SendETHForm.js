@@ -1,10 +1,11 @@
-import { AmountFields, GasEditor, TextInput, BaseBtn, View } from '../common'
-import withSendETHFormState from '../../shared/hocs/withSendETHFormState'
+import withSendETHFormState from 'metronome-wallet-ui-logic/src/hocs/withSendETHFormState'
 import { withNavigation } from 'react-navigation'
-import QRScanner from './QRScanner'
 import PropTypes from 'prop-types'
 import React from 'react'
 import RN from 'react-native'
+
+import { AmountFields, GasEditor, TextInput, BaseBtn, View } from '../common'
+import QRScanner from './QRScanner'
 
 class SendETHForm extends React.Component {
   static propTypes = {

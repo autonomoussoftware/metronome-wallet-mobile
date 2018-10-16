@@ -1,6 +1,6 @@
 import { Svg, Path } from 'react-native-svg'
 import PropTypes from 'prop-types'
-import theme from '../../theme'
+import theme from 'metronome-wallet-ui-logic/src/theme'
 import React from 'react'
 
 export default class AuctionIcon extends React.Component {

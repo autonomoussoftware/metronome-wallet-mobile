@@ -1,9 +1,10 @@
-import { spacing } from '../../utils'
 import PropTypes from 'prop-types'
 import React from 'react'
+import RN from 'react-native'
+
+import { spacing } from '../../utils'
 import Text from './Text'
 import View from './View'
-import RN from 'react-native'
 
 const Btn = props => {
   const { style, label, block, disabled, ...other } = props

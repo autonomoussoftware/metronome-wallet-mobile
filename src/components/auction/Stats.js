@@ -1,8 +1,9 @@
-import { DisplayValue, Text, View } from '../common'
 import PropTypes from 'prop-types'
-import theme from '../../theme'
+import theme from 'metronome-wallet-ui-logic/src/theme'
 import React from 'react'
 import RN from 'react-native'
+
+import { DisplayValue, Text, View } from '../common'
 
 const isNarrow = RN.Dimensions.get('window').width < 375
 

@@ -1,6 +1,7 @@
-import { Confirmation, Text } from '../common'
 import PropTypes from 'prop-types'
 import React from 'react'
+
+import { Confirmation, Text } from '../common'
 
 class ConfirmRecover extends React.Component {
   static propTypes = {

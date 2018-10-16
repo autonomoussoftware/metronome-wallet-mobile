@@ -1,8 +1,9 @@
 import { TouchableOpacity, StyleSheet } from 'react-native'
-import { View, Text } from '../common'
 import PropTypes from 'prop-types'
-import theme from '../../theme'
+import theme from 'metronome-wallet-ui-logic/src/theme'
 import React from 'react'
+
+import { View, Text } from '../common'
 
 const NavBtn = ({ label, isFirst, IconComponent, isActive, ...other }) => (
   <TouchableOpacity activeOpacity={0.5} {...other}>

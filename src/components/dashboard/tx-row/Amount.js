@@ -1,9 +1,10 @@
+import PropTypes from 'prop-types'
+import theme from 'metronome-wallet-ui-logic/src/theme'
+import React from 'react'
+
 import { DisplayValue, Text } from '../../common'
 import ConvertedAmount from './ConvertedAmount'
 import AuctionAmount from './AuctionAmount'
-import PropTypes from 'prop-types'
-import theme from '../../../theme'
-import React from 'react'
 
 export default class Amount extends React.Component {
   static propTypes = {

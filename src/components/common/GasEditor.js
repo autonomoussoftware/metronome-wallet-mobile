@@ -1,9 +1,10 @@
-import withGasEditorState from '../../shared/hocs/withGasEditorState'
+import withGasEditorState from 'metronome-wallet-ui-logic/src/hocs/withGasEditorState'
+import PropTypes from 'prop-types'
+import React from 'react'
+
 import { errorPropTypes } from '../../utils'
 import TextInput from './TextInput'
-import PropTypes from 'prop-types'
 import BaseBtn from './BaseBtn'
-import React from 'react'
 import View from './View'
 import Text from './Text'
 

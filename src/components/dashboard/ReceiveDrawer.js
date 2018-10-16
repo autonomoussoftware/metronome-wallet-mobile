@@ -1,11 +1,12 @@
-import withReceiveDrawerState from '../../shared/hocs/withReceiveDrawerState'
-import { View, Text } from '../common'
+import withReceiveDrawerState from 'metronome-wallet-ui-logic/src/hocs/withReceiveDrawerState'
 import PropTypes from 'prop-types'
-import CopyIcon from '../icons/CopyIcon'
 import QRCode from 'react-native-qrcode-svg'
-import theme from '../../theme'
+import theme from 'metronome-wallet-ui-logic/src/theme'
 import React from 'react'
 import RN from 'react-native'
+
+import { View, Text } from '../common'
+import CopyIcon from '../icons/CopyIcon'
 
 class ReceiveDrawer extends React.Component {
   static propTypes = {

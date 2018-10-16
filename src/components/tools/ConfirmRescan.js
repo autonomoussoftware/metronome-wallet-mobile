@@ -1,6 +1,7 @@
-import { View, Text, Btn } from '../common'
 import PropTypes from 'prop-types'
 import React from 'react'
+
+import { View, Text, Btn } from '../common'
 
 class ConfirmRescan extends React.Component {
   static propTypes = {

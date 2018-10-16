@@ -1,10 +1,11 @@
+import PropTypes from 'prop-types'
+import React from 'react'
+
 import ConvertedDetails from './ConvertedDetails'
 import ReceivedDetails from './ReceivedDetails'
 import AuctionDetails from './AuctionDetails'
 import SentDetails from './SentDetails'
-import PropTypes from 'prop-types'
 import { Text } from '../../common'
-import React from 'react'
 
 export default class Details extends React.Component {
   static propTypes = {

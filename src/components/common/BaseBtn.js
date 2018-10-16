@@ -1,7 +1,8 @@
 import { TouchableOpacity } from 'react-native'
-import { spacing } from '../../utils'
 import PropTypes from 'prop-types'
 import React from 'react'
+
+import { spacing } from '../../utils'
 import Text from './Text'
 
 const BaseBtn = props => {

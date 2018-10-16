@@ -1,5 +1,6 @@
-import { Spinner, View, Text } from '../common'
 import React from 'react'
+
+import { Spinner, View, Text } from '../common'
 
 export default class ScanningTxPlaceholder extends React.Component {
   render() {

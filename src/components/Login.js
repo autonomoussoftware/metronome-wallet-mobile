@@ -1,8 +1,9 @@
-import { PatternView, PinInput, View } from './common'
-import withLoginState from '../shared/hocs/withLoginState'
+import withLoginState from 'metronome-wallet-ui-logic/src/hocs/withLoginState'
 import PropTypes from 'prop-types'
-import Banner from './icons/Banner'
 import React from 'react'
+
+import { PatternView, PinInput, View } from './common'
+import Banner from './icons/Banner'
 
 class Login extends React.Component {
   static propTypes = {

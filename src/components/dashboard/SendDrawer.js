@@ -1,9 +1,10 @@
-import { BaseBtn, View, Text, Tab } from '../common'
-import withSendDrawerState from '../../shared/hocs/withSendDrawerState'
-import SendETHForm from './SendETHForm'
-import SendMETForm from './SendMETForm'
+import withSendDrawerState from 'metronome-wallet-ui-logic/src/hocs/withSendDrawerState'
 import PropTypes from 'prop-types'
 import React from 'react'
+
+import { BaseBtn, View, Text, Tab } from '../common'
+import SendETHForm from './SendETHForm'
+import SendMETForm from './SendMETForm'
 
 const DEFAULT_TAB = 'eth'
 

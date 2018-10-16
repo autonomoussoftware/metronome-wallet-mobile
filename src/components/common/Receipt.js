@@ -1,16 +1,17 @@
-import withReceiptState from '../../shared/hocs/withReceiptState'
+import withReceiptState from 'metronome-wallet-ui-logic/src/hocs/withReceiptState'
+import PropTypes from 'prop-types'
+import React from 'react'
+import RN from 'react-native'
+
 import RefreshControl from './RefreshControl'
 import ConverterIcon from '../icons/ConverterIcon'
 import DisplayValue from './DisplayValue'
 import AuctionIcon from '../icons/AuctionIcon'
-import PropTypes from 'prop-types'
 import CopyIcon from '../icons/CopyIcon'
 import TxIcon from '../icons/TxIcon'
-import React from 'react'
 import View from './View'
 import Text from './Text'
 import Btn from './Btn'
-import RN from 'react-native'
 
 class Receipt extends React.Component {
   static propTypes = {

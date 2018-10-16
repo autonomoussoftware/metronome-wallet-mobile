@@ -1,5 +1,6 @@
-import { Text } from '../../common'
 import React from 'react'
+
+import { Text } from '../../common'
 
 export default class AuctionDetails extends React.Component {
   render() {

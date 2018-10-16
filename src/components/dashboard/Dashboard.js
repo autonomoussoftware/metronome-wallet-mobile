@@ -1,14 +1,15 @@
+import withDashboardState from 'metronome-wallet-ui-logic/src/hocs/withDashboardState'
+import PropTypes from 'prop-types'
+import React from 'react'
+import RN from 'react-native'
+
 import { MenuBtn, View, Text, Btn } from '../common'
 import ScanningTxPlaceholder from './ScanningTxPlaceholder'
-import withDashboardState from '../../shared/hocs/withDashboardState'
 import NoTxPlaceholder from './NoTxPlaceholder'
 import RefreshControl from '../common/RefreshControl'
 import TxListHeader from './TxListHeader'
 import BalanceBlock from './BalanceBlock'
-import PropTypes from 'prop-types'
 import TxList from './TxList'
-import React from 'react'
-import RN from 'react-native'
 
 class Dashboard extends React.Component {
   static propTypes = {

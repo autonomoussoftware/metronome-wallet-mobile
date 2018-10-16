@@ -1,6 +1,7 @@
-import { DisplayValue, Confirmation, Text } from '../common'
 import PropTypes from 'prop-types'
 import React from 'react'
+
+import { DisplayValue, Confirmation, Text } from '../common'
 
 class ConfirmMETtoETH extends React.Component {
   static propTypes = {

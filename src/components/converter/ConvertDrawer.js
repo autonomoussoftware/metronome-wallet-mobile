@@ -1,7 +1,8 @@
+import React from 'react'
+
 import { BaseBtn, View, Tab, Text } from '../common'
 import ConvertETHtoMETForm from './ConvertETHtoMETForm'
 import ConvertMETtoETHForm from './ConvertMETtoETHForm'
-import React from 'react'
 
 const DEFAULT_TAB = 'eth'
 

@@ -1,8 +1,9 @@
 import { createStackNavigator } from 'react-navigation'
-import { fontStyles } from '../../utils'
-import { merge } from 'lodash'
-import theme from '../../theme'
+import theme from 'metronome-wallet-ui-logic/src/theme'
+import merge from 'lodash/merge'
 import RN from 'react-native'
+
+import { fontStyles } from '../../utils'
 
 export default function createCustomNavigator(routes, customConfig) {
   const { width } = RN.Dimensions.get('window')

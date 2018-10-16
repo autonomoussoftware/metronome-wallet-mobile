@@ -1,16 +1,16 @@
-import { Provider as ClientProvider } from './shared/hocs/clientContext'
+import { Provider as ClientProvider } from 'metronome-wallet-ui-logic/src/hocs/clientContext'
+import { Provider, createStore } from 'metronome-wallet-ui-logic/src/store'
 import SplashScreen from 'react-native-splash-screen'
-import { Provider } from 'react-redux'
+import React from 'react'
+import Root from 'metronome-wallet-ui-logic/src/components/Root'
+import RN from 'react-native'
+
 import createClient from './client'
-import createStore from './shared/createStore'
 import Onboarding from './components/onboarding/Onboarding'
 import Loading from './components/Loading'
 import Router from './components/Router'
 import config from './config'
 import Login from './components/Login'
-import React from 'react'
-import Root from './shared/Root'
-import RN from 'react-native'
 
 RN.YellowBox.ignoreWarnings(['Setting a timer'])
 
