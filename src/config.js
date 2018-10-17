@@ -39,6 +39,7 @@ const createConfig = env => ({
   DEFAULT_GAS_PRICE: '1000000000',
   REQUIRED_PASSWORD_ENTROPY: 20,
   TRACKING_ID: env.TRACKING_ID,
+  SETTINGS_VERSION: 1,
   eth: {
     chain: env.ETH_CHAIN,
     wsApiUrl: env.ETH_WS_API_URL

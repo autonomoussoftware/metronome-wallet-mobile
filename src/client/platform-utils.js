@@ -30,7 +30,7 @@ export function clearCache() {
     'sync',
     'wallets'
   ]
-  return Promise.all([RN.AsyncStorage.multiRemove(keys)])
+  return RN.AsyncStorage.multiRemove(keys)
     .then(RNRestart.Restart())
 }
 
@@ -38,3 +38,10 @@ export const recoverFromMnemonic = ({ mnemonic, password }) =>
   validatePIN(password)
     .then(() => setSeed(mnemonicToSeedHex(mnemonic)))
     .then(clearCache)
+
+export const shouldRestartSettings = () =>
+  RN.AsyncStorage.getItem('settings-version')
+    .then(settingsVersion => config.SETTINGS_VERSION > Number.parseInt(settingsVersion || 0))
+
+export const saveSettingsVersion = () =>
+  RN.AsyncStorage.setItem('settings-version', JSON.stringify(config.SETTINGS_VERSION || 0))

@@ -43,11 +43,20 @@ export default function createClient(config, createStore) {
     })
   })
 
-  storage.getState()
+  Promise.all([storage.getState(), platformUtils.shouldRestartSettings()])
     .catch(function (err) {
       // eslint-disable-next-line no-console
       console.warn('Could not get persisted state', err)
-      return []
+      return [[], false]
+    })
+    .then(function ([pairs, shouldRestartSettings]) {
+      if (shouldRestartSettings) {
+        return Promise.all([
+          storage.setSyncBlock(0),
+          storage.persistState([])
+        ]).then(() => [])
+      }
+      return pairs
     })
     .then(function (pairs) {
       const stateToEvent = {
@@ -64,6 +73,7 @@ export default function createClient(config, createStore) {
         storage.persistState(store.getState())
       })
     })
+    .then(() => platformUtils.saveSettingsVersion())
     .catch(function (err) {
       // eslint-disable-next-line no-console
       console.warn('Failed setting up store and dispatching events', err)
