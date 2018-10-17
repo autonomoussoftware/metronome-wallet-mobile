@@ -13,7 +13,7 @@ export const persistState = promiseThrottle(function (state) {
   console.log('Persisting state', state)
 
   return Promise.all(keysToPersist.map(key =>
-    AsyncStorage.setItem(key, JSON.stringify(state[key]))
+    AsyncStorage.setItem(key, JSON.stringify(state[key] || null))
   ))
 })
 
@@ -33,7 +33,6 @@ export function getBestBlock () {
 export function setSyncBlock (number) {
   // eslint-disable-next-line no-console
   console.log('Setting sync block', number)
-  
   return AsyncStorage.setItem('sync', number.toString())
 }
 
