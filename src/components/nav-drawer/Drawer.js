@@ -48,7 +48,7 @@ class Drawer extends React.Component {
               isActive={isFocused('Dashboard')}
               onPress={() => this.navigateTo('Dashboard')}
               isFirst
-              label="WALLETS"
+              label="WALLET"
             />
             <NavBtn
               IconComponent={AuctionIcon}
