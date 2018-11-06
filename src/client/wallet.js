@@ -1,8 +1,9 @@
-import * as Keychain from 'react-native-keychain';
+import * as Keychain from 'react-native-keychain'
 
 export const getSeed = () =>
-  Keychain.getGenericPassword()
+  Keychain.getInternetCredentials('wallet.seed')
     .then(credentials => credentials.password)
 
 export const setSeed = seed =>
-  Keychain.setGenericPassword('wallet.seed', seed)
+  Keychain.setInternetCredentials('wallet.seed', 'seed', seed)
+

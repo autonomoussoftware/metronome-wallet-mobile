@@ -28,7 +28,6 @@
   "dependencies": {
     "babel-preset-es2015": "6.24.1",
     "base-64": "0.1.0",
-    "fast-password-entropy": "1.1.0",
     "lodash": "4.17.11",
     "metronome-contracts": "1.4.2",
     "metronome-wallet-core": "1.1.3",
