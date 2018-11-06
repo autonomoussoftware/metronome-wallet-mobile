@@ -8,7 +8,8 @@ const devEnv = {
   EXPLORER_INDEXER_URL: 'http://localhost:3005',
   MET_EXPLORER_URL: 'http://localhost:3004',
   TRACKING_ID: 'UA-116275666-3',
-  SENTRY_DSN: null
+  SENTRY_DSN: null,
+  debug: true
 }
 
 const testEnv = {
@@ -17,7 +18,8 @@ const testEnv = {
   EXPLORER_INDEXER_URL: 'https://indexer.bloqrock.net',
   MET_EXPLORER_URL: 'https://explorer.met.bloqrock.net',
   TRACKING_ID: 'UA-116275666-3',
-  SENTRY_DSN: null
+  SENTRY_DSN: null,
+  debug: true
 }
 
 const prodEnv = {
@@ -26,7 +28,8 @@ const prodEnv = {
   EXPLORER_INDEXER_URL: 'https://indexer.metronome.io',
   MET_EXPLORER_URL: 'https://explorer.metronome.io',
   TRACKING_ID: 'UA-116275666-6',
-  SENTRY_DSN: process.env.SENTRY_DSN || 'https://4211b3b9085f4931837b8b7916bfa0a5@sentry.io/1279846'
+  SENTRY_DSN: process.env.SENTRY_DSN || 'https://4211b3b9085f4931837b8b7916bfa0a5@sentry.io/1279846',
+  debug: false
 }
 
 const createConfig = env => ({
@@ -47,7 +50,7 @@ const createConfig = env => ({
   explorer: {
     indexerUrl: env.EXPLORER_INDEXER_URL
   },
-  debug: true
+  debug: env.debug
 })
 
 const config = createConfig(
