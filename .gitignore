@@ -58,6 +58,3 @@ buck-out/
 
 # sentry
 sentry.properties
-
-# client
-dummy-client/
