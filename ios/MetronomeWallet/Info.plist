@@ -24,6 +24,17 @@
 	<string>1</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+ 	<key>NSAppTransportSecurity</key>
+ 	<dict>
+ 		<key>NSExceptionDomains</key>
+ 		<dict>
+ 			<key>localhost</key>
+ 			<dict>
+ 				<key>NSExceptionAllowsInsecureHTTPLoads</key>
+ 				<true/>
+ 			</dict>
+ 		</dict>
+ 	</dict>
 	<key>NSCameraUsageDescription</key>
 	<string>The wallet needs permission to access the device camera in order to scan QR codes.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
