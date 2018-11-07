@@ -1,5 +1,9 @@
+import fastPasswordEntropy from 'fast-password-entropy'
 import * as Keychain from 'react-native-keychain'
 import { sha256 } from './crypto'
+
+export const getStringEntropy = str =>
+  fastPasswordEntropy(str)
 
 export const getHashedPIN = () =>
   Keychain.getInternetCredentials('wallet.pin')
