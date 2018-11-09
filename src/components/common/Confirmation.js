@@ -12,6 +12,9 @@ import View from './View'
 import Text from './Text'
 import Btn from './Btn'
 
+const majorVersionIOS = RN.Platform.OS === 'ios' && parseInt(RN.Platform.Version, 10)
+const doesntSupportsSafeView = majorVersionIOS <= 11
+
 class Confirmation extends React.Component {
   static propTypes = {
     pendingTitle: PropTypes.string,
@@ -183,33 +186,35 @@ class Confirmation extends React.Component {
       transparent={false}
       visible={this.state.status === 'success'}
     >
-      <View flex={1} bg="dark">
-        <View
-          justify="space-between"
-          align="center"
-          row
-          bg="primary"
-          px={2}
-          pt={4}
-          pb={2}
-        >
-          <View shrink={1}>
-            <Text size="medium" weight="bold">
-              Transaction Receipt
+      <View flex={1} bg="primary">
+        <RN.SafeAreaView style={styles.safeArea}>
+          <View
+            justify="space-between"
+            align="center"
+            row
+            bg="primary"
+            px={2}
+            pt={doesntSupportsSafeView ? 4 : 2}
+            pb={2}
+          >
+            <View shrink={1}>
+              <Text size="medium" weight="bold">
+                Transaction Receipt
             </Text>
+            </View>
+            <View ml={2}>
+              <RN.TouchableOpacity onPress={this.closeReceiptModal}>
+                <CloseIcon size="20" color="light" />
+              </RN.TouchableOpacity>
+            </View>
           </View>
-          <View ml={2}>
-            <RN.TouchableOpacity onPress={this.closeReceiptModal}>
-              <CloseIcon size="20" color="light" />
-            </RN.TouchableOpacity>
-          </View>
-        </View>
-        {this.state.status === 'success' && (
-          <Receipt
-            navigation={this.props.navigation}
-            hash={this.state.result.receipt.transactionHash}
-          />
-        )}
+          {this.state.status === 'success' && (
+            <Receipt
+              navigation={this.props.navigation}
+              hash={this.state.result.receipt.transactionHash}
+            />
+          )}
+        </RN.SafeAreaView>
       </View>
     </RN.Modal>
   )
@@ -225,5 +230,9 @@ class Confirmation extends React.Component {
     )
   }
 }
+
+const styles = RN.StyleSheet.create({
+  safeArea: { flex: 1 }
+})
 
 export default withNavigation(withClient(Confirmation))
