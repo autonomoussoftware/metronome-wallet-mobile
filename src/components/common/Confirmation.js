@@ -13,7 +13,7 @@ import Text from './Text'
 import Btn from './Btn'
 
 const majorVersionIOS = RN.Platform.OS === 'ios' && parseInt(RN.Platform.Version, 10)
-const doesntSupportsSafeView = majorVersionIOS <= 11
+const doesntSupportsSafeView = majorVersionIOS < 11
 
 class Confirmation extends React.Component {
   static propTypes = {
