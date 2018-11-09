@@ -1,21 +1,19 @@
-import { AsyncStorage } from 'react-native'
-import { sha256 } from './crypto'
 import fastPasswordEntropy from 'fast-password-entropy'
+import * as Keychain from 'react-native-keychain'
+import { sha256 } from './crypto'
 
-// TODO no longer needed once password is replaced
 export const getStringEntropy = str =>
   fastPasswordEntropy(str)
 
 export const getHashedPIN = () =>
-  AsyncStorage.getItem('wallet.pin')
+  Keychain.getInternetCredentials('wallet.pin')
+    .then(credentials => credentials.password)
 
 export const setPIN = pin =>
-  AsyncStorage.setItem('wallet.pin', sha256(pin))
+  Keychain.setInternetCredentials('wallet.pin', 'pin', sha256(pin))
 
 export const validatePIN = pin =>
-  AsyncStorage.getItem('wallet.pin')
+  getHashedPIN()
     .then(storagePin => storagePin === sha256(pin) || Promise.reject(new Error('Wrong PIN')))
 
-export function onLoginSubmit({ password }) {
-  return validatePIN(password)
-}
+export const onLoginSubmit = ({ password }) => validatePIN(password)
