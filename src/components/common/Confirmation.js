@@ -12,8 +12,13 @@ import View from './View'
 import Text from './Text'
 import Btn from './Btn'
 
-const majorVersionIOS = RN.Platform.OS === 'ios' && parseInt(RN.Platform.Version, 10)
-const doesntSupportsSafeView = majorVersionIOS < 11
+/**
+ * Android currently does not support SafeAreaView,
+ * but the notch is hidden within the status bar
+ * in this particular screen by default, so it isn't needed.
+ */
+const doesntSupportsSafeView = RN.Platform.OS === 'ios'
+  && parseInt(RN.Platform.Version, 10) < 11
 
 class Confirmation extends React.Component {
   static propTypes = {
