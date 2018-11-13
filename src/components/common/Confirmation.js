@@ -17,8 +17,8 @@ import Btn from './Btn'
  * but the notch is hidden within the status bar
  * in this particular screen by default, so it isn't needed.
  */
-const doesntSupportsSafeView = RN.Platform.OS === 'ios'
-  && parseInt(RN.Platform.Version, 10) < 11
+const supportsSafeView = RN.Platform.OS === 'ios'
+  && parseInt(RN.Platform.Version, 10) >= 11
 
 class Confirmation extends React.Component {
   static propTypes = {
@@ -199,7 +199,7 @@ class Confirmation extends React.Component {
             row
             bg="primary"
             px={2}
-            pt={doesntSupportsSafeView ? 4 : 2}
+            pt={supportsSafeView ? 2 : 4}
             pb={2}
           >
             <View shrink={1}>
