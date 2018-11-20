@@ -1,4 +1,4 @@
-package com.metronomewallet;
+package sh.autonomous.wallet.mobile;
 
 import android.content.Intent;
 import android.os.Bundle;
