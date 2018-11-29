@@ -109,7 +109,7 @@ android {
         applicationId "sh.autonomous.wallet.mobile"
         minSdkVersion 18
         targetSdkVersion 27
-        versionCode 19 // versionMajor * 10000 + versionMinor * 100 + versionPatch
+        versionCode 20 // versionMajor * 10000 + versionMinor * 100 + versionPatch
         versionName "${versionMajor}.${versionMinor}.${versionPatch}"
         ndk {
             abiFilters "armeabi-v7a", "x86"

@@ -19,6 +19,8 @@ xcuserdata
 DerivedData
 *.hmap
 *.ipa
+*.dSYM.zip
+*.dSYM
 *.xcuserstate
 project.xcworkspace
 

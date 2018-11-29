@@ -1,6 +1,6 @@
 import Contracts from 'metronome-contracts'
 
-const __TEST__ = true
+const __TEST__ = false
 
 const devEnv = {
   ETH_CHAIN: 'ropsten',
