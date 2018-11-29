@@ -6,6 +6,7 @@ import React from 'react'
 import RN from 'react-native'
 
 import CloseIcon from '../icons/CloseIcon'
+import config from '../../config'
 import PinInput from './PinInput'
 import Receipt from './Receipt'
 import View from './View'
@@ -156,7 +157,7 @@ class Confirmation extends React.Component {
   )
 
   renderFailure = () => {
-    const messageWithReplacements = utils.messageParser(this.state.error)
+    const messageWithReplacements = utils.messageParser(config, this.state.error)
     const defaultMessage = 'Something went wrong with your transaction.'
 
     return (

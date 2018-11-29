@@ -7,7 +7,7 @@ import * as keys from './keys'
 import * as platformUtils from './platform-utils'
 import * as utils from './utils'
 import * as wallet from './wallet'
-import { withAnalytics } from './analytics'
+import { withAnalytics, tracker } from './analytics'
 
 export default function createClient(config, createStore) {
 
@@ -79,14 +79,16 @@ export default function createClient(config, createStore) {
       console.warn('Failed setting up store and dispatching events', err)
     })
 
-  const onInit = () =>
-    auth.getHashedPIN()
+  const onInit = () => {
+    tracker.trackEvent('App', 'App initiated')
+    return auth.getHashedPIN()
       .then(pin => pin || Promise.reject(new Error('No pin found')))
       .then(wallet.getSeed)
       .then(coreApi.wallet.createAddress)
       .then(address => emitter.emit('open-wallets', { walletIds: [1], activeWallet: 1, address }))
       .then(() => ({ onboardingComplete: true }))
       .catch(err => ({ onboardingComplete: false, err }))
+  }
 
   const onOnboardingCompleted = ({ mnemonic, password }) => {
     const seed = keys.mnemonicToSeedHex(mnemonic)

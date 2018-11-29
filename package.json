@@ -1,7 +1,7 @@
 {
   "name": "metronome-wallet-mobile",
   "description": "Metronome wallet for mobile devices",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "author": {
     "name": "Autonomous Software",
     "email": "info@autonomous.sh",
@@ -33,7 +33,7 @@
     "lodash": "4.17.11",
     "metronome-contracts": "1.4.2",
     "metronome-wallet-core": "1.1.3",
-    "metronome-wallet-ui-logic": "1.0.2",
+    "metronome-wallet-ui-logic": "1.0.3",
     "node-libs-browser": "2.1.0",
     "prop-types": "15.6.2",
     "react": "16.4.1",
