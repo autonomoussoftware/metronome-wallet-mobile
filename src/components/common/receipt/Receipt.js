@@ -3,15 +3,13 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import RN from 'react-native'
 
-import RefreshControl from './RefreshControl'
-import ConverterIcon from '../icons/ConverterIcon'
-import DisplayValue from './DisplayValue'
-import AuctionIcon from '../icons/AuctionIcon'
-import CopyIcon from '../icons/CopyIcon'
-import TxIcon from '../icons/TxIcon'
-import View from './View'
-import Text from './Text'
-import Btn from './Btn'
+import RefreshControl from '../RefreshControl'
+import AmountRow from './AmountRow'
+import CopyIcon from '../../icons/CopyIcon'
+import TypeRow from './TypeRow'
+import View from '../View'
+import Text from '../Text'
+import Btn from '../Btn'
 
 class Receipt extends React.Component {
   static propTypes = {
@@ -70,9 +68,9 @@ class Receipt extends React.Component {
         bg="dark"
       >
         <View px={2}>
-          {tx.txType !== 'unknown' && <AmountRow tx={tx} />}
+          {tx.txType !== 'unknown' && <AmountRow {...tx} />}
 
-          <TypeRow tx={tx} />
+          <TypeRow {...tx} />
 
           {tx.txType === 'received' && (
             <RN.TouchableOpacity
@@ -161,96 +159,6 @@ class Receipt extends React.Component {
       </View>
     )
   }
-}
-
-const AmountRow = ({ tx }) => (
-  <View row my={3}>
-    <Text size="large">Amount</Text>
-    <View grow={1} align="flex-end">
-      {tx.txType === 'auction' ? (
-        <React.Fragment>
-          <DisplayValue
-            value={tx.ethSpentInAuction}
-            size="large"
-            post=" ETH"
-            color="primary"
-          />
-          {tx.mtnBoughtInAuction && (
-            <React.Fragment>
-              <Text mr={2} color="primary" mx={2} size="xLarge">
-                &darr;
-              </Text>
-              <DisplayValue
-                size="large"
-                value={tx.mtnBoughtInAuction}
-                post=" MET"
-                color="primary"
-              />
-            </React.Fragment>
-          )}
-        </React.Fragment>
-      ) : tx.txType === 'converted' ? (
-        <React.Fragment>
-          <DisplayValue
-            value={tx.fromValue}
-            size="large"
-            post={tx.convertedFrom === 'ETH' ? ' ETH' : ' MET'}
-            color="primary"
-          />
-          {tx.toValue && (
-            <React.Fragment>
-              <Text mx={2} size="xLarge" color="primary">
-                &darr;
-              </Text>
-              <DisplayValue
-                value={tx.toValue}
-                size="large"
-                post={tx.convertedFrom === 'ETH' ? ' MET' : ' ETH'}
-                color="primary"
-              />
-            </React.Fragment>
-          )}
-        </React.Fragment>
-      ) : (
-        <DisplayValue
-          value={tx.value}
-          post={` ${tx.symbol}`}
-          size="large"
-          color="primary"
-        />
-      )}
-    </View>
-  </View>
-)
-
-AmountRow.propTypes = {
-  tx: PropTypes.object.isRequired
-}
-
-const TypeRow = ({ tx }) => (
-  <View row my={3} justify="space-between">
-    <Text size="large">Type</Text>
-    <View shrink={1} align="center" row opacity={0.8}>
-      {['sent', 'received'].includes(tx.txType) && <TxIcon size="20" />}
-      {tx.txType === 'converted' && <ConverterIcon size="20" />}
-      {tx.txType === 'auction' && <AuctionIcon size="20" />}
-      <Text size="large" ml={1.5}>
-        {tx.isCancelApproval
-          ? 'Allowance canceled'
-          : tx.isApproval
-            ? 'Allowance set'
-            : tx.txType.toUpperCase()}
-      </Text>
-    </View>
-  </View>
-)
-
-TypeRow.propTypes = {
-  tx: PropTypes.shape({
-    isCancelApproval: PropTypes.bool,
-    isApproval: PropTypes.bool,
-    txType: PropTypes.string.isRequired
-  }).isRequired
 }
 
 export default withReceiptState(Receipt)
