@@ -11,6 +11,7 @@ export default class Stats extends React.Component {
   static propTypes = {
     converterPriceUSD: PropTypes.string.isRequired,
     converterStatus: PropTypes.shape({
+      currentPrice: PropTypes.string.isRequired,
       availableEth: PropTypes.string.isRequired,
       availableMet: PropTypes.string.isRequired
     })
