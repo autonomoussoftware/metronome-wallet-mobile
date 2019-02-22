@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import RN from 'react-native'
 
-import { View, Text } from '../../common'
+import { View, Text } from '../../../common'
 
 export default class DropdownBtn extends React.Component {
   static propTypes = {

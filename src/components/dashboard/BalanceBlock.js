@@ -9,7 +9,6 @@ import { DisplayValue, View, Text } from '../common'
 class BalanceBlock extends React.Component {
   static propTypes = {
     mtnBalanceWei: PropTypes.string.isRequired,
-    mtnBalanceUSD: PropTypes.string.isRequired,
     ethBalanceWei: PropTypes.string.isRequired,
     ethBalanceUSD: PropTypes.string.isRequired
   }

@@ -3,9 +3,9 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import RN from 'react-native'
 
-import LogoIcon from '../icons/LogoIcon'
-import { View } from '../common'
-import Row from './tx-row/Row'
+import LogoIcon from '../../icons/LogoIcon'
+import { View } from '../../common'
+import Row from './row/Row'
 
 class TxList extends React.Component {
   static propTypes = {

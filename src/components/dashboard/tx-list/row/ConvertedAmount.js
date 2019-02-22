@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 
-import { DisplayValue, Text } from '../../common'
+import { DisplayValue, Text } from '../../../common'
 
 export default class ConvertedAmount extends React.Component {
   static propTypes = {

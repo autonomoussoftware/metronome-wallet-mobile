@@ -4,7 +4,7 @@ import theme from 'metronome-wallet-ui-logic/src/theme'
 import React from 'react'
 import RN from 'react-native'
 
-import { Spinner, View, Text } from '../common'
+import { Spinner, View, Text } from '../../common'
 
 const GreenLight = ({ isOnline }) => (
   <View

@@ -2,7 +2,7 @@ import { Svg, G, Circle, Path } from 'react-native-svg'
 import React from 'react'
 import RN from 'react-native'
 
-import { View, Text } from '../common'
+import { View, Text } from '../../common'
 
 export default class NoTxPlaceholder extends React.Component {
   render() {
@@ -10,7 +10,7 @@ export default class NoTxPlaceholder extends React.Component {
       <View bg="light" flex={1}>
         <RN.ImageBackground
           resizeMode="cover"
-          source={require('../../assets/images/pattern-light.png')}
+          source={require('../../../assets/images/pattern-light.png')}
           style={styles.bg}
         >
           <View align="center" py={6} px={2}>

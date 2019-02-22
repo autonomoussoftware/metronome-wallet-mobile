@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 
-import { View, Text } from '../common'
+import { View, Text } from '../../common'
 import ScanIndicator from './ScanIndicator'
 import Filter from './filter/Filter'
 

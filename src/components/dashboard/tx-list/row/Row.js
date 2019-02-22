@@ -5,7 +5,7 @@ import theme from 'metronome-wallet-ui-logic/src/theme'
 import React from 'react'
 import RN from 'react-native'
 
-import { View } from '../../common'
+import { View } from '../../../common'
 import Details from './Details'
 import Amount from './Amount'
 import Icon from './Icon'

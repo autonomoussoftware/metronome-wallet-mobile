@@ -5,7 +5,7 @@ import ConvertedDetails from './ConvertedDetails'
 import ReceivedDetails from './ReceivedDetails'
 import AuctionDetails from './AuctionDetails'
 import SentDetails from './SentDetails'
-import { Text } from '../../common'
+import { Text } from '../../../common'
 
 export default class Details extends React.Component {
   static propTypes = {

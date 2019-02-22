@@ -1,13 +1,13 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 
-import { Text } from '../../common'
+import { Text } from '../../../common'
 
 export default class SentDetails extends React.Component {
   static propTypes = {
     isCancelApproval: PropTypes.bool,
     CONVERTER_ADDR: PropTypes.string.isRequired,
-    MTN_TOKEN_ADDR: PropTypes.string.isRequired,
+    MET_TOKEN_ADDR: PropTypes.string.isRequired,
     isApproval: PropTypes.bool,
     isPending: PropTypes.bool.isRequired,
     to: PropTypes.string.isRequired
@@ -34,7 +34,7 @@ export default class SentDetails extends React.Component {
             : this.props.isCancelApproval
               ? 'ALLOWANCE CANCELLED FOR'
               : 'SENT TO'}{' '}
-        {this.props.to === this.props.MTN_TOKEN_ADDR ? (
+        {this.props.to === this.props.MET_TOKEN_ADDR ? (
           'MET TOKEN CONTRACT'
         ) : this.props.to === this.props.CONVERTER_ADDR ? (
           'CONVERTER CONTRACT'

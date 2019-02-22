@@ -4,12 +4,12 @@ import React from 'react'
 import RN from 'react-native'
 
 import { MenuBtn, View, Text, Btn } from '../common'
-import ScanningTxPlaceholder from './ScanningTxPlaceholder'
-import NoTxPlaceholder from './NoTxPlaceholder'
+import ScanningTxPlaceholder from './tx-list/ScanningTxPlaceholder'
+import NoTxPlaceholder from './tx-list/NoTxPlaceholder'
 import RefreshControl from '../common/RefreshControl'
-import TxListHeader from './TxListHeader'
+import TxListHeader from './tx-list/Header'
 import BalanceBlock from './BalanceBlock'
-import TxList from './TxList'
+import TxList from './tx-list/TxList'
 
 class Dashboard extends React.Component {
   static propTypes = {
