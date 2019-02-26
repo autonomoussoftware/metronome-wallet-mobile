@@ -4,7 +4,7 @@ patch-package
 @@ -25,6 +25,8 @@
  var _ = require('underscore');
  var errors = require('web3-core-helpers').errors;
-
+ 
 +var WsReconnector = require('websocket-reconnector');
 +
  var Ws = null;
@@ -52,27 +52,27 @@ patch-package
          return;
 @@ -299,15 +312,15 @@ WebsocketProvider.prototype.on = function (type, callback) {
              break;
-
+ 
          case 'connect':
 -            this.connection.onopen = callback;
 +            this.connection.addEventListener('open', callback);
              break;
-
+ 
          case 'end':
 -            this.connection.onclose = callback;
 +            this.connection.addEventListener('close', callback);
              break;
-
+ 
          case 'error':
 -            this.connection.onerror = callback;
 +            this.connection.addEventListener('error', callback);
              break;
-
+ 
          // default:
-@@ -316,7 +329,24 @@ WebsocketProvider.prototype.on = function (type, callback) {
+@@ -316,7 +329,26 @@ WebsocketProvider.prototype.on = function (type, callback) {
      }
  };
-
+ 
 -// TODO add once
 +/**
 + Subscribes to provider only once
@@ -85,20 +85,22 @@ patch-package
 +    var _this = this;
 +
 +    function onceCallback(event) {
-+        _this.removeListener(type, onceCallback);
++        setTimeout(function () {
++            _this.removeListener(type, onceCallback);
++        }, 0)
 +
 +        callback(event);
 +    }
 +
 +    this.on(type, onceCallback);
 +};
-
+ 
  /**
   Removes event listener
-@@ -336,7 +366,17 @@ WebsocketProvider.prototype.removeListener = function (type, callback) {
+@@ -336,7 +368,17 @@ WebsocketProvider.prototype.removeListener = function (type, callback) {
              });
              break;
-
+ 
 -        // TODO remvoving connect missing
 +        case 'connect':
 +            this.connection.removeEventListener('open', callback);
@@ -111,6 +113,6 @@ patch-package
 +        case 'error':
 +            this.connection.removeEventListener('error', callback);
 +            break;
-
+ 
          // default:
          //     this.connection.removeListener(type, callback);
