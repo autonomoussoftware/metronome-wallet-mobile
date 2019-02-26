@@ -1,4 +1,4 @@
-import withSendETHFormState from 'metronome-wallet-ui-logic/src/hocs/withSendETHFormState'
+import withSendCoinFormState from 'metronome-wallet-ui-logic/src/hocs/withSendCoinFormState'
 import { withNavigation } from 'react-navigation'
 import PropTypes from 'prop-types'
 import React from 'react'
@@ -102,4 +102,4 @@ class SendETHForm extends React.Component {
   }
 }
 
-export default withSendETHFormState(withNavigation(SendETHForm))
+export default withSendCoinFormState(withNavigation(SendETHForm))

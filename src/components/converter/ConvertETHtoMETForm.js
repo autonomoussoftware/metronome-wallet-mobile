@@ -1,4 +1,4 @@
-import withConvertETHtoMETState from 'metronome-wallet-ui-logic/src/hocs/withConvertETHtoMETState'
+import withConvertCoinToMETState from 'metronome-wallet-ui-logic/src/hocs/withConvertCoinToMETState'
 import { withNavigation } from 'react-navigation'
 import PropTypes from 'prop-types'
 import React from 'react'
@@ -89,4 +89,4 @@ class ConvertETHtoMETForm extends React.Component {
   }
 }
 
-export default withConvertETHtoMETState(withNavigation(ConvertETHtoMETForm))
+export default withConvertCoinToMETState(withNavigation(ConvertETHtoMETForm))

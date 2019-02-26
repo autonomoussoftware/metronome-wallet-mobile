@@ -1,15 +1,13 @@
 import { withNavigation, StackActions } from 'react-navigation'
+import FilteredMessage from 'metronome-wallet-ui-logic/src/components/FilteredMessage'
 import { withClient } from 'metronome-wallet-ui-logic/src/hocs/clientContext'
-import * as utils from 'metronome-wallet-ui-logic/src/utils'
 import PropTypes from 'prop-types'
 import React from 'react'
 import RN from 'react-native'
 
 import CloseIcon from '../icons/CloseIcon'
-import config from '../../config'
 import PinInput from './PinInput'
 import Receipt from './receipt/Receipt'
-import config from '../../config'
 import View from './View'
 import Text from './Text'
 import Btn from './Btn'
@@ -157,32 +155,22 @@ class Confirmation extends React.Component {
     </View>
   )
 
-  renderFailure = () => {
-    const messageWithReplacements = utils.messageParser(
-      config,
-      this.state.error
-    )
-    const defaultMessage = 'Something went wrong with your transaction.'
-
-    return (
-      <View flex={1} align="center" justify="center">
-        <CloseIcon />
-        <Text size="large" mt={2} weight="bold">
-          Error
-        </Text>
-        <Text size="medium" align="center" p={2}>
-          {this.state.error === messageWithReplacements
-            ? defaultMessage
-            : messageWithReplacements}
-        </Text>
-        <Btn
-          onPress={() => this.props.navigation.goBack()}
-          label="Try Again"
-          mt={1}
-        />
-      </View>
-    )
-  }
+  renderFailure = () => (
+    <View flex={1} align="center" justify="center">
+      <CloseIcon />
+      <Text size="large" mt={2} weight="bold">
+        Error
+      </Text>
+      <Text size="medium" align="center" p={2}>
+        <FilteredMessage>this.state.error</FilteredMessage>
+      </Text>
+      <Btn
+        onPress={() => this.props.navigation.goBack()}
+        label="Try Again"
+        mt={1}
+      />
+    </View>
+  )
 
   closeReceiptModal = () => {
     this.setState({ status: 'pending' })
