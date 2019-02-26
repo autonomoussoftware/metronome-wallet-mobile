@@ -5,7 +5,8 @@ global.process = require('process')
 global.crypto = require('crypto')
 
 // Fixes web3.js websocket connection
-global.URL = require('url').parse
+// eslint-disable-next-line node/no-deprecated-api
+global.URL = require('url').parse // url.parse deprecated since Node 11
 global.btoa = require('base-64').encode
 
 // Fixes isomorphic-fetch
