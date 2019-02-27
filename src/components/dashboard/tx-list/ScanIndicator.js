@@ -25,8 +25,9 @@ GreenLight.propTypes = {
 
 class ScanIndicator extends React.Component {
   static propTypes = {
-    isScanning: PropTypes.bool.isRequired,
-    isOnline: PropTypes.bool.isRequired
+    syncStatus: PropTypes.oneOf(['up-to-date', 'syncing', 'failed']).isRequired,
+    isOnline: PropTypes.bool.isRequired,
+    label: PropTypes.string.isRequired
   }
 
   render() {
@@ -40,7 +41,7 @@ class ScanIndicator extends React.Component {
         pl={0.5}
         pr={0.8}
       >
-        {this.props.isOnline && this.props.isScanning ? (
+        {this.props.isOnline && this.props.syncStatus === 'syncing' ? (
           <Spinner size={14} />
         ) : (
           <GreenLight isOnline={this.props.isOnline} />
@@ -52,11 +53,7 @@ class ScanIndicator extends React.Component {
           ls={0.5}
           ml={0.8}
         >
-          {!this.props.isOnline
-            ? 'Offline'
-            : this.props.isScanning
-              ? 'Fetching…'
-              : 'Up-to-date'}
+          {this.props.label}
         </Text>
       </View>
     )

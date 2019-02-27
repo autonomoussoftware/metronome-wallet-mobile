@@ -3,13 +3,13 @@ import React from 'react'
 
 import { DisplayValue, Confirmation, Text } from '../common'
 
-class ConfirmSendETH extends React.Component {
+class ConfirmSendCoin extends React.Component {
   static propTypes = {
     navigation: PropTypes.shape({
       state: PropTypes.shape({
         params: PropTypes.shape({
+          coinAmount: PropTypes.string.isRequired,
           toAddress: PropTypes.string.isRequired,
-          ethAmount: PropTypes.string.isRequired,
           usdAmount: PropTypes.string.isRequired,
           onSubmit: PropTypes.func.isRequired
         }).isRequired
@@ -19,8 +19,8 @@ class ConfirmSendETH extends React.Component {
 
   render() {
     const {
+      coinAmount,
       toAddress,
-      ethAmount,
       usdAmount,
       onSubmit
     } = this.props.navigation.state.params
@@ -29,7 +29,7 @@ class ConfirmSendETH extends React.Component {
       <Confirmation onSubmit={onSubmit}>
         <Text size="medium">
           You will send{' '}
-          <DisplayValue value={ethAmount} color="primary" toWei post=" ETH" />{' '}
+          <DisplayValue value={coinAmount} color="primary" toWei isCoin />{' '}
           {usdAmount ? `($${usdAmount})` : `(< $0.01)`} to the address{' '}
           <Text color="primary" numberOfLines={1}>
             {toAddress}
@@ -41,8 +41,8 @@ class ConfirmSendETH extends React.Component {
   }
 }
 
-ConfirmSendETH.navigationOptions = {
-  headerTitle: 'Send ETH'
-}
+ConfirmSendCoin.navigationOptions = ({ navigation }) => ({
+  headerTitle: `Send ${navigation.getParam('coinSymbol', 'Coin')}`
+})
 
-export default ConfirmSendETH
+export default ConfirmSendCoin

@@ -4,7 +4,6 @@ import PropTypes from 'prop-types'
 import React from 'react'
 
 import { View, Text } from '../common'
-import config from '../../config'
 
 class AppMeta extends React.Component {
   static propTypes = {
@@ -14,9 +13,7 @@ class AppMeta extends React.Component {
   render() {
     return (
       <View align="flex-end">
-        <Row label="chain">
-          {config.eth.chain.charAt(0).toUpperCase() + config.eth.chain.slice(1)}
-        </Row>
+        <Row label="chain">TODO</Row>
         <Row label="height">{this.props.blockchainHeight}</Row>
         <Row label="version">
           {VersionNumber.appVersion} (build {VersionNumber.buildVersion})

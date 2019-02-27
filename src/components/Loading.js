@@ -7,10 +7,17 @@ import { PatternView, ChecklistItem, View, Text } from './common'
 
 class Loading extends React.Component {
   static propTypes = {
-    hasBlockHeight: PropTypes.bool.isRequired,
-    hasEthBalance: PropTypes.bool.isRequired,
-    hasMetBalance: PropTypes.bool.isRequired,
-    hasEthRate: PropTypes.bool.isRequired
+    // isMultiChain: PropTypes.bool.isRequired,
+    chainsStatus: PropTypes.objectOf(
+      PropTypes.shape({
+        hasBlockHeight: PropTypes.bool,
+        hasCoinBalance: PropTypes.bool,
+        hasMetBalance: PropTypes.bool,
+        hasCoinRate: PropTypes.bool,
+        displayName: PropTypes.string.isRequired,
+        symbol: PropTypes.string.isRequired
+      })
+    ).isRequired
   }
 
   render() {
@@ -23,24 +30,28 @@ class Loading extends React.Component {
             Gathering Information...
           </Text>
 
-          <View>
-            <ChecklistItem
-              isActive={this.props.hasBlockHeight}
-              text="Blockchain status"
-            />
-            <ChecklistItem
-              isActive={this.props.hasEthRate}
-              text="ETH exchange data"
-            />
-            <ChecklistItem
-              isActive={this.props.hasEthBalance}
-              text="ETH balance"
-            />
-            <ChecklistItem
-              isActive={this.props.hasMetBalance}
-              text="MET balance"
-            />
-          </View>
+          {Object.keys(this.props.chainsStatus).map(chainName => (
+            <View key={chainName}>
+              <ChecklistItem
+                isActive={this.props.chainsStatus[chainName].hasBlockHeight}
+                text="Blockchain status"
+              />
+              <ChecklistItem
+                isActive={this.props.chainsStatus[chainName].hasCoinRate}
+                text={`${
+                  this.props.chainsStatus[chainName].symbol
+                } exchange data`}
+              />
+              <ChecklistItem
+                isActive={this.props.chainsStatus[chainName].hasCoinBalance}
+                text={`${this.props.chainsStatus[chainName].symbol} balance`}
+              />
+              <ChecklistItem
+                isActive={this.props.chainsStatus[chainName].hasMetBalance}
+                text="MET balance"
+              />
+            </View>
+          ))}
         </View>
       </PatternView>
     )

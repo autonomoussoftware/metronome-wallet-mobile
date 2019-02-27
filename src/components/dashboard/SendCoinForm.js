@@ -7,10 +7,10 @@ import RN from 'react-native'
 import { AmountFields, GasEditor, TextInput, BaseBtn, View } from '../common'
 import QRScanner from './QRScanner'
 
-class SendETHForm extends React.Component {
+class SendCoinForm extends React.Component {
   static propTypes = {
     gasEstimateError: PropTypes.bool,
-    ethPlaceholder: PropTypes.string,
+    coinPlaceholder: PropTypes.string,
     usdPlaceholder: PropTypes.string,
     onInputChange: PropTypes.func.isRequired,
     useCustomGas: PropTypes.bool.isRequired,
@@ -19,8 +19,9 @@ class SendETHForm extends React.Component {
       setParams: PropTypes.func.isRequired,
       navigate: PropTypes.func.isRequired
     }).isRequired,
+    coinSymbol: PropTypes.string.isRequired,
+    coinAmount: PropTypes.string,
     toAddress: PropTypes.string,
-    ethAmount: PropTypes.string,
     usdAmount: PropTypes.string,
     validate: PropTypes.func.isRequired,
     gasPrice: PropTypes.string,
@@ -40,7 +41,7 @@ class SendETHForm extends React.Component {
     const { navigation, validate, ...other } = this.props
     if (validate()) {
       RN.Keyboard.dismiss()
-      navigation.navigate('ConfirmSendETH', other)
+      navigation.navigate('ConfirmSendCoin', other)
     }
   }
 
@@ -74,11 +75,12 @@ class SendETHForm extends React.Component {
         />
         <View my={3}>
           <AmountFields
-            ethPlaceholder={this.props.ethPlaceholder}
+            coinPlaceholder={this.props.coinPlaceholder}
             usdPlaceholder={this.props.usdPlaceholder}
             onInputChange={this.props.onInputChange}
             onMaxClick={this.props.onMaxClick}
-            ethAmount={this.props.ethAmount}
+            coinSymbol={this.props.coinSymbol}
+            coinAmount={this.props.coinAmount}
             usdAmount={this.props.usdAmount}
             errors={this.props.errors}
           />
@@ -102,4 +104,4 @@ class SendETHForm extends React.Component {
   }
 }
 
-export default withSendCoinFormState(withNavigation(SendETHForm))
+export default withSendCoinFormState(withNavigation(SendCoinForm))

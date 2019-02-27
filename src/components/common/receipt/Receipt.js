@@ -17,6 +17,7 @@ class Receipt extends React.Component {
     onRefreshRequest: PropTypes.func.isRequired,
     copyToClipboard: PropTypes.func.isRequired,
     confirmations: PropTypes.number.isRequired,
+    coinSymbol: PropTypes.string.isRequired,
     refreshStatus: PropTypes.oneOf(['init', 'pending', 'success', 'failure'])
       .isRequired,
     refreshError: PropTypes.string,
@@ -52,7 +53,7 @@ class Receipt extends React.Component {
   }
 
   render() {
-    const { confirmations, isPending, tx } = this.props
+    const { confirmations, coinSymbol, isPending, tx } = this.props
 
     return (
       <View
@@ -68,7 +69,9 @@ class Receipt extends React.Component {
         bg="dark"
       >
         <View px={2}>
-          {tx.txType !== 'unknown' && <AmountRow {...tx} />}
+          {tx.txType !== 'unknown' && (
+            <AmountRow {...tx} coinSymbol={coinSymbol} isPending={isPending} />
+          )}
 
           <TypeRow {...tx} />
 

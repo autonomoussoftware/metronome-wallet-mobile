@@ -6,6 +6,7 @@ import { Text } from '../../../common'
 export default class ConvertedDetails extends React.Component {
   static propTypes = {
     convertedFrom: PropTypes.string,
+    coinSymbol: PropTypes.string.isRequired,
     isPending: PropTypes.bool.isRequired
   }
 
@@ -27,7 +28,7 @@ export default class ConvertedDetails extends React.Component {
         </Text>
 
         <Text color="copy" weight="semibold" size="small">
-          {this.props.convertedFrom === 'ETH' ? 'MET' : 'ETH'}
+          {this.props.convertedFrom === 'coin' ? 'MET' : this.props.coinSymbol}
         </Text>
       </Text>
     )

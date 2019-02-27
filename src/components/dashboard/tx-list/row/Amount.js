@@ -9,10 +9,15 @@ import AuctionAmount from './AuctionAmount'
 export default class Amount extends React.Component {
   static propTypes = {
     isProcessing: PropTypes.bool,
+    coinSymbol: PropTypes.string.isRequired,
     isFailed: PropTypes.bool.isRequired,
     symbol: PropTypes.string,
     txType: PropTypes.oneOf([
+      'import-requested',
+      'attestation',
       'converted',
+      'imported',
+      'exported',
       'received',
       'auction',
       'unknown',
@@ -39,8 +44,18 @@ export default class Amount extends React.Component {
             color={isFailed ? 'danger' : 'primary'}
             style={{ lineHeight: theme.sizes.large }}
             value={value}
-            post={` ${symbol}`}
             size="large"
+            post={
+              this.props.txType === 'import-requested' ||
+              this.props.txType === 'imported' ||
+              this.props.txType === 'exported'
+                ? ' MET'
+                : ` ${
+                    symbol === 'coin'
+                      ? this.props.coinSymbol
+                      : this.props.symbol
+                  }`
+            }
           />
         )
     }

@@ -8,8 +8,9 @@ import Filter from './filter/Filter'
 class TxListHeader extends React.Component {
   static propTypes = {
     hasTransactions: PropTypes.bool.isRequired,
+    onWalletRefresh: PropTypes.func.isRequired,
     selectFilter: PropTypes.func.isRequired,
-    isScanning: PropTypes.bool.isRequired,
+    syncStatus: PropTypes.oneOf(['up-to-date', 'syncing', 'failed']).isRequired,
     filter: PropTypes.string.isRequired
   }
 
@@ -35,8 +36,12 @@ class TxListHeader extends React.Component {
           <Text size="medium" pl={2} mr={1} py={1} shadow weight="semibold">
             Transactions
           </Text>
-          {(this.props.hasTransactions || !this.props.isScanning) && (
-            <ScanIndicator isScanning={this.props.isScanning} />
+          {(this.props.hasTransactions ||
+            !this.props.syncStatus === 'syncing') && (
+            <ScanIndicator
+              onWalletRefresh={this.props.onWalletRefresh}
+              syncStatus={this.props.syncStatus}
+            />
           )}
         </View>
         <Filter

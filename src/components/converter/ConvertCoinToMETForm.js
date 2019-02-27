@@ -6,10 +6,10 @@ import RN from 'react-native'
 
 import { AmountFields, DisplayValue, GasEditor, Text, View } from '../common'
 
-class ConvertETHtoMETForm extends React.Component {
+class ConvertCoinToMETForm extends React.Component {
   static propTypes = {
     gasEstimateError: PropTypes.bool,
-    ethPlaceholder: PropTypes.string,
+    coinPlaceholder: PropTypes.string,
     usdPlaceholder: PropTypes.string,
     estimateError: PropTypes.string,
     onInputChange: PropTypes.func.isRequired,
@@ -19,7 +19,8 @@ class ConvertETHtoMETForm extends React.Component {
       setParams: PropTypes.func.isRequired,
       navigate: PropTypes.func.isRequired
     }).isRequired,
-    ethAmount: PropTypes.string,
+    coinSymbol: PropTypes.string.isRequired,
+    coinAmount: PropTypes.string,
     usdAmount: PropTypes.string,
     validate: PropTypes.func.isRequired,
     gasPrice: PropTypes.string,
@@ -39,7 +40,7 @@ class ConvertETHtoMETForm extends React.Component {
     const { navigation, validate, ...other } = this.props
     if (validate()) {
       RN.Keyboard.dismiss()
-      navigation.navigate('ConfirmETHtoMET', other)
+      navigation.navigate('ConfirmCoinToMET', other)
     }
   }
 
@@ -47,11 +48,12 @@ class ConvertETHtoMETForm extends React.Component {
     return (
       <View bg="dark" flex={1} px={2} py={4} justify="space-between">
         <AmountFields
-          ethPlaceholder={this.props.ethPlaceholder}
+          coinPlaceholder={this.props.coinPlaceholder}
           usdPlaceholder={this.props.usdPlaceholder}
           onInputChange={this.props.onInputChange}
           onMaxClick={this.props.onMaxClick}
-          ethAmount={this.props.ethAmount}
+          coinSymbol={this.props.coinSymbol}
+          coinAmount={this.props.coinAmount}
           usdAmount={this.props.usdAmount}
           autoFocus
           errors={this.props.errors}
@@ -75,7 +77,11 @@ class ConvertETHtoMETForm extends React.Component {
                 post=" MET"
               />
               , which means a rate of{' '}
-              <DisplayValue value={this.props.rate} post=" ETH/MET" />.
+              <DisplayValue
+                value={this.props.rate}
+                post={` ${this.props.coinSymbol}/MET`}
+              />
+              .
             </Text>
           )}
           {this.props.estimateError && (
@@ -89,4 +95,4 @@ class ConvertETHtoMETForm extends React.Component {
   }
 }
 
-export default withConvertCoinToMETState(withNavigation(ConvertETHtoMETForm))
+export default withConvertCoinToMETState(withNavigation(ConvertCoinToMETForm))

@@ -3,11 +3,12 @@ import React from 'react'
 
 import { DisplayValue, Confirmation, Text } from '../common'
 
-class ConfirmMETtoETH extends React.Component {
+class ConfirmMETtoCoin extends React.Component {
   static propTypes = {
     navigation: PropTypes.shape({
       state: PropTypes.shape({
         params: PropTypes.shape({
+          coinSymbol: PropTypes.string.isRequired,
           metAmount: PropTypes.string.isRequired,
           estimate: PropTypes.string.isRequired,
           onSubmit: PropTypes.func.isRequired,
@@ -19,6 +20,7 @@ class ConfirmMETtoETH extends React.Component {
 
   render() {
     const {
+      coinSymbol,
       metAmount,
       onSubmit,
       estimate,
@@ -31,16 +33,16 @@ class ConfirmMETtoETH extends React.Component {
           You will convert{' '}
           <DisplayValue value={metAmount} color="primary" toWei post=" MET" />{' '}
           and get approximately{' '}
-          <DisplayValue value={estimate} post=" ETH" color="primary" />, which
-          means a rate of <DisplayValue value={rate} post=" ETH/MET" />.
+          <DisplayValue value={estimate} color="primary" isCoin />, which means
+          a rate of <DisplayValue value={rate} post={` ${coinSymbol}/MET`} />.
         </Text>
       </Confirmation>
     )
   }
 }
 
-ConfirmMETtoETH.navigationOptions = {
-  headerTitle: 'Convert MET to ETH'
-}
+ConfirmMETtoCoin.navigationOptions = ({ navigation }) => ({
+  headerTitle: `Convert MET to ${navigation.getParam('coinSymbol', 'Coin')}`
+})
 
-export default ConfirmMETtoETH
+export default ConfirmMETtoCoin

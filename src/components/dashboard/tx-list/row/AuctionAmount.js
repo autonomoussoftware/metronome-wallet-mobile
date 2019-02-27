@@ -5,8 +5,8 @@ import { DisplayValue, Text } from '../../../common'
 
 export default class AuctionAmount extends React.Component {
   static propTypes = {
-    mtnBoughtInAuction: PropTypes.string,
-    ethSpentInAuction: PropTypes.string,
+    metBoughtInAuction: PropTypes.string,
+    coinSpentInAuction: PropTypes.string,
     isFailed: PropTypes.bool.isRequired
   }
 
@@ -14,13 +14,13 @@ export default class AuctionAmount extends React.Component {
     return (
       <React.Fragment>
         <DisplayValue
+          isCoin
           color={this.props.isFailed ? 'danger' : 'primary'}
-          value={this.props.ethSpentInAuction}
+          value={this.props.coinSpentInAuction}
           size="medium"
-          post=" ETH"
         />
 
-        {this.props.mtnBoughtInAuction && (
+        {this.props.metBoughtInAuction && (
           <React.Fragment>
             <Text color={this.props.isFailed ? 'danger' : 'primary'} mx={1}>
               &rarr;
@@ -28,7 +28,7 @@ export default class AuctionAmount extends React.Component {
             <DisplayValue
               color={this.props.isFailed ? 'danger' : 'primary'}
               size="medium"
-              value={this.props.mtnBoughtInAuction}
+              value={this.props.metBoughtInAuction}
               post=" MET"
             />
           </React.Fragment>

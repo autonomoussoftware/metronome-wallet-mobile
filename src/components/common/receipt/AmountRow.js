@@ -7,13 +7,17 @@ import Text from '../Text'
 
 export default class AmountRow extends React.Component {
   static propTypes = {
-    mtnBoughtInAuction: PropTypes.string,
-    ethSpentInAuction: PropTypes.string,
+    metBoughtInAuction: PropTypes.string,
+    coinSpentInAuction: PropTypes.string,
     convertedFrom: PropTypes.string,
+    coinSymbol: PropTypes.string.isRequired,
     fromValue: PropTypes.string,
     toValue: PropTypes.string,
     txType: PropTypes.oneOf([
+      'import-requested',
       'converted',
+      'exported',
+      'imported',
       'received',
       'auction',
       'unknown',
@@ -23,6 +27,7 @@ export default class AmountRow extends React.Component {
     value: PropTypes.string
   }
 
+  // eslint-disable-next-line complexity
   render() {
     return (
       <View row my={3}>
@@ -31,19 +36,19 @@ export default class AmountRow extends React.Component {
           {this.props.txType === 'auction' ? (
             <React.Fragment>
               <DisplayValue
-                value={this.props.ethSpentInAuction}
-                size="large"
-                post=" ETH"
+                isCoin
+                value={this.props.coinSpentInAuction}
                 color="primary"
+                size="large"
               />
-              {this.props.mtnBoughtInAuction && (
+              {this.props.metBoughtInAuction && (
                 <React.Fragment>
                   <Text mr={2} color="primary" mx={2} size="xLarge">
                     &darr;
                   </Text>
                   <DisplayValue
                     size="large"
-                    value={this.props.mtnBoughtInAuction}
+                    value={this.props.metBoughtInAuction}
                     post=" MET"
                     color="primary"
                   />
@@ -55,7 +60,11 @@ export default class AmountRow extends React.Component {
               <DisplayValue
                 value={this.props.fromValue}
                 size="large"
-                post={this.props.convertedFrom === 'ETH' ? ' ETH' : ' MET'}
+                post={
+                  this.props.convertedFrom === 'coin'
+                    ? ` ${this.props.coinSymbol}`
+                    : ' MET'
+                }
                 color="primary"
               />
               {this.props.toValue && (
@@ -66,7 +75,11 @@ export default class AmountRow extends React.Component {
                   <DisplayValue
                     value={this.props.toValue}
                     size="large"
-                    post={this.props.convertedFrom === 'ETH' ? ' MET' : ' ETH'}
+                    post={
+                      this.props.convertedFrom === 'coin'
+                        ? ' MET'
+                        : ` ${this.props.coinSymbol}`
+                    }
                     color="primary"
                   />
                 </React.Fragment>
@@ -75,9 +88,19 @@ export default class AmountRow extends React.Component {
           ) : (
             <DisplayValue
               value={this.props.value}
-              post={` ${this.props.symbol}`}
-              size="large"
               color="primary"
+              post={
+                this.props.txType === 'import-requested' ||
+                this.props.txType === 'imported' ||
+                this.props.txType === 'exported'
+                  ? ' MET'
+                  : ` ${
+                      this.props.symbol === 'coin'
+                        ? this.props.coinSymbol
+                        : this.props.symbol
+                    }`
+              }
+              size="large"
             />
           )}
         </View>

@@ -14,7 +14,7 @@ import {
   View
 } from '../common'
 
-class ConvertMETtoETHForm extends React.Component {
+class ConvertMETtoCoinForm extends React.Component {
   static propTypes = {
     gasEstimateError: PropTypes.bool,
     metPlaceholder: PropTypes.string,
@@ -26,6 +26,7 @@ class ConvertMETtoETHForm extends React.Component {
       setParams: PropTypes.func.isRequired,
       navigate: PropTypes.func.isRequired
     }).isRequired,
+    coinSymbol: PropTypes.string.isRequired,
     metAmount: PropTypes.string,
     validate: PropTypes.func.isRequired,
     gasPrice: PropTypes.string,
@@ -45,7 +46,7 @@ class ConvertMETtoETHForm extends React.Component {
     const { navigation, validate, ...other } = this.props
     if (validate()) {
       RN.Keyboard.dismiss()
-      navigation.navigate('ConfirmMETtoETH', other)
+      navigation.navigate('ConfirmMETtoCoin', other)
     }
   }
 
@@ -82,12 +83,16 @@ class ConvertMETtoETHForm extends React.Component {
             <Text size="small" mt={2}>
               You would get approximately{' '}
               <DisplayValue
+                isCoin
                 value={this.props.estimate}
                 color="primary"
-                post=" ETH"
               />
               , which means a rate of{' '}
-              <DisplayValue value={this.props.rate} post=" ETH/MET" />.
+              <DisplayValue
+                value={this.props.rate}
+                post={` ${this.props.coinSymbol}/MET`}
+              />
+              .
             </Text>
           )}
           {this.props.estimateError && (
@@ -101,4 +106,4 @@ class ConvertMETtoETHForm extends React.Component {
   }
 }
 
-export default withConvertMETtoCoinState(withNavigation(ConvertMETtoETHForm))
+export default withConvertMETtoCoinState(withNavigation(ConvertMETtoCoinForm))
