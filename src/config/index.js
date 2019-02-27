@@ -18,7 +18,7 @@ export default {
   explorerDebounce: 2000,
   ratesUpdateMs: 30000,
   requiredPasswordEntropy: parseInt(
-    process.env.REQUIRED_PASSWORD_ENTROPY || 72,
+    process.env.REQUIRED_PASSWORD_ENTROPY || 20,
     10
   ),
   scanTransactionTimeout: 240000,
