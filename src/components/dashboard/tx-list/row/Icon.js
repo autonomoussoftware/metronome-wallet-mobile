@@ -36,13 +36,12 @@ export default class Icon extends React.Component {
     }
 
     switch (txType) {
-      case 'received':
-      case 'sent':
-        return <TxIcon color={isFailed ? 'danger' : 'primary'} />
       case 'converted':
         return <ConverterIcon color={isFailed ? 'danger' : 'primary'} />
       case 'auction':
         return <AuctionIcon color={isFailed ? 'danger' : 'primary'} />
+      default:
+        return <TxIcon color={isFailed ? 'danger' : 'primary'} />
     }
   }
 }
