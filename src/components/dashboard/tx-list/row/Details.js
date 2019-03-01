@@ -11,7 +11,11 @@ export default class Details extends React.Component {
   static propTypes = {
     isFailed: PropTypes.bool.isRequired,
     txType: PropTypes.oneOf([
+      'import-requested',
+      'attestation',
       'converted',
+      'imported',
+      'exported',
       'received',
       'auction',
       'unknown',

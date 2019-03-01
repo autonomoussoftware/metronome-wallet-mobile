@@ -14,7 +14,11 @@ export default class Icon extends React.Component {
     isPending: PropTypes.bool.isRequired,
     isFailed: PropTypes.bool.isRequired,
     txType: PropTypes.oneOf([
+      'import-requested',
+      'attestation',
       'converted',
+      'imported',
+      'exported',
       'received',
       'auction',
       'unknown',
