@@ -15,6 +15,7 @@ export default {
   dbAutocompactionInterval: 30000,
   debug: process.env.DEBUG || false,
   enabledChains,
+  useNativeCookieJar: true,
   explorerDebounce: 2000,
   ratesUpdateMs: 30000,
   requiredPasswordEntropy: parseInt(
@@ -24,5 +25,5 @@ export default {
   scanTransactionTimeout: 240000,
   sentryDsn: process.env.SENTRY_DSN,
   statePersistanceDebounce: 2000,
-  trackingId: process.env.TRACKING_ID
+  trackingId: process.env.TRACKING_ID || ''
 }

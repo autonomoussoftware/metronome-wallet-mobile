@@ -2,11 +2,7 @@ import { AsyncStorage } from 'react-native'
 
 import promiseThrottle from './promise-throttle'
 
-const keysToPersist = [
-  'blockchain',
-  'rates',
-  'wallets'
-]
+const keysToPersist = ['chains']
 
 export const persistState = promiseThrottle(function (state) {
   // eslint-disable-next-line no-console
