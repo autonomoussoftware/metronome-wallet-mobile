@@ -82,8 +82,8 @@ function stopCore ({ core, chain }) {
 }
 
 export default function createClient (config, createStore) {
-  if (config.SENTRY_DSN) {
-    Sentry.config(config.SENTRY_DSN, {
+  if (config.sentryDsn) {
+    Sentry.config(config.sentryDsn, {
       logLevel: SentryLog.Error
     }).install()
   }
