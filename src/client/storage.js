@@ -6,7 +6,7 @@ const keysToPersist = ['chains']
 
 export const persistState = promiseThrottle(function (state) {
   // eslint-disable-next-line no-console
-  console.log('Persisting state', state)
+  console.debug('Persisting state', state)
 
   return Promise.all(keysToPersist.map(key =>
     AsyncStorage.setItem(key, JSON.stringify(state[key] || null))
