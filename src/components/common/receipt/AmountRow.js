@@ -15,6 +15,7 @@ export default class AmountRow extends React.Component {
     toValue: PropTypes.string,
     txType: PropTypes.oneOf([
       'import-requested',
+      'attestation',
       'converted',
       'exported',
       'imported',
