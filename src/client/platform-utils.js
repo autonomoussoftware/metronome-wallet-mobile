@@ -23,18 +23,8 @@ export const onHelpLinkClick = () =>
     'https://github.com/autonomoussoftware/documentation/blob/master/FAQ.md#metronome-faq'
   )
 
-export function clearCache() {
-  const keys = [
-    'auction',
-    'blockchain',
-    'config',
-    'connectivity',
-    'converter',
-    'rates',
-    'session',
-    'sync',
-    'wallets'
-  ]
+export function clearCache () {
+  const keys = ['chains', 'config', 'connectivity', 'session', 'sync']
   return RN.AsyncStorage.multiRemove(keys).then(RNRestart.Restart())
 }
 
