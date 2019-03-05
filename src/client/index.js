@@ -74,6 +74,7 @@ function startCore({ chain, core, config: coreConfig }, store) {
     coreApi
   }
 }
+
 // eslint-disable-next-line no-unused-vars
 function stopCore({ core, chain }) {
   // eslint-disable-next-line no-console
@@ -197,6 +198,12 @@ export default function createClient(config, createStore) {
       return isValid
     })
 
+  const refreshAllTransactions = ({ address }) =>
+    cores[0].coreApi.explorer.refreshAllTransactions(address)
+
+  const refreshTransaction = ({ hash, address }) =>
+    cores[0].coreApi.explorer.refreshTransaction(hash, address)
+
   const api = {
     ...auth,
     ...cores[0].coreApi.metronome,
@@ -206,6 +213,8 @@ export default function createClient(config, createStore) {
     ...keys,
     ...platformUtils,
     ...utils,
+    refreshTransaction,
+    refreshAllTransactions,
     buyMetronome: withAnalytics({
       eventCategory: 'Buy',
       eventAction: 'Buy MET in auction'
