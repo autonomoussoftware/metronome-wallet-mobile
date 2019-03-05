@@ -11,8 +11,7 @@ export const copyToClipboard = text =>
 
 const openURL = url => Promise.resolve(RN.Linking.openURL(url))
 
-export const onExplorerLinkClick = transactionHash =>
-  openURL(`${config.MTN_EXPLORER_URL}/transactions/${transactionHash}`)
+export const onLinkClick = url => openURL(url)
 
 export const onTermsLinkClick = () =>
   openURL(
@@ -24,7 +23,7 @@ export const onHelpLinkClick = () =>
     'https://github.com/autonomoussoftware/documentation/blob/master/FAQ.md#metronome-faq'
   )
 
-export function clearCache () {
+export function clearCache() {
   const keys = [
     'auction',
     'blockchain',

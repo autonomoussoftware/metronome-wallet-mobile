@@ -154,7 +154,7 @@ class Receipt extends React.Component {
 
           <View my={4}>
             <Btn
-              onPress={() => this.props.onExplorerLinkClick(tx.hash)}
+              onPress={this.props.onExplorerLinkClick}
               label="View in Explorer"
             />
           </View>
