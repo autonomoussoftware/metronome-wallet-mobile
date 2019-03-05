@@ -134,9 +134,8 @@ export default function createClient (config, createStore) {
         onboardingComplete: true,
         persistedState: persistedState || {}
       }))
-      .catch(err => ({
+      .catch(() => ({
         onboardingComplete: false,
-        err,
         persistedState: {}
       }))
       .then(data => {
@@ -183,11 +182,6 @@ export default function createClient (config, createStore) {
       if (shouldRestartSettings) {
         return Promise.all([storage.setSyncBlock(0), storage.persistState([])])
       }
-    })
-    .then(function () {
-      store.subscribe(function () {
-        storage.persistState(store.getState())
-      })
     })
     .then(platformUtils.saveSettingsVersion)
     .catch(function (err) {
