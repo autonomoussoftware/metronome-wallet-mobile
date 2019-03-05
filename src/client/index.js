@@ -11,7 +11,7 @@ import { withAnalytics, tracker } from './analytics'
 
 const getWalletId = () => 1
 
-function startCore ({ chain, core, config: coreConfig }, store) {
+function startCore({ chain, core, config: coreConfig }, store) {
   // eslint-disable-next-line no-console
   console.log(`Starting core ${chain}`)
   const { emitter, events, api: coreApi } = core.start(coreConfig)
@@ -25,8 +25,8 @@ function startCore ({ chain, core, config: coreConfig }, store) {
     'transactions-scan-finished'
   )
 
-  events.forEach(function (event) {
-    emitter.on(event, function (data) {
+  events.forEach(function(event) {
+    emitter.on(event, function(data) {
       // eslint-disable-next-line no-console
       console.debug('<<--', event, data)
       const payload = Object.assign({}, data, { chain })
@@ -34,28 +34,28 @@ function startCore ({ chain, core, config: coreConfig }, store) {
     })
   })
 
-  emitter.on('open-wallets', function ({ address }) {
+  emitter.on('open-wallets', function({ address }) {
     // TODO request to rescan unconfirmed txs
     storage
       .getSyncBlock()
-      .then(function (from) {
+      .then(function(from) {
         store.dispatch({ type: 'transactions-scan-started' })
         return coreApi.explorer.syncTransactions(from, address)
       })
       .then(storage.setSyncBlock)
-      .then(function () {
+      .then(function() {
         store.dispatch({
           type: 'transactions-scan-finished',
           payload: { success: true }
         })
-        emitter.on('eth-block', function ({ number }) {
-          storage.setSyncBlock(number).catch(function (err) {
+        emitter.on('coin-block', function({ number }) {
+          storage.setSyncBlock(number).catch(function(err) {
             // eslint-disable-next-line no-console
             console.warn('Could not save new synced block', err)
           })
         })
       })
-      .catch(function (err) {
+      .catch(function(err) {
         store.dispatch({
           type: 'transactions-scan-finished',
           payload: { success: true }
@@ -75,13 +75,13 @@ function startCore ({ chain, core, config: coreConfig }, store) {
   }
 }
 // eslint-disable-next-line no-unused-vars
-function stopCore ({ core, chain }) {
+function stopCore({ core, chain }) {
   // eslint-disable-next-line no-console
   console.log(`Stopping core ${chain}`)
   core.stop()
 }
 
-export default function createClient (config, createStore) {
+export default function createClient(config, createStore) {
   if (config.sentryDsn) {
     Sentry.config(config.sentryDsn, {
       logLevel: SentryLog.Error
@@ -102,7 +102,7 @@ export default function createClient (config, createStore) {
     config: Object.assign({}, config.chains[chainName], config)
   }))
 
-  cores.forEach(function (core) {
+  cores.forEach(function(core) {
     const { emitter, events, coreApi } = startCore(core, store)
     core.emitter = emitter
     core.events = events
@@ -139,7 +139,7 @@ export default function createClient (config, createStore) {
         persistedState: {}
       }))
       .then(data => {
-        store.subscribe(function () {
+        store.subscribe(function() {
           storage.persistState(store.getState())
         })
         return {
@@ -166,31 +166,31 @@ export default function createClient (config, createStore) {
   }
 
   const withAuth = fn =>
-    function (transactionObject) {
+    function(transactionObject) {
       return auth
         .validatePIN(transactionObject.password)
         .then(wallet.getSeed)
         .then(cores[0].coreApi.wallet.createPrivateKey)
-        .then(function (privateKey) {
+        .then(function(privateKey) {
           return fn(privateKey, transactionObject)
         })
     }
 
   platformUtils
     .shouldRestartSettings()
-    .then(function (shouldRestartSettings) {
+    .then(function(shouldRestartSettings) {
       if (shouldRestartSettings) {
         return Promise.all([storage.setSyncBlock(0), storage.persistState([])])
       }
     })
     .then(platformUtils.saveSettingsVersion)
-    .catch(function (err) {
+    .catch(function(err) {
       // eslint-disable-next-line no-console
       console.warn('Failed setting up store and dispatching events', err)
     })
 
   const onLoginSubmit = ({ password }) =>
-    auth.validatePIN(password).then(function (isValid) {
+    auth.validatePIN(password).then(function(isValid) {
       if (isValid) {
         openWallet(cores[0])
       }
@@ -210,10 +210,10 @@ export default function createClient (config, createStore) {
       eventCategory: 'Buy',
       eventAction: 'Buy MET in auction'
     })(withAuth(cores[0].coreApi.metronome.buyMetronome)),
-    convertEth: withAnalytics({
+    convertCoin: withAnalytics({
       eventCategory: 'Convert',
       eventAction: 'Convert ETH to MET'
-    })(withAuth(cores[0].coreApi.metronome.convertEth)),
+    })(withAuth(cores[0].coreApi.metronome.convertCoin)),
     convertMet: withAnalytics({
       eventCategory: 'Convert',
       eventAction: 'Convert MET to ETH'
@@ -221,7 +221,7 @@ export default function createClient (config, createStore) {
     onInit,
     onOnboardingCompleted,
     onLoginSubmit,
-    sendEth: withAuth(cores[0].coreApi.wallet.sendEth),
+    sendCoin: withAuth(cores[0].coreApi.wallet.sendCoin),
     sendMet: withAuth(cores[0].coreApi.metronome.sendMet),
     store
   }
