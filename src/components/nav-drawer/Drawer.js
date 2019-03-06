@@ -10,6 +10,7 @@ import ChainSelector from './ChainSelector'
 import AuctionIcon from '../icons/AuctionIcon'
 import WipeStorage from './WipeStorage'
 import WalletIcon from '../icons/WalletIcon'
+import PortIcon from '../icons/PortIcon'
 import LogoIcon from '../icons/LogoIcon'
 import { View } from '../common'
 import AppMeta from './AppMeta'
@@ -69,6 +70,12 @@ class Drawer extends React.Component {
               isActive={isFocused('Converter')}
               onPress={() => this.navigateTo('Converter')}
               label="CONVERTER"
+            />
+            <NavBtn
+              IconComponent={PortIcon}
+              isActive={isFocused('Port')}
+              onPress={() => this.navigateTo('Port')}
+              label="PORT"
             />
           </View>
           <View>
