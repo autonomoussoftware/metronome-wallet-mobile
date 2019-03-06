@@ -37,12 +37,14 @@ class TxList extends React.Component {
 
   render() {
     return (
-      <RN.FlatList
-        ListFooterComponent={this.footer}
-        keyExtractor={this.keyExtractor}
-        renderItem={this.renderItem}
-        data={this.getFilteredItems()}
-      />
+      <View bg="light" flex={1}>
+        <RN.FlatList
+          ListFooterComponent={this.footer}
+          keyExtractor={this.keyExtractor}
+          renderItem={this.renderItem}
+          data={this.getFilteredItems()}
+        />
+      </View>
     )
   }
 }
