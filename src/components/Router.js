@@ -17,6 +17,6 @@ export default createDrawerNavigator(
     useNativeAnimations: true,
     initialRouteName: 'Dashboard',
     contentComponent: NavigationDrawer,
-    drawerWidth: 280
+    drawerWidth: 260
   }
 )

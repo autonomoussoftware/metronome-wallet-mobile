@@ -6,6 +6,7 @@ import React from 'react'
 
 import SecondaryNavBtn from './SecondaryNavBtn'
 import ConverterIcon from '../icons/ConverterIcon'
+import ChainSelector from './ChainSelector'
 import AuctionIcon from '../icons/AuctionIcon'
 import WipeStorage from './WipeStorage'
 import WalletIcon from '../icons/WalletIcon'
@@ -20,7 +21,10 @@ class Drawer extends React.Component {
     navigation: PropTypes.shape({
       closeDrawer: PropTypes.func.isRequired,
       isFocused: PropTypes.func.isRequired,
-      navigate: PropTypes.func.isRequired
+      navigate: PropTypes.func.isRequired,
+      state: PropTypes.shape({
+        isDrawerOpen: PropTypes.bool.isRequired
+      }).isRequired
     }).isRequired,
     client: PropTypes.shape({
       onHelpLinkClick: PropTypes.func.isRequired
@@ -34,15 +38,19 @@ class Drawer extends React.Component {
   }
 
   render() {
-    const { isFocused } = this.props.navigation
+    const {
+      isFocused,
+      state: { isDrawerOpen }
+    } = this.props.navigation
 
     return (
       <View bg="dark" flex={1}>
         <SafeAreaView style={styles.safeArea}>
-          <View mb={5} ml={3} mt={5}>
+          <View mb={5} mr={2} mt={4} align="flex-end">
             <Logo />
           </View>
           <View grow={1}>
+            <ChainSelector isDrawerOpen={isDrawerOpen} />
             <NavBtn
               IconComponent={WalletIcon}
               isActive={isFocused('Dashboard')}
