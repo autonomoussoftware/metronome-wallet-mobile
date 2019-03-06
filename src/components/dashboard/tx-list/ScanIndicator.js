@@ -42,7 +42,14 @@ class ScanIndicator extends React.Component {
         pr={0.8}
       >
         {this.props.isOnline && this.props.syncStatus === 'syncing' ? (
-          <Spinner size={14} />
+          <Spinner
+            color={
+              RN.Platform.OS === 'android'
+                ? theme.colors.primary
+                : theme.colors.light
+            }
+            size={14}
+          />
         ) : (
           <GreenLight isOnline={this.props.isOnline} />
         )}
