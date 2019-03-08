@@ -8,6 +8,7 @@ import TextInput from './TextInput'
 import GasEditor from './GasEditor'
 import PinInput from './PinInput'
 import Checkbox from './Checkbox'
+import Selector from './Selector'
 import BaseBtn from './BaseBtn'
 import MenuBtn from './MenuBtn'
 import Spinner from './Spinner'
@@ -27,6 +28,7 @@ export {
   GasEditor,
   PinInput,
   Checkbox,
+  Selector,
   BaseBtn,
   MenuBtn,
   Spinner,
