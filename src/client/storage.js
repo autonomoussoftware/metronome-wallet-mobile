@@ -5,12 +5,12 @@ import promiseThrottle from './promise-throttle'
 const keysToPersist = ['chains']
 
 const mapToObject = array =>
-  array.reduce(function (acum, current) {
+  array.reduce((acum, current) => {
     acum[current.type] = current.data
     return acum
   }, {})
 
-export const persistState = promiseThrottle(function (state) {
+export const persistState = promiseThrottle(function(state) {
   // eslint-disable-next-line no-console
   console.debug('Persisting state', state)
 
@@ -21,28 +21,25 @@ export const persistState = promiseThrottle(function (state) {
   )
 })
 
-export function getState () {
-  return AsyncStorage.multiGet(keysToPersist).then(pairs =>
+export const getState = () =>
+  AsyncStorage.multiGet(keysToPersist).then(pairs =>
     mapToObject(
       pairs.map(([key, val]) => ({ type: key, data: JSON.parse(val) }))
     )
   )
-}
 
-export function getBestBlock () {
-  return AsyncStorage.getItem('blockchain').then(value =>
+export const getBestBlock = () =>
+  AsyncStorage.getItem('blockchain').then(value =>
     value ? JSON.parse(value).height : null
   )
-}
 
-export function setSyncBlock (number) {
+export const setSyncBlock = (number, chain) => {
   // eslint-disable-next-line no-console
-  console.log('Setting sync block', number)
-  return AsyncStorage.setItem('sync', number.toString())
+  console.log(`${chain}\t- Setting sync block: ${number}`)
+  return AsyncStorage.setItem(`sync-${chain}`, number.toString())
 }
 
-export function getSyncBlock () {
-  return AsyncStorage.getItem('sync').then(number =>
+export const getSyncBlock = chain =>
+  AsyncStorage.getItem(`sync-${chain}`).then(number =>
     number ? Number.parseInt(number, 10) : 0
   )
-}

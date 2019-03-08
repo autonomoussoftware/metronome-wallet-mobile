@@ -23,7 +23,7 @@ export const onHelpLinkClick = () =>
     'https://github.com/autonomoussoftware/documentation/blob/master/FAQ.md#metronome-faq'
   )
 
-export function clearCache () {
+export const clearCache = () => {
   const keys = ['chains', 'config', 'connectivity', 'session', 'sync']
   return RN.AsyncStorage.multiRemove(keys).then(RNRestart.Restart())
 }
@@ -36,13 +36,13 @@ export const recoverFromMnemonic = ({ mnemonic, password }) =>
 export const shouldRestartSettings = () =>
   RN.AsyncStorage.getItem('settings-version').then(
     settingsVersion =>
-      config.SETTINGS_VERSION > Number.parseInt(settingsVersion || 0)
+      config.settingsVersion > Number.parseInt(settingsVersion || 0)
   )
 
 export const saveSettingsVersion = () =>
   RN.AsyncStorage.setItem(
     'settings-version',
-    JSON.stringify(config.SETTINGS_VERSION || 0)
+    JSON.stringify(config.settingsVersion || 0)
   )
 
 export const getAppVersion = () => VersionNumber.appVersion

@@ -24,6 +24,7 @@ export default {
   ),
   scanTransactionTimeout: 240000,
   sentryDsn: process.env.SENTRY_DSN,
+  settingsVersion: 2,
   statePersistanceDebounce: 2000,
   trackingId: process.env.TRACKING_ID || ''
 }

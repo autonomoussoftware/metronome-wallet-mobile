@@ -3,15 +3,11 @@ import { Sentry, SentryLog } from 'react-native-sentry'
 
 import * as storage from './storage'
 import * as auth from './auth'
-import * as keys from './keys'
 import * as platformUtils from './platform-utils'
-import * as utils from './utils'
-import * as wallet from './wallet'
-import { withAnalytics, tracker } from './analytics'
+import { tracker } from './analytics'
+import { getHandlers } from './handlers'
 
-const getWalletId = () => 1
-
-function startCore({ chain, core, config: coreConfig }, store) {
+const startCore = ({ chain, core, config: coreConfig }, store) => {
   // eslint-disable-next-line no-console
   console.log(`Starting core ${chain}`)
   const { emitter, events, api: coreApi } = core.start(coreConfig)
@@ -25,8 +21,8 @@ function startCore({ chain, core, config: coreConfig }, store) {
     'transactions-scan-finished'
   )
 
-  events.forEach(function(event) {
-    emitter.on(event, function(data) {
+  events.forEach(event => {
+    emitter.on(event, data => {
       // eslint-disable-next-line no-console
       console.debug('<<--', event, data)
       const payload = Object.assign({}, data, { chain })
@@ -34,28 +30,28 @@ function startCore({ chain, core, config: coreConfig }, store) {
     })
   })
 
-  emitter.on('open-wallets', function({ address }) {
+  emitter.on('open-wallets', ({ address }) => {
     // TODO request to rescan unconfirmed txs
     storage
       .getSyncBlock()
-      .then(function(from) {
+      .then(from => {
         store.dispatch({ type: 'transactions-scan-started' })
         return coreApi.explorer.syncTransactions(from, address)
       })
-      .then(storage.setSyncBlock)
-      .then(function() {
+      .then(number => storage.setSyncBlock(number, chain))
+      .then(() => {
         store.dispatch({
           type: 'transactions-scan-finished',
           payload: { success: true }
         })
         emitter.on('coin-block', function({ number }) {
-          storage.setSyncBlock(number).catch(function(err) {
+          storage.setSyncBlock(number, chain).catch(function(err) {
             // eslint-disable-next-line no-console
             console.warn('Could not save new synced block', err)
           })
         })
       })
-      .catch(function(err) {
+      .catch(err => {
         store.dispatch({
           type: 'transactions-scan-finished',
           payload: { success: true }
@@ -76,13 +72,13 @@ function startCore({ chain, core, config: coreConfig }, store) {
 }
 
 // eslint-disable-next-line no-unused-vars
-function stopCore({ core, chain }) {
+const stopCore = ({ core, chain }) => {
   // eslint-disable-next-line no-console
   console.log(`Stopping core ${chain}`)
   core.stop()
 }
 
-export default function createClient(config, createStore) {
+const createClient = (config, createStore) => {
   if (config.sentryDsn) {
     Sentry.config(config.sentryDsn, {
       logLevel: SentryLog.Error
@@ -110,26 +106,13 @@ export default function createClient(config, createStore) {
     core.coreApi = coreApi
   })
 
-  const openWallet = ({ coreApi, emitter }) => {
-    const activeWallet = getWalletId()
-    return wallet
-      .getSeed()
-      .then(coreApi.wallet.createAddress)
-      .then(address =>
-        emitter.emit('open-wallets', {
-          walletIds: [activeWallet],
-          activeWallet,
-          address
-        })
-      )
-  }
+  const api = getHandlers(cores)
 
   const onInit = () => {
     tracker.trackEvent('App', 'App initiated')
     return auth
       .getHashedPIN()
       .then(pin => pin || Promise.reject(new Error('No pin found')))
-      .then(wallet.getSeed)
       .then(storage.getState)
       .then(persistedState => ({
         onboardingComplete: true,
@@ -140,7 +123,7 @@ export default function createClient(config, createStore) {
         persistedState: {}
       }))
       .then(data => {
-        store.subscribe(function() {
+        store.subscribe(() => {
           storage.persistState(store.getState())
         })
         return {
@@ -150,90 +133,25 @@ export default function createClient(config, createStore) {
       })
   }
 
-  const onOnboardingCompleted = ({ mnemonic, password }) => {
-    const seed = keys.mnemonicToSeedHex(mnemonic)
-    const activeWallet = getWalletId()
-    return Promise.all([wallet.setSeed(seed), auth.setPIN(password)])
-      .then(() =>
-        cores[0].emitter.emit('create-wallet', { walletId: activeWallet })
-      )
-      .then(() =>
-        cores[0].emitter.emit('open-wallets', {
-          walletIds: [activeWallet],
-          activeWallet,
-          address: cores[0].coreApi.wallet.createAddress(seed)
-        })
-      )
-  }
-
-  const withAuth = fn =>
-    function(transactionObject) {
-      return auth
-        .validatePIN(transactionObject.password)
-        .then(wallet.getSeed)
-        .then(cores[0].coreApi.wallet.createPrivateKey)
-        .then(function(privateKey) {
-          return fn(privateKey, transactionObject)
-        })
-    }
-
   platformUtils
     .shouldRestartSettings()
-    .then(function(shouldRestartSettings) {
+    .then(shouldRestartSettings => {
       if (shouldRestartSettings) {
-        return Promise.all([storage.setSyncBlock(0), storage.persistState([])])
+        // eslint-disable-next-line no-console
+        console.debug('Restarting settings')
+        return Promise.all([
+          config.enabledChains.map(chain => storage.setSyncBlock(0, chain)),
+          storage.persistState([])
+        ])
       }
     })
     .then(platformUtils.saveSettingsVersion)
-    .catch(function(err) {
+    .catch(err => {
       // eslint-disable-next-line no-console
       console.warn('Failed setting up store and dispatching events', err)
     })
 
-  const onLoginSubmit = ({ password }) =>
-    auth.validatePIN(password).then(function(isValid) {
-      if (isValid) {
-        openWallet(cores[0])
-      }
-      return isValid
-    })
-
-  const refreshAllTransactions = ({ address }) =>
-    cores[0].coreApi.explorer.refreshAllTransactions(address)
-
-  const refreshTransaction = ({ hash, address }) =>
-    cores[0].coreApi.explorer.refreshTransaction(hash, address)
-
-  const api = {
-    ...auth,
-    ...cores[0].coreApi.metronome,
-    ...cores[0].coreApi.explorer,
-    ...cores[0].coreApi.tokens,
-    ...cores[0].coreApi.wallet,
-    ...keys,
-    ...platformUtils,
-    ...utils,
-    refreshTransaction,
-    refreshAllTransactions,
-    buyMetronome: withAnalytics({
-      eventCategory: 'Buy',
-      eventAction: 'Buy MET in auction'
-    })(withAuth(cores[0].coreApi.metronome.buyMetronome)),
-    convertCoin: withAnalytics({
-      eventCategory: 'Convert',
-      eventAction: 'Convert ETH to MET'
-    })(withAuth(cores[0].coreApi.metronome.convertCoin)),
-    convertMet: withAnalytics({
-      eventCategory: 'Convert',
-      eventAction: 'Convert MET to ETH'
-    })(withAuth(cores[0].coreApi.metronome.convertMet)),
-    onInit,
-    onOnboardingCompleted,
-    onLoginSubmit,
-    sendCoin: withAuth(cores[0].coreApi.wallet.sendCoin),
-    sendMet: withAuth(cores[0].coreApi.metronome.sendMet),
-    store
-  }
-
-  return api
+  return { ...api, onInit, store }
 }
+
+export default createClient
