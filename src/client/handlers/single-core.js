@@ -74,19 +74,19 @@ const buyMetronome = (data, { coreApi }) =>
   withAnalytics({
     eventCategory: 'Buy',
     eventAction: 'Buy MET in auction'
-  })(withAuth(coreApi.metronome.buyMetronome)(data, { coreApi }))
+  })(withAuth(coreApi.metronome.buyMetronome))(data, { coreApi })
 
 const convertCoin = (data, { coreApi }) =>
   withAnalytics({
     eventCategory: 'Convert',
     eventAction: 'Convert ETH to MET'
-  })(withAuth(coreApi.metronome.convertCoin)(data, { coreApi }))
+  })(withAuth(coreApi.metronome.convertCoin))(data, { coreApi })
 
 const convertMet = (data, { coreApi }) =>
   withAnalytics({
     eventCategory: 'Convert',
     eventAction: 'Convert MET to ETH'
-  })(withAuth(coreApi.metronome.convertMet)(data, { coreApi }))
+  })(withAuth(coreApi.metronome.convertMet))(data, { coreApi })
 
 const sendMet = (data, { coreApi }) =>
   withAuth(coreApi.metronome.sendMet)(data, { coreApi })
