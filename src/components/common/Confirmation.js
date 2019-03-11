@@ -162,7 +162,7 @@ class Confirmation extends React.Component {
         Error
       </Text>
       <Text size="medium" align="center" p={2}>
-        <FilteredMessage>this.state.error</FilteredMessage>
+        <FilteredMessage>{this.state.error}</FilteredMessage>
       </Text>
       <Btn
         onPress={() => this.props.navigation.goBack()}
