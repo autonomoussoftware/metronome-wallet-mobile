@@ -1,6 +1,7 @@
 import createCore from 'metronome-wallet-core'
-import { Sentry, SentryLog } from 'react-native-sentry'
+import { debounce } from 'lodash'
 
+import { Sentry, SentryLog } from 'react-native-sentry'
 import * as storage from './storage'
 import * as auth from './auth'
 import * as platformUtils from './platform-utils'
@@ -123,8 +124,11 @@ const createClient = (config, createStore) => {
         persistedState: {}
       }))
       .then(data => {
+        const debounceTime = config.statePersistanceDebounce || 2000
         store.subscribe(() => {
-          storage.persistState(store.getState())
+          debounce(() => storage.persistState(store.getState()), debounceTime, {
+            maxWait: 2 * debounceTime
+          })
         })
         return {
           ...data,
