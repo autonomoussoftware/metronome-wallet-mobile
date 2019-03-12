@@ -35,7 +35,7 @@ export const getBestBlock = () =>
 
 export const setSyncBlock = (number, chain) => {
   // eslint-disable-next-line no-console
-  console.log(`${chain}\t- Setting sync block: ${number}`)
+  console.debug(`${chain}\t- Setting sync block: ${number}`)
   return AsyncStorage.setItem(`sync-${chain}`, number.toString())
 }
 
