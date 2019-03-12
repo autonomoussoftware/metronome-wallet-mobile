@@ -125,11 +125,11 @@ const createClient = (config, createStore) => {
       }))
       .then(data => {
         const debounceTime = config.statePersistanceDebounce || 2000
-        store.subscribe(() => {
+        store.subscribe(
           debounce(() => storage.persistState(store.getState()), debounceTime, {
             maxWait: 2 * debounceTime
           })
-        })
+        )
         return {
           ...data,
           config
