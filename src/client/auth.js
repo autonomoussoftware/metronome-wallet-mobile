@@ -1,17 +1,16 @@
 import fastPasswordEntropy from 'fast-password-entropy'
-import {
-  getInternetCredentials,
-  setInternetCredentials
-} from 'react-native-keychain'
+import * as Keychain from 'react-native-keychain'
 import { sha256 } from './crypto'
 
 export const getStringEntropy = str => fastPasswordEntropy(str)
 
 export const getHashedPIN = () =>
-  getInternetCredentials('wallet.pin').then(credentials => credentials.password)
+  Keychain.getInternetCredentials('wallet.pin').then(
+    credentials => credentials.password
+  )
 
 export const setPIN = pin =>
-  setInternetCredentials('wallet.pin', 'pin', sha256(pin))
+  Keychain.setInternetCredentials('wallet.pin', 'pin', sha256(pin))
 
 export const validatePIN = pin =>
   getHashedPIN().then(

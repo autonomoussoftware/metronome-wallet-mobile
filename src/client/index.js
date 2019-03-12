@@ -1,7 +1,7 @@
+import { Sentry, SentryLog } from 'react-native-sentry'
 import createCore from 'metronome-wallet-core'
 import { debounce } from 'lodash'
 
-import { Sentry, SentryLog } from 'react-native-sentry'
 import * as storage from './storage'
 import * as auth from './auth'
 import * as platformUtils from './platform-utils'
