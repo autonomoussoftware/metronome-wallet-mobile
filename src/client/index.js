@@ -10,7 +10,7 @@ import { getHandlers } from './handlers'
 
 const startCore = ({ chain, core, config: coreConfig }, store) => {
   // eslint-disable-next-line no-console
-  console.log(`Starting core ${chain}`)
+  console.debug(`Starting core ${chain}`)
   const { emitter, events, api: coreApi } = core.start(coreConfig)
 
   emitter.setMaxListeners(30)
@@ -75,7 +75,7 @@ const startCore = ({ chain, core, config: coreConfig }, store) => {
 // eslint-disable-next-line no-unused-vars
 const stopCore = ({ core, chain }) => {
   // eslint-disable-next-line no-console
-  console.log(`Stopping core ${chain}`)
+  console.debug(`Stopping core ${chain}`)
   core.stop()
 }
 
