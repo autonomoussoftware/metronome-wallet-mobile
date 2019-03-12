@@ -2,7 +2,9 @@ import ethRopstenLocal from './ethRopstenLocal'
 import etcMordenLocal from './etcMordenLocal'
 import ethMainnet from './ethMainnet'
 
-const enabledChains = (process.env.ENABLED_CHAINS || 'ethRopstenLocal')
+const enabledChains = (
+  process.env.ENABLED_CHAINS || 'ethRopstenLocal,etcMordenLocal'
+)
   .split(',')
   .map(name => name.trim())
 
