@@ -20,7 +20,7 @@ export default class ConvertedDetails extends React.Component {
         )}
 
         <Text color="copy" weight="semibold" size="small">
-          {this.props.convertedFrom}
+          {this.props.convertedFrom === 'coin' ? this.props.coinSymbol : 'MET'}
         </Text>
 
         <Text color="copy" size="xSmall" ls={0.4}>
