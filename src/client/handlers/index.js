@@ -12,14 +12,14 @@ const withChain = cores => fn => data => {
 
 export const getHandlers = cores => {
   const handlers = {}
-  Object.keys(multiCoreHandlers).forEach(functionName => {
-    handlers[functionName] = withCores(cores)(multiCoreHandlers[functionName])
+  Object.keys(noCoreHandlers).forEach(functionName => {
+    handlers[functionName] = noCoreHandlers[functionName]
   })
   Object.keys(singleCoreHandlers).forEach(functionName => {
     handlers[functionName] = withChain(cores)(singleCoreHandlers[functionName])
   })
-  Object.keys(noCoreHandlers).forEach(functionName => {
-    handlers[functionName] = noCoreHandlers[functionName]
+  Object.keys(multiCoreHandlers).forEach(functionName => {
+    handlers[functionName] = withCores(cores)(multiCoreHandlers[functionName])
   })
   return handlers
 }
