@@ -8,6 +8,7 @@ import AuctionAmount from './AuctionAmount'
 
 export default class Amount extends React.Component {
   static propTypes = {
+    isAttestationValid: PropTypes.bool,
     isProcessing: PropTypes.bool,
     coinSymbol: PropTypes.string.isRequired,
     isFailed: PropTypes.bool.isRequired,
@@ -26,6 +27,7 @@ export default class Amount extends React.Component {
     value: PropTypes.string.isRequired
   }
 
+  // eslint-disable-next-line complexity
   render() {
     const { isProcessing, txType, isFailed, value, symbol } = this.props
 
@@ -38,11 +40,19 @@ export default class Amount extends React.Component {
         return <ConvertedAmount {...this.props} />
       case 'auction':
         return <AuctionAmount {...this.props} />
+      case 'attestation':
+        return (
+          <Text color="copy">
+            {this.props.isAttestationValid
+              ? 'Attestation Valid'
+              : 'Attestation Invalid'}
+          </Text>
+        )
       default:
         return (
           <DisplayValue
-            color={isFailed ? 'danger' : 'primary'}
             style={{ lineHeight: theme.sizes.large }}
+            color={isFailed ? 'danger' : 'primary'}
             value={value}
             size="large"
             post={
