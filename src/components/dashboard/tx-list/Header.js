@@ -19,7 +19,8 @@ class TxListHeader extends React.Component {
     sent: 'SENT',
     received: 'RECEIVED',
     auction: 'AUCTION',
-    converted: 'CONVERTED'
+    converted: 'CONVERTED',
+    ported: 'PORTED'
   }
 
   render() {
