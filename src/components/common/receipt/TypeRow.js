@@ -33,6 +33,8 @@ export default class TypeRow extends React.Component {
               ? 'Allowance canceled'
               : this.props.isApproval
               ? 'Allowance set'
+              : this.props.txType === 'import-requested'
+              ? 'Import Request'
               : (this.props.txType || '').toUpperCase()}
           </Text>
         </View>
