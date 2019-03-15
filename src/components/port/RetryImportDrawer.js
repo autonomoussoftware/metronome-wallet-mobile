@@ -88,6 +88,8 @@ class RetryImportDrawer extends React.Component {
 
 const EnhancedComponent = withRetryImportFormState(RetryImportDrawer)
 
+// This wrapper component is needed to grab the retry import data from the
+// navigation state and pass it down to the withRetryImportFormState HOC
 export default class RetryImport extends React.Component {
   static propTypes = {
     navigation: PropTypes.shape({
@@ -110,11 +112,19 @@ export default class RetryImport extends React.Component {
     )
   })
 
+  state = { importData: null }
+
+  // As no other fields are user-editable in a Retry Import form we need to set
+  // the importData this way to trigger a gas estimate fetch
+  componentDidMount() {
+    this.setState({ importData: this.props.navigation.state.params })
+  }
+
   render() {
     return (
       <EnhancedComponent
         navigation={this.props.navigation}
-        importData={this.props.navigation.state.params}
+        importData={this.state.importData}
       />
     )
   }
