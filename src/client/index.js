@@ -36,15 +36,12 @@ const startCore = ({ chain, core, config: coreConfig }, store) => {
     storage
       .getSyncBlock()
       .then(from => {
-        store.dispatch({ type: 'transactions-scan-started' })
+        emitter.emit('transactions-scan-started')
         return coreApi.explorer.syncTransactions(from, address)
       })
       .then(number => storage.setSyncBlock(number, chain))
       .then(() => {
-        store.dispatch({
-          type: 'transactions-scan-finished',
-          payload: { success: true }
-        })
+        emitter.emit('transactions-scan-finished', { success: true })
         emitter.on('coin-block', function({ number }) {
           storage.setSyncBlock(number, chain).catch(function(err) {
             // eslint-disable-next-line no-console
@@ -53,10 +50,7 @@ const startCore = ({ chain, core, config: coreConfig }, store) => {
         })
       })
       .catch(err => {
-        store.dispatch({
-          type: 'transactions-scan-finished',
-          payload: { success: true }
-        })
+        emitter.emit('transactions-scan-finished', { success: false })
         // eslint-disable-next-line no-console
         console.warn('Could not sync transactions/events', err)
       })
