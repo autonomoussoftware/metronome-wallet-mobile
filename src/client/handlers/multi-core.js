@@ -63,7 +63,7 @@ const withMerkleRoot = fn => (data, cores) => {
 const importMetronome = (data, cores) =>
   withMerkleRoot(singleCore.importMetronome)(data, cores)
 
-const getImportMetGas = (data, cores) =>
+const getImportGasLimit = (data, cores) =>
   withMerkleRoot(singleCore.getImportGasLimit)(data, cores)
 
 const portMetronome = (data, cores) => {
@@ -124,12 +124,13 @@ const portMetronome = (data, cores) => {
         })
     })
 }
+
 export default {
   retryImport: importMetronome,
   onOnboardingCompleted,
   recoverFromMnemonic,
+  getImportGasLimit,
   importMetronome,
-  getImportMetGas,
   portMetronome,
   onLoginSubmit,
   getPortFees
