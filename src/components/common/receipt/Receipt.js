@@ -159,14 +159,14 @@ class Receipt extends React.Component {
 
           {tx.txType === 'import-requested' && tx.importedFrom && (
             <View row my={3}>
-              <Text size="large">
+              <Text size="medium">
                 {this.props.isPending
                   ? 'Pending import request'
                   : 'Import requested'}{' '}
                 from
               </Text>
               <View grow={1} align="flex-end">
-                <Text size="large">{tx.importedFrom} chain</Text>
+                <Text size="medium">{tx.importedFrom} chain</Text>
               </View>
             </View>
           )}
