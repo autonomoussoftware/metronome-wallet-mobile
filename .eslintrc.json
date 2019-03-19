@@ -7,9 +7,12 @@
     "sourceType": "module"
   },
   "env": {
-    "react-native/react-native": true
+    "react-native/react-native": true,
+    "detox/detox": true,
+    "jasmine": true,
+    "jest": true
   },
-  "plugins": ["import", "react", "react-native"],
+  "plugins": ["import", "react", "react-native", "detox"],
   "settings": {
     "import/resolver": {
       "node": {

@@ -17,7 +17,7 @@ class Login extends React.Component {
     const { onInputChange, onSubmit, password, error } = this.props
 
     return (
-      <PatternView>
+      <PatternView testID="login">
         <View withKeyboard justify="center" align="center" flex={1}>
           <View mb={6}>
             <Banner width="220" />
