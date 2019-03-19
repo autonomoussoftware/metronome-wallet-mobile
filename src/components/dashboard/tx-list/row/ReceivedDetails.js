@@ -1,3 +1,4 @@
+import FilteredMessage from 'metronome-wallet-ui-logic/src/components/FilteredMessage'
 import PropTypes from 'prop-types'
 import React from 'react'
 
@@ -16,9 +17,13 @@ export default class ReceivedDetails extends React.Component {
           {this.props.isPending ? 'PENDING' : 'RECEIVED'} FROM{' '}
         </Text>
         <Text color="copy" weight="semibold" size="small">
-          {this.props.from.substring(0, 6)}
-          &hellip;
-          {this.props.from.substring(this.props.from.length - 4)}
+          <FilteredMessage
+            withDefault={str =>
+              `${str.substring(0, 6)}…${str.substring(str.length - 4)}`
+            }
+          >
+            {this.props.from}
+          </FilteredMessage>
         </Text>
       </Text>
     )
