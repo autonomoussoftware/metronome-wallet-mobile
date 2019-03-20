@@ -28,6 +28,7 @@ export default class VerifyPinStep extends React.Component {
         <PinInput
           onComplete={() => this.props.onPasswordSubmit({ clearOnError: true })}
           onChange={this.props.onInputChange}
+          testID="passwordAgain"
           value={this.props.passwordAgain || ''}
           error={this.props.errors.passwordAgain}
           id="passwordAgain"

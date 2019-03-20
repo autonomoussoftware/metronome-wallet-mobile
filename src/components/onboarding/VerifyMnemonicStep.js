@@ -38,6 +38,7 @@ export default class VerifyMnemonicStep extends React.Component {
           </Text>
           <MnemonicInput
             onChange={this.props.onInputChange}
+            testID="mnemonicAgain"
             error={this.props.errors.mnemonicAgain}
             value={this.props.mnemonicAgain}
             label="Recovery passphrase"
@@ -45,6 +46,7 @@ export default class VerifyMnemonicStep extends React.Component {
           />
           <Btn
             onPress={this.props.onMnemonicAccepted}
+            testID="copied-mnemonic-btn"
             label="Done"
             block
             mt={2}

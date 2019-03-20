@@ -34,6 +34,7 @@ export default class TermsStep extends React.Component {
         <Checkbox
           onChange={this.props.onInputChange}
           checked={this.props.termsCheckbox}
+          testID="accept-terms-chb"
           label="I have read and accept these terms"
           id="termsCheckbox"
           mt={4}
@@ -41,6 +42,7 @@ export default class TermsStep extends React.Component {
         <Checkbox
           onChange={this.props.onInputChange}
           checked={this.props.licenseCheckbox}
+          testID="accept-license-chb"
           label={
             <React.Fragment>
               I have read and accept the{' '}
@@ -59,6 +61,7 @@ export default class TermsStep extends React.Component {
         <Btn
           disabled={!this.props.licenseCheckbox || !this.props.termsCheckbox}
           onPress={this.props.onTermsAccepted}
+          testID="accept-terms-btn"
           label="Continue"
           block
           mt={2}

@@ -14,6 +14,7 @@ export default class Checkbox extends React.Component {
     onChange: PropTypes.func.isRequired,
     disabled: PropTypes.bool,
     checked: PropTypes.bool,
+    testID: PropTypes.string,
     error: PropTypes.oneOfType([
       PropTypes.arrayOf(PropTypes.string),
       PropTypes.string
@@ -28,6 +29,7 @@ export default class Checkbox extends React.Component {
       disabled,
       onChange,
       checked,
+      testID,
       error,
       label,
       id,
@@ -45,6 +47,7 @@ export default class Checkbox extends React.Component {
               disabled={disabled}
               hitSlop={{ top: 10, left: 10, right: 10, bottom: 10 }}
               onPress={() => onChange({ id, value: !checked })}
+              testID={testID}
             >
               <Svg viewBox="0 0 16 16" height="20" width="20">
                 <Rect fill="white" width="100%" height="100%" rx="4" />

@@ -27,6 +27,7 @@ class Login extends React.Component {
             shakeOnError
             onComplete={onSubmit}
             onChange={onInputChange}
+            testID="password"
             label="Enter your PIN"
             value={password || ''}
             error={error}

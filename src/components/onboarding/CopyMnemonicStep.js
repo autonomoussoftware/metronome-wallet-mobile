@@ -13,7 +13,13 @@ export default class CopyMnemonicStep extends React.Component {
 
   render() {
     return (
-      <View justify="center" align="center" flex={1} p={2}>
+      <View
+        justify="center"
+        testID="copy-mnemonic"
+        align="center"
+        flex={1}
+        p={2}
+      >
         <Text size="large" weight="semibold" mb={2}>
           Recovery Passphrase
         </Text>
@@ -24,6 +30,7 @@ export default class CopyMnemonicStep extends React.Component {
         {this.props.mnemonic ? (
           <RN.TouchableWithoutFeedback
             onPress={() => RN.Clipboard.setString(this.props.mnemonic)}
+            testID="mnemonic-label"
           >
             <View row rowwrap justify="space-evenly">
               {this.props.mnemonic.split(' ').map((word, i) => (
@@ -45,6 +52,7 @@ export default class CopyMnemonicStep extends React.Component {
         )}
         <Btn
           onPress={this.props.onMnemonicCopiedToggled}
+          testID="copied-mnemonic-btn"
           label="I've copied it"
           block
           mt={6}
@@ -52,6 +60,7 @@ export default class CopyMnemonicStep extends React.Component {
         />
         <BaseBtn
           onPress={this.props.onUseUserMnemonicToggled}
+          testID="recover-btn"
           label="Or recover from a saved passphrase"
           block
         />

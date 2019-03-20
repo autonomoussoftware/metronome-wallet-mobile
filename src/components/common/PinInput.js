@@ -43,6 +43,7 @@ class PinInput extends React.Component {
     shakeOnError: PropTypes.bool,
     onComplete: PropTypes.func,
     onChange: PropTypes.func.isRequired,
+    testID: PropTypes.string,
     label: PropTypes.string,
     value: PropTypes.string,
     error: PropTypes.oneOfType([
@@ -131,6 +132,7 @@ class PinInput extends React.Component {
           caretHidden
           maxLength={PIN_LENGTH}
           autoFocus
+          testID={this.props.testID}
           style={styles.hiddenInput}
           value={value || ''}
           ref={ref => {

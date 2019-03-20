@@ -24,6 +24,7 @@ export default class PinStep extends React.Component {
         </RN.View>
         <PinInput
           onChange={this.props.onInputChange}
+          testID="password"
           value={this.props.password || ''}
           id="password"
         />
