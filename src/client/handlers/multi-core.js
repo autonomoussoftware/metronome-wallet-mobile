@@ -35,7 +35,7 @@ const recoverFromMnemonic = ({ mnemonic, password }, cores) =>
     .then(noCore.clearCache)
 
 const onLoginSubmit = ({ password }, cores) =>
-  validatePIN(password).then(cores.forEach(singleCore.openWallet))
+  validatePIN(password).then(() => cores.forEach(singleCore.openWallet))
 
 export default {
   onOnboardingCompleted,
