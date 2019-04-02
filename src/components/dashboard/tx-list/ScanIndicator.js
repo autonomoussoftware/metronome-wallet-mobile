@@ -6,20 +6,31 @@ import RN from 'react-native'
 
 import { Spinner, View, Text } from '../../common'
 
+const Light = ({ backgroundColor }) => (
+  <View style={[styles.light, { backgroundColor }]} />
+)
+
+Light.propTypes = {
+  backgroundColor: PropTypes.string.isRequired
+}
+
 const GreenLight = ({ isOnline }) => (
-  <View
-    style={[
-      styles.greenLight,
-      {
-        backgroundColor: isOnline
-          ? theme.colors.success
-          : theme.colors.darkSuccess
-      }
-    ]}
+  <Light
+    backgroundColor={isOnline ? theme.colors.success : theme.colors.darkSuccess}
   />
 )
 
 GreenLight.propTypes = {
+  isOnline: PropTypes.bool.isRequired
+}
+
+const RedLight = ({ isOnline }) => (
+  <Light
+    backgroundColor={isOnline ? theme.colors.danger : theme.colors.darkDanger}
+  />
+)
+
+RedLight.propTypes = {
   isOnline: PropTypes.bool.isRequired
 }
 
@@ -50,6 +61,8 @@ class ScanIndicator extends React.Component {
             }
             size={14}
           />
+        ) : this.props.syncStatus === 'failed' ? (
+          <RedLight isOnline={this.props.isOnline} />
         ) : (
           <GreenLight isOnline={this.props.isOnline} />
         )}
@@ -75,7 +88,7 @@ const styles = RN.StyleSheet.create({
   label: {
     fontSize: 12
   },
-  greenLight: {
+  light: {
     borderRadius: 10,
     borderColor: theme.colors.light,
     borderWidth: 1,
