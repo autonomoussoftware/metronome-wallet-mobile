@@ -1,7 +1,7 @@
 {
   "name": "metronome-wallet-mobile",
   "description": "Metronome wallet for mobile devices",
-  "version": "1.0.1",
+  "version": "1.0.3",
   "author": {
     "name": "Autonomous Software",
     "email": "info@autonomous.sh",
@@ -11,12 +11,18 @@
   "license": "MIT",
   "scripts": {
     "android": "adb reverse tcp:8081 tcp:8081 && react-native run-android",
+    "android:beta": "fastlane android beta version:$npm_package_version",
+    "env": "./scripts/env.sh",
+    "gradle-properties": "export $(cat .env | xargs) && ./scripts/gradle-properties.sh $npm_package_version",
     "ios": "react-native run-ios",
+    "ios:beta": "fastlane ios beta version:$npm_package_version",
+    "ios:bundle": "./scripts/ios-bundle.sh",
+    "ios:fix-third-party": "./scripts/fix-third-party.sh",
+    "nuke-caches": "./scripts/nuke-caches.sh",
     "lint": "eslint .",
     "postinstall": "patch-package",
     "start": "node node_modules/react-native/local-cli/cli.js start",
-    "test": "jest",
-    "version": "./version-ios.sh"
+    "test": "jest"
   },
   "rnpm": {
     "assets": [
@@ -37,6 +43,7 @@
     "react-native": "0.56.0",
     "react-native-bip39": "2.3.0",
     "react-native-camera": "1.1.2",
+    "react-native-config": "0.11.7",
     "react-native-google-analytics-bridge": "6.1.0",
     "react-native-keychain": "3.0.0",
     "react-native-qrcode-scanner": "1.0.1",
