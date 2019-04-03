@@ -25,7 +25,7 @@ export const onHelpLinkClick = () =>
 
 export const clearCache = () => {
   const keys = ['chains', 'config', 'connectivity', 'session', 'sync']
-  return RN.AsyncStorage.multiRemove(keys).then(RNRestart.Restart())
+  return RN.AsyncStorage.multiRemove(keys).then(() => RNRestart.Restart())
 }
 
 export const recoverFromMnemonic = ({ mnemonic, password }) =>
@@ -33,8 +33,11 @@ export const recoverFromMnemonic = ({ mnemonic, password }) =>
     .then(() => setSeed(mnemonicToSeedHex(mnemonic)))
     .then(clearCache)
 
+export const getSettingsVersion = () =>
+  RN.AsyncStorage.getItem('settings-version')
+
 export const shouldRestartSettings = () =>
-  RN.AsyncStorage.getItem('settings-version').then(
+  getSettingsVersion().then(
     settingsVersion =>
       config.settingsVersion > Number.parseInt(settingsVersion || 0)
   )
