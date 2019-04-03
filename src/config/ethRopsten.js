@@ -1,9 +1,14 @@
 import MetronomeContracts from 'metronome-contracts'
+import Config from 'react-native-config'
 
 const contracts = MetronomeContracts.ropsten
 
+const indexerUrl = Config.ROPSTEN_INDEXER_URL || 'http://localhost:3005'
+const metApiUrl = Config.ROPSTEN_API_URL || 'http://localhost:3002/'
+const wsApiUrl = Config.ROPSTEN_NODE_URL || 'ws://localhost:8546'
+
 export default {
-  displayName: 'Ropsten (Local)',
+  displayName: 'Ropsten',
   chainId: 3,
   symbol: 'ETH',
 
@@ -16,9 +21,9 @@ export default {
 
   // urls
   explorerUrl: 'https://ropsten.etherscan.io/tx/{{hash}}',
-  indexerUrl: 'http://localhost:3005',
-  metApiUrl: 'http://localhost:3002/',
-  wsApiUrl: 'ws://localhost:8546',
+  indexerUrl,
+  metApiUrl,
+  wsApiUrl,
 
   // defauls
   coinDefaultGasLimit: '21000',

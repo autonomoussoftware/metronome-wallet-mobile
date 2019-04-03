@@ -1,32 +1,48 @@
-import ethRopstenLocal from './ethRopstenLocal'
-import etcMordenLocal from './etcMordenLocal'
+import ethRopsten from './ethRopsten'
+import etcMorden from './etcMorden'
 import ethMainnet from './ethMainnet'
+import { Alert } from 'react-native'
+import Config from 'react-native-config'
 
-const enabledChains = (
-  process.env.ENABLED_CHAINS || 'ethRopstenLocal,etcMordenLocal'
-)
+const enabledChains = (Config.ENABLED_CHAINS || 'ethRopsten')
   .split(',')
   .map(name => name.trim())
 
+console.warn(enabledChains)
+
+const availableChains = {
+  ethRopsten,
+  etcMorden,
+  ethMainnet
+}
+
+const missingConfigurations = enabledChains.filter(
+  name => !availableChains[name]
+)
+
+console.warn(missingConfigurations)
+
+if (missingConfigurations.length > 0) {
+  Alert.alert(
+    'Missing configuration',
+    `There are no configuration values for enabled chain(s) ${missingConfigurations
+      .map(name => `"${name}"`)
+      .join(', ')}. Check your ENABLED_CHAINS environment variable!`
+  )
+}
+
 export default {
-  chains: {
-    ethRopstenLocal,
-    etcMordenLocal,
-    ethMainnet
-  },
+  chains: availableChains,
   dbAutocompactionInterval: 30000,
-  debug: process.env.DEBUG || false,
+  debug: Config.RN_DEBUG || false,
   enabledChains,
   useNativeCookieJar: true,
   explorerDebounce: 2000,
   ratesUpdateMs: 30000,
-  requiredPasswordEntropy: parseInt(
-    process.env.REQUIRED_PASSWORD_ENTROPY || 20,
-    10
-  ),
+  requiredPasswordEntropy: 20,
   scanTransactionTimeout: 240000,
-  sentryDsn: process.env.SENTRY_DSN,
+  sentryDsn: Config.SENTRY_DSN,
   settingsVersion: 2,
   statePersistanceDebounce: 2000,
-  trackingId: process.env.TRACKING_ID || ''
+  trackingId: Config.TRACKING_ID || ''
 }

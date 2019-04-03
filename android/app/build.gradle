@@ -1,4 +1,5 @@
 apply plugin: "com.android.application"
+apply from: project(':react-native-config').projectDir.getPath() + "/dotenv.gradle"
 
 import com.android.build.OutputFile
 
@@ -94,23 +95,16 @@ def enableSeparateBuildPerCPUArchitecture = false
  */
 def enableProguardInReleaseBuilds = false
 
-def (major, minor, patch) = getNpmVersion().tokenize('.')
-
-def getNpmVersionArray() { // major [0], minor [1], patch [2]
-    def (major, minor, patch) = getNpmVersion().tokenize('.')
-    return [Integer.parseInt(major), Integer.parseInt(minor), Integer.parseInt(patch)] as int[]
-}
-
 android {
     compileSdkVersion 27
-    buildToolsVersion "27.0.2"
+    buildToolsVersion "27.0.3"
 
     defaultConfig {
         applicationId "sh.autonomous.wallet.mobile"
         minSdkVersion 18
         targetSdkVersion 27
-        versionCode 19 // versionMajor * 10000 + versionMinor * 100 + versionPatch
-        versionName "${versionMajor}.${versionMinor}.${versionPatch}"
+        versionCode project.hasProperty('VERSION_CODE') ? Integer.parseInt(VERSION_CODE) : 1
+        versionName project.hasProperty('VERSION_NAME') ? VERSION_NAME : "1.0"
         ndk {
             abiFilters "armeabi-v7a", "x86"
         }
@@ -125,11 +119,11 @@ android {
     }
     signingConfigs {
         release {
-            if (project.hasProperty('MYAPP_RELEASE_STORE_FILE')) {
-                storeFile file(MYAPP_RELEASE_STORE_FILE)
-                storePassword MYAPP_RELEASE_STORE_PASSWORD
-                keyAlias MYAPP_RELEASE_KEY_ALIAS
-                keyPassword MYAPP_RELEASE_KEY_PASSWORD
+            if (project.hasProperty('METRONOME_RELEASE_STORE_FILE')) {
+                storeFile file(METRONOME_RELEASE_STORE_FILE)
+                storePassword METRONOME_RELEASE_STORE_PASSWORD
+                keyAlias METRONOME_RELEASE_KEY_ALIAS
+                keyPassword METRONOME_RELEASE_KEY_PASSWORD
             }
         }
     }
@@ -156,6 +150,7 @@ android {
 }
 
 dependencies {
+    compile project(':react-native-config')
     compile project(':react-native-google-analytics-bridge')
     compile project(':react-native-sentry')
     compile project(':react-native-version-number')
