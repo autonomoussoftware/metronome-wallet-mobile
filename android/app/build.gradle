@@ -150,20 +150,23 @@ android {
 }
 
 dependencies {
-    implement project(':react-native-google-analytics-bridge')
-    implement project(':react-native-sentry')
-    implement project(':react-native-version-number')
-    implement project(':react-native-restart')
-    implement project(':react-native-splash-screen')
-    implement project(':react-native-keychain')
-    implement project(':react-native-camera')
-    implement project(':react-native-svg')
-    implement project(':react-native-randombytes')
-    implement fileTree(dir: "libs", include: ["*.jar"])
-    implement ("com.android.support:support-v4:27.0.2") {
+    implementation project(':react-native-udp')
+    implementation project(':react-native-tcp')
+    implementation project(':react-native-os')
+    implementation project(':react-native-google-analytics-bridge')
+    implementation project(':react-native-sentry')
+    implementation project(':react-native-version-number')
+    implementation project(':react-native-restart')
+    implementation project(':react-native-splash-screen')
+    implementation project(':react-native-keychain')
+    implementation project(':react-native-camera')
+    implementation project(':react-native-svg')
+    implementation project(':react-native-randombytes')
+    implementation fileTree(dir: "libs", include: ["*.jar"])
+    implementation ("com.android.support:support-v4:27.0.2") {
         force = true
     }
-    implement "com.facebook.react:react-native:+"  // From node_modules
+    implementation "com.facebook.react:react-native:+"  // From node_modules
 }
 
 // Run this once to be able to run the application with BUCK
