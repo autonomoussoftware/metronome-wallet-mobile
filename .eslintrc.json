@@ -9,7 +9,7 @@
   "env": {
     "react-native/react-native": true
   },
-  "plugins": ["import", "react", "react-native"],
+  "plugins": ["import", "react", "react-native", "react-hooks"],
   "settings": {
     "import/resolver": {
       "node": {

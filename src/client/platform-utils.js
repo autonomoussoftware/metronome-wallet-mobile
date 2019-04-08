@@ -1,4 +1,5 @@
 import RN from 'react-native'
+import AsyncStorage from '@react-native-community/async-storage'
 import VersionNumber from 'react-native-version-number'
 import RNRestart from 'react-native-restart'
 import config from '../config'
@@ -25,7 +26,7 @@ export const onHelpLinkClick = () =>
 
 export const clearCache = () => {
   const keys = ['chains', 'config', 'connectivity', 'session', 'sync']
-  return RN.AsyncStorage.multiRemove(keys).then(() => RNRestart.Restart())
+  return AsyncStorage.multiRemove(keys).then(() => RNRestart.Restart())
 }
 
 export const recoverFromMnemonic = ({ mnemonic, password }) =>
@@ -33,8 +34,7 @@ export const recoverFromMnemonic = ({ mnemonic, password }) =>
     .then(() => setSeed(mnemonicToSeedHex(mnemonic)))
     .then(clearCache)
 
-export const getSettingsVersion = () =>
-  RN.AsyncStorage.getItem('settings-version')
+export const getSettingsVersion = () => AsyncStorage.getItem('settings-version')
 
 export const shouldRestartSettings = () =>
   getSettingsVersion().then(
@@ -43,7 +43,7 @@ export const shouldRestartSettings = () =>
   )
 
 export const saveSettingsVersion = () =>
-  RN.AsyncStorage.setItem(
+  AsyncStorage.setItem(
     'settings-version',
     JSON.stringify(config.settingsVersion || 0)
   )

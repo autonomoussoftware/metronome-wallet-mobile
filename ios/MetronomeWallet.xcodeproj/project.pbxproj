@@ -5,7 +5,6 @@
 	};
 	objectVersion = 51;
 	objects = {
-
 /* Begin PBXBuildFile section */
 		00C302E51ABCBA2D00DB3ED1 /* libRCTActionSheet.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302AC1ABCB8CE00DB3ED1 /* libRCTActionSheet.a */; };
 		00C302E71ABCBA2D00DB3ED1 /* libRCTGeolocation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302BA1ABCB90400DB3ED1 /* libRCTGeolocation.a */; };
@@ -46,6 +45,7 @@
 		54E32A1D7CCE4D738016354D /* libRNKeychain.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F7CE1171A64F4B9DB473EC6B /* libRNKeychain.a */; };
 		55647811063842D8A2C27AA3 /* Muli-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 22724B10EEF54C3093BFFE08 /* Muli-Black.ttf */; };
 		582CE6F1FACF498EAF169FB9 /* libRNRandomBytes.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F8424604A73B4339BBBC6E91 /* libRNRandomBytes.a */; };
+		595819605C9E4D06BC77EB30 /* libRNCAsyncStorage.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 18866B86D92040C7B283BCD6 /* libRNCAsyncStorage.a */; };
 		5CAE73799A364F86BEEFCF2B /* Muli-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AF3F5384DDF54AD3AEE6F2AA /* Muli-ExtraBold.ttf */; };
 		5E9157361DD0AC6A00FF2AA8 /* libRCTAnimation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E9157331DD0AC6500FF2AA8 /* libRCTAnimation.a */; };
 		6C65A4375322430798CC4FD3 /* libRNSVG.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CCC5B2F7344E49C59DD2B88F /* libRNSVG.a */; };
@@ -309,6 +309,13 @@
 			remoteGlobalIDString = A79185C61C30694E001236A6;
 			remoteInfo = RCTGoogleAnalyticsBridge;
 		};
+		704E22C6225BCCE4002CCA83 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3B204F20EA074D128B38C771 /* RNCAsyncStorage.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 134814201AA4EA6300B7C361;
+			remoteInfo = RNCAsyncStorage;
+		};
 		706D422A212DAECD00C767D2 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = A826EF83132C4A378AC07259 /* SplashScreen.xcodeproj */;
@@ -514,6 +521,7 @@
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = MetronomeWallet/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = MetronomeWallet/main.m; sourceTree = "<group>"; };
 		146833FF1AC3E56700842450 /* React.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = React.xcodeproj; path = "../node_modules/react-native/React/React.xcodeproj"; sourceTree = "<group>"; };
+		18866B86D92040C7B283BCD6 /* libRNCAsyncStorage.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNCAsyncStorage.a; sourceTree = "<group>"; };
 		22724B10EEF54C3093BFFE08 /* Muli-Black.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Muli-Black.ttf"; path = "../src/assets/fonts/Muli-Black.ttf"; sourceTree = "<group>"; };
 		2500C91B72BB4B538D154263 /* libSplashScreen.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libSplashScreen.a; sourceTree = "<group>"; };
 		25A0940891D340BB9DB9E12C /* libRNSentry.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNSentry.a; sourceTree = "<group>"; };
@@ -521,6 +529,7 @@
 		2D02E4901E0B4A5D006451C7 /* MetronomeWallet-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "MetronomeWallet-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		32CD46200F03429DAF350B79 /* libRNOS.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNOS.a; sourceTree = "<group>"; };
 		39CE92B26CD04010A4990D3A /* libRCTGoogleAnalyticsBridge.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRCTGoogleAnalyticsBridge.a; sourceTree = "<group>"; };
+		3B204F20EA074D128B38C771 /* RNCAsyncStorage.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNCAsyncStorage.xcodeproj; path = "../node_modules/@react-native-community/async-storage/ios/RNCAsyncStorage.xcodeproj"; sourceTree = "<group>"; };
 		3D109037C3C546FEA03DA448 /* libz.tbd */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		4493BC90B8F64725BBA1D40F /* TcpSockets.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = TcpSockets.xcodeproj; path = "../node_modules/react-native-tcp/ios/TcpSockets.xcodeproj"; sourceTree = "<group>"; };
 		4546275B522241F29A9DC520 /* libTcpSockets.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libTcpSockets.a; sourceTree = "<group>"; };
@@ -612,6 +621,7 @@
 				F5A86D18E5414392B6DE49FF /* libTcpSockets.a in Frameworks */,
 				859E9B6AA3BA468AB4FFC5B7 /* libUdpSockets.a in Frameworks */,
 				6C65A4375322430798CC4FD3 /* libRNSVG.a in Frameworks */,
+				595819605C9E4D06BC77EB30 /* libRNCAsyncStorage.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -830,6 +840,7 @@
 				A00F95A68A014EF4B9FB7CBA /* libUdpSockets.a */,
 				CCC5B2F7344E49C59DD2B88F /* libRNSVG.a */,
 				8A67E8EB22674C10AD32F354 /* libRNSVG-tvOS.a */,
+				18866B86D92040C7B283BCD6 /* libRNCAsyncStorage.a */,
 			);
 			name = "Recovered References";
 			sourceTree = "<group>";
@@ -863,6 +874,14 @@
 			isa = PBXGroup;
 			children = (
 				6EC46E672150332200E04D86 /* libRCTGoogleAnalyticsBridge.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		704E22C3225BCCE4002CCA83 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				704E22C7225BCCE4002CCA83 /* libRNCAsyncStorage.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -980,6 +999,7 @@
 				4493BC90B8F64725BBA1D40F /* TcpSockets.xcodeproj */,
 				E521F1B79E854B3AA1D93E84 /* UdpSockets.xcodeproj */,
 				67367B1EDBBA4CFB8632B662 /* RNSVG.xcodeproj */,
+				3B204F20EA074D128B38C771 /* RNCAsyncStorage.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -1222,6 +1242,10 @@
 				{
 					ProductGroup = 6EA62FC82093B7040096BADB /* Products */;
 					ProjectRef = 997FD38F4B754F98943C3C29 /* RNCamera.xcodeproj */;
+				},
+				{
+					ProductGroup = 704E22C3225BCCE4002CCA83 /* Products */;
+					ProjectRef = 3B204F20EA074D128B38C771 /* RNCAsyncStorage.xcodeproj */;
 				},
 				{
 					ProductGroup = 709E0C7F212C7FC5007A3014 /* Products */;
@@ -1493,6 +1517,13 @@
 			fileType = archive.ar;
 			path = libRCTGoogleAnalyticsBridge.a;
 			remoteRef = 6EC46E662150332200E04D86 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		704E22C7225BCCE4002CCA83 /* libRNCAsyncStorage.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRNCAsyncStorage.a;
+			remoteRef = 704E22C6225BCCE4002CCA83 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		706D422B212DAECD00C767D2 /* libSplashScreen.a */ = {
@@ -1856,6 +1887,7 @@
 					"$(SRCROOT)/../node_modules/react-native-tcp/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-udp/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-svg/ios/**",
+					"$(SRCROOT)/../node_modules/@react-native-community/async-storage/ios",
 				);
 				INFOPLIST_FILE = MetronomeWalletTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -1866,6 +1898,7 @@
 				);
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
@@ -1901,6 +1934,7 @@
 					"$(SRCROOT)/../node_modules/react-native-tcp/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-udp/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-svg/ios/**",
+					"$(SRCROOT)/../node_modules/@react-native-community/async-storage/ios",
 				);
 				INFOPLIST_FILE = MetronomeWalletTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -1911,6 +1945,7 @@
 				);
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
@@ -1947,6 +1982,7 @@
 					"$(SRCROOT)/../node_modules/react-native-tcp/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-udp/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-svg/ios/**",
+					"$(SRCROOT)/../node_modules/@react-native-community/async-storage/ios",
 				);
 				INFOPLIST_FILE = MetronomeWallet/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
@@ -1990,6 +2026,7 @@
 					"$(SRCROOT)/../node_modules/react-native-tcp/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-udp/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-svg/ios/**",
+					"$(SRCROOT)/../node_modules/@react-native-community/async-storage/ios",
 				);
 				INFOPLIST_FILE = MetronomeWallet/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
@@ -2039,6 +2076,7 @@
 					"$(SRCROOT)/../node_modules/react-native-tcp/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-udp/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-svg/ios/**",
+					"$(SRCROOT)/../node_modules/@react-native-community/async-storage/ios",
 				);
 				INFOPLIST_FILE = "MetronomeWallet-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -2047,6 +2085,7 @@
 				);
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
@@ -2090,6 +2129,7 @@
 					"$(SRCROOT)/../node_modules/react-native-tcp/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-udp/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-svg/ios/**",
+					"$(SRCROOT)/../node_modules/@react-native-community/async-storage/ios",
 				);
 				INFOPLIST_FILE = "MetronomeWallet-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -2098,6 +2138,7 @@
 				);
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
@@ -2134,6 +2175,7 @@
 					"$(inherited)",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.facebook.REACT.MetronomeWallet-tvOSTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -2162,6 +2204,7 @@
 				);
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
@@ -2207,10 +2250,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				INFOPLIST_OTHER_PREPROCESSOR_FLAGS = "-traditional";
-				INFOPLIST_PREFIX_HEADER = "${BUILD_DIR}/GeneratedInfoPlistDotEnv.h";
-				INFOPLIST_PREPROCESS = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -2245,10 +2285,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				INFOPLIST_OTHER_PREPROCESSOR_FLAGS = "-traditional";
-				INFOPLIST_PREFIX_HEADER = "${BUILD_DIR}/GeneratedInfoPlistDotEnv.h";
-				INFOPLIST_PREPROCESS = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
