@@ -32,7 +32,6 @@
   "dependencies": {
     "@babel/preset-env": "7.4.3",
     "@react-native-community/async-storage": "1.2.4",
-    "@tradle/react-native-http": "2.0.1",
     "base-64": "0.1.0",
     "fast-password-entropy": "1.1.0",
     "lodash": "4.17.11",
@@ -45,6 +44,7 @@
     "react-native": "0.59.3",
     "react-native-bip39": "2.3.0",
     "react-native-camera": "1.1.2",
+    "react-native-crypto": "2.1.2",
     "react-native-google-analytics-bridge": "6.1.0",
     "react-native-keychain": "3.0.0",
     "react-native-qrcode-scanner": "1.0.1",
@@ -88,8 +88,7 @@
     "metro-react-native-babel-preset": "0.53.1",
     "patch-package": "5.1.1",
     "prettier": "1.15.3",
-    "react-test-renderer": "16.8.3",
-    "rn-nodeify": "10.0.1"
+    "react-test-renderer": "16.8.3"
   },
   "husky": {
     "hooks": {
