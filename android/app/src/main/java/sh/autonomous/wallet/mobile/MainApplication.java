@@ -3,17 +3,14 @@ package sh.autonomous.wallet.mobile;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.oblador.keychain.KeychainPackage;
+import org.reactnative.camera.RNCameraPackage;
 import com.reactnativecommunity.asyncstorage.AsyncStoragePackage;
-import com.tradle.react.UdpSocketsModule;
-import com.peel.react.TcpSocketsModule;
-import com.peel.react.rnos.RNOSModule;
 import com.idehub.GoogleAnalyticsBridge.GoogleAnalyticsBridgePackage;
 import io.sentry.RNSentryPackage;
 import com.apsl.versionnumber.RNVersionNumberPackage;
 import com.avishayil.rnrestart.ReactNativeRestartPackage;
 import org.devio.rn.splashscreen.SplashScreenReactPackage;
-import com.oblador.keychain.KeychainPackage;
-import org.reactnative.camera.RNCameraPackage;
 import com.horcrux.svg.SvgPackage;
 import com.bitgo.randombytes.RandomBytesPackage;
 import com.facebook.react.ReactNativeHost;
@@ -36,17 +33,14 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new KeychainPackage(),
+            new RNCameraPackage(),
             new AsyncStoragePackage(),
-            new UdpSocketsModule(),
-            new TcpSocketsModule(),
-            new RNOSModule(),
             new GoogleAnalyticsBridgePackage(),
             new RNSentryPackage(),
             new RNVersionNumberPackage(),
             new ReactNativeRestartPackage(),
             new SplashScreenReactPackage(),
-            new KeychainPackage(),
-            new RNCameraPackage(),
             new SvgPackage(),
             new RandomBytesPackage()
       );

@@ -7,22 +7,19 @@
     <!-- Needed by https://github.com/moaazsidat/react-native-qrcode-scanner-->
     <uses-permission android:name="android.permission.VIBRATE"/>
 
-    <uses-sdk
-        android:minSdkVersion="18"
-        android:targetSdkVersion="27" />
-
 
     <application
       android:name=".MainApplication"
       android:allowBackup="false"
       android:label="@string/app_name"
       android:icon="@mipmap/ic_launcher"
-      android:theme="@style/AppTheme">
+      android:theme="@style/AppTheme"
+      android:usesCleartextTraffic="true">
 
       <meta-data
           tools:replace="android:value"
           android:name="android.support.VERSION"
-          android:value="27.0.2" />
+          android:value="28.0.0" />
 
       <activity
         android:name=".SplashActivity"
