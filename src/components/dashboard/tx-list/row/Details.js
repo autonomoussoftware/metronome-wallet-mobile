@@ -1,7 +1,11 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 
+import ImportRequestedDetails from './ImportRequestedDetails'
+import AttestationDetails from './AttestationDetails'
 import ConvertedDetails from './ConvertedDetails'
+import ImportedDetails from './ImportedDetails'
+import ExportedDetails from './ExportedDetails'
 import ReceivedDetails from './ReceivedDetails'
 import AuctionDetails from './AuctionDetails'
 import SentDetails from './SentDetails'
@@ -41,6 +45,14 @@ export default class Details extends React.Component {
         return <ReceivedDetails {...this.props} />
       case 'converted':
         return <ConvertedDetails {...this.props} />
+      case 'import-requested':
+        return <ImportRequestedDetails {...this.props} />
+      case 'imported':
+        return <ImportedDetails {...this.props} />
+      case 'exported':
+        return <ExportedDetails {...this.props} />
+      case 'attestation':
+        return <AttestationDetails {...this.props} />
       default:
         return <Text color="weak">Waiting for metadata</Text>
     }

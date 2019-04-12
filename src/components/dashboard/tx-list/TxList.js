@@ -20,9 +20,16 @@ class TxList extends React.Component {
 
   getFilteredItems = () => {
     const { items, filter } = this.props
-    return items
-      .filter(({ txType }) => txType !== 'attestation')
-      .filter(tx => ['all', tx.txType].includes(filter))
+    return items.filter(({ txType }) => {
+      if (txType === 'attestation') return false
+      if (
+        filter === 'ported' &&
+        ['import-requested', 'imported', 'exported'].includes(txType)
+      ) {
+        return true
+      }
+      return ['all', txType].includes(filter)
+    })
   }
 
   keyExtractor = item => item.hash

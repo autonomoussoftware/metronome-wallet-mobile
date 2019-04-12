@@ -6,6 +6,8 @@ import RN from 'react-native'
 import { View, Text } from '../../../common'
 import ConverterIcon from '../../../icons/ConverterIcon'
 import AuctionIcon from '../../../icons/AuctionIcon'
+import ImportIcon from '../../../icons/ImportIcon'
+import ExportIcon from '../../../icons/ExportIcon'
 import TxIcon from '../../../icons/TxIcon'
 
 export default class Icon extends React.Component {
@@ -28,6 +30,7 @@ export default class Icon extends React.Component {
 
   render() {
     const { isPending, isFailed, confirmations, txType } = this.props
+    const color = isFailed ? 'danger' : 'primary'
 
     if (txType === 'unknown' || isPending) {
       return (
@@ -41,11 +44,16 @@ export default class Icon extends React.Component {
 
     switch (txType) {
       case 'converted':
-        return <ConverterIcon color={isFailed ? 'danger' : 'primary'} />
+        return <ConverterIcon color={color} />
       case 'auction':
-        return <AuctionIcon color={isFailed ? 'danger' : 'primary'} />
+        return <AuctionIcon color={color} />
+      case 'import-requested':
+      case 'imported':
+        return <ImportIcon color={color} />
+      case 'exported':
+        return <ExportIcon color={color} />
       default:
-        return <TxIcon color={isFailed ? 'danger' : 'primary'} />
+        return <TxIcon color={color} />
     }
   }
 }

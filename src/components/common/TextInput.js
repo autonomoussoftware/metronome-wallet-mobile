@@ -99,7 +99,7 @@ export default class TextInput extends React.Component {
   }
 }
 
-const Errors = ({ hasErrors, message }) => (
+export const Errors = ({ hasErrors, message }) => (
   <RN.View style={styles.errorContainer}>
     {hasErrors && (
       <Text style={styles.errorText} color="danger">

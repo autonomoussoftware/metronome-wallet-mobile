@@ -1,6 +1,7 @@
 import { getSeed, setSeed } from '../wallet'
 import { withAuth, getWalletId } from './utils'
 import { withAnalytics } from '../analytics'
+import config from '../../config'
 
 const createWallet = ({ seed }, { emitter }) => {
   const walletId = getWalletId()
@@ -91,6 +92,29 @@ const convertMet = (data, { coreApi }) =>
 const sendMet = (data, { coreApi }) =>
   withAuth(coreApi.metronome.sendMet)(data, { coreApi })
 
+const getExportMetFee = (data, { coreApi }) =>
+  coreApi.metronome.getExportMetFee(data)
+
+const getExportGasLimit = (data, { coreApi }) =>
+  coreApi.metronome.estimateExportMetGas({
+    ...data,
+    destinationChain: config.chains[data.destinationChain].symbol,
+    destinationMetAddress: config.chains[data.destinationChain].metTokenAddress,
+    extraData: '0x00' // TODO: complete with extra data as needed
+  })
+
+const getImportGasLimit = (data, { coreApi }) =>
+  coreApi.metronome.estimateImportMetGas(data)
+
+const exportMetronome = (data, core) =>
+  withAuth(core.coreApi.metronome.exportMet)(data, core)
+
+const importMetronome = (data, core) =>
+  withAuth(core.coreApi.metronome.importMet)(data, core)
+
+const getMerkleRoot = (data, { coreApi }) =>
+  coreApi.metronome.getMerkleRoot(data)
+
 export default {
   refreshAllTransactions,
   getConvertCoinEstimate,
@@ -99,7 +123,13 @@ export default {
   getConvertMetGasLimit,
   refreshTransaction,
   getAuctionGasLimit,
+  getExportGasLimit,
+  getImportGasLimit,
   getTokensGasLimit,
+  getExportMetFee,
+  exportMetronome,
+  importMetronome,
+  getMerkleRoot,
   buyMetronome,
   createWallet,
   getGasLimit,
