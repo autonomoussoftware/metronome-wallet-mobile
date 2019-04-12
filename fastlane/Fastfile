@@ -35,7 +35,7 @@ platform :ios do
   lane :beta do |options|
     build(options)
     # Deploy only if the commit is in branch master or develop.
-    if (options[:TRAVIS_BRANCH] === "master" || options[:TRAVIS_BRANCH] === "develop") && !options[:TRAVIS_PULL_REQUEST]
+    if (options[:TRAVIS_BRANCH] === "master" || options[:TRAVIS_BRANCH] === "develop") && options[:TRAVIS_PULL_REQUEST] === "false"
       pilot(
         skip_waiting_for_build_processing: true,
         app_identifier: "sh.autonomous.wallet.mobile",
@@ -58,7 +58,7 @@ platform :android do
   lane :beta do |options|
     build(options)
     # Deploy only if the commit is in branch master or develop.
-    if (options[:TRAVIS_BRANCH] === "master" || options[:TRAVIS_BRANCH] === "develop") && !options[:TRAVIS_PULL_REQUEST]
+    if (options[:TRAVIS_BRANCH] === "master" || options[:TRAVIS_BRANCH] === "develop") && options[:TRAVIS_PULL_REQUEST] === "false"
       supply(
         track: "internal",
         json_key: "MetronomeWalletSigningKey.json",
