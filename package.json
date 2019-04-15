@@ -44,6 +44,7 @@
     "react-native": "0.59.4",
     "react-native-bip39": "2.3.0",
     "react-native-camera": "2.2.2",
+    "react-native-config": "0.11.7",
     "react-native-crypto": "2.1.2",
     "react-native-google-analytics-bridge": "6.1.0",
     "react-native-keychain": "3.1.1",
@@ -96,13 +97,16 @@
     }
   },
   "lint-staged": {
-    "src/**/*.js": [
-      "eslint --cache"
-    ],
-    "src/!(client)/**/*.{js,json,css,md}": [
-      "prettier --write",
-      "git add"
-    ]
+    "linters": {
+      "src/**/*.js": [
+        "eslint --cache"
+      ],
+      "src/!(client)/**/*.{js,json,css,md}": [
+        "prettier --write",
+        "git add"
+      ]
+    },
+    "concurrent": false
   },
   "jest": {
     "preset": "react-native"

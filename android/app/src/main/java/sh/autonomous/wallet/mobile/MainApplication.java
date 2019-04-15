@@ -3,6 +3,8 @@ package sh.autonomous.wallet.mobile;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.horcrux.svg.SvgPackage;
+import com.lugg.ReactNativeConfig.ReactNativeConfigPackage;
 import com.oblador.keychain.KeychainPackage;
 import org.reactnative.camera.RNCameraPackage;
 import com.reactnativecommunity.asyncstorage.AsyncStoragePackage;
@@ -11,7 +13,6 @@ import io.sentry.RNSentryPackage;
 import com.apsl.versionnumber.RNVersionNumberPackage;
 import com.avishayil.rnrestart.ReactNativeRestartPackage;
 import org.devio.rn.splashscreen.SplashScreenReactPackage;
-import com.horcrux.svg.SvgPackage;
 import com.bitgo.randombytes.RandomBytesPackage;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
@@ -33,6 +34,8 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new SvgPackage(),
+            new ReactNativeConfigPackage(),
             new KeychainPackage(),
             new RNCameraPackage(),
             new AsyncStoragePackage(),
@@ -41,7 +44,6 @@ public class MainApplication extends Application implements ReactApplication {
             new RNVersionNumberPackage(),
             new ReactNativeRestartPackage(),
             new SplashScreenReactPackage(),
-            new SvgPackage(),
             new RandomBytesPackage()
       );
     }

@@ -107,8 +107,8 @@ android {
         applicationId "sh.autonomous.wallet.mobile"
         minSdkVersion 19
         targetSdkVersion 28
-        versionCode 19 // versionMajor * 10000 + versionMinor * 100 + versionPatch
-        versionName "${versionMajor}.${versionMinor}.${versionPatch}"
+        versionCode project.hasProperty('VERSION_CODE') ? Integer.parseInt(VERSION_CODE) : 1
+        versionName project.hasProperty('VERSION_NAME') ? VERSION_NAME : "1.0"
         ndk {
             abiFilters "armeabi-v7a", "x86"
         }
@@ -155,6 +155,8 @@ android {
 }
 
 dependencies {
+    implementation project(':react-native-svg')
+    implementation project(':react-native-config')
     implementation project(':react-native-keychain')
     implementation project(':react-native-camera')
     implementation project(':@react-native-community_async-storage')
@@ -163,7 +165,6 @@ dependencies {
     implementation project(':react-native-version-number')
     implementation project(':react-native-restart')
     implementation project(':react-native-splash-screen')
-    implementation project(':react-native-svg')
     implementation project(':react-native-randombytes')
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation ("com.android.support:support-v4:28.0.0") {

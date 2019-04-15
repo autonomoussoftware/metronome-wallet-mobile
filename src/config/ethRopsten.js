@@ -7,6 +7,10 @@ const indexerUrl = Config.ROPSTEN_INDEXER_URL || 'http://localhost:3005'
 const metApiUrl = Config.ROPSTEN_API_URL || 'http://localhost:3002/'
 const wsApiUrl = Config.ROPSTEN_NODE_URL || 'ws://localhost:8546'
 
+console.warn('indexerUrl: \t', indexerUrl)
+console.warn('metApiUrl: \t', metApiUrl)
+console.warn('wsApiUrl: \t', wsApiUrl)
+
 export default {
   displayName: 'Ropsten',
   chainId: 3,

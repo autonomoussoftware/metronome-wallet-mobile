@@ -12,7 +12,10 @@ import Router from './components/Router'
 import config from './config'
 import Login from './components/Login'
 
-RN.YellowBox.ignoreWarnings(['Setting a timer'])
+RN.YellowBox.ignoreWarnings([
+  'Setting a timer',
+  'Require cycles are allowed, but can result in uninitialized values'
+])
 
 // Enable LayoutAnimation on Android
 // @see https://facebook.github.io/react-native/docs/animations
