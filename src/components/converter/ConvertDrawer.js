@@ -1,12 +1,18 @@
+import withConvertDrawerState from 'metronome-wallet-ui-logic/src/hocs/withConvertDrawerState'
+import PropTypes from 'prop-types'
 import React from 'react'
 
 import { BaseBtn, View, Tab, Text } from '../common'
-import ConvertETHtoMETForm from './ConvertETHtoMETForm'
-import ConvertMETtoETHForm from './ConvertMETtoETHForm'
+import ConvertCoinToMETForm from './ConvertCoinToMETForm'
+import ConvertMETtoCoinForm from './ConvertMETtoCoinForm'
 
-const DEFAULT_TAB = 'eth'
+const DEFAULT_TAB = 'coin'
 
 class ConvertDrawer extends React.Component {
+  static propTypes = {
+    coinSymbol: PropTypes.string.isRequired
+  }
+
   state = { activeTab: DEFAULT_TAB }
 
   render() {
@@ -14,29 +20,31 @@ class ConvertDrawer extends React.Component {
       <View bg="dark" flex={1} justify="space-between">
         <View row>
           <Tab
-            isActive={this.state.activeTab === 'eth'}
-            onPress={() => this.setState({ activeTab: 'eth' })}
+            isActive={this.state.activeTab === 'coin'}
+            onPress={() => this.setState({ activeTab: 'coin' })}
           >
-            ETH <Text color="primary">&rarr;</Text> MET
+            {this.props.coinSymbol} <Text color="primary">&rarr;</Text> MET
           </Tab>
           <Tab
             isActive={this.state.activeTab === 'met'}
             onPress={() => this.setState({ activeTab: 'met' })}
           >
-            MET <Text color="primary">&rarr;</Text> ETH
+            MET <Text color="primary">&rarr;</Text> {this.props.coinSymbol}
           </Tab>
         </View>
 
         <View withKeyboard withHeader flex={1}>
-          {this.state.activeTab === 'eth' && <ConvertETHtoMETForm />}
-          {this.state.activeTab === 'met' && <ConvertMETtoETHForm />}
+          {this.state.activeTab === 'coin' && <ConvertCoinToMETForm />}
+          {this.state.activeTab === 'met' && <ConvertMETtoCoinForm />}
         </View>
       </View>
     )
   }
 }
 
-ConvertDrawer.navigationOptions = ({ navigation }) => ({
+const EnhancedComponent = withConvertDrawerState(ConvertDrawer)
+
+EnhancedComponent.navigationOptions = ({ navigation }) => ({
   headerTitle: 'Convert',
   headerBackTitle: null,
   headerRight: (
@@ -49,4 +57,4 @@ ConvertDrawer.navigationOptions = ({ navigation }) => ({
   )
 })
 
-export default ConvertDrawer
+export default EnhancedComponent

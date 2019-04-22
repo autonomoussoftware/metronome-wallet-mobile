@@ -4,12 +4,12 @@ import React from 'react'
 import RN from 'react-native'
 
 import { MenuBtn, View, Text, Btn } from '../common'
-import ScanningTxPlaceholder from './ScanningTxPlaceholder'
-import NoTxPlaceholder from './NoTxPlaceholder'
+import ScanningTxPlaceholder from './tx-list/ScanningTxPlaceholder'
+import NoTxPlaceholder from './tx-list/NoTxPlaceholder'
 import RefreshControl from '../common/RefreshControl'
-import TxListHeader from './TxListHeader'
+import TxListHeader from './tx-list/Header'
 import BalanceBlock from './BalanceBlock'
-import TxList from './TxList'
+import TxList from './tx-list/TxList'
 
 class Dashboard extends React.Component {
   static propTypes = {
@@ -17,9 +17,9 @@ class Dashboard extends React.Component {
     onWalletRefresh: PropTypes.func.isRequired,
     hasTransactions: PropTypes.bool.isRequired,
     refreshStatus: PropTypes.oneOf(['init', 'pending', 'success', 'failure']),
-    isScanningTx: PropTypes.bool.isRequired,
     sendDisabled: PropTypes.bool.isRequired,
     refreshError: PropTypes.string,
+    syncStatus: PropTypes.oneOf(['up-to-date', 'syncing', 'failed']).isRequired,
     navigation: PropTypes.shape({
       navigate: PropTypes.func.isRequired
     }).isRequired
@@ -59,7 +59,8 @@ class Dashboard extends React.Component {
 
   render() {
     const showSpinner =
-      this.props.refreshStatus === 'pending' || this.props.isScanningTx
+      this.props.refreshStatus === 'pending' ||
+      this.props.syncStatus === 'syncing'
 
     return (
       <View
@@ -109,8 +110,9 @@ class Dashboard extends React.Component {
 
         <TxListHeader
           hasTransactions={this.props.hasTransactions}
+          onWalletRefresh={this.props.onWalletRefresh}
           selectFilter={this.selectFilter}
-          isScanning={showSpinner}
+          syncStatus={this.props.syncStatus}
           filter={this.state.selectedFilter}
         />
 
@@ -118,8 +120,9 @@ class Dashboard extends React.Component {
           <TxList filter={this.state.selectedFilter} />
         )}
 
-        {!this.props.hasTransactions &&
-          showSpinner && <ScanningTxPlaceholder />}
+        {!this.props.hasTransactions && showSpinner && (
+          <ScanningTxPlaceholder />
+        )}
 
         {!this.props.hasTransactions && !showSpinner && <NoTxPlaceholder />}
       </View>

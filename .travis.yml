@@ -1,71 +1,98 @@
-branches:
-  only:
-  - fastlane
+addons:
+  ssh_known_hosts: github.com # required to allow git clone certicates repo
+
 notifications:
   email:
     on_success: never
     on_failure: always
 
+cache:
+  bundler: true
+  directories:
+    - $HOME/.npm
+
 matrix:
   include:
-    - language: android
+    - stage: Deploy iOS 🍏
+      os: osx
+      osx_image: xcode10.1
+      language: objective-c
+      node_js: false
+
+      before_install:
+        - nvm install 8.15.0 # enforce using same version as local builds
+        - npm i -g npm@6.4.1 # enforce using same version as local builds
+        - nvm alias default 8.15.0 # otherwise sentry-cli will fail with a cryptic error
+        - node --version
+        - npm --version
+        - gem install fastlane --no-document --quiet
+
+        # Decrypt SSH deploy key for GitHub certificates repo and add to agent
+        - openssl aes-256-cbc -K $encrypted_89b232081b73_key -iv $encrypted_89b232081b73_iv
+          -in github_deploy_key.enc -out github_deploy_key -d
+        - chmod 600 github_deploy_key
+        - eval $(ssh-agent -s)
+        - ssh-add github_deploy_key
+
+        # Decrypt Sentry properties file and add copy to /ios directory
+        - openssl aes-256-cbc -K $encrypted_ace616ffe366_key -iv $encrypted_ace616ffe366_iv
+          -in sentry.properties.enc -out ios/sentry.properties -d
+
+      install:
+        - npm ci || travis_terminate 1
+
+      script:
+        - npm run ios:fix-third-party || travis_terminate 1
+
+        # Create .env file
+        - npm run env || travis_terminate 1
+        - cat .env
+
+        # supposedly this shouldn't be necesary, possible RN bug?
+        # see https://github.com/facebook/react-native/issues/18472
+        - npm i -g react-native-cli@2.0.1
+        - react-native info
+        - npm run ios:bundle -- --dev false || travis_terminate 1
+
+        - npm run ios:beta
+
+    - stage: Deploy Android 🤖
+      language: android
       jdk: oraclejdk8
-      sudo: required
-      dist: precise
-      before_cache:
-        - rm -f $HOME/.gradle/caches/modules-2/modules-2.lock
-        - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
-      cache:
-        directories:
-          - $HOME/.gradle/caches/
-          - $HOME/.gradle/wrapper/
-          - node_modules
+      node_js: false
       android:
         components:
-          - platform-tools
           - tools
-          - build-tools-27.0.3
+          - platform-tools
           - android-27
-          - extra-android-m2repository
-          - extra-google-google_play_services
           - extra-google-m2repository
-      licenses:
-        - android-sdk-preview-license-.+
-        - android-sdk-license-.+
-        - google-gdk-license-.+
+          - extra-google-google_play_services
       before_install:
-        - nvm install 8
+        - nvm install 8.15.0 # enforce using same version as local builds
+        - npm i -g npm@6.4.1 # enforce using same version as local builds
+        - nvm alias default 8.15.0 # otherwise sentry-cli will fail with a cryptic error
         - node --version
         - npm --version
-        - chmod +x ./android/gradlew
-        - openssl aes-256-cbc -K $encrypted_2cfeec998f68_key -iv $encrypted_2cfeec998f68_iv -in android/sentry.properties.enc -out android/sentry.properties -d
-        - openssl aes-256-cbc -K $encrypted_e9512e60983f_key -iv $encrypted_e9512e60983f_iv -in ios/sentry.properties.enc -out ios/sentry.properties -d
-        - openssl aes-256-cbc -K $encrypted_f51edf0f11bf_key -iv $encrypted_f51edf0f11bf_iv -in android/app/metronome-wallet.keystore.enc -out android/app/metronome-wallet.keystore -d
-        - gem install fastlane --no-rdoc --no-ri --no-document --quiet
+        - gem install fastlane --no-document --quiet
+        - yes | $ANDROID_HOME/tools/bin/sdkmanager "build-tools;27.0.3" # accept android licenses
+
+        # Decrypt Sentry properties file and add copy to /android directory
+        - openssl aes-256-cbc -K $encrypted_ace616ffe366_key -iv $encrypted_ace616ffe366_iv
+          -in sentry.properties.enc -out android/sentry.properties -d
+
+        - openssl aes-256-cbc -K $encrypted_2cfeec998f68_key -iv $encrypted_2cfeec998f68_iv
+          -in metronome-wallet.keystore.enc -out android/metronome-wallet.keystore -d
+
+        - openssl aes-256-cbc -K $encrypted_5573d999f481_key -iv $encrypted_5573d999f481_iv
+          -in MetronomeWalletSigningKey.json.enc -out MetronomeWalletSigningKey.json -d
+
       install:
-        - npm i -f
+        - npm ci || travis_terminate 1
+
       script:
-        - cd android
-        - fastlane beta
-      branches:
-        only:
-        - fastlane
-    - language: objective-c
-      os: osx
-      osx_image: xcode9.0
-      node_js: false
-      before_install:
-        - nvm install 8
-        - node --version
-        - npm --version
-        - gem install fastlane --no-rdoc --no-ri --no-document --quiet
-        - openssl aes-256-cbc -K $encrypted_2cfeec998f68_key -iv $encrypted_2cfeec998f68_iv -in android/sentry.properties.enc -out android/sentry.properties -d
-        - openssl aes-256-cbc -K $encrypted_e9512e60983f_key -iv $encrypted_e9512e60983f_iv -in ios/sentry.properties.enc -out ios/sentry.properties -d
-      install:
-        - npm i -f
-      script:
-        - cd ios
-        - fastlane beta
-      branches:
-        only:
-        - fastlane
+        # Create .env file
+        - npm run env || travis_terminate 1
+        - cat .env
+
+        - npm run gradle-properties
+        - npm run android:beta

@@ -1,5 +1,5 @@
 import createCustomNavigator from '../common/createCustomNavigator'
-import ConfirmSendETH from './ConfirmSendETH'
+import ConfirmSendCoin from './ConfirmSendCoin'
 import ConfirmSendMET from './ConfirmSendMET'
 import ReceiveDrawer from './ReceiveDrawer'
 import ReceiptDrawer from './ReceiptDrawer'
@@ -8,7 +8,7 @@ import Dashboard from './Dashboard'
 
 const DashboardNavigator = createCustomNavigator(
   {
-    ConfirmSendETH,
+    ConfirmSendCoin,
     ConfirmSendMET,
     ReceiveDrawer,
     ReceiptDrawer,

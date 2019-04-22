@@ -46,10 +46,10 @@ export default class Stats extends React.Component {
                 </Text>
               </View>
               <DisplayValue
+                isCoin
                 value={auctionStatus.currentPrice}
                 size="medium"
                 pre=" = "
-                post=" ETH"
               />
             </View>
             <Text opacity={0.8} size="small" align="right">

@@ -11,13 +11,15 @@ export default class Stats extends React.Component {
   static propTypes = {
     converterPriceUSD: PropTypes.string.isRequired,
     converterStatus: PropTypes.shape({
-      availableEth: PropTypes.string.isRequired,
+      availableCoin: PropTypes.string.isRequired,
+      currentPrice: PropTypes.string.isRequired,
       availableMet: PropTypes.string.isRequired
-    })
+    }),
+    coinSymbol: PropTypes.string.isRequired
   }
 
   render() {
-    const { converterPriceUSD, converterStatus } = this.props
+    const { converterPriceUSD, converterStatus, coinSymbol } = this.props
 
     return (
       <View bg="lightShade" mt={2}>
@@ -46,10 +48,10 @@ export default class Stats extends React.Component {
                 </Text>
               </View>
               <DisplayValue
+                isCoin
                 value={converterStatus.currentPrice}
                 size="medium"
                 pre=" = "
-                post=" ETH"
               />
             </View>
             <Text opacity={0.8} size="small" align="right">
@@ -83,12 +85,12 @@ export default class Stats extends React.Component {
           p={2}
         >
           <Text weight="semibold" size="medium">
-            Available ETH
+            Available {coinSymbol}
           </Text>
           <DisplayValue
-            value={converterStatus.availableEth}
+            isCoin
+            value={converterStatus.availableCoin}
             size="medium"
-            post=" ETH"
           />
         </View>
       </View>

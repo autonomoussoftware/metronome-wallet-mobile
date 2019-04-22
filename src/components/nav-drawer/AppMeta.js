@@ -1,23 +1,21 @@
-import withBlockchainState from 'metronome-wallet-ui-logic/src/hocs/withBlockchainState'
+import withWalletInfoState from 'metronome-wallet-ui-logic/src/hocs/withWalletInfoState'
 import VersionNumber from 'react-native-version-number'
 import PropTypes from 'prop-types'
 import React from 'react'
 
 import { View, Text } from '../common'
-import config from '../../config'
 
 class AppMeta extends React.Component {
   static propTypes = {
-    blockchainHeight: PropTypes.number.isRequired
+    chainName: PropTypes.string.isRequired,
+    height: PropTypes.number
   }
 
   render() {
     return (
       <View align="flex-end">
-        <Row label="chain">
-          {config.eth.chain.charAt(0).toUpperCase() + config.eth.chain.slice(1)}
-        </Row>
-        <Row label="height">{this.props.blockchainHeight}</Row>
+        <Row label="chain">{this.props.chainName}</Row>
+        <Row label="height">{this.props.height}</Row>
         <Row label="version">
           {VersionNumber.appVersion} (build {VersionNumber.buildVersion})
         </Row>
@@ -37,4 +35,4 @@ Row.propTypes = {
   label: PropTypes.string.isRequired
 }
 
-export default withBlockchainState(AppMeta)
+export default withWalletInfoState(AppMeta)

@@ -1,0 +1,12 @@
+patch-package
+--- a/node_modules/node-libs-browser/index.js
++++ b/node_modules/node-libs-browser/index.js
+@@ -13,7 +13,7 @@ exports.fs							= null;
+ exports.http						= require.resolve('stream-http');
+ exports.https						= require.resolve('https-browserify');
+ exports.module						= null;
+-exports.net							= null;
++exports.net							= require.resolve('./mock/net.js');
+ exports.os							= require.resolve('os-browserify/browser.js');
+ exports.path						= require.resolve('path-browserify');
+ exports.punycode					= require.resolve('punycode/');

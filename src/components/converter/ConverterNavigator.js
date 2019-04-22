@@ -1,13 +1,13 @@
 import createCustomNavigator from '../common/createCustomNavigator'
-import ConfirmETHtoMET from './ConfirmETHtoMET'
-import ConfirmMETtoETH from './ConfirmMETtoETH'
+import ConfirmCoinToMET from './ConfirmCoinToMET'
+import ConfirmMETtoCoin from './ConfirmMETtoCoin'
 import ConvertDrawer from './ConvertDrawer'
 import Converter from './Converter'
 
 const ConverterNavigator = createCustomNavigator(
   {
-    ConfirmETHtoMET,
-    ConfirmMETtoETH,
+    ConfirmCoinToMET,
+    ConfirmMETtoCoin,
     ConvertDrawer,
     Converter
   },
@@ -17,5 +17,3 @@ const ConverterNavigator = createCustomNavigator(
 )
 
 export default ConverterNavigator
-
-

@@ -2,7 +2,7 @@ import PropTypes from 'prop-types'
 import React from 'react'
 
 import { BaseBtn } from '../common'
-import Receipt from '../common/Receipt'
+import Receipt from '../common/receipt/Receipt'
 
 export default class ReceiptDrawer extends React.Component {
   static propTypes = {

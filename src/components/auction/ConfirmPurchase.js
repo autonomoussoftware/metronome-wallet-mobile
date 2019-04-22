@@ -9,9 +9,10 @@ class ConfirmPurchase extends React.Component {
       state: PropTypes.shape({
         params: PropTypes.shape({
           expectedMETamount: PropTypes.string,
-          excessETHAmount: PropTypes.string,
-          usedETHAmount: PropTypes.string,
-          ethAmount: PropTypes.string,
+          excessCoinAmount: PropTypes.string,
+          usedCoinAmount: PropTypes.string,
+          coinSymbol: PropTypes.string.isRequired,
+          coinAmount: PropTypes.string,
           usdAmount: PropTypes.string,
           onSubmit: PropTypes.func.isRequired,
           excedes: PropTypes.bool
@@ -23,9 +24,10 @@ class ConfirmPurchase extends React.Component {
   render() {
     const {
       expectedMETamount,
-      excessETHAmount,
-      usedETHAmount,
-      ethAmount,
+      excessCoinAmount,
+      usedCoinAmount,
+      coinAmount,
+      coinSymbol,
       usdAmount,
       onSubmit,
       excedes
@@ -39,9 +41,9 @@ class ConfirmPurchase extends React.Component {
               <Text size="medium">
                 You will use{' '}
                 <DisplayValue
-                  value={usedETHAmount}
+                  value={usedCoinAmount}
                   color="primary"
-                  post=" ETH"
+                  post={` ${coinSymbol}`}
                 />{' '}
                 to buy{' '}
                 <DisplayValue
@@ -51,9 +53,9 @@ class ConfirmPurchase extends React.Component {
                 />{' '}
                 at current price and get a return of approximately{' '}
                 <DisplayValue
-                  value={excessETHAmount}
+                  value={excessCoinAmount}
                   color="primary"
-                  post=" ETH"
+                  post={` ${coinSymbol}`}
                 />
                 .
               </Text>
@@ -67,7 +69,12 @@ class ConfirmPurchase extends React.Component {
         ) : (
           <Text size="medium">
             You will use{' '}
-            <DisplayValue value={ethAmount} toWei post=" ETH" color="primary" />{' '}
+            <DisplayValue
+              value={coinAmount}
+              color="primary"
+              toWei
+              post={` ${coinSymbol}`}
+            />{' '}
             {usdAmount ? `($${usdAmount})` : `(< $0.01)`} to buy approximately{' '}
             <DisplayValue
               value={expectedMETamount}

@@ -20,8 +20,9 @@ export default class WipeStorage extends React.Component {
           onPress: () =>
             Promise.all([
               RN.AsyncStorage.clear(),
-              Keychain.resetGenericPassword()
-            ]).then(RNRestart.Restart())
+              Keychain.resetInternetCredentials('wallet.seed'),
+              Keychain.resetInternetCredentials('wallet.pin')
+            ]).then(() => RNRestart.Restart())
         }
       ]
     )

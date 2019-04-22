@@ -1,25 +1,28 @@
 {
   "name": "metronome-wallet-mobile",
   "description": "Metronome wallet for mobile devices",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "author": {
     "name": "Autonomous Software",
     "email": "info@autonomous.sh",
     "url": "https://autonomous.sh"
   },
-  "repository": {
-    "type": "git",
-    "url": "git@github.com:autonomoussoftware/metronome-wallet-mobile.git"
-  },
+  "repository": "autonomoussoftware/metronome-wallet-mobile",
   "license": "MIT",
   "scripts": {
     "android": "adb reverse tcp:8081 tcp:8081 && react-native run-android",
+    "android:beta": "fastlane android beta version:$npm_package_version",
+    "env": "./scripts/env.sh",
+    "gradle-properties": "export $(cat .env | xargs) && ./scripts/gradle-properties.sh $npm_package_version",
     "ios": "react-native run-ios",
+    "ios:beta": "fastlane ios beta version:$npm_package_version",
+    "ios:bundle": "./scripts/ios-bundle.sh",
+    "ios:fix-third-party": "./scripts/fix-third-party.sh",
+    "nuke-caches": "./scripts/nuke-caches.sh",
     "lint": "eslint .",
     "postinstall": "patch-package",
     "start": "node node_modules/react-native/local-cli/cli.js start",
-    "test": "jest",
-    "version": "./version-ios.sh"
+    "test": "jest"
   },
   "rnpm": {
     "assets": [
@@ -31,15 +34,16 @@
     "base-64": "0.1.0",
     "fast-password-entropy": "1.1.0",
     "lodash": "4.17.11",
-    "metronome-contracts": "1.4.2",
-    "metronome-wallet-core": "1.1.3",
-    "metronome-wallet-ui-logic": "1.0.3",
+    "metronome-contracts": "2.0.0",
+    "metronome-wallet-core": "2.1.2",
+    "metronome-wallet-ui-logic": "3.4.0",
     "node-libs-browser": "2.1.0",
     "prop-types": "15.6.2",
     "react": "16.4.1",
     "react-native": "0.56.0",
     "react-native-bip39": "2.3.0",
     "react-native-camera": "1.1.2",
+    "react-native-config": "0.11.7",
     "react-native-google-analytics-bridge": "6.1.0",
     "react-native-keychain": "3.0.0",
     "react-native-qrcode-scanner": "1.0.1",
@@ -52,7 +56,7 @@
     "react-native-version-number": "0.3.4",
     "react-navigation": "2.16.0",
     "smart-round": "1.0.0",
-    "web3-utils": "1.0.0-beta.36",
+    "web3-utils": "1.0.0-beta.37",
     "websocket-reconnector": "1.1.1"
   },
   "devDependencies": {
@@ -63,19 +67,35 @@
     "eslint-config-bloq": "1.3.0",
     "eslint-config-prettier": "2.9.0",
     "eslint-config-standard": "12.0.0",
-    "eslint-plugin-import": "2.13.0",
-    "eslint-plugin-jsdoc": "3.8.0",
-    "eslint-plugin-mocha": "5.2.0",
-    "eslint-plugin-node": "7.0.1",
+    "eslint-plugin-import": "2.14.0",
+    "eslint-plugin-jsdoc": "3.15.1",
+    "eslint-plugin-mocha": "5.2.1",
+    "eslint-plugin-node": "8.0.1",
     "eslint-plugin-prefer-arrow": "1.1.3",
     "eslint-plugin-promise": "4.0.1",
     "eslint-plugin-react": "7.10.0",
     "eslint-plugin-react-native": "3.3.0",
     "eslint-plugin-standard": "4.0.0",
     "jest": "22.4.3",
+    "husky": "1.3.1",
+    "lint-staged": "8.1.0",
     "patch-package": "5.1.1",
-    "prettier": "1.14.2",
+    "prettier": "1.15.3",
     "react-test-renderer": "16.3.1"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "src/**/*.js": [
+      "eslint --cache"
+    ],
+    "src/!(client)/**/*.{js,json,css,md}": [
+      "prettier --write",
+      "git add"
+    ]
   },
   "jest": {
     "preset": "react-native"
