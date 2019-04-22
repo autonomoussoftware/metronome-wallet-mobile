@@ -8,8 +8,6 @@ const enabledChains = (Config.ENABLED_CHAINS || 'ethRopsten')
   .split(',')
   .map(name => name.trim())
 
-console.warn(enabledChains)
-
 const availableChains = {
   ethRopsten,
   etcMorden,
@@ -19,8 +17,6 @@ const availableChains = {
 const missingConfigurations = enabledChains.filter(
   name => !availableChains[name]
 )
-
-console.warn(missingConfigurations)
 
 if (missingConfigurations.length > 0) {
   Alert.alert(
