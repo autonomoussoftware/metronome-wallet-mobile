@@ -43,6 +43,10 @@ buck-out/
 \.buckd/
 *.keystore
 
+## Obj-C/Swift specific
+*.dSYM.zip
+*.dSYM
+
 # fastlane
 #
 # It is recommended to not store the screenshots in the git repo. Instead, use fastlane to re-generate the
@@ -50,13 +54,19 @@ buck-out/
 # For more information about the recommended setup visit:
 # https://docs.fastlane.tools/best-practices/source-control/
 
-*/fastlane/report.xml
-*/fastlane/Preview.html
-*/fastlane/screenshots
+**/fastlane/report.xml
+**/fastlane/Preview.html
+**/fastlane/screenshots
 
 # dotenv
 #
-.env.*
+.env
 
 # sentry
 sentry.properties
+
+# ESLint
+.eslintcache
+
+# Android signing key
+MetronomeWalletSigningKey.json

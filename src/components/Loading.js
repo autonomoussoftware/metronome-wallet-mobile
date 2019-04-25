@@ -7,13 +7,22 @@ import { PatternView, ChecklistItem, View, Text } from './common'
 
 class Loading extends React.Component {
   static propTypes = {
-    hasBlockHeight: PropTypes.bool.isRequired,
-    hasEthBalance: PropTypes.bool.isRequired,
-    hasMetBalance: PropTypes.bool.isRequired,
-    hasEthRate: PropTypes.bool.isRequired
+    isMultiChain: PropTypes.bool.isRequired,
+    chainsStatus: PropTypes.objectOf(
+      PropTypes.shape({
+        hasBlockHeight: PropTypes.bool,
+        hasCoinBalance: PropTypes.bool,
+        hasMetBalance: PropTypes.bool,
+        hasCoinRate: PropTypes.bool,
+        displayName: PropTypes.string.isRequired,
+        symbol: PropTypes.string.isRequired
+      })
+    ).isRequired
   }
 
   render() {
+    const isCondensed = Object.keys(this.props.chainsStatus).length > 2
+
     return (
       <PatternView>
         <View flex={1} justify="center" align="center">
@@ -23,24 +32,45 @@ class Loading extends React.Component {
             Gathering Information...
           </Text>
 
-          <View>
-            <ChecklistItem
-              isActive={this.props.hasBlockHeight}
-              text="Blockchain status"
-            />
-            <ChecklistItem
-              isActive={this.props.hasEthRate}
-              text="ETH exchange data"
-            />
-            <ChecklistItem
-              isActive={this.props.hasEthBalance}
-              text="ETH balance"
-            />
-            <ChecklistItem
-              isActive={this.props.hasMetBalance}
-              text="MET balance"
-            />
-          </View>
+          {Object.keys(this.props.chainsStatus).map((chainName, i) => (
+            <View key={chainName}>
+              {this.props.isMultiChain && (
+                <Text
+                  size="xSmall"
+                  opacity={0.8}
+                  mt={i === 0 ? 0 : 3}
+                  ml={isCondensed ? 3.5 : 5.25}
+                  ls={1}
+                >
+                  {(
+                    this.props.chainsStatus[chainName].displayName || ''
+                  ).toUpperCase()}
+                </Text>
+              )}
+              <ChecklistItem
+                isCondensed={isCondensed}
+                isActive={this.props.chainsStatus[chainName].hasBlockHeight}
+                text="Blockchain status"
+              />
+              <ChecklistItem
+                isCondensed={isCondensed}
+                isActive={this.props.chainsStatus[chainName].hasCoinRate}
+                text={`${
+                  this.props.chainsStatus[chainName].symbol
+                } exchange data`}
+              />
+              <ChecklistItem
+                isCondensed={isCondensed}
+                isActive={this.props.chainsStatus[chainName].hasCoinBalance}
+                text={`${this.props.chainsStatus[chainName].symbol} balance`}
+              />
+              <ChecklistItem
+                isCondensed={isCondensed}
+                isActive={this.props.chainsStatus[chainName].hasMetBalance}
+                text="MET balance"
+              />
+            </View>
+          ))}
         </View>
       </PatternView>
     )

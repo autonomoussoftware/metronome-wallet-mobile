@@ -9,14 +9,15 @@ import View from './View'
 
 class AmountFields extends React.Component {
   static propTypes = {
-    ethPlaceholder: PropTypes.string.isRequired,
+    coinPlaceholder: PropTypes.string.isRequired,
     usdPlaceholder: PropTypes.string.isRequired,
     onInputChange: PropTypes.func.isRequired,
     onMaxClick: PropTypes.func.isRequired,
-    ethAmount: PropTypes.string,
+    coinSymbol: PropTypes.string.isRequired,
+    coinAmount: PropTypes.string,
     usdAmount: PropTypes.string,
     autoFocus: PropTypes.bool,
-    errors: errorPropTypes('ethAmount', 'usdAmount')
+    errors: errorPropTypes('coinAmount', 'usdAmount')
   }
 
   render() {
@@ -25,7 +26,7 @@ class AmountFields extends React.Component {
         <View grow={1} basis={0}>
           <TextInput
             keyboardType="decimal-pad"
-            placeholder={this.props.ethPlaceholder}
+            placeholder={this.props.coinPlaceholder}
             postLabel={
               <BaseBtn
                 textProps={{ opacity: 0.8, weight: 'semibold' }}
@@ -36,10 +37,10 @@ class AmountFields extends React.Component {
             }
             autoFocus={this.props.autoFocus}
             onChange={this.props.onInputChange}
-            error={this.props.errors.ethAmount}
-            label="Amount (ETH)"
-            value={this.props.ethAmount}
-            id="ethAmount"
+            label={`Amount (${this.props.coinSymbol})`}
+            error={this.props.errors.coinAmount}
+            value={this.props.coinAmount}
+            id="coinAmount"
           />
         </View>
         <View mt={0.25} mx={1}>

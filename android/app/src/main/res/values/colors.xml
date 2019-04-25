@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="background">#323232</color>
     <color name="primary">#7e61f8</color>
     <color name="status_bar_color">#7e61f8</color>
     <color name="primary_dark">#7e61f8</color>

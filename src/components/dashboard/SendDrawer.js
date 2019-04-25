@@ -3,15 +3,16 @@ import PropTypes from 'prop-types'
 import React from 'react'
 
 import { BaseBtn, View, Text, Tab } from '../common'
-import SendETHForm from './SendETHForm'
+import SendCoinForm from './SendCoinForm'
 import SendMETForm from './SendMETForm'
 
-const DEFAULT_TAB = 'eth'
+const DEFAULT_TAB = 'coin'
 
 class SendDrawer extends React.Component {
   static propTypes = {
     sendMetDisabledReason: PropTypes.string,
-    sendMetDisabled: PropTypes.bool.isRequired
+    sendMetDisabled: PropTypes.bool.isRequired,
+    coinSymbol: PropTypes.string.isRequired
   }
 
   state = { activeTab: DEFAULT_TAB }
@@ -21,10 +22,10 @@ class SendDrawer extends React.Component {
       <View bg="dark" flex={1}>
         <View row>
           <Tab
-            isActive={this.state.activeTab === 'eth'}
-            onPress={() => this.setState({ activeTab: 'eth' })}
+            isActive={this.state.activeTab === 'coin'}
+            onPress={() => this.setState({ activeTab: 'coin' })}
           >
-            ETH
+            {this.props.coinSymbol}
           </Tab>
           <Tab
             isActive={this.state.activeTab === 'met'}
@@ -34,7 +35,7 @@ class SendDrawer extends React.Component {
           </Tab>
         </View>
         <View withKeyboard withHeader flex={1}>
-          {this.state.activeTab === 'eth' && <SendETHForm key="a" />}
+          {this.state.activeTab === 'coin' && <SendCoinForm key="a" />}
           {this.state.activeTab === 'met' &&
             (this.props.sendMetDisabled ? (
               <View flex={1} align="center" justify="center">

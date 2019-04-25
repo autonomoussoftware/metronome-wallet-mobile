@@ -2,41 +2,44 @@ import { AsyncStorage } from 'react-native'
 
 import promiseThrottle from './promise-throttle'
 
-const keysToPersist = [
-  'blockchain',
-  'rates',
-  'wallets'
-]
+const keysToPersist = ['chains']
 
-export const persistState = promiseThrottle(function (state) {
+const mapToObject = array =>
+  array.reduce((acum, current) => {
+    acum[current.type] = current.data
+    return acum
+  }, {})
+
+export const persistState = promiseThrottle(function(state) {
   // eslint-disable-next-line no-console
-  console.log('Persisting state', state)
+  console.debug('Persisting state', state)
 
-  return Promise.all(keysToPersist.map(key =>
-    AsyncStorage.setItem(key, JSON.stringify(state[key] || null))
-  ))
+  return Promise.all(
+    keysToPersist.map(key =>
+      AsyncStorage.setItem(key, JSON.stringify(state[key] || null))
+    )
+  )
 })
 
-export function getState () {
-  return AsyncStorage.multiGet(keysToPersist)
-    .then(function (pairs) {
-      return pairs.map(([key, val]) => ([key, JSON.parse(val)]))
-        .filter(pair => !!pair[1])
-    })
-}
+export const getState = () =>
+  AsyncStorage.multiGet(keysToPersist).then(pairs =>
+    mapToObject(
+      pairs.map(([key, val]) => ({ type: key, data: JSON.parse(val) }))
+    )
+  )
 
-export function getBestBlock () {
-  return AsyncStorage.getItem('blockchain')
-    .then(value => value ? JSON.parse(value).height : null)
-}
+export const getBestBlock = () =>
+  AsyncStorage.getItem('blockchain').then(value =>
+    value ? JSON.parse(value).height : null
+  )
 
-export function setSyncBlock (number) {
+export const setSyncBlock = (number, chain) => {
   // eslint-disable-next-line no-console
-  console.log('Setting sync block', number)
-  return AsyncStorage.setItem('sync', number.toString())
+  console.debug(`${chain}\t- Setting sync block: ${number}`)
+  return AsyncStorage.setItem(`sync-${chain}`, number.toString())
 }
 
-export function getSyncBlock () {
-  return AsyncStorage.getItem('sync')
-    .then(number => number ? Number.parseInt(number, 10) : 0)
-}
+export const getSyncBlock = chain =>
+  AsyncStorage.getItem(`sync-${chain}`).then(number =>
+    number ? Number.parseInt(number, 10) : 0
+  )

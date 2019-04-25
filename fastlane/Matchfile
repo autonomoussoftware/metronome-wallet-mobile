@@ -1,0 +1,6 @@
+clone_branch_directly(true)
+app_identifier("sh.autonomous.wallet.mobile")
+shallow_clone(true)
+storage_mode("git")
+readonly(true)
+git_url("git@github.com:bloqpriv/metronome-wallet-mobile-certificates.git")

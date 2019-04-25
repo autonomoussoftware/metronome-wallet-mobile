@@ -1,14 +1,13 @@
 import { withNavigation, StackActions } from 'react-navigation'
+import FilteredMessage from 'metronome-wallet-ui-logic/src/components/FilteredMessage'
 import { withClient } from 'metronome-wallet-ui-logic/src/hocs/clientContext'
-import * as utils from 'metronome-wallet-ui-logic/src/utils'
 import PropTypes from 'prop-types'
 import React from 'react'
 import RN from 'react-native'
 
 import CloseIcon from '../icons/CloseIcon'
-import config from '../../config'
 import PinInput from './PinInput'
-import Receipt from './Receipt'
+import Receipt from './receipt/Receipt'
 import View from './View'
 import Text from './Text'
 import Btn from './Btn'
@@ -18,24 +17,24 @@ import Btn from './Btn'
  * but the notch is hidden within the status bar
  * in this particular screen by default, so it isn't needed.
  */
-const supportsSafeView = RN.Platform.OS === 'ios'
-  && parseInt(RN.Platform.Version, 10) >= 11
+const supportsSafeView =
+  RN.Platform.OS === 'ios' && parseInt(RN.Platform.Version, 10) >= 11
 
 class Confirmation extends React.Component {
   static propTypes = {
     pendingTitle: PropTypes.string,
     pendingText: PropTypes.string,
-    noReceipt: PropTypes.bool,
-    client: PropTypes.shape({
-      validatePIN: PropTypes.func.isRequired
-    }),
     navigation: PropTypes.shape({
       popToTop: PropTypes.func.isRequired,
       navigate: PropTypes.func.isRequired,
       goBack: PropTypes.func.isRequired
     }).isRequired,
+    noReceipt: PropTypes.bool,
     onSubmit: PropTypes.func.isRequired,
-    children: PropTypes.node.isRequired
+    children: PropTypes.node.isRequired,
+    client: PropTypes.shape({
+      validatePIN: PropTypes.func.isRequired
+    }).isRequired
   }
 
   static defaultProps = {
@@ -156,29 +155,22 @@ class Confirmation extends React.Component {
     </View>
   )
 
-  renderFailure = () => {
-    const messageWithReplacements = utils.messageParser(config, this.state.error)
-    const defaultMessage = 'Something went wrong with your transaction.'
-
-    return (
-      <View flex={1} align="center" justify="center">
-        <CloseIcon />
-        <Text size="large" mt={2} weight="bold">
-          Error
-        </Text>
-        <Text size="medium" align="center" p={2}>
-          {this.state.error === messageWithReplacements
-            ? defaultMessage
-            : messageWithReplacements}
-        </Text>
-        <Btn
-          onPress={() => this.props.navigation.goBack()}
-          label="Try Again"
-          mt={1}
-        />
-      </View>
-    )
-  }
+  renderFailure = () => (
+    <View flex={1} align="center" justify="center">
+      <CloseIcon />
+      <Text size="large" mt={2} weight="bold">
+        Error
+      </Text>
+      <Text size="medium" align="center" p={2}>
+        <FilteredMessage>{this.state.error}</FilteredMessage>
+      </Text>
+      <Btn
+        onPress={() => this.props.navigation.goBack()}
+        label="Try Again"
+        mt={1}
+      />
+    </View>
+  )
 
   closeReceiptModal = () => {
     this.setState({ status: 'pending' })
@@ -206,7 +198,7 @@ class Confirmation extends React.Component {
             <View shrink={1}>
               <Text size="medium" weight="bold">
                 Transaction Receipt
-            </Text>
+              </Text>
             </View>
             <View ml={2}>
               <RN.TouchableOpacity onPress={this.closeReceiptModal}>

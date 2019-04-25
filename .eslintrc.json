@@ -29,6 +29,13 @@
     "no-console": "warn",
     "arrow-body-style": ["error", "as-needed"],
     "no-use-before-define": ["error", { "variables": false }],
-    "complexity": ["error", { "max": 10 }]
+    "complexity": ["error", { "max": 10 }],
+    "react/jsx-no-duplicate-props": ["error"],
+    "react/no-unused-prop-types": ["warn"],
+    "react/boolean-prop-naming": ["warn"],
+    "react/button-has-type": ["warn"],
+    "react/no-typos": ["error"],
+    "no-shadow": ["error", { "allow": ["status", "Text"] }],
+    "promise/catch-or-return": "error"
   }
 }

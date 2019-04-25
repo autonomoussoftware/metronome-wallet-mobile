@@ -12,6 +12,7 @@ class Converter extends React.Component {
     converterPriceUSD: PropTypes.string.isRequired,
     convertDisabled: PropTypes.bool.isRequired,
     converterStatus: PropTypes.object,
+    coinSymbol: PropTypes.string.isRequired,
     navigation: PropTypes.shape({
       navigate: PropTypes.func.isRequired
     }).isRequired
@@ -23,6 +24,7 @@ class Converter extends React.Component {
       converterPriceUSD,
       converterStatus,
       convertDisabled,
+      coinSymbol,
       navigation
     } = this.props
 
@@ -33,6 +35,7 @@ class Converter extends React.Component {
             <Stats
               converterPriceUSD={converterPriceUSD}
               converterStatus={converterStatus}
+              coinSymbol={coinSymbol}
             />
             <View>
               {convertDisabledReason && (

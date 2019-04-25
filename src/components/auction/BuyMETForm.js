@@ -16,19 +16,20 @@ class BuyMETForm extends React.Component {
   static propTypes = {
     expectedMETamount: PropTypes.string,
     gasEstimateError: PropTypes.bool,
-    excessETHAmount: PropTypes.string,
-    ethPlaceholder: PropTypes.string,
+    excessCoinAmount: PropTypes.string,
+    coinPlaceholder: PropTypes.string,
     usdPlaceholder: PropTypes.string,
     tokenRemaining: PropTypes.string,
     onInputChange: PropTypes.func.isRequired,
-    usedETHAmount: PropTypes.string,
+    usedCoinAmount: PropTypes.string,
     useCustomGas: PropTypes.bool.isRequired,
     onMaxClick: PropTypes.func.isRequired,
     navigation: PropTypes.shape({
       setParams: PropTypes.func.isRequired,
       navigate: PropTypes.func.isRequired
     }).isRequired,
-    ethAmount: PropTypes.string,
+    coinSymbol: PropTypes.string.isRequired,
+    coinAmount: PropTypes.string,
     usdAmount: PropTypes.string,
     validate: PropTypes.func.isRequired,
     gasPrice: PropTypes.string,
@@ -56,11 +57,12 @@ class BuyMETForm extends React.Component {
       <View withKeyboard withHeader bg="dark">
         <View flex={1} px={2} py={4} grow={1}>
           <AmountFields
-            ethPlaceholder={this.props.ethPlaceholder}
+            coinPlaceholder={this.props.coinPlaceholder}
             usdPlaceholder={this.props.usdPlaceholder}
             onInputChange={this.props.onInputChange}
             onMaxClick={this.props.onMaxClick}
-            ethAmount={this.props.ethAmount}
+            coinSymbol={this.props.coinSymbol}
+            coinAmount={this.props.coinAmount}
             usdAmount={this.props.usdAmount}
             autoFocus
             errors={this.props.errors}
@@ -88,9 +90,9 @@ class BuyMETForm extends React.Component {
                     />{' '}
                     and receive a return of approximately{' '}
                     <DisplayValue
-                      value={this.props.excessETHAmount}
+                      value={this.props.excessCoinAmount}
                       color="danger"
-                      post=" ETH"
+                      post={` ${this.props.coinSymbol}`}
                     />
                     .
                   </Text>

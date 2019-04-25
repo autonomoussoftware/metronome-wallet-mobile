@@ -8,20 +8,20 @@ import { DisplayValue, View, Text } from '../common'
 
 class BalanceBlock extends React.Component {
   static propTypes = {
-    mtnBalanceWei: PropTypes.string.isRequired,
-    mtnBalanceUSD: PropTypes.string.isRequired,
-    ethBalanceWei: PropTypes.string.isRequired,
-    ethBalanceUSD: PropTypes.string.isRequired
+    metBalanceWei: PropTypes.string.isRequired,
+    coinBalanceWei: PropTypes.string.isRequired,
+    coinBalanceUSD: PropTypes.string.isRequired,
+    coinSymbol: PropTypes.string.isRequired
   }
 
   render() {
     return (
       <View bg="lightShade" px={2}>
-        <Row isFirst isBig symbol="MET" value={this.props.mtnBalanceWei} />
+        <Row isFirst isBig symbol="MET" value={this.props.metBalanceWei} />
         <Row
-          usdValue={this.props.ethBalanceUSD}
-          symbol="ETH"
-          value={this.props.ethBalanceWei}
+          usdValue={this.props.coinBalanceUSD}
+          symbol={this.props.coinSymbol}
+          value={this.props.coinBalanceWei}
         />
       </View>
     )
