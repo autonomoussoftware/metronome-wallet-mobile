@@ -1,6 +1,8 @@
 import { SafeAreaView, StyleSheet } from 'react-native'
 import { StackActions } from 'react-navigation'
 import { withClient } from 'metronome-wallet-ui-logic/src/hocs/clientContext'
+import * as selectors from 'metronome-wallet-ui-logic/src/selectors'
+import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import React from 'react'
 
@@ -19,6 +21,7 @@ import Logo from '../icons/Logo'
 
 class Drawer extends React.Component {
   static propTypes = {
+    isMultiChain: PropTypes.bool.isRequired,
     navigation: PropTypes.shape({
       closeDrawer: PropTypes.func.isRequired,
       isFocused: PropTypes.func.isRequired,
@@ -71,12 +74,14 @@ class Drawer extends React.Component {
               onPress={() => this.navigateTo('Converter')}
               label="CONVERTER"
             />
-            <NavBtn
-              IconComponent={PortIcon}
-              isActive={isFocused('Port')}
-              onPress={() => this.navigateTo('Port')}
-              label="PORT"
-            />
+            {this.props.isMultiChain && (
+              <NavBtn
+                IconComponent={PortIcon}
+                isActive={isFocused('Port')}
+                onPress={() => this.navigateTo('Port')}
+                label="PORT"
+              />
+            )}
           </View>
           <View>
             <SecondaryNavBtn
@@ -106,4 +111,8 @@ const styles = StyleSheet.create({
   safeArea: { flex: 1 }
 })
 
-export default withClient(Drawer)
+const mapStateToProps = state => ({
+  isMultiChain: selectors.getIsMultiChain(state)
+})
+
+export default withClient(connect(mapStateToProps)(Drawer))

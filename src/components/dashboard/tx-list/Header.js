@@ -1,3 +1,5 @@
+import * as selectors from 'metronome-wallet-ui-logic/src/selectors'
+import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import React from 'react'
 
@@ -9,6 +11,7 @@ class TxListHeader extends React.Component {
   static propTypes = {
     hasTransactions: PropTypes.bool.isRequired,
     onWalletRefresh: PropTypes.func.isRequired,
+    isMultiChain: PropTypes.bool.isRequired,
     selectFilter: PropTypes.func.isRequired,
     syncStatus: PropTypes.oneOf(['up-to-date', 'syncing', 'failed']).isRequired,
     filter: PropTypes.string.isRequired
@@ -20,7 +23,7 @@ class TxListHeader extends React.Component {
     received: 'RECEIVED',
     auction: 'AUCTION',
     converted: 'CONVERTED',
-    ported: 'PORTED'
+    ...(this.props.isMultiChain ? { ported: 'PORTED' } : {})
   }
 
   render() {
@@ -55,4 +58,8 @@ class TxListHeader extends React.Component {
   }
 }
 
-export default TxListHeader
+const mapStateToProps = state => ({
+  isMultiChain: selectors.getIsMultiChain(state)
+})
+
+export default connect(mapStateToProps)(TxListHeader)
