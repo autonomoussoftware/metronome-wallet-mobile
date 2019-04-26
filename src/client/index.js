@@ -35,7 +35,7 @@ const startCore = ({ chain, core, config: coreConfig }, store) => {
   emitter.on('open-wallets', ({ address }) => {
     // TODO request to rescan unconfirmed txs
     storage
-      .getSyncBlock()
+      .getSyncBlock(chain)
       .then(from => {
         emitter.emit('transactions-scan-started')
         return coreApi.explorer.syncTransactions(from, address)
