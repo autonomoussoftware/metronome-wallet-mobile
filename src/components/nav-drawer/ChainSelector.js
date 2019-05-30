@@ -1,16 +1,24 @@
 import { StyleSheet, TouchableOpacity } from 'react-native'
 import withChainSelectorState from 'metronome-wallet-ui-logic/src/hocs/withChainSelectorState'
 import PropTypes from 'prop-types'
+import theme from 'metronome-wallet-ui-logic/src/theme'
 import React from 'react'
 
 import { DisplayValue, View, Text } from '../common'
 import CoinIcon from '../icons/CoinIcon'
 import Caret from '../icons/CaretIcon'
 
+const BORDER_RADIUS = 12
+const ITEM_HEIGHT = 60
+
 const Item = props => (
   <TouchableOpacity activeOpacity={0.75} onPress={props.onPress}>
     <View
-      style={[props.isFirst && styles.btnFirst, props.isLast && styles.btnLast]}
+      style={[
+        styles.btn,
+        props.isFirst && styles.btnFirst,
+        props.isLast && styles.btnLast
+      ]}
       align="center"
       row
       bg={props.isActive ? 'translucentPrimary' : 'darkShade'}
@@ -96,7 +104,20 @@ class ChainSelector extends React.Component {
     if ((this.props.chains || []).length < 2) return null
 
     return (
-      <View mt={-3.5} mb={2} ml={2} mr={2} style={styles.container}>
+      <View
+        style={[
+          styles.container,
+          {
+            marginBottom: this.state.isOpen
+              ? ((this.props.chains || []).length - 1) * ITEM_HEIGHT * -1 +
+                theme.spacing(2)
+              : theme.spacing(2)
+          }
+        ]}
+        mt={-3.5}
+        ml={2}
+        mr={2}
+      >
         <Text ml={1} mb={1} size="xSmall" ls={1} opacity={0.8}>
           CHAIN
         </Text>
@@ -136,12 +157,12 @@ class ChainSelector extends React.Component {
   }
 }
 
-const BORDER_RADIUS = 12
-
 const styles = StyleSheet.create({
   container: {
-    position: 'relative',
     zIndex: 1
+  },
+  btn: {
+    height: ITEM_HEIGHT
   },
   btnFirst: {
     borderTopRightRadius: BORDER_RADIUS,
@@ -153,9 +174,9 @@ const styles = StyleSheet.create({
   },
   dropdownContainer: {
     borderRadius: BORDER_RADIUS,
-    position: 'absolute',
-    width: '100%',
-    top: 22
+    marginTop: ITEM_HEIGHT * -1,
+    elevation: 16,
+    width: '100%'
   }
 })
 

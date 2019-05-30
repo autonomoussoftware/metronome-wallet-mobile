@@ -50,56 +50,63 @@ class Drawer extends React.Component {
     return (
       <View bg="dark" flex={1}>
         <SafeAreaView style={styles.safeArea}>
-          <View mb={5} mr={2} mt={4} align="flex-end">
-            <Logo />
-          </View>
-          <View grow={1}>
-            <ChainSelector isDrawerOpen={isDrawerOpen} />
-            <NavBtn
-              IconComponent={WalletIcon}
-              isActive={isFocused('Dashboard')}
-              onPress={() => this.navigateTo('Dashboard')}
-              isFirst
-              label="WALLET"
-            />
-            <NavBtn
-              IconComponent={AuctionIcon}
-              isActive={isFocused('Auction')}
-              onPress={() => this.navigateTo('Auction')}
-              label="AUCTION"
-            />
-            <NavBtn
-              IconComponent={ConverterIcon}
-              isActive={isFocused('Converter')}
-              onPress={() => this.navigateTo('Converter')}
-              label="CONVERTER"
-            />
-            {this.props.isMultiChain && (
+          <View
+            contentContainerStyle={styles.scroller}
+            alwaysBounceVertical={false}
+            scroll
+            flex={1}
+          >
+            <View mb={5} mr={2} mt={4} align="flex-end">
+              <Logo />
+            </View>
+            <View grow={1}>
+              <ChainSelector isDrawerOpen={isDrawerOpen} />
               <NavBtn
-                IconComponent={PortIcon}
-                isActive={isFocused('Port')}
-                onPress={() => this.navigateTo('Port')}
-                label="PORT"
+                IconComponent={WalletIcon}
+                isActive={isFocused('Dashboard')}
+                onPress={() => this.navigateTo('Dashboard')}
+                isFirst
+                label="WALLET"
               />
-            )}
-          </View>
-          <View>
-            <SecondaryNavBtn
-              isActive={isFocused('Tools')}
-              onPress={() => this.navigateTo('Tools')}
-              label="Tools"
-            />
-            <SecondaryNavBtn
-              isActive={isFocused('Help')}
-              onPress={this.props.client.onHelpLinkClick}
-              label="Help"
-            />
-          </View>
-          <View row align="flex-end" justify="space-between" m={2}>
-            <WipeStorage>
-              <LogoIcon negative />
-            </WipeStorage>
-            <AppMeta />
+              <NavBtn
+                IconComponent={AuctionIcon}
+                isActive={isFocused('Auction')}
+                onPress={() => this.navigateTo('Auction')}
+                label="AUCTION"
+              />
+              <NavBtn
+                IconComponent={ConverterIcon}
+                isActive={isFocused('Converter')}
+                onPress={() => this.navigateTo('Converter')}
+                label="CONVERTER"
+              />
+              {this.props.isMultiChain && (
+                <NavBtn
+                  IconComponent={PortIcon}
+                  isActive={isFocused('Port')}
+                  onPress={() => this.navigateTo('Port')}
+                  label="PORT"
+                />
+              )}
+            </View>
+            <View>
+              <SecondaryNavBtn
+                isActive={isFocused('Tools')}
+                onPress={() => this.navigateTo('Tools')}
+                label="Tools"
+              />
+              <SecondaryNavBtn
+                isActive={isFocused('Help')}
+                onPress={this.props.client.onHelpLinkClick}
+                label="Help"
+              />
+            </View>
+            <View row align="flex-end" justify="space-between" mx={2} mb={2}>
+              <WipeStorage>
+                <LogoIcon negative />
+              </WipeStorage>
+              <AppMeta />
+            </View>
           </View>
         </SafeAreaView>
       </View>
@@ -108,7 +115,8 @@ class Drawer extends React.Component {
 }
 
 const styles = StyleSheet.create({
-  safeArea: { flex: 1 }
+  safeArea: { flex: 1 },
+  scroller: { minHeight: '100%' }
 })
 
 const mapStateToProps = state => ({
