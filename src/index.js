@@ -12,7 +12,12 @@ import Router from './components/Router'
 import config from './config'
 import Login from './components/Login'
 
-RN.YellowBox.ignoreWarnings(['Setting a timer'])
+// Disable socket-io warnings
+// @see https://github.com/socketio/socket.io-client/issues/1290
+RN.YellowBox.ignoreWarnings([
+  'Setting a timer',
+  'Unrecognized WebSocket connection option(s) `agent`, `perMessageDeflate`, `pfx`, `key`, `passphrase`, `cert`, `ca`, `ciphers`, `rejectUnauthorized`. Did you mean to put these under `headers`?'
+])
 
 // Enable LayoutAnimation on Android
 // @see https://facebook.github.io/react-native/docs/animations
