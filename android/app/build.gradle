@@ -151,13 +151,19 @@ android {
 
 dependencies {
     compile project(':react-native-config')
-    compile project(':react-native-google-analytics-bridge')
+    implementation(project(":react-native-google-analytics-bridge"),  {
+        exclude group: "com.google.android.gms"
+    })
+    implementation "com.google.android.gms:play-services-analytics:16.0.8"
     compile project(':react-native-sentry')
     compile project(':react-native-version-number')
     compile project(':react-native-restart')
     compile project(':react-native-splash-screen')
     compile project(':react-native-keychain')
-    compile project(':react-native-camera')
+    implementation(project(":react-native-camera"),  {
+        exclude group: "com.google.android.gms"
+    })
+    implementation "com.google.android.gms:play-services-vision:16.2.0"
     compile project(':react-native-svg')
     compile project(':react-native-randombytes')
     compile fileTree(dir: "libs", include: ["*.jar"])
