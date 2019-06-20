@@ -1,7 +1,7 @@
 import MetronomeContracts from 'metronome-contracts'
 import Config from 'react-native-config'
 
-const contracts = MetronomeContracts.morden
+const contracts = MetronomeContracts['morden']
 
 const indexerUrl = Config.MORDEN_INDEXER_URL || 'http://localhost:3015'
 const metApiUrl = Config.MORDEN_API_URL || 'http://localhost:3012/'
@@ -9,7 +9,7 @@ const wsApiUrl = Config.MORDEN_NODE_URL || 'ws://localhost:8556'
 
 export default {
   displayName: 'Morden',
-  chainId: 2,
+  chainId: 62,
   symbol: 'ETC',
 
   // contracts addresses
@@ -20,7 +20,7 @@ export default {
   auctionAddress: contracts.Auctions.address,
 
   // urls
-  explorerUrl: 'https://mordenexplorer.ethertrack.io/tx/{{hash}}',
+  explorerUrl: 'https://mordenexplorer.ethernode.io/tx/{{hash}}',
   indexerUrl,
   metApiUrl,
   wsApiUrl,

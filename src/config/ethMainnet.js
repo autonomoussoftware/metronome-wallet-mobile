@@ -1,6 +1,6 @@
 import MetronomeContracts from 'metronome-contracts'
 
-const contracts = MetronomeContracts.mainnet
+const contracts = MetronomeContracts['mainnet']
 
 export default {
   displayName: 'Ethereum',

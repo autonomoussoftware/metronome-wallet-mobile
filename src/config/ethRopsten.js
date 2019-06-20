@@ -1,7 +1,7 @@
 import MetronomeContracts from 'metronome-contracts'
 import Config from 'react-native-config'
 
-const contracts = MetronomeContracts.ropsten
+const contracts = MetronomeContracts['ropsten']
 
 const indexerUrl = Config.ROPSTEN_INDEXER_URL || 'http://localhost:3005'
 const metApiUrl = Config.ROPSTEN_API_URL || 'http://localhost:3002/'
