@@ -2,7 +2,7 @@ import MetronomeContracts from 'metronome-contracts'
 
 const contracts = MetronomeContracts['classic']
 
-module.exports = {
+export default {
   displayName: 'Classic',
   chainId: 61,
   symbol: 'ETC',
