@@ -4,7 +4,7 @@ import ethMainnet from './ethMainnet'
 import { Alert } from 'react-native'
 import Config from 'react-native-config'
 
-const enabledChains = (Config.ENABLED_CHAINS || 'ethRopsten')
+const enabledChains = (Config.ENABLED_CHAINS || 'ethRopsten,etcMorden')
   .split(',')
   .map(name => name.trim())
 
