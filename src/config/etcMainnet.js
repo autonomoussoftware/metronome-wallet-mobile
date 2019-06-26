@@ -1,11 +1,11 @@
 import MetronomeContracts from 'metronome-contracts'
 
-const contracts = MetronomeContracts['mainnet']
+const contracts = MetronomeContracts['classic']
 
 export default {
-  displayName: 'Ethereum',
-  chainId: 1,
-  symbol: 'ETH',
+  displayName: 'Classic',
+  chainId: 61,
+  symbol: 'ETC',
 
   // contracts addresses
   tokenPorterAddress: contracts.TokenPorter.address,
@@ -15,14 +15,15 @@ export default {
   auctionAddress: contracts.Auctions.address,
 
   // urls
-  explorerUrl: 'https://etherscan.io/tx/{{hash}}',
-  indexerUrl: 'https://indexer.metronome.io',
-  metApiUrl: 'https://api.metronome.io/',
-  wsApiUrl: 'wss://eth.wallet.metronome.io:8546',
+  explorerUrl:
+    'https://blockscout.com/etc/mainnet/tx/{{hash}}/internal_transactions',
+  indexerUrl: 'https://etc.indexer.metronome.io',
+  metApiUrl: 'https://etc.api.metronome.io/',
+  wsApiUrl: 'wss://etc.wallet.metronome.io:8546',
 
   // defauls
   coinDefaultGasLimit: '21000',
   metDefaultGasLimit: '250000',
-  defaultGasPrice: '1000000000',
-  maxGasPrice: '20000000000000000'
+  defaultGasPrice: '10000000000',
+  maxGasPrice: '200000000000000000'
 }

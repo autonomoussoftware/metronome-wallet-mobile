@@ -55,119 +55,111 @@ class Port extends React.Component {
 
   render() {
     return (
-      <View bg="dark" flex={1} scroll>
-        <View
-          justify="space-between"
-          style={styles.container}
-          flex={1}
-          px={2}
-          py={4}
-        >
-          {this.props.failedImports.length > 0 && (
-            <View mb={4}>
-              <Text size="large" weight="bold">
-                Failed Ports
-              </Text>
-              <Text my={1}>
-                Resubmit incomplete ports that failed to execute by clicking
-                Retry.
-              </Text>
-              <View>
-                {this.props.failedImports.map(item => (
-                  <ItemRow
-                    retryDisabled={this.props.retryDisabled}
-                    onRetryClick={() =>
-                      this.handleRetryClick(item.currentBurnHash)
-                    }
-                    details={
-                      <Text>
-                        EXPORTED FROM{' '}
-                        <Text weight="bold">{item.originChain}</Text>
-                      </Text>
-                    }
-                    badge={<Text ls={1}>FAILED</Text>}
-                    value={item.value}
-                    key={item.currentBurnHash}
-                  />
-                ))}
-              </View>
-            </View>
-          )}
-
-          {this.props.ongoingImports.length > 0 && (
-            <View>
-              <Text size="large" weight="bold">
-                Ongoing Ports
-              </Text>
-              <Text my={1}>
-                An Import Request requires at least{' '}
-                <Text color="primary" weight="bold">
-                  {this.props.attestationThreshold}{' '}
-                  {this.props.attestationThreshold > 1
-                    ? 'validations'
-                    : 'validation'}
-                </Text>{' '}
-                for the MET to be imported on this chain.
-              </Text>
-
-              <View>
-                {this.props.ongoingImports.map(item => (
-                  <ItemRow
-                    retryDisabled={this.props.retryDisabled}
-                    onRetryClick={() =>
-                      this.handleRetryClick(item.currentBurnHash)
-                    }
-                    details={
-                      <Text>
-                        IMPORTING FROM{' '}
-                        <Text weight="bold">{item.importedFrom}</Text>
-                      </Text>
-                    }
-                    badge={
-                      <Text>
-                        {item.attestedCount} / {this.props.attestationThreshold}
-                      </Text>
-                    }
-                    value={item.value}
-                    key={item.hash}
-                  />
-                ))}
-              </View>
-            </View>
-          )}
-
-          {this.props.failedImports.length === 0 &&
-            this.props.ongoingImports.length === 0 && (
-              <View align="center" justify="center" flex={1}>
-                <PortIcon size="64" />
-                <Text size="large" mt={2} weight="semibold">
-                  You have no pending ports
+      <View bg="dark" flex={1} scroll contentContainerStyle={styles.container}>
+        {(this.props.failedImports.length > 0 ||
+          this.props.ongoingImports.length > 0) && (
+          <View align="center" flex={1} grow={1}>
+            {this.props.failedImports.length > 0 && (
+              <View mb={4}>
+                <Text size="large" weight="bold">
+                  Failed Ports
                 </Text>
-                <Text
-                  opacity={0.8}
-                  align="center"
-                  size="medium"
-                  mw={300}
-                  mt={1}
-                >
-                  Port your Metronome between any of the other supported chains
+                <Text my={1}>
+                  Resubmit incomplete ports that failed to execute by clicking
+                  Retry.
                 </Text>
+                <View>
+                  {this.props.failedImports.map(item => (
+                    <ItemRow
+                      retryDisabled={this.props.retryDisabled}
+                      onRetryClick={() =>
+                        this.handleRetryClick(item.currentBurnHash)
+                      }
+                      details={
+                        <Text>
+                          EXPORTED FROM{' '}
+                          <Text weight="bold">{item.originChain}</Text>
+                        </Text>
+                      }
+                      badge={<Text ls={1}>FAILED</Text>}
+                      value={item.value}
+                      key={item.currentBurnHash}
+                    />
+                  ))}
+                </View>
               </View>
             )}
 
-          <View mt={4}>
-            {this.props.portDisabledReason && (
-              <Text opacity={0.8} align="center" size="small" mb={2}>
-                {this.props.portDisabledReason}
-              </Text>
+            {this.props.ongoingImports.length > 0 && (
+              <View>
+                <Text size="large" weight="bold">
+                  Ongoing Ports
+                </Text>
+                <Text my={1}>
+                  An Import Request requires at least{' '}
+                  <Text color="primary" weight="bold">
+                    {this.props.attestationThreshold}{' '}
+                    {this.props.attestationThreshold > 1
+                      ? 'validations'
+                      : 'validation'}
+                  </Text>{' '}
+                  for the MET to be imported on this chain.
+                </Text>
+
+                <View>
+                  {this.props.ongoingImports.map(item => (
+                    <ItemRow
+                      retryDisabled={this.props.retryDisabled}
+                      onRetryClick={() =>
+                        this.handleRetryClick(item.currentBurnHash)
+                      }
+                      details={
+                        <Text>
+                          IMPORTING FROM{' '}
+                          <Text weight="bold">{item.importedFrom}</Text>
+                        </Text>
+                      }
+                      badge={
+                        <Text>
+                          {item.attestedCount} /{' '}
+                          {this.props.attestationThreshold}
+                        </Text>
+                      }
+                      value={item.value}
+                      key={item.hash}
+                    />
+                  ))}
+                </View>
+              </View>
             )}
-            <Btn
-              disabled={this.props.portDisabled}
-              onPress={this.handleNewPortPress}
-              label="New Port"
-              block
-            />
           </View>
+        )}
+
+        {this.props.failedImports.length === 0 &&
+          this.props.ongoingImports.length === 0 && (
+            <View align="center" justify="center" flex={1} grow={1}>
+              <PortIcon size="64" />
+              <Text size="large" mt={2} weight="semibold">
+                You have no pending ports
+              </Text>
+              <Text opacity={0.8} align="center" size="medium" mw={300} mt={1}>
+                Port your Metronome between any of the other supported chains
+              </Text>
+            </View>
+          )}
+
+        <View mt={4}>
+          {this.props.portDisabledReason && (
+            <Text opacity={0.8} align="center" size="small" mb={2}>
+              {this.props.portDisabledReason}
+            </Text>
+          )}
+          <Btn
+            disabled={this.props.portDisabled}
+            onPress={this.handleNewPortPress}
+            label="New Port"
+            block
+          />
         </View>
       </View>
     )
@@ -175,7 +167,11 @@ class Port extends React.Component {
 }
 
 const styles = RN.StyleSheet.create({
-  container: { minHeight: '100%' }
+  container: {
+    paddingHorizontal: 16,
+    paddingVertical: 32,
+    minHeight: '100%'
+  }
 })
 
 const EnhancedComponent = withPortState(Port)

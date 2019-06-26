@@ -22,30 +22,24 @@ export default class SentDetails extends React.Component {
         size="xSmall"
         ls={0.4}
       >
-        {this.props.isPending ? (
-          this.props.isApproval ? (
-            'PENDING ALLOWANCE FOR'
-          ) : this.props.isCancelApproval ? (
-            'PENDING CANCEL ALLOWANCE FOR'
-          ) : (
-            'PENDING TO'
-          )
-        ) : this.props.isApproval ? (
-          'ALLOWANCE SET FOR'
-        ) : this.props.isCancelApproval ? (
-          'ALLOWANCE CANCELLED FOR'
-        ) : (
-          <React.Fragment>
-            SENT TO{' '}
-            <FilteredMessage
-              withDefault={str =>
-                `${str.substring(0, 6)}…${str.substring(str.length - 4)}`
-              }
-            >
-              {this.props.to}
-            </FilteredMessage>
-          </React.Fragment>
-        )}
+        {this.props.isPending
+          ? this.props.isApproval
+            ? 'PENDING ALLOWANCE FOR '
+            : this.props.isCancelApproval
+            ? 'PENDING CANCEL ALLOWANCE FOR '
+            : 'PENDING TO '
+          : this.props.isApproval
+          ? 'ALLOWANCE SET FOR '
+          : this.props.isCancelApproval
+          ? 'ALLOWANCE CANCELLED FOR '
+          : 'SENT TO '}
+        <FilteredMessage
+          withDefault={str =>
+            `${str.substring(0, 6)}…${str.substring(str.length - 4)}`
+          }
+        >
+          {this.props.to}
+        </FilteredMessage>
       </Text>
     )
   }

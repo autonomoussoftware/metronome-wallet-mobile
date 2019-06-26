@@ -25,7 +25,7 @@ matrix:
         - nvm alias default 8.15.0 # otherwise sentry-cli will fail with a cryptic error
         - node --version
         - npm --version
-        - gem install fastlane --no-document --quiet
+        - gem install fastlane --version 2.118.1 --no-document --quiet
 
         # Decrypt SSH deploy key for GitHub certificates repo and add to agent
         - openssl aes-256-cbc -K $encrypted_89b232081b73_key -iv $encrypted_89b232081b73_iv
