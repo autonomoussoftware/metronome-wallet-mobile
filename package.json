@@ -35,7 +35,7 @@
     "fast-password-entropy": "1.1.0",
     "lodash": "4.17.11",
     "metronome-contracts": "2.4.0",
-    "metronome-wallet-core": "2.4.0",
+    "metronome-wallet-core": "2.4.3",
     "metronome-wallet-ui-logic": "3.5.0",
     "node-libs-browser": "2.1.0",
     "patch-package": "5.1.1",
@@ -57,7 +57,6 @@
     "react-native-version-number": "0.3.4",
     "react-navigation": "2.16.0",
     "smart-round": "1.0.0",
-    "web3-patches": "1.1.0",
     "web3-utils": "1.0.0-beta.37"
   },
   "devDependencies": {

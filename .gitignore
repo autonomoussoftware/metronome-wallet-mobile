@@ -70,6 +70,3 @@ sentry.properties
 
 # Android signing key
 MetronomeWalletSigningKey.json
-
-# Web3 patches
-patches/web3-*.patch
