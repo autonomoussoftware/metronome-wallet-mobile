@@ -42,5 +42,6 @@ export default {
   sentryDsn: Config.SENTRY_DSN,
   settingsVersion: 2,
   statePersistanceDebounce: 2000,
-  trackingId: Config.TRACKING_ID || ''
+  trackingId: Config.TRACKING_ID || '',
+  web3Timeout: 120000
 }
