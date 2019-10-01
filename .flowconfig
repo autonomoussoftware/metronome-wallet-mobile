@@ -24,6 +24,8 @@ node_modules/react-native/flow/
 
 [options]
 emoji=true
+esproposal.optional_chaining=enable
+esproposal.nullish_coalescing=enable
 
 module.system=haste
 
@@ -45,4 +47,4 @@ suppress_comment=\\(.\\|\n\\)*\\$FlowExpectedError
 unsafe.enable_getters_and_setters=true
 
 [version]
-^0.56.0
+^0.78.0
