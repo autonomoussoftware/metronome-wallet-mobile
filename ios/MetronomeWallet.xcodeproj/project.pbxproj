@@ -52,6 +52,7 @@
 		5E9157361DD0AC6A00FF2AA8 /* libRCTAnimation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E9157331DD0AC6500FF2AA8 /* libRCTAnimation.a */; };
 		6E04E11C212F1C540089F217 /* libART.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E04E0EA212F1C250089F217 /* libART.a */; };
 		6E05C04722443E120079D89F /* main.jsbundle in Resources */ = {isa = PBXBuildFile; fileRef = 008F07F21AC5B25A0029DE68 /* main.jsbundle */; };
+		6E67B6FC234539BA001A9F5E /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E67B6C4234539BA001A9F5E /* JavaScriptCore.framework */; };
 		71258101B23A4B62A49F6291 /* libRNCamera.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A1C0F3F2B0E14788AF1E62BB /* libRNCamera.a */; };
 		82FC647E3199444BA2696F68 /* Muli-ExtraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 62004C1DB57C4895902766AA /* Muli-ExtraLight.ttf */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
@@ -505,6 +506,7 @@
 		627E34E13AF24318AF5A370E /* libReactNativeConfig.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libReactNativeConfig.a; sourceTree = "<group>"; };
 		6C7361753A804BC6A55B2B28 /* RNSVG.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNSVG.xcodeproj; path = "../node_modules/react-native-svg/ios/RNSVG.xcodeproj"; sourceTree = "<group>"; };
 		6E04E0E4212F1C240089F217 /* ART.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ART.xcodeproj; path = "../node_modules/react-native/Libraries/ART/ART.xcodeproj"; sourceTree = "<group>"; };
+		6E67B6C4234539BA001A9F5E /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		6F07B9A7814C41F599A43E89 /* libRNVersionNumber.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNVersionNumber.a; sourceTree = "<group>"; };
 		78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTLinking.xcodeproj; path = "../node_modules/react-native/Libraries/LinkingIOS/RCTLinking.xcodeproj"; sourceTree = "<group>"; };
 		7AEEFF4D691340C5B036964B /* SystemConfiguration.framework */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
@@ -548,6 +550,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6E67B6FC234539BA001A9F5E /* JavaScriptCore.framework in Frameworks */,
 				6E04E11C212F1C540089F217 /* libART.a in Frameworks */,
 				ADBDB9381DFEBF1600ED6528 /* libRCTBlob.a in Frameworks */,
 				5E9157361DD0AC6A00FF2AA8 /* libRCTAnimation.a in Frameworks */,
@@ -760,6 +763,7 @@
 		6E04E11B212F1C540089F217 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				6E67B6C4234539BA001A9F5E /* JavaScriptCore.framework */,
 				D24E64A6FB554B189502081D /* CoreData.framework */,
 				7AEEFF4D691340C5B036964B /* SystemConfiguration.framework */,
 				959CD66503A347BC89487B04 /* libz.tbd */,
