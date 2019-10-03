@@ -3,6 +3,7 @@ package sh.autonomous.wallet.mobile;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.reactnativecommunity.asyncstorage.AsyncStoragePackage;
 import com.lugg.ReactNativeConfig.ReactNativeConfigPackage;
 import com.idehub.GoogleAnalyticsBridge.GoogleAnalyticsBridgePackage;
 import io.sentry.RNSentryPackage;
@@ -32,7 +33,8 @@ public class MainApplication extends Application implements ReactApplication {
     @Override
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
-          new MainReactPackage(),
+            new MainReactPackage(),
+            new AsyncStoragePackage(),
             new ReactNativeConfigPackage(),
             new GoogleAnalyticsBridgePackage(),
             new RNSentryPackage(),

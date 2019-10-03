@@ -6,7 +6,7 @@ This is a Metronome-specific mobile wallet build on React Native.
 
 In order to run a development version of the app in the iOS simulator, run:
 
-**XCode v10.1 and Android Studio v3.1 are required**
+**XCode v10.1 and Android Studio v3.4.2 are required**
 
 ```shell
 npm install
