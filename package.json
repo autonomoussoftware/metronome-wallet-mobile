@@ -36,7 +36,7 @@
     "fast-password-entropy": "1.1.0",
     "lodash": "4.17.15",
     "metronome-contracts": "2.4.0",
-    "metronome-wallet-core": "2.4.5",
+    "metronome-wallet-core": "2.4.6",
     "metronome-wallet-ui-logic": "3.5.1",
     "node-libs-browser": "2.1.0",
     "patch-package": "5.1.1",
