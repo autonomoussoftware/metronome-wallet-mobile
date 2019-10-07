@@ -1,4 +1,5 @@
 import * as Keychain from 'react-native-keychain'
+import AsyncStorage from '@react-native-community/async-storage'
 import RNRestart from 'react-native-restart'
 import PropTypes from 'prop-types'
 import React from 'react'
@@ -19,7 +20,7 @@ export default class WipeStorage extends React.Component {
           text: 'YES',
           onPress: () =>
             Promise.all([
-              RN.AsyncStorage.clear(),
+              AsyncStorage.clear(),
               Keychain.resetInternetCredentials('wallet.seed'),
               Keychain.resetInternetCredentials('wallet.pin')
             ]).then(() => RNRestart.Restart())

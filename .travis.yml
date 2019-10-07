@@ -27,6 +27,11 @@ matrix:
         - npm --version
         - gem install fastlane --version 2.118.1 --no-document --quiet
 
+        # Required after upgrading to RN v0.59.10, otherwise Sentry code inside
+        # "Bundle React Native code and images" build phase fails.
+        # See https://github.com/getsentry/sentry-react-native/issues/135#issuecomment-447366274
+        - brew install watchman
+
         # Decrypt SSH deploy key for GitHub certificates repo and add to agent
         - openssl aes-256-cbc -K $encrypted_89b232081b73_key -iv $encrypted_89b232081b73_iv
           -in github_deploy_key.enc -out github_deploy_key -d
@@ -48,8 +53,8 @@ matrix:
         - npm run env || travis_terminate 1
         - cat .env
 
-        # supposedly this shouldn't be necesary, possible RN bug?
-        # see https://github.com/facebook/react-native/issues/18472
+        # Supposedly this shouldn't be necesary, possible RN bug?
+        # See https://github.com/facebook/react-native/issues/18472
         - npm i -g react-native-cli@2.0.1
         - react-native info
         - npm run ios:bundle -- --dev false || travis_terminate 1
@@ -64,17 +69,22 @@ matrix:
         components:
           - tools
           - platform-tools
-          - android-27
+          - android-28
           - extra-google-m2repository
           - extra-google-google_play_services
+
       before_install:
         - nvm install 8.15.0 # enforce using same version as local builds
         - npm i -g npm@6.4.1 # enforce using same version as local builds
         - nvm alias default 8.15.0 # otherwise sentry-cli will fail with a cryptic error
         - node --version
         - npm --version
-        - gem install fastlane --no-document --quiet
-        - yes | $ANDROID_HOME/tools/bin/sdkmanager "build-tools;27.0.3" # accept android licenses
+        - gem install fastlane --version 2.118.1 --no-document --quiet
+        - yes | $ANDROID_HOME/tools/bin/sdkmanager "build-tools;28.0.3" # accept android licenses
+
+        # After upgrading to RN v0.59.10, we need to increase the number of inotify watches
+        # See https://github.com/fbsamples/f8app/issues/55#issuecomment-228995680
+        - echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p
 
         # Decrypt Sentry properties file and add copy to /android directory
         - openssl aes-256-cbc -K $encrypted_ace616ffe366_key -iv $encrypted_ace616ffe366_iv

@@ -1,7 +1,7 @@
 {
   "name": "metronome-wallet-mobile",
   "description": "Metronome wallet for mobile devices",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "author": {
     "name": "Autonomous Software",
     "email": "info@autonomous.sh",
@@ -30,18 +30,19 @@
     ]
   },
   "dependencies": {
+    "@react-native-community/async-storage": "1.6.2",
     "babel-preset-es2015": "6.24.1",
     "base-64": "0.1.0",
     "fast-password-entropy": "1.1.0",
     "lodash": "4.17.15",
     "metronome-contracts": "2.4.0",
-    "metronome-wallet-core": "2.4.5",
+    "metronome-wallet-core": "2.4.6",
     "metronome-wallet-ui-logic": "3.5.1",
     "node-libs-browser": "2.1.0",
     "patch-package": "5.1.1",
     "prop-types": "15.6.2",
-    "react": "16.4.1",
-    "react-native": "0.56.0",
+    "react": "16.8.3",
+    "react-native": "0.59.10",
     "react-native-bip39": "2.3.0",
     "react-native-camera": "1.1.2",
     "react-native-config": "0.11.7",
@@ -51,18 +52,19 @@
     "react-native-qrcode-svg": "5.1.1",
     "react-native-randombytes": "3.5.0",
     "react-native-restart": "0.0.7",
-    "react-native-sentry": "0.38.3",
+    "react-native-sentry": "0.43.2",
     "react-native-splash-screen": "3.1.1",
-    "react-native-svg": "6.5.2",
+    "react-native-svg": "6.5.3",
     "react-native-version-number": "0.3.4",
     "react-navigation": "2.16.0",
     "smart-round": "1.0.0",
     "web3-utils": "1.0.0-beta.37"
   },
   "devDependencies": {
+    "@babel/core": "7.4.5",
+    "@babel/runtime": "7.4.5",
     "babel-eslint": "8.2.6",
-    "babel-jest": "22.4.3",
-    "babel-preset-react-native": "5.0.2",
+    "babel-jest": "24.8.0",
     "eslint": "5.6.1",
     "eslint-config-bloq": "1.3.0",
     "eslint-config-prettier": "2.9.0",
@@ -74,13 +76,15 @@
     "eslint-plugin-prefer-arrow": "1.1.3",
     "eslint-plugin-promise": "4.0.1",
     "eslint-plugin-react": "7.10.0",
+    "eslint-plugin-react-hooks": "2.1.1",
     "eslint-plugin-react-native": "3.3.0",
     "eslint-plugin-standard": "4.0.0",
     "husky": "1.3.1",
     "jest": "24.8.0",
     "lint-staged": "8.1.0",
+    "metro-react-native-babel-preset": "0.54.1",
     "prettier": "1.15.3",
-    "react-test-renderer": "16.3.1"
+    "react-test-renderer": "16.8.3"
   },
   "husky": {
     "hooks": {
