@@ -17,7 +17,6 @@ export default {
   // urls
   explorerUrl: 'https://etherscan.io/tx/{{hash}}',
   indexerUrl: 'https://indexer.metronome.io',
-  metApiUrl: 'https://api.metronome.io/',
   wsApiUrl: 'wss://eth.wallet.metronome.io:8546',
 
   // defauls

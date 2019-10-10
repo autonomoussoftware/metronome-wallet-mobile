@@ -4,7 +4,6 @@ import Config from 'react-native-config'
 const contracts = MetronomeContracts['ropsten']
 
 const indexerUrl = Config.ROPSTEN_INDEXER_URL || 'http://localhost:3005'
-const metApiUrl = Config.ROPSTEN_API_URL || 'http://localhost:3002/'
 const wsApiUrl = Config.ROPSTEN_NODE_URL || 'ws://localhost:8546'
 
 export default {
@@ -22,7 +21,6 @@ export default {
   // urls
   explorerUrl: 'https://ropsten.etherscan.io/tx/{{hash}}',
   indexerUrl,
-  metApiUrl,
   wsApiUrl,
 
   // defauls

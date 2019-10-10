@@ -1,15 +1,15 @@
 import MetronomeContracts from 'metronome-contracts'
 import Config from 'react-native-config'
 
-const contracts = MetronomeContracts['morden']
+const contracts = MetronomeContracts['mordor']
 
-const indexerUrl = Config.MORDEN_INDEXER_URL || 'http://localhost:3015'
-const metApiUrl = Config.MORDEN_API_URL || 'http://localhost:3012/'
-const wsApiUrl = Config.MORDEN_NODE_URL || 'ws://localhost:8556'
+const indexerUrl = Config.MORDOR_INDEXER_URL || 'http://localhost:3015'
+const metApiUrl = Config.MORDOR_API_URL || 'http://localhost:3012/'
+const wsApiUrl = Config.MORDOR_NODE_URL || 'ws://localhost:8556'
 
 export default {
-  displayName: 'Morden',
-  chainId: 62,
+  displayName: 'Mordor',
+  chainId: 63,
   symbol: 'ETC',
 
   // contracts addresses
@@ -20,7 +20,7 @@ export default {
   auctionAddress: contracts.Auctions.address,
 
   // urls
-  explorerUrl: 'https://mordenexplorer.ethernode.io/tx/{{hash}}',
+  explorerUrl: 'https://mordorexplorer.ethernode.io/tx/{{hash}}',
   indexerUrl,
   metApiUrl,
   wsApiUrl,

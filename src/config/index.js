@@ -1,19 +1,19 @@
 import ethRopsten from './ethRopsten'
-import etcMorden from './etcMorden'
 import ethMainnet from './ethMainnet'
 import etcMainnet from './etcMainnet'
+import etcMordor from './etcMordor'
 import { Alert } from 'react-native'
 import Config from 'react-native-config'
 
-const enabledChains = (Config.ENABLED_CHAINS || 'ethRopsten,etcMorden')
+const enabledChains = (Config.ENABLED_CHAINS || 'ethRopsten,etcMordor')
   .split(',')
   .map(name => name.trim())
 
 const availableChains = {
-  ethRopsten,
-  etcMorden,
   ethMainnet,
-  etcMainnet
+  etcMainnet,
+  ethRopsten,
+  etcMordor
 }
 
 const missingConfigurations = enabledChains.filter(

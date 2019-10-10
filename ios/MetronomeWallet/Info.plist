@@ -39,6 +39,8 @@
 		</dict>
 		<key>NSAppleMusicUsageDescription</key>
 		<string>The wallet needs permission to access apple music.</string>
+		<key>NSBluetoothAlwaysUsageDescription</key>
+		<string>The wallet needs permission to always access bluetooth.</string>
 		<key>NSBluetoothPeripheralUsageDescription</key>
 		<string>The wallet needs permission to access bluetooth.</string>
 		<key>NSCalendarsUsageDescription</key>
