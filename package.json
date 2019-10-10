@@ -58,7 +58,7 @@
     "react-native-version-number": "0.3.4",
     "react-navigation": "2.16.0",
     "smart-round": "1.0.0",
-    "web3-utils": "1.0.0-beta.37"
+    "web3-utils": "1.2.1"
   },
   "devDependencies": {
     "@babel/core": "7.4.5",
