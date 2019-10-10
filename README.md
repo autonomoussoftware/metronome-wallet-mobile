@@ -24,7 +24,7 @@ npm run android
 To customize the build, create a `.env`. The following variables are supported:
 
 - `ENABLED_CHAINS`: A comma separated string of configuration filenames. See `src/config`.
-- `MORDEN_INDEXER_URL`, `MORDEN_NODE_URL`: Morden testnet URLs.
+- `MORDOR_INDEXER_URL`, `MORDOR_NODE_URL`: Mordor testnet URLs.
 - `ROPSTEN_INDEXER_URL`, `ROPSTEN_NODE_URL`: Ropsten testnet URLs.
 
 ### Sentry setup

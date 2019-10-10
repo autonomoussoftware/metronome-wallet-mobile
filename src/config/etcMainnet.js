@@ -18,7 +18,6 @@ export default {
   explorerUrl:
     'https://blockscout.com/etc/mainnet/tx/{{hash}}/internal_transactions',
   indexerUrl: 'https://etc.indexer.metronome.io',
-  metApiUrl: 'https://etc.api.metronome.io/',
   wsApiUrl: 'wss://etc.wallet.metronome.io:8546',
 
   // defauls
