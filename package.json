@@ -36,12 +36,12 @@
     "fast-password-entropy": "1.1.0",
     "lodash": "4.17.15",
     "metronome-contracts": "2.5.0",
-    "metronome-wallet-core": "2.4.8",
-    "metronome-wallet-ui-logic": "3.5.1",
+    "metronome-wallet-core": "github:autonomoussoftware/metronome-wallet-core#qtum",
+    "metronome-wallet-ui-logic": "github:autonomoussoftware/metronome-wallet-ui-logic#qtum",
     "node-libs-browser": "2.1.0",
     "patch-package": "5.1.1",
     "prop-types": "15.6.2",
-    "react": "16.8.3",
+    "react": "16.8.4",
     "react-native": "0.59.10",
     "react-native-bip39": "2.3.0",
     "react-native-camera": "1.1.2",
@@ -58,7 +58,7 @@
     "react-native-version-number": "0.3.4",
     "react-navigation": "2.16.0",
     "smart-round": "1.0.0",
-    "web3-utils": "1.2.1"
+    "web3-utils": "1.2.4"
   },
   "devDependencies": {
     "@babel/core": "7.4.5",
