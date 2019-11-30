@@ -1,3 +1,4 @@
+import qtumTestnet from './qtumTestnet'
 import ethRopsten from './ethRopsten'
 import ethMainnet from './ethMainnet'
 import etcMainnet from './etcMainnet'
@@ -5,11 +6,14 @@ import etcMordor from './etcMordor'
 import { Alert } from 'react-native'
 import Config from 'react-native-config'
 
-const enabledChains = (Config.ENABLED_CHAINS || 'ethRopsten,etcMordor')
+const enabledChains = (
+  Config.ENABLED_CHAINS || 'ethRopsten,etcMordor,qtumTestnet'
+)
   .split(',')
   .map(name => name.trim())
 
 const availableChains = {
+  qtumTestnet,
   ethMainnet,
   etcMainnet,
   ethRopsten,
@@ -40,7 +44,7 @@ export default {
   requiredPasswordEntropy: 20,
   scanTransactionTimeout: 240000,
   sentryDsn: Config.SENTRY_DSN,
-  settingsVersion: 2,
+  settingsVersion: 3,
   statePersistanceDebounce: 2000,
   trackingId: Config.TRACKING_ID || '',
   web3Timeout: 120000

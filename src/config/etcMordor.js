@@ -4,13 +4,21 @@ import Config from 'react-native-config'
 const contracts = MetronomeContracts['mordor']
 
 const indexerUrl = Config.MORDOR_INDEXER_URL || 'http://localhost:3015'
-const metApiUrl = Config.MORDOR_API_URL || 'http://localhost:3012/'
 const wsApiUrl = Config.MORDOR_NODE_URL || 'ws://localhost:8556'
 
 export default {
   displayName: 'Mordor',
+  chainType: 'ethereum',
+  blockTime: 15,
+  decimals: 18,
   chainId: 63,
   symbol: 'ETC',
+
+  // connections status mappings
+  connections: {
+    indexer: 'Indexer connection',
+    web3: 'Web3 connection'
+  },
 
   // contracts addresses
   tokenPorterAddress: contracts.TokenPorter.address,
@@ -22,10 +30,9 @@ export default {
   // urls
   explorerUrl: 'https://mordorexplorer.ethernode.io/tx/{{hash}}',
   indexerUrl,
-  metApiUrl,
   wsApiUrl,
 
-  // defauls
+  // defaults
   coinDefaultGasLimit: '21000',
   metDefaultGasLimit: '250000',
   defaultGasPrice: '1000000000',

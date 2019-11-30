@@ -4,8 +4,17 @@ const contracts = MetronomeContracts['classic']
 
 export default {
   displayName: 'Classic',
+  chainType: 'ethereum',
+  blockTime: 15,
+  decimals: 18,
   chainId: 61,
   symbol: 'ETC',
+
+  // connections status mappings
+  connections: {
+    indexer: 'Indexer connection',
+    web3: 'Web3 connection'
+  },
 
   // contracts addresses
   tokenPorterAddress: contracts.TokenPorter.address,
@@ -20,7 +29,7 @@ export default {
   indexerUrl: 'https://etc.indexer.metronome.io',
   wsApiUrl: 'wss://etc.wallet.metronome.io:8546',
 
-  // defauls
+  // defaults
   coinDefaultGasLimit: '21000',
   metDefaultGasLimit: '250000',
   defaultGasPrice: '10000000000',
