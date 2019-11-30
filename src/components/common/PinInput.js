@@ -3,7 +3,8 @@ import theme from 'metronome-wallet-ui-logic/src/theme'
 import React from 'react'
 import RN from 'react-native'
 
-import { View, Text } from './index'
+import View from './View'
+import Text from './Text'
 
 export const PIN_LENGTH = 6
 

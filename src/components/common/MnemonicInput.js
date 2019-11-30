@@ -3,7 +3,9 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import RN from 'react-native'
 
-import { TextInput, BaseBtn, View } from '../common'
+import TextInput from './TextInput'
+import BaseBtn from './BaseBtn'
+import View from './View'
 
 class Suggestions extends React.Component {
   static propTypes = {

@@ -3,7 +3,7 @@ import theme from 'metronome-wallet-ui-logic/src/theme'
 import React from 'react'
 import RN from 'react-native'
 
-import { View } from '../common'
+import View from './View'
 
 const Spinner = ({ size = 22, ...other }) =>
   RN.Platform.OS === 'android' ? (

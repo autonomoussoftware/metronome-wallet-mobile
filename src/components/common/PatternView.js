@@ -2,7 +2,7 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import RN from 'react-native'
 
-import { View } from '../common'
+import View from './View'
 
 const PatternView = ({ children, ...other }) => (
   <View bg="dark" flex={1} {...other}>
