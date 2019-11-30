@@ -9,7 +9,15 @@ import {
   onLinkClick,
   clearCache
 } from '../platform-utils'
-import { isAddress, fromWei, toWei, toBN, toHex } from '../utils'
+import {
+  isAddress,
+  fromCoin,
+  fromWei,
+  toCoin,
+  toWei,
+  toBN,
+  toHex
+} from '../utils'
 
 export default {
   recoverFromMnemonic,
@@ -24,7 +32,9 @@ export default {
   validatePIN,
   clearCache,
   isAddress,
+  fromCoin,
   fromWei,
+  toCoin,
   toWei,
   toHex,
   toBN
