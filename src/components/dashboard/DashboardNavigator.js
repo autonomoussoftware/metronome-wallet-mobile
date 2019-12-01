@@ -1,3 +1,4 @@
+import { wrapConnectedComponent } from '../../utils'
 import createCustomNavigator from '../common/createCustomNavigator'
 import ConfirmSendCoin from './ConfirmSendCoin'
 import ConfirmSendMET from './ConfirmSendMET'
@@ -10,9 +11,9 @@ const DashboardNavigator = createCustomNavigator(
   {
     ConfirmSendCoin,
     ConfirmSendMET,
-    ReceiveDrawer,
-    ReceiptDrawer,
-    SendDrawer,
+    ReceiveDrawer: wrapConnectedComponent(ReceiveDrawer),
+    ReceiptDrawer: wrapConnectedComponent(ReceiptDrawer),
+    SendDrawer: wrapConnectedComponent(SendDrawer),
     Dashboard
   },
   {

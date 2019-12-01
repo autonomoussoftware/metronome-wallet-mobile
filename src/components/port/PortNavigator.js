@@ -1,3 +1,4 @@
+import { wrapConnectedComponent } from '../../utils'
 import createCustomNavigator from '../common/createCustomNavigator'
 import ConfirmRetryImport from './ConfirmRetryImport'
 import RetryImportDrawer from './RetryImportDrawer'
@@ -10,8 +11,8 @@ const PortNavigator = createCustomNavigator(
     ConfirmRetryImport,
     RetryImportDrawer,
     ConfirmPort,
-    PortDrawer,
-    Port
+    PortDrawer: wrapConnectedComponent(PortDrawer),
+    Port: wrapConnectedComponent(Port)
   },
   {
     initialRouteName: 'Port'

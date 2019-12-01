@@ -1,3 +1,4 @@
+import { wrapConnectedComponent } from '../../utils'
 import createCustomNavigator from '../common/createCustomNavigator'
 import ConfirmCoinToMET from './ConfirmCoinToMET'
 import ConfirmMETtoCoin from './ConfirmMETtoCoin'
@@ -8,7 +9,7 @@ const ConverterNavigator = createCustomNavigator(
   {
     ConfirmCoinToMET,
     ConfirmMETtoCoin,
-    ConvertDrawer,
+    ConvertDrawer: wrapConnectedComponent(ConvertDrawer),
     Converter
   },
   {

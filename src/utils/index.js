@@ -1,6 +1,22 @@
 import PropTypes from 'prop-types'
 import theme from 'metronome-wallet-ui-logic/src/theme'
+import React from 'react'
 import RN from 'react-native'
+
+/**
+ * Wrapper function needed to fix an incompatibility between react-redux@7
+ * and react-navigation@2
+ *
+ * @see https://stackoverflow.com/a/55805972/3498839
+ *
+ * @param {Object} Comp - A React component
+ * @returns {Object} A wrapped React component
+ */
+export const wrapConnectedComponent = Comp => {
+  const Wrapper = props => <Comp {...props} />
+  Wrapper.displayName = `wrappedComponent(${Comp.displayName || Comp.name})`
+  return Wrapper
+}
 
 export const errorPropTypes = (...fields) => {
   const shape = fields.reduce((acc, fieldName) => {
