@@ -111,7 +111,8 @@ const createClient = (config, createStore) => {
     ])
       .then(([version, shouldRestartSettings]) => {
         const promises = []
-        if (!version || version === 0) {
+        if (!version) {
+          // eslint-disable-next-line no-console
           console.debug('Cleaning keychain settings')
           // Clean Keychain as this is the first time running the app ever or
           // the first time after reinstall

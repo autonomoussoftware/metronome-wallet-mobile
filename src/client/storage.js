@@ -28,11 +28,6 @@ export const getState = () =>
     )
   )
 
-export const getBestBlock = () =>
-  AsyncStorage.getItem('blockchain').then(value =>
-    value ? JSON.parse(value).height : null
-  )
-
 export const setSyncBlock = (number, chain) => {
   // eslint-disable-next-line no-console
   console.debug(`${chain}\t- Setting sync block: ${number}`)

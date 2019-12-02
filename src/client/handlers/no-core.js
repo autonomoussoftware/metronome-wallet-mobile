@@ -1,7 +1,6 @@
 import { validatePIN, getStringEntropy } from '../auth'
 import { createMnemonic, isValidMnemonic } from '../keys'
 import {
-  recoverFromMnemonic,
   onTermsLinkClick,
   onHelpLinkClick,
   copyToClipboard,
@@ -20,7 +19,6 @@ import {
 } from '../utils'
 
 export default {
-  recoverFromMnemonic,
   getStringEntropy,
   onTermsLinkClick,
   onHelpLinkClick,
