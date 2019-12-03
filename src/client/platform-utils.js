@@ -22,7 +22,14 @@ export const onHelpLinkClick = () =>
   )
 
 export const clearCache = () => {
-  const keys = ['chains', 'config', 'connectivity', 'session', 'sync']
+  const keys = [
+    'connectivity',
+    'session',
+    'chains',
+    'config',
+    'sync',
+    ...config.enabledChains.map(chainName => `sync-${chainName}`)
+  ]
   return AsyncStorage.multiRemove(keys).then(() => RNRestart.Restart())
 }
 
