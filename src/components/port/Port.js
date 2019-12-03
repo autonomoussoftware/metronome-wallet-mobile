@@ -1,4 +1,3 @@
-import { toChecksumAddress } from 'web3-utils'
 import withPortState from 'metronome-wallet-ui-logic/src/hocs/withPortState'
 import PropTypes from 'prop-types'
 import React from 'react'
@@ -10,7 +9,7 @@ import ItemRow from './ItemRow'
 
 class Port extends React.Component {
   static propTypes = {
-    attestationThreshold: PropTypes.number.isRequired,
+    attestationThreshold: PropTypes.number,
     portDisabledReason: PropTypes.string,
     ongoingImports: PropTypes.arrayOf(
       PropTypes.shape({
@@ -46,7 +45,7 @@ class Port extends React.Component {
     if (retryCandidate) {
       this.props.navigation.navigate('RetryImportDrawer', {
         ...retryCandidate,
-        from: toChecksumAddress(retryCandidate.from)
+        from: retryCandidate.from
       })
     } else {
       RN.Alert.alert('Error', `Can't find transaction ${hash}`)

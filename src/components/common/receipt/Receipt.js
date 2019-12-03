@@ -1,4 +1,3 @@
-import { toChecksumAddress } from 'web3-utils'
 import withReceiptState from 'metronome-wallet-ui-logic/src/hocs/withReceiptState'
 import PropTypes from 'prop-types'
 import TimeAgo from 'metronome-wallet-ui-logic/src/components/TimeAgo'
@@ -29,6 +28,7 @@ class Receipt extends React.Component {
       setParams: PropTypes.func.isRequired
     }).isRequired,
     isPending: PropTypes.bool.isRequired,
+    hash: PropTypes.string,
     tx: PropTypes.object.isRequired
   }
 
@@ -108,9 +108,7 @@ class Receipt extends React.Component {
           {tx.txType === 'received' && tx.from && (
             <RN.TouchableOpacity
               activeOpacity={0.75}
-              onPress={() =>
-                this.props.copyToClipboard(toChecksumAddress(tx.from))
-              }
+              onPress={() => this.props.copyToClipboard(tx.from)}
             >
               <View my={3}>
                 <View row justify="space-between">
@@ -121,7 +119,7 @@ class Receipt extends React.Component {
                 </View>
 
                 <Text size="small" opacity={0.8} mt={1}>
-                  {toChecksumAddress(tx.from)}
+                  {tx.from}
                 </Text>
               </View>
             </RN.TouchableOpacity>
@@ -130,9 +128,7 @@ class Receipt extends React.Component {
           {tx.txType === 'sent' && tx.to && (
             <RN.TouchableOpacity
               activeOpacity={0.75}
-              onPress={() =>
-                this.props.copyToClipboard(toChecksumAddress(tx.to))
-              }
+              onPress={() => this.props.copyToClipboard(tx.to)}
             >
               <View my={3}>
                 <View row justify="space-between">
@@ -140,7 +136,7 @@ class Receipt extends React.Component {
                   <CopyIcon opacity={0.5} width="20" />
                 </View>
                 <Text size="small" opacity={0.8} mt={1}>
-                  {toChecksumAddress(tx.to)}
+                  {tx.to}
                 </Text>
               </View>
             </RN.TouchableOpacity>
@@ -186,9 +182,7 @@ class Receipt extends React.Component {
             <RN.TouchableOpacity
               activeOpacity={0.75}
               onPress={() =>
-                this.props.copyToClipboard(
-                  toChecksumAddress(tx.portDestinationAddress)
-                )
+                this.props.copyToClipboard(tx.portDestinationAddress)
               }
             >
               <View my={3}>
@@ -197,7 +191,7 @@ class Receipt extends React.Component {
                   <CopyIcon opacity={0.5} width="20" />
                 </View>
                 <Text size="small" opacity={0.8} mt={1}>
-                  {toChecksumAddress(tx.portDestinationAddress)}
+                  {tx.portDestinationAddress}
                 </Text>
               </View>
             </RN.TouchableOpacity>
