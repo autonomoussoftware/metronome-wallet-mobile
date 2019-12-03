@@ -23,7 +23,7 @@ const openWallet = ({ coreApi, emitter }) => {
 
 const refreshAllTransactions = ({ address }, { coreApi, emitter }) => {
   emitter.emit('transactions-scan-started', {})
-  return coreApi.explorer
+  return coreApi.transactionsSyncer
     .refreshAllTransactions(address)
     .then(() => {
       emitter.emit('transactions-scan-finished', { success: true })
@@ -41,14 +41,14 @@ const refreshAllTransactions = ({ address }, { coreApi, emitter }) => {
 }
 
 const refreshTransaction = ({ hash, address }, { coreApi }) =>
-  coreApi.explorer
+  coreApi.transactionsSyncer
     .refreshTransaction(hash, address)
     .then(() => ({ success: true }))
     .catch(error => ({ error, success: false }))
 
 const getGasLimit = (data, { coreApi }) => coreApi.wallet.getGasLimit(data)
 
-const getGasPrice = (data, { coreApi }) => coreApi.wallet.getGasPrice(data)
+const getGasPrice = (data, { coreApi }) => coreApi.explorer.getGasPrice(data)
 
 const sendCoin = (data, { coreApi }) =>
   withAuth(coreApi.wallet.sendCoin)(data, { coreApi })
