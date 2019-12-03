@@ -9,6 +9,7 @@ import QRScanner from './QRScanner'
 
 class SendCoinForm extends React.Component {
   static propTypes = {
+    addressPlaceholder: PropTypes.string,
     gasEstimateError: PropTypes.bool,
     coinPlaceholder: PropTypes.string,
     usdPlaceholder: PropTypes.string,
@@ -26,7 +27,8 @@ class SendCoinForm extends React.Component {
     validate: PropTypes.func.isRequired,
     gasPrice: PropTypes.string,
     gasLimit: PropTypes.string,
-    errors: PropTypes.object.isRequired
+    errors: PropTypes.object.isRequired,
+    useGas: PropTypes.bool.isRequired
   }
 
   state = { isQRscannerVisible: false }
@@ -58,7 +60,7 @@ class SendCoinForm extends React.Component {
     return (
       <View flex={1} px={2} pt={3} pb={4}>
         <TextInput
-          placeholder="e.g. 0x2345678998765434567"
+          placeholder={this.props.addressPlaceholder}
           postLabel={
             <BaseBtn
               textProps={{ opacity: 0.8, weight: 'semibold' }}
@@ -85,14 +87,17 @@ class SendCoinForm extends React.Component {
             errors={this.props.errors}
           />
         </View>
-        <GasEditor
-          gasEstimateError={this.props.gasEstimateError}
-          onInputChange={this.props.onInputChange}
-          useCustomGas={this.props.useCustomGas}
-          gasLimit={this.props.gasLimit}
-          gasPrice={this.props.gasPrice}
-          errors={this.props.errors}
-        />
+
+        {this.props.useGas && (
+          <GasEditor
+            gasEstimateError={this.props.gasEstimateError}
+            onInputChange={this.props.onInputChange}
+            useCustomGas={this.props.useCustomGas}
+            gasLimit={this.props.gasLimit}
+            gasPrice={this.props.gasPrice}
+            errors={this.props.errors}
+          />
+        )}
 
         <QRScanner
           isVisible={this.state.isQRscannerVisible}
