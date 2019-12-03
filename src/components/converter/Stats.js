@@ -88,6 +88,7 @@ export default class Stats extends React.Component {
             Available {coinSymbol}
           </Text>
           <DisplayValue
+            useDecimals
             isCoin
             value={converterStatus.availableCoin}
             size="medium"

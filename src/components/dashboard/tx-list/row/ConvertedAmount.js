@@ -25,6 +25,7 @@ export default class ConvertedAmount extends React.Component {
       <React.Fragment>
         {fromValue ? (
           <DisplayValue
+            useDecimals={convertedFrom === 'coin'}
             color={isFailed ? 'danger' : 'primary'}
             value={fromValue}
             size="medium"
@@ -40,6 +41,7 @@ export default class ConvertedAmount extends React.Component {
               &rarr;
             </Text>
             <DisplayValue
+              useDecimals={convertedFrom !== 'coin'}
               color={isFailed ? 'danger' : 'primary'}
               value={toValue}
               size="medium"

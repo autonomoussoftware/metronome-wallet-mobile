@@ -51,6 +51,7 @@ export default class Amount extends React.Component {
       default:
         return (
           <DisplayValue
+            useDecimals={symbol === 'coin'}
             style={{ lineHeight: theme.sizes.large }}
             color={isFailed ? 'danger' : 'primary'}
             value={value}

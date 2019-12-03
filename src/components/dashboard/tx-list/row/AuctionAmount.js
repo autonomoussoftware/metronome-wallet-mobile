@@ -14,6 +14,7 @@ export default class AuctionAmount extends React.Component {
     return (
       <React.Fragment>
         <DisplayValue
+          useDecimals
           isCoin
           color={this.props.isFailed ? 'danger' : 'primary'}
           value={this.props.coinSpentInAuction}

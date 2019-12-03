@@ -8,8 +8,10 @@ import Text from './Text'
 
 class DisplayValue extends React.Component {
   static propTypes = {
+    coinDecimals: PropTypes.number.isRequired,
     maxPrecision: PropTypes.number,
     shouldFormat: PropTypes.bool,
+    useDecimals: PropTypes.bool,
     minDecimals: PropTypes.number,
     maxDecimals: PropTypes.number,
     coinSymbol: PropTypes.string.isRequired,
@@ -37,6 +39,8 @@ class DisplayValue extends React.Component {
   render() {
     const {
       shouldFormat,
+      coinDecimals,
+      useDecimals,
       coinSymbol,
       fromWei,
       isCoin,
@@ -51,7 +55,12 @@ class DisplayValue extends React.Component {
 
     try {
       formattedValue = this.round(
-        toWei ? sanitize(value) : fromWei(value),
+        toWei
+          ? sanitize(value)
+          : fromWei(
+              useDecimals ? `${value}${'0'.repeat(18 - coinDecimals)}` : value
+            ),
+
         shouldFormat
       )
     } catch (e) {

@@ -19,6 +19,7 @@ class BalanceBlock extends React.Component {
       <View bg="lightShade" px={2}>
         <Row isFirst isBig symbol="MET" value={this.props.metBalanceWei} />
         <Row
+          useDecimals
           usdValue={this.props.coinBalanceUSD}
           symbol={this.props.coinSymbol}
           value={this.props.coinBalanceWei}
@@ -28,7 +29,7 @@ class BalanceBlock extends React.Component {
   }
 }
 
-const Row = ({ symbol, value, usdValue, isFirst, isBig }) => (
+const Row = ({ useDecimals, symbol, value, usdValue, isFirst, isBig }) => (
   <View
     style={[styles.balanceRow, isFirst && styles.isFirst]}
     align="flex-start"
@@ -42,6 +43,7 @@ const Row = ({ symbol, value, usdValue, isFirst, isBig }) => (
     </View>
     <View grow={1} shrink={1} ml={2}>
       <DisplayValue
+        useDecimals={useDecimals}
         shadow
         value={value}
         size={isBig ? 'xxLarge' : 'xLarge'}
@@ -58,6 +60,7 @@ const Row = ({ symbol, value, usdValue, isFirst, isBig }) => (
 )
 
 Row.propTypes = {
+  useDecimals: PropTypes.bool,
   usdValue: PropTypes.string,
   isFirst: PropTypes.bool,
   symbol: PropTypes.string.isRequired,
