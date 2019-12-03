@@ -15,6 +15,8 @@ import RN from 'react-native'
 export const wrapConnectedComponent = Comp => {
   const Wrapper = props => <Comp {...props} />
   Wrapper.displayName = `wrappedComponent(${Comp.displayName || Comp.name})`
+  // Forward static navigation options
+  Wrapper.navigationOptions = Comp.navigationOptions
   return Wrapper
 }
 
