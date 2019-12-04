@@ -15,6 +15,8 @@ export default class Selector extends React.Component {
     onChange: PropTypes.func.isRequired,
     options: PropTypes.arrayOf(
       PropTypes.shape({
+        disabledReason: PropTypes.string,
+        address: PropTypes.string,
         value: PropTypes.string.isRequired,
         label: PropTypes.string.isRequired
       })
@@ -28,8 +30,27 @@ export default class Selector extends React.Component {
     id: PropTypes.string.isRequired
   }
 
-  onChange = e => {
-    this.props.onChange({ id: this.props.id, value: e.target.value })
+  state = { isOpen: false }
+
+  toggleDropdown = () => {
+    RN.LayoutAnimation.configureNext({
+      duration: 200,
+      create: {
+        type: RN.LayoutAnimation.Types.easeIn,
+        property: RN.LayoutAnimation.Properties.opacity
+      },
+      delete: {
+        type: RN.LayoutAnimation.Types.easeIn,
+        property: RN.LayoutAnimation.Properties.opacity
+      }
+    })
+    this.setState(s => ({ ...s, isOpen: !s.isOpen }))
+  }
+
+  onOptionSelect = value => {
+    this.setState({ isOpen: false }, () =>
+      this.props.onChange({ id: this.props.id, value })
+    )
   }
 
   render() {
@@ -47,18 +68,52 @@ export default class Selector extends React.Component {
             {this.props.label}
           </Text>
         </View>
-        <View
-          justify="space-between"
-          style={styles.field}
-          align="center"
-          row
-          bg="translucentPrimary"
-          px={2}
+        <RN.TouchableOpacity
+          activeOpacity={0.9}
+          disabled={this.props.disabled}
+          onPress={this.toggleDropdown}
         >
-          <Text size="medium">{activeItem ? activeItem.label : ''}</Text>
-          <View opacity={this.props.disabled ? 0.25 : 1}>
-            <SelectorCaret />
+          <View
+            justify="space-between"
+            style={styles.field}
+            align="center"
+            row
+            bg="translucentPrimary"
+            px={2}
+          >
+            <Text size="medium">{activeItem ? activeItem.label : ''}</Text>
+            <View opacity={this.props.disabled ? 0.25 : 1}>
+              <SelectorCaret />
+            </View>
           </View>
+        </RN.TouchableOpacity>
+        <View style={styles.dropdownContainer} align="stretch">
+          {this.state.isOpen && (
+            <View style={styles.dropdown} py={0.5}>
+              {this.props.options.map(i => (
+                <RN.TouchableOpacity
+                  activeOpacity={0.75}
+                  disabled={Boolean(i.disabledReason)}
+                  onPress={() => this.onOptionSelect(i.value)}
+                  key={i.value}
+                >
+                  <View justify="space-between" align="baseline" row p={2}>
+                    <Text
+                      opacity={i.disabledReason ? 0.4 : 1}
+                      weight="semibold"
+                      color={this.props.value === i.value ? 'primary' : 'copy'}
+                      size="medium"
+                    >
+                      {i.label}
+                    </Text>
+                    {i.disabledReason && (
+                      <Text color="danger">{i.disabledReason}</Text>
+                    )}
+                  </View>
+                </RN.TouchableOpacity>
+              ))}
+            </View>
+          )}
         </View>
         <Errors hasErrors={hasErrors} message={this.props.error} />
       </RN.View>
@@ -68,7 +123,8 @@ export default class Selector extends React.Component {
 
 const styles = RN.StyleSheet.create({
   container: {
-    width: '100%'
+    width: '100%',
+    zIndex: 1
   },
   topMargin: {
     marginTop: theme.spacing(2)
@@ -79,5 +135,16 @@ const styles = RN.StyleSheet.create({
   },
   field: {
     minHeight: 56
+  },
+  dropdownContainer: {
+    backgroundColor: theme.colors.danger,
+    position: 'relative'
+  },
+  dropdown: {
+    backgroundColor: theme.colors.light,
+    position: 'absolute',
+    zIndex: 2,
+    right: 0,
+    left: 0
   }
 })

@@ -18,6 +18,8 @@ class PortDrawer extends React.Component {
   static propTypes = {
     availableDestinations: PropTypes.arrayOf(
       PropTypes.shape({
+        disabledReason: PropTypes.string,
+        address: PropTypes.string.isRequired,
         label: PropTypes.string.isRequired,
         value: PropTypes.string.isRequired
       })
@@ -77,7 +79,6 @@ class PortDrawer extends React.Component {
 
           <Selector
             topMargin
-            disabled={this.props.availableDestinations.length < 2}
             onChange={this.props.onInputChange}
             options={this.props.availableDestinations}
             error={this.props.errors.destination}
