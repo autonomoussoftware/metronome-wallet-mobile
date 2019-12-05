@@ -1,10 +1,12 @@
 import { Provider as ClientProvider } from 'metronome-wallet-ui-logic/src/hocs/clientContext'
 import { Provider, createStore } from 'metronome-wallet-ui-logic/src/store'
+import ConnectionNotifier from 'metronome-wallet-ui-logic/src/components/ConnectionNotifier'
 import SplashScreen from 'react-native-splash-screen'
 import React from 'react'
 import Root from 'metronome-wallet-ui-logic/src/components/Root'
 import RN from 'react-native'
 
+import ToastsProvider from './components/toasts/ToastsProvider'
 import createClient from './client'
 import Onboarding from './components/onboarding/Onboarding'
 import Loading from './components/Loading'
@@ -36,12 +38,15 @@ class App extends React.Component {
       <ClientProvider value={client}>
         <RN.StatusBar barStyle="light-content" />
         <Provider store={client.store}>
-          <Root
-            OnboardingComponent={Onboarding}
-            LoadingComponent={Loading}
-            RouterComponent={Router}
-            LoginComponent={Login}
-          />
+          <ToastsProvider>
+            <Root
+              OnboardingComponent={Onboarding}
+              LoadingComponent={Loading}
+              RouterComponent={Router}
+              LoginComponent={Login}
+            />
+            <ConnectionNotifier />
+          </ToastsProvider>
         </Provider>
       </ClientProvider>
     )
