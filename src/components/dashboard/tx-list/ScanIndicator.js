@@ -4,35 +4,7 @@ import theme from 'metronome-wallet-ui-logic/src/theme'
 import React from 'react'
 import RN from 'react-native'
 
-import { Spinner, View, Text } from '../../common'
-
-const Light = ({ backgroundColor }) => (
-  <View style={[styles.light, { backgroundColor }]} />
-)
-
-Light.propTypes = {
-  backgroundColor: PropTypes.string.isRequired
-}
-
-const GreenLight = ({ isOnline }) => (
-  <Light
-    backgroundColor={isOnline ? theme.colors.success : theme.colors.darkSuccess}
-  />
-)
-
-GreenLight.propTypes = {
-  isOnline: PropTypes.bool.isRequired
-}
-
-const RedLight = ({ isOnline }) => (
-  <Light
-    backgroundColor={isOnline ? theme.colors.danger : theme.colors.darkDanger}
-  />
-)
-
-RedLight.propTypes = {
-  isOnline: PropTypes.bool.isRequired
-}
+import { IndicatorLed, Spinner, View, Text } from '../../common'
 
 class ScanIndicator extends React.Component {
   static propTypes = {
@@ -61,10 +33,18 @@ class ScanIndicator extends React.Component {
             }
             size={14}
           />
-        ) : this.props.syncStatus === 'failed' ? (
-          <RedLight isOnline={this.props.isOnline} />
         ) : (
-          <GreenLight isOnline={this.props.isOnline} />
+          <IndicatorLed
+            color={
+              this.props.syncStatus === 'failed'
+                ? this.props.isOnline
+                  ? 'danger'
+                  : 'darkDanger'
+                : this.props.isOnline
+                ? 'success'
+                : 'darkSuccess'
+            }
+          />
         )}
         <Text
           weight="semibold"
@@ -87,14 +67,6 @@ const styles = RN.StyleSheet.create({
   },
   label: {
     fontSize: 12
-  },
-  light: {
-    borderRadius: 10,
-    borderColor: theme.colors.light,
-    borderWidth: 1,
-    marginLeft: 3,
-    height: 10,
-    width: 10
   }
 })
 

@@ -5,6 +5,7 @@ import React from 'react'
 import RN from 'react-native'
 
 import { MnemonicInput, MenuBtn, View, Text, Btn } from '../common'
+import WalletStatus from './WalletStatus'
 
 class Tools extends React.Component {
   static propTypes = {
@@ -82,6 +83,13 @@ class Tools extends React.Component {
           block
           mt={3}
         />
+
+        <View bg="light" pt={0.1} my={4} opacity={0.5} />
+
+        <Text size="large" weight="bold" mb={2}>
+          Wallet Information
+        </Text>
+        <WalletStatus />
       </View>
     )
   }

@@ -101,7 +101,7 @@ class Drawer extends React.Component {
                 label="Help"
               />
             </View>
-            <View row align="flex-end" justify="space-between" mx={2} mb={2}>
+            <View row align="flex-end" justify="space-between" m={2}>
               <WipeStorage>
                 <LogoIcon negative />
               </WipeStorage>
