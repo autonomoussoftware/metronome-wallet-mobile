@@ -2,6 +2,7 @@ import { Sentry, SentryLog } from 'react-native-sentry'
 import createCore from 'metronome-wallet-core'
 import { debounce } from 'lodash'
 import * as Keychain from 'react-native-keychain'
+import NetInfo from '@react-native-community/netinfo'
 
 import * as storage from './storage'
 import * as auth from './auth'
@@ -137,8 +138,18 @@ const createClient = (config, createStore) => {
         console.warn('Failed setting up store and dispatching events', err)
       })
 
+  let unsubscribeNetInfo
+
   const onInit = () => {
     tracker.trackEvent('App', 'App initiated')
+
+    unsubscribeNetInfo = NetInfo.addEventListener(({ isConnected }) =>
+      store.dispatch({
+        type: 'connectivity-state-changed',
+        payload: { ok: isConnected }
+      })
+    )
+
     return sanitizeStorage().then(() =>
       auth
         .getHashedPIN()
@@ -171,7 +182,13 @@ const createClient = (config, createStore) => {
     )
   }
 
-  return { ...api, onInit, store }
+  const onStop = () => {
+    if (typeof unsubscribeNetInfo === 'function') {
+      unsubscribeNetInfo()
+    }
+  }
+
+  return { ...api, onInit, onStop, store }
 }
 
 export default createClient
