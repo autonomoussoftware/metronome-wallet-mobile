@@ -1,5 +1,7 @@
-import { getSeed, setSeed } from '../wallet'
+import pTimeout from 'p-timeout'
+
 import { withAuth, getWalletId } from './utils'
+import { getSeed, setSeed } from '../wallet'
 import { withAnalytics } from '../analytics'
 import config from '../../config'
 
@@ -23,8 +25,10 @@ const openWallet = ({ coreApi, emitter }) => {
 
 const refreshAllTransactions = ({ address }, { coreApi, emitter }) => {
   emitter.emit('transactions-scan-started', {})
-  return coreApi.transactionsSyncer
-    .refreshAllTransactions(address)
+  return pTimeout(
+    coreApi.transactionsSyncer.refreshAllTransactions(address),
+    config.scanTransactionTimeout
+  )
     .then(() => {
       emitter.emit('transactions-scan-finished', { success: true })
       return {}
@@ -36,13 +40,18 @@ const refreshAllTransactions = ({ address }, { coreApi, emitter }) => {
         error: error.message,
         success: false
       })
+      emitter.once('coin-block', () =>
+        refreshAllTransactions({ address }, { coreApi, emitter })
+      )
       return {}
     })
 }
 
 const refreshTransaction = ({ hash, address }, { coreApi }) =>
-  coreApi.transactionsSyncer
-    .refreshTransaction(hash, address)
+  pTimeout(
+    coreApi.transactionsSyncer.refreshTransaction(hash, address),
+    config.scanTransactionTimeout
+  )
     .then(() => ({ success: true }))
     .catch(error => ({ error, success: false }))
 
