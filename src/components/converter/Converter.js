@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import RN from 'react-native'
 
-import { MenuBtn, Text, View, Btn } from '../common'
+import { LastUpdated, MenuBtn, Text, View, Btn } from '../common'
 import Stats from './Stats'
 
 class Converter extends React.Component {
@@ -12,6 +12,7 @@ class Converter extends React.Component {
     converterPriceUSD: PropTypes.string.isRequired,
     convertDisabled: PropTypes.bool.isRequired,
     converterStatus: PropTypes.object,
+    lastUpdated: PropTypes.number,
     coinSymbol: PropTypes.string.isRequired,
     navigation: PropTypes.shape({
       navigate: PropTypes.func.isRequired
@@ -24,6 +25,7 @@ class Converter extends React.Component {
       converterPriceUSD,
       converterStatus,
       convertDisabled,
+      lastUpdated,
       coinSymbol,
       navigation
     } = this.props
@@ -32,11 +34,16 @@ class Converter extends React.Component {
       <View bg="dark" flex={1} px={2} py={4} justify="space-between">
         {converterStatus ? (
           <React.Fragment>
-            <Stats
-              converterPriceUSD={converterPriceUSD}
-              converterStatus={converterStatus}
-              coinSymbol={coinSymbol}
-            />
+            <View grow={1}>
+              <Stats
+                converterPriceUSD={converterPriceUSD}
+                converterStatus={converterStatus}
+                coinSymbol={coinSymbol}
+              />
+              <View mt={2}>
+                <LastUpdated timestamp={lastUpdated} />
+              </View>
+            </View>
             <View>
               {convertDisabledReason && (
                 <Text opacity={0.8} align="center" size="small" my={2}>

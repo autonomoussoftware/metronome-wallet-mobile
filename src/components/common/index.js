@@ -5,6 +5,7 @@ import AmountFields from './AmountFields'
 import DisplayValue from './DisplayValue'
 import IndicatorLed from './IndicatorLed'
 import PatternView from './PatternView'
+import LastUpdated from './LastUpdated'
 import TextInput from './TextInput'
 import GasEditor from './GasEditor'
 import PinInput from './PinInput'
@@ -26,6 +27,7 @@ export {
   DisplayValue,
   IndicatorLed,
   PatternView,
+  LastUpdated,
   TextInput,
   GasEditor,
   PinInput,

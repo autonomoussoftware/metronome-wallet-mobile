@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import RN from 'react-native'
 
-import { MenuBtn, Text, View, Btn } from '../common'
+import { LastUpdated, MenuBtn, Text, View, Btn } from '../common'
 import CountDown from './CountDown'
 import Stats from './Stats'
 
@@ -14,6 +14,7 @@ const Auction = props => {
     auctionPriceUSD,
     auctionStatus,
     buyDisabled,
+    lastUpdated,
     navigation,
     title
   } = props
@@ -32,6 +33,9 @@ const Auction = props => {
                 auctionPriceUSD={auctionPriceUSD}
                 auctionStatus={auctionStatus}
               />
+            </View>
+            <View mt={2}>
+              <LastUpdated timestamp={lastUpdated} />
             </View>
           </View>
           <View mt={2}>
@@ -72,6 +76,7 @@ Auction.propTypes = {
     genesisTime: PropTypes.number.isRequired
   }),
   buyDisabled: PropTypes.bool.isRequired,
+  lastUpdated: PropTypes.number,
   navigation: PropTypes.shape({
     navigate: PropTypes.func.isRequired
   }).isRequired,
