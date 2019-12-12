@@ -4,5 +4,8 @@
     <domain includeSubdomains="false">localhost</domain>
     <domain includeSubdomains="false">10.0.2.2</domain>
     <domain includeSubdomains="false">10.0.3.2</domain>
+
+    <!-- Allow connecting via HTTP to test env Qtum node -->
+    <domain includeSubdomains="false">3.232.126.136</domain>
   </domain-config>
 </network-security-config>
