@@ -59,8 +59,8 @@ class Drawer extends React.Component {
             <View mb={5} mr={2} mt={4} align="flex-end">
               <Logo />
             </View>
-            <View grow={1}>
-              <ChainSelector isDrawerOpen={isDrawerOpen} />
+            <ChainSelector isDrawerOpen={isDrawerOpen} />
+            <View flex={1}>
               <NavBtn
                 IconComponent={WalletIcon}
                 isActive={isFocused('Dashboard')}
@@ -89,7 +89,7 @@ class Drawer extends React.Component {
                 />
               )}
             </View>
-            <View>
+            <View grow={1} justify="flex-end">
               <SecondaryNavBtn
                 isActive={isFocused('Tools')}
                 onPress={() => this.navigateTo('Tools')}
@@ -100,12 +100,13 @@ class Drawer extends React.Component {
                 onPress={this.props.client.onHelpLinkClick}
                 label="Help"
               />
-            </View>
-            <View row align="flex-end" justify="space-between" m={2}>
-              <WipeStorage>
-                <LogoIcon negative />
-              </WipeStorage>
-              <AppMeta />
+
+              <View row align="flex-end" justify="space-between" m={2}>
+                <WipeStorage>
+                  <LogoIcon negative />
+                </WipeStorage>
+                <AppMeta />
+              </View>
             </View>
           </View>
         </SafeAreaView>
@@ -116,7 +117,7 @@ class Drawer extends React.Component {
 
 const styles = StyleSheet.create({
   safeArea: { flex: 1 },
-  scroller: { minHeight: '100%' }
+  scroller: { flex: 1 }
 })
 
 const mapStateToProps = state => ({
