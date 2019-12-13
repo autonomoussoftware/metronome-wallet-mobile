@@ -123,8 +123,7 @@ export default class Selector extends React.Component {
 
 const styles = RN.StyleSheet.create({
   container: {
-    width: '100%',
-    zIndex: 1
+    width: '100%'
   },
   topMargin: {
     marginTop: theme.spacing(2)
@@ -137,13 +136,13 @@ const styles = RN.StyleSheet.create({
     minHeight: 56
   },
   dropdownContainer: {
-    backgroundColor: theme.colors.danger,
     position: 'relative'
   },
   dropdown: {
+    elevation: 3,
     backgroundColor: theme.colors.light,
     position: 'absolute',
-    zIndex: 2,
+    zIndex: 1,
     right: 0,
     left: 0
   }

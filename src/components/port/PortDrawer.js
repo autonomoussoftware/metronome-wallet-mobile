@@ -98,7 +98,6 @@ class PortDrawer extends React.Component {
                 size="xSmall"
               />
             }
-            autoFocus
             onChange={this.props.onInputChange}
             error={this.props.errors.metAmount}
             label="Amount (MET)"
