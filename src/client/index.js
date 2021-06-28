@@ -38,9 +38,8 @@ const startCore = ({ chain, core, config: coreConfig }, store) => {
       .getSyncBlock(chain)
       .then(from => {
         emitter.emit('transactions-scan-started')
-        return coreApi.explorer.syncTransactions(from, address)
+        return coreApi.explorer.syncTransactions(from, address, number => storage.setSyncBlock(number, chain))
       })
-      .then(number => storage.setSyncBlock(number, chain))
       .then(() => {
         emitter.emit('transactions-scan-finished', { success: true })
         emitter.on('coin-block', function({ number }) {
