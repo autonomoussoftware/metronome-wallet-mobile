@@ -13,6 +13,12 @@ npm install
 npm run ios
 ```
 
+make xcode works https://stackoverflow.com/a/66216765/1437934
+TODO  run script for first time compilation
+https://github.com/facebook/react-native/issues/20774#issuecomment-475521787
+npx react-native link https://reactnative.dev/docs/linking-libraries-ios
+TODO reinstall geolocation module https://github.com/react-native-geolocation/react-native-geolocation#migrating-from-the-core-react-native-module
+
 Android simulator is also available:
 
 ```shell

@@ -1,0 +1,279 @@
+PODS:
+  - boost-for-react-native (1.63.0)
+  - DoubleConversion (1.1.6)
+  - Folly (2018.10.22.00):
+    - boost-for-react-native
+    - DoubleConversion
+    - Folly/Default (= 2018.10.22.00)
+    - glog
+  - Folly/Default (2018.10.22.00):
+    - boost-for-react-native
+    - DoubleConversion
+    - glog
+  - glog (0.3.5)
+  - RCTRestart (0.0.7):
+    - React
+  - React (0.60.0):
+    - React-Core (= 0.60.0)
+    - React-DevSupport (= 0.60.0)
+    - React-RCTActionSheet (= 0.60.0)
+    - React-RCTAnimation (= 0.60.0)
+    - React-RCTBlob (= 0.60.0)
+    - React-RCTImage (= 0.60.0)
+    - React-RCTLinking (= 0.60.0)
+    - React-RCTNetwork (= 0.60.0)
+    - React-RCTSettings (= 0.60.0)
+    - React-RCTText (= 0.60.0)
+    - React-RCTVibration (= 0.60.0)
+    - React-RCTWebSocket (= 0.60.0)
+  - React-ART (0.60.0):
+    - React-Core (= 0.60.0)
+  - React-Core (0.60.0):
+    - Folly (= 2018.10.22.00)
+    - React-cxxreact (= 0.60.0)
+    - React-jsiexecutor (= 0.60.0)
+    - yoga (= 0.60.0.React)
+  - React-cxxreact (0.60.0):
+    - boost-for-react-native (= 1.63.0)
+    - DoubleConversion
+    - Folly (= 2018.10.22.00)
+    - glog
+    - React-jsinspector (= 0.60.0)
+  - React-DevSupport (0.60.0):
+    - React-Core (= 0.60.0)
+    - React-RCTWebSocket (= 0.60.0)
+  - React-fishhook (0.60.0)
+  - React-jsi (0.60.0):
+    - boost-for-react-native (= 1.63.0)
+    - DoubleConversion
+    - Folly (= 2018.10.22.00)
+    - glog
+    - React-jsi/Default (= 0.60.0)
+  - React-jsi/Default (0.60.0):
+    - boost-for-react-native (= 1.63.0)
+    - DoubleConversion
+    - Folly (= 2018.10.22.00)
+    - glog
+  - React-jsiexecutor (0.60.0):
+    - DoubleConversion
+    - Folly (= 2018.10.22.00)
+    - glog
+    - React-cxxreact (= 0.60.0)
+    - React-jsi (= 0.60.0)
+  - React-jsinspector (0.60.0)
+  - react-native-camera (3.44.2):
+    - React-Core
+    - react-native-camera/RCT (= 3.44.2)
+    - react-native-camera/RN (= 3.44.2)
+  - react-native-camera/RCT (3.44.2):
+    - React-Core
+  - react-native-camera/RN (3.44.2):
+    - React-Core
+  - react-native-config (0.11.7):
+    - React
+  - react-native-google-analytics-bridge (6.1.0):
+    - react-native-google-analytics-bridge/Core (= 6.1.0)
+  - react-native-google-analytics-bridge/Core (6.1.0):
+    - React
+  - react-native-randombytes (3.5.0):
+    - React
+  - react-native-splash-screen (3.1.1):
+    - React
+  - react-native-version-number (0.3.6):
+    - React
+  - React-RCTActionSheet (0.60.0):
+    - React-Core (= 0.60.0)
+  - React-RCTAnimation (0.60.0):
+    - React-Core (= 0.60.0)
+  - React-RCTBlob (0.60.0):
+    - React-Core (= 0.60.0)
+    - React-RCTNetwork (= 0.60.0)
+    - React-RCTWebSocket (= 0.60.0)
+  - React-RCTImage (0.60.0):
+    - React-Core (= 0.60.0)
+    - React-RCTNetwork (= 0.60.0)
+  - React-RCTLinking (0.60.0):
+    - React-Core (= 0.60.0)
+  - React-RCTNetwork (0.60.0):
+    - React-Core (= 0.60.0)
+  - React-RCTSettings (0.60.0):
+    - React-Core (= 0.60.0)
+  - React-RCTText (0.60.0):
+    - React-Core (= 0.60.0)
+  - React-RCTVibration (0.60.0):
+    - React-Core (= 0.60.0)
+  - React-RCTWebSocket (0.60.0):
+    - React-Core (= 0.60.0)
+    - React-fishhook (= 0.60.0)
+  - ReactNativePermissions (1.1.1):
+    - React
+  - RNCAsyncStorage (1.6.2):
+    - React
+  - RNKeychain (3.0.0):
+    - React
+  - RNSVG (6.5.3):
+    - React
+  - Sentry (4.1.3):
+    - Sentry/Core (= 4.1.3)
+  - Sentry/Core (4.1.3)
+  - SentryReactNative (0.43.2):
+    - React
+    - Sentry (~> 4.1.3)
+  - yoga (0.60.0.React)
+
+DEPENDENCIES:
+  - DoubleConversion (from `../node_modules/react-native/third-party-podspecs/DoubleConversion.podspec`)
+  - Folly (from `../node_modules/react-native/third-party-podspecs/Folly.podspec`)
+  - glog (from `../node_modules/react-native/third-party-podspecs/glog.podspec`)
+  - RCTRestart (from `../node_modules/react-native-restart/ios`)
+  - React (from `../node_modules/react-native/`)
+  - React-ART (from `../node_modules/react-native/Libraries/ART`)
+  - React-Core (from `../node_modules/react-native/React`)
+  - React-cxxreact (from `../node_modules/react-native/ReactCommon/cxxreact`)
+  - React-DevSupport (from `../node_modules/react-native/React`)
+  - React-fishhook (from `../node_modules/react-native/Libraries/fishhook`)
+  - React-jsi (from `../node_modules/react-native/ReactCommon/jsi`)
+  - React-jsiexecutor (from `../node_modules/react-native/ReactCommon/jsiexecutor`)
+  - React-jsinspector (from `../node_modules/react-native/ReactCommon/jsinspector`)
+  - react-native-camera (from `../node_modules/react-native-camera`)
+  - react-native-config (from `../node_modules/react-native-config`)
+  - react-native-google-analytics-bridge (from `../node_modules/react-native-google-analytics-bridge`)
+  - react-native-randombytes (from `../node_modules/react-native-randombytes`)
+  - react-native-splash-screen (from `../node_modules/react-native-splash-screen`)
+  - react-native-version-number (from `../node_modules/react-native-version-number`)
+  - React-RCTActionSheet (from `../node_modules/react-native/Libraries/ActionSheetIOS`)
+  - React-RCTAnimation (from `../node_modules/react-native/Libraries/NativeAnimation`)
+  - React-RCTBlob (from `../node_modules/react-native/Libraries/Blob`)
+  - React-RCTImage (from `../node_modules/react-native/Libraries/Image`)
+  - React-RCTLinking (from `../node_modules/react-native/Libraries/LinkingIOS`)
+  - React-RCTNetwork (from `../node_modules/react-native/Libraries/Network`)
+  - React-RCTSettings (from `../node_modules/react-native/Libraries/Settings`)
+  - React-RCTText (from `../node_modules/react-native/Libraries/Text`)
+  - React-RCTVibration (from `../node_modules/react-native/Libraries/Vibration`)
+  - React-RCTWebSocket (from `../node_modules/react-native/Libraries/WebSocket`)
+  - ReactNativePermissions (from `../node_modules/react-native-permissions`)
+  - "RNCAsyncStorage (from `../node_modules/@react-native-community/async-storage`)"
+  - RNKeychain (from `../node_modules/react-native-keychain`)
+  - RNSVG (from `../node_modules/react-native-svg`)
+  - SentryReactNative (from `../node_modules/react-native-sentry`)
+  - yoga (from `../node_modules/react-native/ReactCommon/yoga`)
+
+SPEC REPOS:
+  trunk:
+    - boost-for-react-native
+    - Sentry
+
+EXTERNAL SOURCES:
+  DoubleConversion:
+    :podspec: "../node_modules/react-native/third-party-podspecs/DoubleConversion.podspec"
+  Folly:
+    :podspec: "../node_modules/react-native/third-party-podspecs/Folly.podspec"
+  glog:
+    :podspec: "../node_modules/react-native/third-party-podspecs/glog.podspec"
+  RCTRestart:
+    :path: "../node_modules/react-native-restart/ios"
+  React:
+    :path: "../node_modules/react-native/"
+  React-ART:
+    :path: "../node_modules/react-native/Libraries/ART"
+  React-Core:
+    :path: "../node_modules/react-native/React"
+  React-cxxreact:
+    :path: "../node_modules/react-native/ReactCommon/cxxreact"
+  React-DevSupport:
+    :path: "../node_modules/react-native/React"
+  React-fishhook:
+    :path: "../node_modules/react-native/Libraries/fishhook"
+  React-jsi:
+    :path: "../node_modules/react-native/ReactCommon/jsi"
+  React-jsiexecutor:
+    :path: "../node_modules/react-native/ReactCommon/jsiexecutor"
+  React-jsinspector:
+    :path: "../node_modules/react-native/ReactCommon/jsinspector"
+  react-native-camera:
+    :path: "../node_modules/react-native-camera"
+  react-native-config:
+    :path: "../node_modules/react-native-config"
+  react-native-google-analytics-bridge:
+    :path: "../node_modules/react-native-google-analytics-bridge"
+  react-native-randombytes:
+    :path: "../node_modules/react-native-randombytes"
+  react-native-splash-screen:
+    :path: "../node_modules/react-native-splash-screen"
+  react-native-version-number:
+    :podspec: "../node_modules/react-native-version-number"
+  React-RCTActionSheet:
+    :path: "../node_modules/react-native/Libraries/ActionSheetIOS"
+  React-RCTAnimation:
+    :path: "../node_modules/react-native/Libraries/NativeAnimation"
+  React-RCTBlob:
+    :path: "../node_modules/react-native/Libraries/Blob"
+  React-RCTImage:
+    :path: "../node_modules/react-native/Libraries/Image"
+  React-RCTLinking:
+    :path: "../node_modules/react-native/Libraries/LinkingIOS"
+  React-RCTNetwork:
+    :path: "../node_modules/react-native/Libraries/Network"
+  React-RCTSettings:
+    :path: "../node_modules/react-native/Libraries/Settings"
+  React-RCTText:
+    :path: "../node_modules/react-native/Libraries/Text"
+  React-RCTVibration:
+    :path: "../node_modules/react-native/Libraries/Vibration"
+  React-RCTWebSocket:
+    :path: "../node_modules/react-native/Libraries/WebSocket"
+  ReactNativePermissions:
+    :path: "../node_modules/react-native-permissions"
+  RNCAsyncStorage:
+    :path: "../node_modules/@react-native-community/async-storage"
+  RNKeychain:
+    :path: "../node_modules/react-native-keychain"
+  RNSVG:
+    :path: "../node_modules/react-native-svg"
+  SentryReactNative:
+    :path: "../node_modules/react-native-sentry"
+  yoga:
+    :path: "../node_modules/react-native/ReactCommon/yoga"
+
+SPEC CHECKSUMS:
+  boost-for-react-native: 39c7adb57c4e60d6c5479dd8623128eb5b3f0f2c
+  DoubleConversion: 5805e889d232975c086db112ece9ed034df7a0b2
+  Folly: 30e7936e1c45c08d884aa59369ed951a8e68cf51
+  glog: 1f3da668190260b06b429bb211bfbee5cd790c28
+  RCTRestart: 2b6ee1cf74f7176262f2214427809407ea3729ce
+  React: 4b3c068e793e96672dcd186a2b572fac43e4b031
+  React-ART: e1929bca49c7c30161aee54e7619a096477f7b23
+  React-Core: 3dc86b22920597f813c62a96db3165950b64826b
+  React-cxxreact: 0dacb291e59b81e7c3f22a2118bee853ba8a60d2
+  React-DevSupport: 4eb4135386acd10c2586cc9c759bf96b4dac035e
+  React-fishhook: 86ca737527bb9d860efbb943c11c729a5b69aa3d
+  React-jsi: 8e128c4d0d8febc2977ef617d1c09bb54326069c
+  React-jsiexecutor: 7a3554f703a58963ec80b860144ea0f0e9b910e1
+  React-jsinspector: d4ed52225912efe0019bb7f1a225aec20f23049a
+  react-native-camera: dc4d482638c1bbd57ee96ed84c626e17dafbcf44
+  react-native-config: 55548054279d92e0e4566ea15a8b9b81028ec342
+  react-native-google-analytics-bridge: 81f34cb52cb81ee82435a4282cfb8154a271c5a2
+  react-native-randombytes: 4380cbf345de0878af82ca298ad3e75be26b0cd3
+  react-native-splash-screen: 353334c5ae82d8c74501ea7cbb916cb7cb20c8bf
+  react-native-version-number: 0f3b351233c82ec805250c191ed762d7421bc0b6
+  React-RCTActionSheet: b27ff3cf3a68f917c46d2b94abf938b625b96570
+  React-RCTAnimation: 9e4708e5bd65fca8285ce7c0aa076f3f4fa5c2f8
+  React-RCTBlob: 6eafcc3a24f33785692a7be24918ade607bc8719
+  React-RCTImage: 46b965d7225b428ea11580ead08a4318aef1d6be
+  React-RCTLinking: d65b9f56cf0b8e171575a86764df7bb019ac28d6
+  React-RCTNetwork: 783ee2f430740e58f724e46adc79fe7feff64202
+  React-RCTSettings: aa28315aadfbfaf94206d865673ae509f1e97c07
+  React-RCTText: 685fca2e13b024271048e7e247ef24476f28a41e
+  React-RCTVibration: 4ee1cf208ab17a50fafb1c16ffe28fe594a64e4f
+  React-RCTWebSocket: fca087d583724aa0e5fef7d911f0f2a28d0f2736
+  ReactNativePermissions: 2e324bb3baf12702e3ec27f76c8ae1158fa69fc6
+  RNCAsyncStorage: 5ae4d57458804e99f73d427214442a6b10a53856
+  RNKeychain: 3aa3cf891a09a0d18d306862ab2bb9e106079b24
+  RNSVG: 4501a5e968f1eb962f5481b0da53dfb59260e9b6
+  Sentry: 4e8a17b61ddd116f89536cc81d567fdee1ebca96
+  SentryReactNative: 07237139c00366ea2e75ae3e5c566e7a71c27a90
+  yoga: 616fde658be980aa60a2158835170f3f9c2d04b4
+
+PODFILE CHECKSUM: 048e0549ee890d9f49ee8bcecf856f027dee4e2e
+
+COCOAPODS: 1.10.1

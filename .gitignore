@@ -70,3 +70,6 @@ sentry.properties
 
 # Android signing key
 MetronomeWalletSigningKey.json
+
+# CocoaPods
+/ios/Pods/
