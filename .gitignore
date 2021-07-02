@@ -22,7 +22,7 @@ DerivedData
 *.dSYM.zip
 *.dSYM
 *.xcuserstate
-project.xcworkspace
+xcshareddata
 
 # Android/IntelliJ
 #
@@ -42,6 +42,7 @@ yarn-error.log
 buck-out/
 \.buckd/
 *.keystore
+!debug.keystore
 
 ## Obj-C/Swift specific
 *.dSYM.zip
