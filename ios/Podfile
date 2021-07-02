@@ -18,17 +18,7 @@ target 'MetronomeWallet' do
   pod 'React-RCTText', :path => '../node_modules/react-native/Libraries/Text'
   pod 'React-RCTVibration', :path => '../node_modules/react-native/Libraries/Vibration'
   pod 'React-RCTWebSocket', :path => '../node_modules/react-native/Libraries/WebSocket'
-  pod 'SentryReactNative', :path => '../node_modules/react-native-sentry'
-  pod 'react-native-randombytes', :path => '../node_modules/react-native-randombytes'
-  pod 'RNCAsyncStorage', :path => '../node_modules/@react-native-community/async-storage'
-  pod 'RNKeychain', :path => '../node_modules/react-native-keychain'
-  pod 'RCTRestart', :path => '../node_modules/react-native-restart/ios'
-  pod 'react-native-splash-screen', :path => '../node_modules/react-native-splash-screen'
-  pod 'RNSVG', :path => '../node_modules/react-native-svg'
   pod 'ReactNativePermissions', :path => '../node_modules/react-native-permissions'
-  pod 'react-native-google-analytics-bridge', :path => '../node_modules/react-native-google-analytics-bridge'
-  pod 'react-native-camera', :path => '../node_modules/react-native-camera'
-  pod 'react-native-config', :path => '../node_modules/react-native-config'
 
   pod 'React-cxxreact', :path => '../node_modules/react-native/ReactCommon/cxxreact'
   pod 'React-jsi', :path => '../node_modules/react-native/ReactCommon/jsi'
@@ -39,7 +29,6 @@ target 'MetronomeWallet' do
   pod 'DoubleConversion', :podspec => '../node_modules/react-native/third-party-podspecs/DoubleConversion.podspec'
   pod 'glog', :podspec => '../node_modules/react-native/third-party-podspecs/glog.podspec'
   pod 'Folly', :podspec => '../node_modules/react-native/third-party-podspecs/Folly.podspec'
-  pod 'react-native-version-number', :podspec => '../node_modules/react-native-version-number'
   
   target 'MetronomeWalletTests' do
     inherit! :search_paths
