@@ -22,7 +22,6 @@ DerivedData
 *.dSYM.zip
 *.dSYM
 *.xcuserstate
-xcshareddata
 
 # Android/IntelliJ
 #
