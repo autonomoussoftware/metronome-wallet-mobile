@@ -10,7 +10,6 @@
 		00E356F31AD99517003FC87E /* MetronomeWalletTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* MetronomeWalletTests.m */; };
 		0C59DDA5B2FF41619CA3B794 /* libRNVersionNumber-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B0E37FF20C504053BC7AD075 /* libRNVersionNumber-tvOS.a */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
-		13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB11A68108700A75B9A /* LaunchScreen.xib */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		20EDEF9721404E95895EAD0C /* libRCTGoogleAnalyticsBridge.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 39CE92B26CD04010A4990D3A /* libRCTGoogleAnalyticsBridge.a */; };
@@ -49,6 +48,8 @@
 		D8602807D6864220A378E42E /* libReactNativePermissions.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AA9E64E68BF64D57AC9BCBED /* libReactNativePermissions.a */; };
 		D952597F8E62455AAE0BCB46 /* Muli-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 491F23FF9EAD46ADAADE261F /* Muli-Regular.ttf */; };
 		DBD029BC44CACB99059E41B3 /* libPods-MetronomeWallet-MetronomeWalletTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 725F187855110FE0642886FE /* libPods-MetronomeWallet-MetronomeWalletTests.a */; };
+		EAFEE9A82693909600C1F3EC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EAFEE9A62693909600C1F3EC /* LaunchScreen.storyboard */; };
+		EAFEE9A92693909600C1F3EC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EAFEE9A62693909600C1F3EC /* LaunchScreen.storyboard */; };
 		F46FB9B6839C4DC68929E515 /* libRCTRestart.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CF025B5F391E4FEB8EBD4B38 /* libRCTRestart.a */; };
 /* End PBXBuildFile section */
 
@@ -80,7 +81,6 @@
 		13B07F961A680F5B00A75B9A /* MetronomeWallet.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MetronomeWallet.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = MetronomeWallet/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = MetronomeWallet/AppDelegate.m; sourceTree = "<group>"; };
-		13B07FB21A68108700A75B9A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = MetronomeWallet/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = MetronomeWallet/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = MetronomeWallet/main.m; sourceTree = "<group>"; };
@@ -123,6 +123,7 @@
 		E481A76E2F734E8FA8995FF6 /* libRNCAsyncStorage.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNCAsyncStorage.a; sourceTree = "<group>"; };
 		EAFEE99726937F1E00C1F3EC /* MetronomeWallet-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MetronomeWallet-Bridging-Header.h"; sourceTree = "<group>"; };
 		EAFEE99826937F1E00C1F3EC /* MetronomeWallet-tvOS-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MetronomeWallet-tvOS-Bridging-Header.h"; sourceTree = "<group>"; };
+		EAFEE9A72693909600C1F3EC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = MetronomeWallet/Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		EB3CE76458514F3BB3D91F43 /* libRNSentry.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNSentry.a; sourceTree = "<group>"; };
 		F0832C7746A9C2350F92BE1B /* Pods-MetronomeWallet.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MetronomeWallet.debug.xcconfig"; path = "Target Support Files/Pods-MetronomeWallet/Pods-MetronomeWallet.debug.xcconfig"; sourceTree = "<group>"; };
 		F78708F83912247238789839 /* Pods-MetronomeWallet-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MetronomeWallet-tvOSTests.release.xcconfig"; path = "Target Support Files/Pods-MetronomeWallet-tvOSTests/Pods-MetronomeWallet-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -208,12 +209,12 @@
 		13B07FAE1A68108700A75B9A /* MetronomeWallet */ = {
 			isa = PBXGroup;
 			children = (
+				EAFEE9A62693909600C1F3EC /* LaunchScreen.storyboard */,
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
 				13B07FB61A68108700A75B9A /* Info.plist */,
-				13B07FB11A68108700A75B9A /* LaunchScreen.xib */,
 				13B07FB71A68108700A75B9A /* main.m */,
 				EAFEE99726937F1E00C1F3EC /* MetronomeWallet-Bridging-Header.h */,
 				EAFEE99826937F1E00C1F3EC /* MetronomeWallet-tvOS-Bridging-Header.h */,
@@ -339,6 +340,7 @@
 				00E356EB1AD99517003FC87E /* Frameworks */,
 				00E356EC1AD99517003FC87E /* Resources */,
 				2057B1B4CA3BF09EF9E0DB8E /* [CP] Embed Pods Frameworks */,
+				BA7E34EC42150797FE47DFD6 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -361,6 +363,7 @@
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
 				BFCB51F310EC4C4E84647BDC /* Upload Debug Symbols to Sentry */,
 				941710D79C9A159A950FA2F2 /* [CP] Embed Pods Frameworks */,
+				59264EE18F734F9C9E18E9A3 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -478,13 +481,13 @@
 			files = (
 				6E05C04722443E120079D89F /* main.jsbundle in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
-				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
 				55647811063842D8A2C27AA3 /* Muli-Black.ttf in Resources */,
 				36895E210EE74553839B1885 /* Muli-Bold.ttf in Resources */,
 				5CAE73799A364F86BEEFCF2B /* Muli-ExtraBold.ttf in Resources */,
 				82FC647E3199444BA2696F68 /* Muli-ExtraLight.ttf in Resources */,
 				3FB876A445C3466EA1815F4D /* Muli-Light.ttf in Resources */,
 				D952597F8E62455AAE0BCB46 /* Muli-Regular.ttf in Resources */,
+				EAFEE9A82693909600C1F3EC /* LaunchScreen.storyboard in Resources */,
 				35FAB6970D3C49928074A7E5 /* Muli-SemiBold.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -494,6 +497,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2D02E4BD1E0B4A84006451C7 /* Images.xcassets in Resources */,
+				EAFEE9A92693909600C1F3EC /* LaunchScreen.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -552,6 +556,23 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "export SENTRY_PROPERTIES=sentry.properties\nexport NODE_BINARY=node\n../node_modules/@sentry/cli/bin/sentry-cli react-native xcode ../node_modules/react-native/scripts/react-native-xcode.sh";
+		};
+		59264EE18F734F9C9E18E9A3 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-MetronomeWallet/Pods-MetronomeWallet-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-MetronomeWallet/Pods-MetronomeWallet-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-MetronomeWallet/Pods-MetronomeWallet-resources.sh\"\n";
+			showEnvVarsInLog = 0;
 		};
 		660227CCD985166BC3829353 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -658,6 +679,23 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-MetronomeWallet/Pods-MetronomeWallet-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		BA7E34EC42150797FE47DFD6 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-MetronomeWallet-MetronomeWalletTests/Pods-MetronomeWallet-MetronomeWalletTests-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-MetronomeWallet-MetronomeWalletTests/Pods-MetronomeWallet-MetronomeWalletTests-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-MetronomeWallet-MetronomeWalletTests/Pods-MetronomeWallet-MetronomeWalletTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		BFCB51F310EC4C4E84647BDC /* Upload Debug Symbols to Sentry */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -725,13 +763,12 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		13B07FB11A68108700A75B9A /* LaunchScreen.xib */ = {
+		EAFEE9A62693909600C1F3EC /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				13B07FB21A68108700A75B9A /* Base */,
+				EAFEE9A72693909600C1F3EC /* Base */,
 			);
-			name = LaunchScreen.xib;
-			path = MetronomeWallet;
+			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
