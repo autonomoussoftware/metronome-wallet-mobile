@@ -39,7 +39,11 @@ static void InitializeFlipper(UIApplication *application) {
                                                    moduleName:@"MetronomeWallet"
                                             initialProperties:nil];
 
-  rootView.backgroundColor = [[UIColor alloc] initWithRed:0.2f green:0.2f blue:0.2f alpha:1.0];
+  if (@available(iOS 13.0, *)) {
+    rootView.backgroundColor = [UIColor systemBackgroundColor];
+  } else {
+    rootView.backgroundColor = [UIColor whiteColor];
+  }
 
   [RNSentry installWithRootView:rootView];
 

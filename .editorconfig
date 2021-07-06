@@ -11,3 +11,8 @@ trim_trailing_whitespace = true
 
 [*.md]
 trim_trailing_whitespace = false
+
+
+# Windows files
+[*.bat]
+end_of_line = crlf
