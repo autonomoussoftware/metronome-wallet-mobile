@@ -4,7 +4,7 @@ import noCore from './no-core'
 import singleCore from './single-core'
 import { findCoreByChainName, findCoreBySymbol } from './utils'
 import config from '../../config'
-import { flatten } from 'lodash'
+import flatten from 'lodash/flatten'
 
 const createWallets = (data, cores, openWallets = true) =>
   Promise.all([

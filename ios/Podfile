@@ -7,14 +7,17 @@ target 'MetronomeWallet' do
   # Pods for MetronomeWallet
   config = use_native_modules!
 
-  pod 'ReactNativePermissions', :path => '../node_modules/react-native-permissions'
-
   use_react_native!(
     :path => config[:reactNativePath],
     # to enable hermes on iOS, change `false` to `true` and then install pods
     :hermes_enabled => false
   )
+    
+  pod 'RNPermissions', :path => '../node_modules/react-native-permissions'
   
+  permissions_path = '../node_modules/react-native-permissions/ios'
+  pod 'Permission-Camera', :path => "#{permissions_path}/Camera.podspec"
+
   target 'MetronomeWalletTests' do
     inherit! :complete
     # Pods for testing

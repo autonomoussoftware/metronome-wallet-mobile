@@ -1,5 +1,5 @@
 import RN from 'react-native'
-import AsyncStorage from '@react-native-community/async-storage'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 import VersionNumber from 'react-native-version-number'
 import RNRestart from 'react-native-restart'
 import config from '../config'

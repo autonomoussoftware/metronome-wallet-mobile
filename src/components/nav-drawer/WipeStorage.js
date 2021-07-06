@@ -1,5 +1,5 @@
 import * as Keychain from 'react-native-keychain'
-import AsyncStorage from '@react-native-community/async-storage'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 import RNRestart from 'react-native-restart'
 import PropTypes from 'prop-types'
 import React from 'react'
@@ -7,7 +7,7 @@ import RN from 'react-native'
 
 export default class WipeStorage extends React.Component {
   static propTypes = {
-    children: PropTypes.node.isRequired
+    children: PropTypes.node.isRequired,
   }
 
   resetStorage = () => {
@@ -15,17 +15,17 @@ export default class WipeStorage extends React.Component {
       'WARNING',
       'This will remove all data. Do you want to continue?',
       [
-        { text: 'NO', onPress: () => {}, style: 'cancel' },
+        {text: 'NO', onPress: () => {}, style: 'cancel'},
         {
           text: 'YES',
           onPress: () =>
             Promise.all([
               AsyncStorage.clear(),
               Keychain.resetInternetCredentials('wallet.seed'),
-              Keychain.resetInternetCredentials('wallet.pin')
-            ]).then(() => RNRestart.Restart())
-        }
-      ]
+              Keychain.resetInternetCredentials('wallet.pin'),
+            ]).then(() => RNRestart.Restart()),
+        },
+      ],
     )
   }
 
