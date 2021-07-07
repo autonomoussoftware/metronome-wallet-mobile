@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import RN from 'react-native'
 
-import { MenuBtn, Text, View, Btn } from '../common'
+import {MenuBtn, Text, View, Btn} from '../common'
 import Stats from './Stats'
 
 class Converter extends React.Component {
@@ -14,8 +14,8 @@ class Converter extends React.Component {
     converterStatus: PropTypes.object,
     coinSymbol: PropTypes.string.isRequired,
     navigation: PropTypes.shape({
-      navigate: PropTypes.func.isRequired
-    }).isRequired
+      navigate: PropTypes.func.isRequired,
+    }).isRequired,
   }
 
   render() {
@@ -25,7 +25,7 @@ class Converter extends React.Component {
       converterStatus,
       convertDisabled,
       coinSymbol,
-      navigation
+      navigation,
     } = this.props
 
     return (
@@ -66,10 +66,10 @@ class Converter extends React.Component {
 
 const EnhancedComponent = withConverterState(Converter)
 
-EnhancedComponent.navigationOptions = ({ navigation }) => ({
+EnhancedComponent.navigationOptions = ({navigation}) => ({
   headerTitle: 'Converter',
   headerBackTitle: null,
-  headerLeft: <MenuBtn onPress={navigation.openDrawer} />
+  headerLeft: () => <MenuBtn onPress={navigation.openDrawer} />,
 })
 
 export default EnhancedComponent

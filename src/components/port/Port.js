@@ -1,10 +1,10 @@
-import { toChecksumAddress } from 'web3-utils'
+import {toChecksumAddress} from 'web3-utils'
 import withPortState from 'metronome-wallet-ui-logic/src/hocs/withPortState'
 import PropTypes from 'prop-types'
 import React from 'react'
 import RN from 'react-native'
 
-import { MenuBtn, View, Text, Btn } from '../common'
+import {MenuBtn, View, Text, Btn} from '../common'
 import PortIcon from '../icons/PortIcon'
 import ItemRow from './ItemRow'
 
@@ -19,22 +19,22 @@ class Port extends React.Component {
         refutedCount: PropTypes.number.isRequired,
         importedFrom: PropTypes.string.isRequired,
         value: PropTypes.string.isRequired,
-        hash: PropTypes.string.isRequired
-      })
+        hash: PropTypes.string.isRequired,
+      }),
     ).isRequired,
     failedImports: PropTypes.arrayOf(
       PropTypes.shape({
         currentBurnHash: PropTypes.string.isRequired,
         originChain: PropTypes.string.isRequired,
         value: PropTypes.string.isRequired,
-        from: PropTypes.string.isRequired
-      })
+        from: PropTypes.string.isRequired,
+      }),
     ).isRequired,
     retryDisabled: PropTypes.bool.isRequired,
     portDisabled: PropTypes.bool.isRequired,
     navigation: PropTypes.shape({
-      navigate: PropTypes.func.isRequired
-    }).isRequired
+      navigate: PropTypes.func.isRequired,
+    }).isRequired,
   }
 
   handleNewPortPress = () => this.props.navigation.navigate('PortDrawer')
@@ -42,11 +42,11 @@ class Port extends React.Component {
   handleRetryClick = hash => {
     const retryCandidate = this.props.failedImports
       .concat(this.props.ongoingImports)
-      .find(({ currentBurnHash }) => currentBurnHash === hash)
+      .find(({currentBurnHash}) => currentBurnHash === hash)
     if (retryCandidate) {
       this.props.navigation.navigate('RetryImportDrawer', {
         ...retryCandidate,
-        from: toChecksumAddress(retryCandidate.from)
+        from: toChecksumAddress(retryCandidate.from),
       })
     } else {
       RN.Alert.alert('Error', `Can't find transaction ${hash}`)
@@ -170,16 +170,16 @@ const styles = RN.StyleSheet.create({
   container: {
     paddingHorizontal: 16,
     paddingVertical: 32,
-    minHeight: '100%'
-  }
+    minHeight: '100%',
+  },
 })
 
 const EnhancedComponent = withPortState(Port)
 
-EnhancedComponent.navigationOptions = ({ navigation }) => ({
+EnhancedComponent.navigationOptions = ({navigation}) => ({
   headerTitle: 'Port',
   headerBackTitle: null,
-  headerLeft: <MenuBtn onPress={navigation.openDrawer} />
+  headerLeft: () => <MenuBtn onPress={navigation.openDrawer} />,
 })
 
 export default EnhancedComponent

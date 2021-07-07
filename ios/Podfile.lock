@@ -274,6 +274,8 @@ PODS:
     - React
   - react-native-restart (0.0.22):
     - React-Core
+  - react-native-safe-area-context (3.2.0):
+    - React-Core
   - react-native-splash-screen (3.2.0):
     - React
   - react-native-version-number (0.3.6):
@@ -344,10 +346,46 @@ PODS:
     - React-perflogger (= 0.64.2)
   - RNCAsyncStorage (1.15.5):
     - React-Core
+  - RNCMaskedView (0.1.11):
+    - React
+  - RNGestureHandler (1.10.3):
+    - React-Core
   - RNKeychain (7.0.0):
     - React-Core
   - RNPermissions (2.2.2):
     - React-Core
+  - RNReanimated (2.1.0):
+    - DoubleConversion
+    - FBLazyVector
+    - FBReactNativeSpec
+    - glog
+    - RCT-Folly
+    - RCTRequired
+    - RCTTypeSafety
+    - React
+    - React-callinvoker
+    - React-Core
+    - React-Core/DevSupport
+    - React-Core/RCTWebSocket
+    - React-CoreModules
+    - React-cxxreact
+    - React-jsi
+    - React-jsiexecutor
+    - React-jsinspector
+    - React-RCTActionSheet
+    - React-RCTAnimation
+    - React-RCTBlob
+    - React-RCTImage
+    - React-RCTLinking
+    - React-RCTNetwork
+    - React-RCTSettings
+    - React-RCTText
+    - React-RCTVibration
+    - ReactCommon/turbomodule/core
+    - Yoga
+  - RNScreens (3.4.0):
+    - React-Core
+    - React-RCTImage
   - RNSentry (2.6.0):
     - React-Core
     - Sentry (= 7.0.0)
@@ -403,6 +441,7 @@ DEPENDENCIES:
   - react-native-google-analytics-bridge (from `../node_modules/react-native-google-analytics-bridge`)
   - react-native-randombytes (from `../node_modules/react-native-randombytes`)
   - react-native-restart (from `../node_modules/react-native-restart`)
+  - react-native-safe-area-context (from `../node_modules/react-native-safe-area-context`)
   - react-native-splash-screen (from `../node_modules/react-native-splash-screen`)
   - react-native-version-number (from `../node_modules/react-native-version-number`)
   - React-perflogger (from `../node_modules/react-native/ReactCommon/reactperflogger`)
@@ -418,8 +457,12 @@ DEPENDENCIES:
   - React-runtimeexecutor (from `../node_modules/react-native/ReactCommon/runtimeexecutor`)
   - ReactCommon/turbomodule/core (from `../node_modules/react-native/ReactCommon`)
   - "RNCAsyncStorage (from `../node_modules/@react-native-async-storage/async-storage`)"
+  - "RNCMaskedView (from `../node_modules/@react-native-community/masked-view`)"
+  - RNGestureHandler (from `../node_modules/react-native-gesture-handler`)
   - RNKeychain (from `../node_modules/react-native-keychain`)
   - RNPermissions (from `../node_modules/react-native-permissions`)
+  - RNReanimated (from `../node_modules/react-native-reanimated`)
+  - RNScreens (from `../node_modules/react-native-screens`)
   - "RNSentry (from `../node_modules/@sentry/react-native`)"
   - RNSVG (from `../node_modules/react-native-svg`)
   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
@@ -483,6 +526,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-randombytes"
   react-native-restart:
     :path: "../node_modules/react-native-restart"
+  react-native-safe-area-context:
+    :path: "../node_modules/react-native-safe-area-context"
   react-native-splash-screen:
     :path: "../node_modules/react-native-splash-screen"
   react-native-version-number:
@@ -513,10 +558,18 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon"
   RNCAsyncStorage:
     :path: "../node_modules/@react-native-async-storage/async-storage"
+  RNCMaskedView:
+    :path: "../node_modules/@react-native-community/masked-view"
+  RNGestureHandler:
+    :path: "../node_modules/react-native-gesture-handler"
   RNKeychain:
     :path: "../node_modules/react-native-keychain"
   RNPermissions:
     :path: "../node_modules/react-native-permissions"
+  RNReanimated:
+    :path: "../node_modules/react-native-reanimated"
+  RNScreens:
+    :path: "../node_modules/react-native-screens"
   RNSentry:
     :path: "../node_modules/@sentry/react-native"
   RNSVG:
@@ -557,8 +610,9 @@ SPEC CHECKSUMS:
   react-native-google-analytics-bridge: fac6becc9475cae635bff51382be089ea97bddda
   react-native-randombytes: 4380cbf345de0878af82ca298ad3e75be26b0cd3
   react-native-restart: d4ea7637e193da7558d229b3704d500ec0d75f9c
+  react-native-safe-area-context: e471852c5ed67eea4b10c5d9d43c1cebae3b231d
   react-native-splash-screen: 200d11d188e2e78cea3ad319964f6142b6384865
-  react-native-version-number: 0f3b351233c82ec805250c191ed762d7421bc0b6
+  react-native-version-number: 15563dc4145a94aabfc1faab2a9af10174a4204e
   React-perflogger: 25373e382fed75ce768a443822f07098a15ab737
   React-RCTActionSheet: af7796ba49ffe4ca92e7277a5d992d37203f7da5
   React-RCTAnimation: 6a2e76ab50c6f25b428d81b76a5a45351c4d77aa
@@ -572,8 +626,12 @@ SPEC CHECKSUMS:
   React-runtimeexecutor: a9904c6d0218fb9f8b19d6dd88607225927668f9
   ReactCommon: 149906e01aa51142707a10665185db879898e966
   RNCAsyncStorage: 8324611026e8dc3706f829953aa6e3899f581589
+  RNCMaskedView: f127cd9652acfa31b91dcff613e07ba18b774db6
+  RNGestureHandler: a479ebd5ed4221a810967000735517df0d2db211
   RNKeychain: f75b8c8b2f17d3b2aa1f25b4a0ac5b83d947ff8f
   RNPermissions: 067727df624665d4a6c8e2cffcc172ba608b96ed
+  RNReanimated: b8c8004b43446e3c2709fe64b2b41072f87428ad
+  RNScreens: 21b73c94c9117e1110a79ee0ee80c93ccefed8ce
   RNSentry: a2b02b326ae4fce91ce7c57d3f7dcf8df4f72269
   RNSVG: 551acb6562324b1d52a4e0758f7ca0ec234e278f
   Sentry: 89d26e036063b9cb9caa59b6951dd2f8277aa13b

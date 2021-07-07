@@ -4,31 +4,31 @@ import theme from 'metronome-wallet-ui-logic/src/theme'
 import React from 'react'
 import RN from 'react-native'
 
-import { MnemonicInput, MenuBtn, View, Text, Btn } from '../common'
+import {MnemonicInput, MenuBtn, View, Text, Btn} from '../common'
 
 class Tools extends React.Component {
   static propTypes = {
     isRecoverEnabled: PropTypes.bool.isRequired,
     onInputChange: PropTypes.func.isRequired,
     navigation: PropTypes.shape({
-      navigate: PropTypes.func.isRequired
+      navigate: PropTypes.func.isRequired,
     }).isRequired,
     validate: PropTypes.func.isRequired,
     mnemonic: PropTypes.string,
     errors: PropTypes.shape({
-      mnemonic: PropTypes.string
-    }).isRequired
+      mnemonic: PropTypes.string,
+    }).isRequired,
   }
 
   onRecoverPress = () => {
-    const { navigation, validate, ...other } = this.props
+    const {navigation, validate, ...other} = this.props
     if (validate()) {
       navigation.navigate('ConfirmRecover', other)
     }
   }
 
   onRescanPress = () => {
-    const { navigation, ...other } = this.props
+    const {navigation, ...other} = this.props
     navigation.navigate('ConfirmRescan', other)
   }
 
@@ -39,8 +39,7 @@ class Tools extends React.Component {
         contentContainerStyle={styles.container}
         scroll
         flex={1}
-        bg="dark"
-      >
+        bg="dark">
         <Text size="large" weight="bold">
           Recover a Wallet
         </Text>
@@ -90,16 +89,16 @@ class Tools extends React.Component {
 const styles = RN.StyleSheet.create({
   container: {
     paddingHorizontal: theme.spacing(2),
-    paddingVertical: theme.spacing(4)
-  }
+    paddingVertical: theme.spacing(4),
+  },
 })
 
 const EnhancedComponent = withToolsState(Tools)
 
-EnhancedComponent.navigationOptions = ({ navigation }) => ({
+EnhancedComponent.navigationOptions = ({navigation}) => ({
   title: 'Tools',
   headerBackTitle: null,
-  headerLeft: <MenuBtn onPress={navigation.openDrawer} />
+  headerLeft: () => <MenuBtn onPress={navigation.openDrawer} />,
 })
 
 export default EnhancedComponent

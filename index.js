@@ -1,3 +1,3 @@
-import 'core-js'
+// import 'core-js'
 import './global'
 import './src'
