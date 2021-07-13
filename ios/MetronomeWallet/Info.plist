@@ -53,8 +53,6 @@
 	<string>The wallet needs permission to access location when app is in use.</string>
 	<key>NSAllowsArbitraryLoads</key>
 	<true/>
-	<key>NSMainNibFile</key>
-	<string>LaunchScreen</string>
 	<key>NSMotionUsageDescription</key>
 	<string>The wallet needs permission to access motion.</string>
 	<key>NSSpeechRecognitionUsageDescription</key>

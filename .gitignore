@@ -73,3 +73,6 @@ MetronomeWalletSigningKey.json
 
 # CocoaPods
 /ios/Pods/
+
+# build
+ios/main.jsbundle

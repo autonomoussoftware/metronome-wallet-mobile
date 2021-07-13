@@ -20,11 +20,6 @@ static void InitializeFlipper(UIApplication *application) {
   [client start];
 }
 #endif
-#if __has_include(<React/RNSentry.h>)
-#import <React/RNSentry.h> // This is used for versions of react >= 0.40
-#else
-#import "RNSentry.h" // This is used for versions of react < 0.40
-#endif
 #import "RNSplashScreen.h"
 
 @implementation AppDelegate
@@ -44,8 +39,6 @@ static void InitializeFlipper(UIApplication *application) {
   } else {
     rootView.backgroundColor = [UIColor whiteColor];
   }
-
-  [RNSentry installWithRootView:rootView];
 
   self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
   UIViewController *rootViewController = [UIViewController new];

@@ -17,7 +17,6 @@
     "ios": "react-native run-ios",
     "ios:beta": "fastlane ios beta version:$npm_package_version",
     "ios:bundle": "./scripts/ios-bundle.sh",
-    "ios:fix-third-party": "./scripts/fix-third-party.sh",
     "nuke-caches": "./scripts/nuke-caches.sh",
     "lint": "eslint .",
     "postinstall": "patch-package && npm run podInstall && npx react-native link",
@@ -107,7 +106,7 @@
     "preset": "react-native"
   },
   "engines": {
-    "node": ">=8.9.0",
-    "npm": ">=5.5.1"
+    "node": ">=12",
+    "npm": ">=6"
   }
 }
