@@ -21,6 +21,7 @@ The following tools are required
 
 *For iOS*
 - xCode v12.5
+- cocoapods 1.10.0
 
 #### iOS
 
@@ -46,10 +47,10 @@ If the simulator is not started automatically, try with the following commands b
 
 ```shell
 emulator -list-avds
+# if no devices are listed, see https://developer.android.com/studio/run/managing-avds
 
 # pick a device from that list and then run the following
 emulator @<device-name>
-# if no devices is listed, you will need to install a device. See https://developer.android.com/studio/run/managing-avds
 ```
 
 And the run the commands mentioned above
@@ -75,10 +76,12 @@ Then add your keys into both files.
 
 #### iOS
 
-If you're using `nvm` and you get the error 
+- If you're using `nvm` and you get the error 
 > Command PhaseScriptExecution failed with a nonzero exit code
 
-Check this issue https://github.com/facebook/react-native/issues/31181 - you might need to set an alias for `default`
+Make sure you've run the commands for Sentry setup above :point_up: - you will also need to complete those `sentry.properties` with a real sentry config. 
+
+If the issue persist, check this issue https://github.com/facebook/react-native/issues/31181 - you might need to set an alias for `default`
 
 ```sh
 # replace "lts/erbium" with the appropiate lts version listed in nvm list
@@ -96,6 +99,15 @@ sudo ln -s "$(which node)" /usr/local/bin/node
 ````
 
 As stated in [this answer](https://stackoverflow.com/a/66874780/1437934)
+
+
+- If you get the error `error: SDK "iphoneos" cannot be located` when running `npm ci`, run the following commmand:
+
+```sh
+sudo xcode-select --switch /Applications/Xcode.app
+```
+
+and run `npm ci` again
 
 ## License
 
