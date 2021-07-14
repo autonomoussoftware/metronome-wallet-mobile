@@ -42,11 +42,13 @@
   BOOL foundElement = NO;
 
   __block NSString *redboxError = nil;
-  RCTSetLogFunction(^(RCTLogLevel level, RCTLogSource source, NSString *fileName, NSNumber *lineNumber, NSString *message) {
-    if (level >= RCTLogLevelError) {
-      redboxError = message;
-    }
-  });
+//  #ifdef DEBUG
+//    RCTSetLogFunction(^(RCTLogLevel level, RCTLogSource source, NSString *fileName, NSNumber *lineNumber, NSString *message) {
+//      if (level >= RCTLogLevelError) {
+//        redboxError = message;
+//      }
+//    });
+//  #endif
 
   while ([date timeIntervalSinceNow] > 0 && !foundElement && !redboxError) {
     [[NSRunLoop mainRunLoop] runMode:NSDefaultRunLoopMode beforeDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
@@ -60,7 +62,9 @@
     }];
   }
 
-  RCTSetLogFunction(RCTDefaultLogFunction);
+//  #ifdef DEBUG
+//    RCTSetLogFunction(RCTDefaultLogFunction);
+//  #endif
 
   XCTAssertNil(redboxError, @"RedBox error: %@", redboxError);
   XCTAssertTrue(foundElement, @"Couldn't find element with text '%@' in %d seconds", TEXT_TO_LOOK_FOR, TIMEOUT_SECONDS);

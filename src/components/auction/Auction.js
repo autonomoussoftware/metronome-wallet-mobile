@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import RN from 'react-native'
 
-import { MenuBtn, Text, View, Btn } from '../common'
+import {MenuBtn, Text, View, Btn} from '../common'
 import CountDown from './CountDown'
 import Stats from './Stats'
 
@@ -80,10 +80,10 @@ Auction.propTypes = {
 
 const EnhancedComponent = withAuctionState(Auction)
 
-EnhancedComponent.navigationOptions = ({ navigation }) => ({
+EnhancedComponent.navigationOptions = ({navigation}) => ({
   headerTitle: 'Auction',
   headerBackTitle: null,
-  headerLeft: <MenuBtn onPress={navigation.openDrawer} />
+  headerLeft: () => <MenuBtn onPress={navigation.openDrawer} />
 })
 
 export default EnhancedComponent

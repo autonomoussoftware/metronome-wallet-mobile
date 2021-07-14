@@ -15,14 +15,14 @@ matrix:
   include:
     - stage: Deploy iOS 🍏
       os: osx
-      osx_image: xcode10.1
+      osx_image: xcode12.5
       language: objective-c
       node_js: false
 
       before_install:
-        - nvm install 8.15.0 # enforce using same version as local builds
-        - npm i -g npm@6.4.1 # enforce using same version as local builds
-        - nvm alias default 8.15.0 # otherwise sentry-cli will fail with a cryptic error
+        - nvm install 14.16.1 # enforce using same version as local builds
+        - npm i -g npm@6.14.12 # enforce using same version as local builds
+        - nvm alias default 14.16.1 # otherwise sentry-cli will fail with a cryptic error
         - node --version
         - npm --version
         - gem install fastlane --version 2.118.1 --no-document --quiet
@@ -47,8 +47,6 @@ matrix:
         - npm ci || travis_terminate 1
 
       script:
-        - npm run ios:fix-third-party || travis_terminate 1
-
         # Create .env file
         - npm run env || travis_terminate 1
         - cat .env
@@ -74,9 +72,9 @@ matrix:
           - extra-google-google_play_services
 
       before_install:
-        - nvm install 8.15.0 # enforce using same version as local builds
-        - npm i -g npm@6.4.1 # enforce using same version as local builds
-        - nvm alias default 8.15.0 # otherwise sentry-cli will fail with a cryptic error
+        - nvm install 14.16.1 # enforce using same version as local builds
+        - npm i -g npm@6.14.12 # enforce using same version as local builds
+        - nvm alias default 14.16.1 # otherwise sentry-cli will fail with a cryptic error
         - node --version
         - npm --version
         - gem install fastlane --version 2.118.1 --no-document --quiet

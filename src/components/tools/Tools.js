@@ -4,7 +4,7 @@ import theme from 'metronome-wallet-ui-logic/src/theme'
 import React from 'react'
 import RN from 'react-native'
 
-import { MnemonicInput, MenuBtn, View, Text, Btn } from '../common'
+import {MnemonicInput, MenuBtn, View, Text, Btn} from '../common'
 
 class Tools extends React.Component {
   static propTypes = {
@@ -21,14 +21,14 @@ class Tools extends React.Component {
   }
 
   onRecoverPress = () => {
-    const { navigation, validate, ...other } = this.props
+    const {navigation, validate, ...other} = this.props
     if (validate()) {
       navigation.navigate('ConfirmRecover', other)
     }
   }
 
   onRescanPress = () => {
-    const { navigation, ...other } = this.props
+    const {navigation, ...other} = this.props
     navigation.navigate('ConfirmRescan', other)
   }
 
@@ -39,8 +39,7 @@ class Tools extends React.Component {
         contentContainerStyle={styles.container}
         scroll
         flex={1}
-        bg="dark"
-      >
+        bg="dark">
         <Text size="large" weight="bold">
           Recover a Wallet
         </Text>
@@ -96,10 +95,10 @@ const styles = RN.StyleSheet.create({
 
 const EnhancedComponent = withToolsState(Tools)
 
-EnhancedComponent.navigationOptions = ({ navigation }) => ({
+EnhancedComponent.navigationOptions = ({navigation}) => ({
   title: 'Tools',
   headerBackTitle: null,
-  headerLeft: <MenuBtn onPress={navigation.openDrawer} />
+  headerLeft: () => <MenuBtn onPress={navigation.openDrawer} />
 })
 
 export default EnhancedComponent

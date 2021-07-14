@@ -1,6 +1,7 @@
-import { Sentry, SentryLog } from 'react-native-sentry'
+import * as Sentry from '@sentry/react-native';
+import { LogLevel } from '@sentry/types/dist';
 import createCore from 'metronome-wallet-core'
-import { debounce } from 'lodash'
+import debounce from 'lodash/debounce'
 import * as Keychain from 'react-native-keychain'
 
 import * as storage from './storage'
@@ -75,9 +76,7 @@ const stopCore = ({ core, chain }) => {
 
 const createClient = (config, createStore) => {
   if (config.sentryDsn) {
-    Sentry.config(config.sentryDsn, {
-      logLevel: SentryLog.Error
-    }).install()
+    Sentry.init({ dsn: config.sentryDsn, logLevel: LogLevel.Error });
   }
 
   const reduxDevtoolsOptions = {

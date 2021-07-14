@@ -1,10 +1,10 @@
-import { toChecksumAddress } from 'web3-utils'
+import {toChecksumAddress} from 'web3-utils'
 import withPortState from 'metronome-wallet-ui-logic/src/hocs/withPortState'
 import PropTypes from 'prop-types'
 import React from 'react'
 import RN from 'react-native'
 
-import { MenuBtn, View, Text, Btn } from '../common'
+import {MenuBtn, View, Text, Btn} from '../common'
 import PortIcon from '../icons/PortIcon'
 import ItemRow from './ItemRow'
 
@@ -42,7 +42,7 @@ class Port extends React.Component {
   handleRetryClick = hash => {
     const retryCandidate = this.props.failedImports
       .concat(this.props.ongoingImports)
-      .find(({ currentBurnHash }) => currentBurnHash === hash)
+      .find(({currentBurnHash}) => currentBurnHash === hash)
     if (retryCandidate) {
       this.props.navigation.navigate('RetryImportDrawer', {
         ...retryCandidate,
@@ -176,10 +176,10 @@ const styles = RN.StyleSheet.create({
 
 const EnhancedComponent = withPortState(Port)
 
-EnhancedComponent.navigationOptions = ({ navigation }) => ({
+EnhancedComponent.navigationOptions = ({navigation}) => ({
   headerTitle: 'Port',
   headerBackTitle: null,
-  headerLeft: <MenuBtn onPress={navigation.openDrawer} />
+  headerLeft: () => <MenuBtn onPress={navigation.openDrawer} />
 })
 
 export default EnhancedComponent

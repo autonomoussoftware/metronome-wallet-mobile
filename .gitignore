@@ -22,7 +22,6 @@ DerivedData
 *.dSYM.zip
 *.dSYM
 *.xcuserstate
-project.xcworkspace
 
 # Android/IntelliJ
 #
@@ -42,6 +41,7 @@ yarn-error.log
 buck-out/
 \.buckd/
 *.keystore
+!debug.keystore
 
 ## Obj-C/Swift specific
 *.dSYM.zip
@@ -70,3 +70,9 @@ sentry.properties
 
 # Android signing key
 MetronomeWalletSigningKey.json
+
+# CocoaPods
+/ios/Pods/
+
+# build
+ios/main.jsbundle

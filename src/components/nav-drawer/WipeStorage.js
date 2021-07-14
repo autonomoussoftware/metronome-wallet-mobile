@@ -1,5 +1,5 @@
 import * as Keychain from 'react-native-keychain'
-import AsyncStorage from '@react-native-community/async-storage'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 import RNRestart from 'react-native-restart'
 import PropTypes from 'prop-types'
 import React from 'react'
@@ -15,7 +15,7 @@ export default class WipeStorage extends React.Component {
       'WARNING',
       'This will remove all data. Do you want to continue?',
       [
-        { text: 'NO', onPress: () => {}, style: 'cancel' },
+        {text: 'NO', onPress: () => {}, style: 'cancel'},
         {
           text: 'YES',
           onPress: () =>
