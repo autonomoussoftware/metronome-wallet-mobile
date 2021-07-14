@@ -7,7 +7,7 @@ import RN from 'react-native'
 
 export default class WipeStorage extends React.Component {
   static propTypes = {
-    children: PropTypes.node.isRequired,
+    children: PropTypes.node.isRequired
   }
 
   resetStorage = () => {
@@ -22,10 +22,10 @@ export default class WipeStorage extends React.Component {
             Promise.all([
               AsyncStorage.clear(),
               Keychain.resetInternetCredentials('wallet.seed'),
-              Keychain.resetInternetCredentials('wallet.pin'),
-            ]).then(() => RNRestart.Restart()),
-        },
-      ],
+              Keychain.resetInternetCredentials('wallet.pin')
+            ]).then(() => RNRestart.Restart())
+        }
+      ]
     )
   }
 

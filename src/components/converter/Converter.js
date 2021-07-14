@@ -14,8 +14,8 @@ class Converter extends React.Component {
     converterStatus: PropTypes.object,
     coinSymbol: PropTypes.string.isRequired,
     navigation: PropTypes.shape({
-      navigate: PropTypes.func.isRequired,
-    }).isRequired,
+      navigate: PropTypes.func.isRequired
+    }).isRequired
   }
 
   render() {
@@ -25,7 +25,7 @@ class Converter extends React.Component {
       converterStatus,
       convertDisabled,
       coinSymbol,
-      navigation,
+      navigation
     } = this.props
 
     return (
@@ -69,7 +69,7 @@ const EnhancedComponent = withConverterState(Converter)
 EnhancedComponent.navigationOptions = ({navigation}) => ({
   headerTitle: 'Converter',
   headerBackTitle: null,
-  headerLeft: () => <MenuBtn onPress={navigation.openDrawer} />,
+  headerLeft: () => <MenuBtn onPress={navigation.openDrawer} />
 })
 
 export default EnhancedComponent

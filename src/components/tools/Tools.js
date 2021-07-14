@@ -11,13 +11,13 @@ class Tools extends React.Component {
     isRecoverEnabled: PropTypes.bool.isRequired,
     onInputChange: PropTypes.func.isRequired,
     navigation: PropTypes.shape({
-      navigate: PropTypes.func.isRequired,
+      navigate: PropTypes.func.isRequired
     }).isRequired,
     validate: PropTypes.func.isRequired,
     mnemonic: PropTypes.string,
     errors: PropTypes.shape({
-      mnemonic: PropTypes.string,
-    }).isRequired,
+      mnemonic: PropTypes.string
+    }).isRequired
   }
 
   onRecoverPress = () => {
@@ -89,8 +89,8 @@ class Tools extends React.Component {
 const styles = RN.StyleSheet.create({
   container: {
     paddingHorizontal: theme.spacing(2),
-    paddingVertical: theme.spacing(4),
-  },
+    paddingVertical: theme.spacing(4)
+  }
 })
 
 const EnhancedComponent = withToolsState(Tools)
@@ -98,7 +98,7 @@ const EnhancedComponent = withToolsState(Tools)
 EnhancedComponent.navigationOptions = ({navigation}) => ({
   title: 'Tools',
   headerBackTitle: null,
-  headerLeft: () => <MenuBtn onPress={navigation.openDrawer} />,
+  headerLeft: () => <MenuBtn onPress={navigation.openDrawer} />
 })
 
 export default EnhancedComponent

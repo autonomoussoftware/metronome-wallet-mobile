@@ -15,7 +15,7 @@ const Auction = props => {
     auctionStatus,
     buyDisabled,
     navigation,
-    title,
+    title
   } = props
 
   return (
@@ -69,13 +69,13 @@ Auction.propTypes = {
     tokenRemaining: PropTypes.string.isRequired,
     currentAuction: PropTypes.number.isRequired,
     currentPrice: PropTypes.string.isRequired,
-    genesisTime: PropTypes.number.isRequired,
+    genesisTime: PropTypes.number.isRequired
   }),
   buyDisabled: PropTypes.bool.isRequired,
   navigation: PropTypes.shape({
-    navigate: PropTypes.func.isRequired,
+    navigate: PropTypes.func.isRequired
   }).isRequired,
-  title: PropTypes.string,
+  title: PropTypes.string
 }
 
 const EnhancedComponent = withAuctionState(Auction)
@@ -83,7 +83,7 @@ const EnhancedComponent = withAuctionState(Auction)
 EnhancedComponent.navigationOptions = ({navigation}) => ({
   headerTitle: 'Auction',
   headerBackTitle: null,
-  headerLeft: () => <MenuBtn onPress={navigation.openDrawer} />,
+  headerLeft: () => <MenuBtn onPress={navigation.openDrawer} />
 })
 
 export default EnhancedComponent

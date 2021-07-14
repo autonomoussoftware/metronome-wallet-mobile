@@ -15,7 +15,7 @@ export default function createCustomNavigator(routes, customConfig) {
       headerTitleContainerStyle: {left: 0, right: 0},
       headerStyle: {
         borderBottomWidth: 0,
-        backgroundColor: theme.colors.primary,
+        backgroundColor: theme.colors.primary
       },
       headerTintColor: theme.colors.light,
       headerTitleStyle: {
@@ -24,18 +24,18 @@ export default function createCustomNavigator(routes, customConfig) {
         textShadowColor: theme.colors.darkShade,
         fontSize: width < 375 ? theme.sizes.medium : theme.sizes.large,
         color: theme.colors.light,
-        ...fontStyles('bold'),
-      },
-    },
+        ...fontStyles('bold')
+      }
+    }
   }
 
   const customNavigator = createAppContainer(
-    createStackNavigator(routes, merge(defaultConfig, customConfig)),
+    createStackNavigator(routes, merge(defaultConfig, customConfig))
   )
 
   customNavigator.navigationOptions = ({navigation}) => ({
     // On swipe, display drawer if in first card, otherwise navigate back
-    drawerLockMode: navigation.state.index > 0 ? 'locked-closed' : 'unlocked',
+    drawerLockMode: navigation.state.index > 0 ? 'locked-closed' : 'unlocked'
   })
 
   return customNavigator
