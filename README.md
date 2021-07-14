@@ -37,20 +37,16 @@ npm run ios
 #### Android
 
 ```shell
-# Start metro in terminal 1
-npm start
-# run the emulator in terminal 2
-npm run android
-```
-
-If the simulator is not started automatically, try with the following commands before:
-
-```shell
 emulator -list-avds
-# if no devices are listed, see https://developer.android.com/studio/run/managing-avds
+# If you get "emulator command not found" error, please see troubleshooting section below
 
-# pick a device from that list and then run the following
+# pick a device from that list and then run the following in terminal 1
 emulator @<device-name>
+
+# Start metro in terminal 2
+npm start
+# run the emulator in terminal 3
+npm run android
 ```
 
 And the run the commands mentioned above
@@ -108,6 +104,26 @@ sudo xcode-select --switch /Applications/Xcode.app
 ```
 
 and run `npm ci` again
+
+#### Android
+
+- If you don't have an emulator installed, after installing Android Studio, set the following env variables:
+
+```sh
+# Android emulator path
+export ANDROID_SDK=$HOME/Library/Android/sdk
+export PATH=$ANDROID_SDK/emulator:$ANDROID_SDK/tools:$PATH
+export ANDROID_HOME=$HOME/Library/Android/sdk
+export PATH=$PATH:$ANDROID_HOME/emulator
+export PATH=$PATH:$ANDROID_HOME/tools
+export PATH=$PATH:$ANDROID_HOME/tools/bin
+export PATH=$PATH:$ANDROID_HOME/platform-tools
+# jdk path - update accordingly with your jdk path
+export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_291.jdk/Contents/Home
+```
+
+You will have to download the Jdk version (1.8 at minimum) - and set the JAVA_HOME.  
+You can follow [the documentation](https://developer.android.com/studio/run/managing-avds) to add a new device.
 
 ## License
 
