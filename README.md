@@ -82,7 +82,7 @@ Check this issue https://github.com/facebook/react-native/issues/31181 - you mig
 
 ```sh
 # replace "lts/erbium" with the appropiate lts version listed in nvm list
-nvm alias "default" "lts/erbium"
+nvm alias "default" "lts/fermium"
 ```
 If you get the error
 
