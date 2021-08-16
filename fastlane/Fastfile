@@ -1,7 +1,7 @@
 fastlane_version "2.118.1"
 begin
   setup_travis
-  xcversion(version: "10.1")
+  xcversion(version: "12.5")
 rescue
   puts "Could not create keychain and set Xcode version"
 end
@@ -51,7 +51,7 @@ platform :android do
   desc "Build the Android application."
   private_lane :build do
     gradle(task: "clean", project_dir: "android/")
-    gradle(task: "assemble", build_type: "Release", project_dir: "android/")
+    gradle(task: "bundle", build_type: "Release", project_dir: "android/")
   end
 
   desc "Ship to Playstore Beta."
